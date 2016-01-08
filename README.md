@@ -5,7 +5,7 @@
 - suggested snapping points to shape corners and midpoints using k-d trees;
 - automatic path smoothing for freehand drawing;
 - path autofill upon closing;
-- infinite board panning and zooming;
+- infinite board panning and zooming; 
 - shape moving, copying, and erasing;
 - color and fill customization; and
 - responsive marching menu
