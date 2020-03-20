@@ -17,7 +17,7 @@ angular.module('whiteboard', [
   'whiteboard.services.visualizer',
   'ngRoute'
 ])
-.constant("BASE_HREF", "/albus/")
+//.constant("BASE_HREF", "/albus/")
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -44,8 +44,10 @@ angular.module('whiteboard', [
       enabled: true,
       requireBase: false
     });
-}])
+}]);
+/*
 .run(function ($rootScope, BASE_HREF) {
     $rootScope.BASE_HREF = BASE_HREF;
 });
+*/
 //
