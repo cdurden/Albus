@@ -44,5 +44,8 @@ angular.module('whiteboard', [
       enabled: true,
       requireBase: false
     });
-}]);
+}])
+.run(function ($rootScope, BASE_HREF) {
+    $rootScope.ROUTES = BASE_HREF;
+});
 //
