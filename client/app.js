@@ -17,6 +17,7 @@ angular.module('whiteboard', [
   'whiteboard.services.visualizer',
   'ngRoute'
 ])
+.constant("BASE_HREF", "/albus/")
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
