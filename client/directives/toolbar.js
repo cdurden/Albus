@@ -142,6 +142,21 @@ angular.module('whiteboard')
         }
 
       });
+      element.bind('touchend', function (ev) {
+        if (ev.type === 'touchend') {
+          // console.log(angular.element(ev.relatedTarget).is('svg'))
+          // console.log('add class show');
+          // console.log(ev.buttons)
+          ctrl.menuHandler('show');
+          // element.addClass('show');
+        } else {
+          // console.log('remove class show');
+
+          // ctrl.menuHandler('hide');
+          
+        }
+
+      });
     }
   };
 })
@@ -168,6 +183,7 @@ angular.module('whiteboard')
     link: function (scope, element, attrs, submenuOpenerCtrl) {
 
       var bindMouseEv = function () {
+	    /*
         element.bind('mouseover mouseleave', function (ev) {
           // console.log(ev, attrs.wbLevel)
           if (ev.type === 'mouseover' && attrs.wbLevel === '2') {
@@ -184,6 +200,29 @@ angular.module('whiteboard')
             // console.log('close level three') 
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: '3'});
           } else if (ev.type === 'mouseleave' && angular.element(ev.toElement).hasClass('wb-submenu-opener')) {
+            // console.log('Here is where i broke D:');
+            // console.log(ev)
+            submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
+          }
+        });
+	*/
+
+        element.bind('touchend', function (ev) {
+          // console.log(ev, attrs.wbLevel)
+          if (ev.type === 'touchend' && attrs.wbLevel === '2') {
+            // console.log('Should open submenu', ev);
+            submenuOpenerCtrl.submenuOpener({action: 'show', level: '2'});
+          } else if (ev.type === 'touchend' && attrs.wbLevel === '3') {
+            // console.log('Should open the color palette!')
+            // console.log('Should open third level')
+            submenuOpenerCtrl.submenuOpener({action: 'show', level: '3'});
+          } else if (ev.type === 'touchend' && (angular.element(ev.toElement).hasClass('lvl1') || angular.element(ev.toElement).hasClass('level-one'))) {
+            // console.log('Should close submenu');
+            submenuOpenerCtrl.submenuCloser({action: 'hide', level: '2'});
+          } else if (ev.type === 'touchend' && (angular.element(ev.toElement).hasClass('level-three') || angular.element(ev.toElement).hasClass('lvl2'))) {
+            // console.log('close level three') 
+            submenuOpenerCtrl.submenuCloser({action: 'hide', level: '3'});
+          } else if (ev.type === 'touchend' && angular.element(ev.toElement).hasClass('wb-submenu-opener')) {
             // console.log('Here is where i broke D:');
             // console.log(ev)
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
@@ -284,6 +323,32 @@ angular.module('whiteboard')
         // console.log(attrs.wbTool)
       })
 
+      element.bind('touchend', function (ev) {
+        ev.stopPropagation();
+        // console.log(angular.element(ev.currentTarget).hasClass('level-two-items'));
+        // console.log('!!!!!!!!!!!!!!!!!', attrs.wbTool, ev);
+        // if (angular.element(ev.currentTarget).hasClass('level-two-items')) { return; } 
+        if (attrs.wbColor) {
+          // console.log('A')
+          submenuItemsCtrl.setColors(attrs.wbColorType, attrs.wbColor);
+          // updateIconColors(attrs.wbColorType, attrs.wbColor);
+          scope.$emit('activateMenu', 'hide');
+        } else if (attrs.wbThickness) {
+          // console.log('SET THICKNESS')
+          submenuItemsCtrl.setThickness(attrs.wbThickness);
+          scope.$emit('activateMenu', 'hide');
+        } else if (attrs.wbTool && (['path','line','arrow','circle','rectangle','text','move','copy','eraser','pan','magnify'].includes(attrs.wbTool))) {
+          // console.log('b')
+          scope.$emit('setCursorClass', {tool: attrs.wbTool});
+          submenuItemsCtrl.setTool(attrs.wbTool);
+          scope.$emit('activateMenu', 'hide');
+        } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
+          // console.log(ev)
+          scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});
+        }
+        // console.log(angular.element(ev.relatedTarget).is('svg'))
+      })
+	    /*
       element.bind('mouseleave', function (ev) {
         ev.stopPropagation();
         // console.log(angular.element(ev.currentTarget).hasClass('level-two-items'));
@@ -298,17 +363,20 @@ angular.module('whiteboard')
           // console.log('SET THICKNESS')
           submenuItemsCtrl.setThickness(attrs.wbThickness);
           scope.$emit('activateMenu', 'hide');
-        } else if (attrs.wbTool && (angular.element(ev.relatedTarget).is('svg') || angular.element(ev.relatedTarget)[0].raphael)) {
+        } else if (attrs.wbTool && (['path','line','arrow','circle','rectangle','text','move','copy','eraser','pan','magnify'].includes(attrs.wbTool)) && (angular.element(ev.relatedTarget).is('svg') || angular.element(ev.relatedTarget)[0].raphael)) {
+        //} else if (attrs.wbTool && (angular.element(ev.relatedTarget).is('svg') || angular.element(ev.relatedTarget)[0].raphael)) {
           // console.log('b')
           scope.$emit('setCursorClass', {tool: attrs.wbTool});
           submenuItemsCtrl.setTool(attrs.wbTool);
           scope.$emit('activateMenu', 'hide');
-        } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
+        } else if (angular.element(ev.target).hasClass('menu') || angular.element(ev.target).hasClass('icon')) {
           // console.log(ev)
           scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});
         }
         // console.log(angular.element(ev.relatedTarget).is('svg'))
       })
+      */
+
     }
   };
 })

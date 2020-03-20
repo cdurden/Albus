@@ -346,6 +346,32 @@ angular.module('whiteboard.services.inputhandler', [])
     return toolName;
   }
 
+  function touchStart (ev) {
+    var toolName = parseToolName(BoardData.getCurrentTool().name);
+
+    toggle(toolName);
+    actions[toolName].mouseDown(ev.originalEvent.touches[0]);
+  }
+
+  function touchMove (ev) {
+    var toolName = parseToolName(BoardData.getCurrentTool().name);
+
+    if (isToggled(toolName)) {
+      actions[toolName].mouseHold(ev.originalEvent.touches[0]);
+    } else {
+      actions[toolName].mouseOver(ev.originalEvent.touches[0]);
+    }
+  }
+
+  function touchEnd (ev) {
+    var toolName = parseToolName(BoardData.getCurrentTool().name);
+
+    if (isToggled(toolName)) {
+      toggle(toolName);
+      actions[toolName].mouseUp(ev.originalEvent.touches[0]);
+    }
+  }
+
   function mouseDown (ev) {
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
@@ -382,8 +408,18 @@ angular.module('whiteboard.services.inputhandler', [])
       }
     }
   }
+	/*
+  Object.keys(actions).forEach(function(key) {
+	  actions[key].touchStart = actions[key].mouseDown;
+	  actions[key].touchMove = actions[key].mouseMove;
+	  actions[key].touchEnd = actions[key].mouseUp;
+  });
+  */
 
   return {
+    touchstart: touchStart,
+    touchmove: touchMove,
+    touchend: touchEnd,
     mousedown: mouseDown,
     mousemove: mouseMove,
     mouseup: mouseUp,
