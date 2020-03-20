@@ -1,6 +1,6 @@
 {
        "jsonEndpoint": "angular-config",
-       "angularModuleEndpoint": "/angular-config.js",
+       "angularModuleEndpoint": "js/angular-config.js",
        "angularModuleName": "angularConfig",
        "angularModuleInjection": "Config",
        "config": {
