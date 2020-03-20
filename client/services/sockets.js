@@ -1,4 +1,15 @@
 angular.module('whiteboard.services.sockets', [])
+.factory('Sockets', function (socketFactory) {
+  var myIoSocket = io.connect();
+
+  mySocket = socketFactory({
+    ioSocket: myIoSocket
+  });
+
+  return mySocket;
+});
+/*
+angular.module('whiteboard.services.sockets', [])
 .factory('Sockets',// Sockets);
 //Sockets.$inject = ['$rootScope', 'socketFactory'];
 function (socketFactory) {//Sockets($rootScope, socketFactory) {
@@ -11,4 +22,4 @@ function (socketFactory) {//Sockets($rootScope, socketFactory) {
 
   return mySocket;
 a});
-
+*/
