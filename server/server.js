@@ -8,7 +8,7 @@ var client = require('./db/config');
 var fs = require('fs');
 var compression = require('compression');
 var angularConfig = require('angularjs-config');
-var config = require('config.json');
+var config = require('./config.json');
 angularConfig.initialize(app, config);
 
 app.use(compression());
