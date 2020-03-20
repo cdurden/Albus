@@ -7,9 +7,9 @@ var rooms = require('./rooms');
 var client = require('./db/config');
 var fs = require('fs');
 var compression = require('compression');
-var angularConfig = require('angularjs-config');
-var config = require('./config.json');
-angularConfig.initialize(app, config);
+//var angularConfig = require('angularjs-config');
+//var config = require('./config.json');
+//angularConfig.initialize(app, config);
 
 app.use(compression());
 app.use(express.static(__dirname + '/../client'));
