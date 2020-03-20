@@ -18,9 +18,12 @@ angular.module('whiteboard', [
   'ngRoute'
 ])
 .constant("BASE_HREF", "/albus/")
-.config(['baseUrlProvider', 'BASE_HREF', function(baseUrlProvider, BASE_HREF) {
-    return BASE_HREF;
-}])
+.config(['baseUrlProvider', 'BASE_HREF', function(BASE_HREF) {
+return {
+      $get: function () {
+        return BASE_HREF;
+      }
+}}])
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
