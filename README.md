@@ -1,5 +1,6 @@
 # Albus
 
+
 > Albus is a real-time collaborative whiteboard. Key features include:
 
 - suggested snapping points to shape corners and midpoints using k-d trees;
