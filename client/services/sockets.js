@@ -9,4 +9,4 @@ function Sockets($rootScope, socketFactory) {
   });
 
   return mySocket;
-});
+}
