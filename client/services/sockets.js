@@ -1,8 +1,7 @@
-(function () {
 angular.module('whiteboard.services.sockets', [])
-.factory('Sockets', Sockets);
-Sockets.$inject = ['$rootScope', 'socketFactory'];
-function Sockets($rootScope, socketFactory) {
+.factory('Sockets',// Sockets);
+//Sockets.$inject = ['$rootScope', 'socketFactory'];
+function (socketFactory) {//Sockets($rootScope, socketFactory) {
   //var myIoSocket = io.connect({'path': $rootScope.BASE_HREF+'socket.io'});
   var myIoSocket = io.connect({'path': 'socket.io'});
 
@@ -11,5 +10,5 @@ function Sockets($rootScope, socketFactory) {
   });
 
   return mySocket;
-}
-})();
+a});
+
