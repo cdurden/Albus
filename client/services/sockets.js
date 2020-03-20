@@ -1,6 +1,8 @@
 angular.module('whiteboard.services.sockets', [])
-.factory('Sockets', function (socketFactory) {
-  var myIoSocket = io.connect({'path': BASE_HREF+'socket.io'});
+.factory('Sockets', socketFactory);
+Sockets.$inject = ['$rootScope', 'socketFactory'];
+function Sockets($rootScope, socketFactory) {
+  var myIoSocket = io.connect({'path': $rootScope.BASE_HREF+'socket.io'});
 
   mySocket = socketFactory({
     ioSocket: myIoSocket
