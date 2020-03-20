@@ -1,3 +1,4 @@
+(function () {
 angular.module('whiteboard.services.sockets', [])
 .factory('Sockets', Sockets);
 Sockets.$inject = ['$rootScope', 'socketFactory'];
@@ -10,3 +11,4 @@ function Sockets($rootScope, socketFactory) {
 
   return mySocket;
 }
+})();
