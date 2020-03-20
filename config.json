@@ -1,0 +1,9 @@
+{
+       "jsonEndpoint": "angular-config",               // endpoint for GET that returns only JSON
+       "angularModuleEndpoint": "/angular-config.js",  // edpoint suitable for use in HTML <script> tag
+       "angularModuleName": "angularConfig",           // name of the AngularJS module
+       "angularModuleInjection": "Config"              // name of AngularJS module injection
+       "config": {                                     // JSON config to be exposed by AngularJS constant module
+           "base_href": "/albus/",
+       }
+}
