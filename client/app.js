@@ -18,7 +18,7 @@ angular.module('whiteboard', [
   'ngRoute'
 ])
 .config(function ($provide) {
-      $provide.factory("base_url", function () {
+      $provide.factory("base_href", function () {
               return "/albus/";
             });
 })
@@ -48,7 +48,10 @@ angular.module('whiteboard', [
       enabled: true,
       requireBase: false
     });
-}]);
+}])
+.controller("AppCtrl", function ($scope, base_href) {
+      $scope.base_href = base_href;
+});
 /*
 .run(function ($rootScope, BASE_HREF) {
     $rootScope.BASE_HREF = BASE_HREF;
