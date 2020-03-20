@@ -4,6 +4,6 @@
        "angularModuleName": "angularConfig",
        "angularModuleInjection": "Config",
        "config": {
-           "base_href": "/albus/",
+           "base_href": "/albus/"
        }
 }
