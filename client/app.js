@@ -46,6 +46,6 @@ angular.module('whiteboard', [
     });
 }])
 .run(function ($rootScope, BASE_HREF) {
-    $rootScope.ROUTES = BASE_HREF;
+    $rootScope.BASE_HREF = BASE_HREF;
 });
 //
