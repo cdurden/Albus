@@ -11,17 +11,42 @@ var compression = require('compression');
 //var config = require('./config.json');
 //angularConfig.initialize(app, config);
 
+var passport = require('passport');
+var session = require('express-session');
+
+var LTIStrategy = require('passport-lti');
+var strategy = new LTIStrategy({
+    consumerKey: 'testconsumerkey',
+    consumerSecret: 'make-algebra-logical-again'
+    // pass the req object to callback
+    // passReqToCallback: true,
+    // https://github.com/omsmith/ims-lti#nonce-stores
+    // nonceStore: new RedisNonceStore('testconsumerkey', redisClient)
+}, function(lti, done) {
+    // LTI launch parameters
+    // console.dir(lti);
+    // Perform local authentication if necessary
+    return done(null, user);
+});
+passport.use(strategy);
+
+
 app.use(compression());
 app.use(express.static(__dirname + '/../client'));
 app.use(express.static(__dirname + '/lib'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: "safjhas iuyowery76"}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 var port = process.env.PORT || '3000';
 app.set('port', port);
 
 var server = http.createServer(app);
 var io = require('./sockets')(server);
+
+
 
 app.get('/:id', function (req, res) {
   res.sendfile('./client/index.html');
