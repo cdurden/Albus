@@ -39,7 +39,7 @@ angular.module('whiteboard', [
             Sockets.emit('roomId', {roomId: $location.path().slice(1)});
           }
         },
-        authenticate: true
+        //authenticate: true
       });
 
     $locationProvider.html5Mode({
