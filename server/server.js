@@ -19,6 +19,7 @@ var lti = require('ims-lti')
 var passport = require('passport');
 var session = require('express-session');
 
+/*
 var LTIStrategy = require('passport-lti');
 var strategy = new LTIStrategy({
     consumerKey: 'consumer_secret',
@@ -35,6 +36,7 @@ var strategy = new LTIStrategy({
     return done(null, user);
 });
 passport.use(strategy);
+*/
 
 
 app.set('trust proxy', 'loopback');
