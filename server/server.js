@@ -11,9 +11,6 @@ var compression = require('compression');
 //var angularConfig = require('angularjs-config');
 //var config = require('./config.json');
 //angularConfig.initialize(app, config);
-RedisNonceStore = require '../lib/redis-nonce-store'
-client          = require('redis').createClient()
-store           = new RedisNonceStore('testconsumerkey', client)
 
 
 var passport = require('passport');
@@ -26,7 +23,7 @@ var strategy = new LTIStrategy({
     // pass the req object to callback
     passReqToCallback: true,
     // https://github.com/omsmith/ims-lti#nonce-stores
-    nonceStore: new RedisNonceStore('testconsumerkey', redisClient)
+    //nonceStore: new RedisNonceStore('testconsumerkey', redisClient)
 }, function(lti, done) {
     // LTI launch parameters
     console.dir(lti);
