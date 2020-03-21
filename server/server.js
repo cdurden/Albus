@@ -50,11 +50,11 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.user_id);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function(user_id, done) {
+  done(null, user_id);
 });
 var entry = require('./routes/entry')
 passport.use('lti-strategy', new CustomStrategy(
@@ -64,14 +64,11 @@ passport.use('lti-strategy', new CustomStrategy(
 			var provider = new lti.Provider(val , 'make-algebra-logical-again')
 			if(req.user){
 				callback(null, val)
-			}
-			else{
+			} else {
 				provider.valid_request(req, function(err, isValid) {
 					if(err){
 						console.log("LTI Error", err, isValid);
 					}
-                    console.dir(this);
-                    console.log(this.student);
                     console.log(val);
 					callback(err, val)
 				});
