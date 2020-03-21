@@ -37,7 +37,11 @@ passport.use(strategy);
 app.set('trust proxy', 'loopback');
 app.use(compression());
 app.use(express.static(__dirname + '/lib'));
-app.use(session({ secret: "safsfvvfasfasfjhas iuyowery76"}));
+app.use(session({
+    resave: true,
+    saveUninitialized: false,
+    secret: "safsfvvfasfasfjhas iuyowery76"
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
