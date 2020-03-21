@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http');
+var https = require('https');
 var bodyParser = require('body-parser');
 var util = require('./utils/util');
 var rooms = require('./rooms');
@@ -10,6 +11,7 @@ var compression = require('compression');
 //var angularConfig = require('angularjs-config');
 //var config = require('./config.json');
 //angularConfig.initialize(app, config);
+
 
 var passport = require('passport');
 var session = require('express-session');
@@ -46,7 +48,11 @@ app.set('port', port);
 app.set('trust proxy', 'loopback');
 
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
+var server = https.createServer({
+  key: fs.readFileSync('privkey.pem'),
+  cert: fs.readFileSync('cert.pem')
+},app)
 var io = require('./sockets')(server);
 
 
