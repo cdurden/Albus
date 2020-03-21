@@ -81,7 +81,7 @@ passport.use('lti-strategy', new CustomStrategy(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('lti-strategy', {failureFlash: true}));
-app.use('/lti_launch', entry)
+app.use(entry)
 
 app.post('/', function (req, res) {
   res.send('POST request to the homepage')
