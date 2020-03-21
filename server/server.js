@@ -21,7 +21,7 @@ var strategy = new LTIStrategy({
     consumerKey: 'testconsumerkey',
     consumerSecret: 'make-algebra-logical-again',
     // pass the req object to callback
-    passReqToCallback: true,
+    //passReqToCallback: true,
     // https://github.com/omsmith/ims-lti#nonce-stores
     //nonceStore: new RedisNonceStore('testconsumerkey', redisClient)
 }, function(lti, done) {
