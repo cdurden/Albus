@@ -11,5 +11,22 @@ angular.module('whiteboard-admin')
       Sockets.emit('get_room_assignments');
     },
     templateUrl: 'templates/room_assignments.html',
+    link: function(scope, element, attrs) {
+        console.log("calling link function");
+      $('#generateJSON').click(function() {
+    
+        let data = {};
+    
+        var titles = $('span[id^=title]').map(function(idx, elem) {
+          return $(elem).text();
+        }).get();
+    
+        data['products'] = titles;
+    
+        // encode to JSON format
+        var products_json = JSON.stringify(data,null,'\t');
+        $('#printCode').html(products_json);
+      });
+    },
   }
 }]);
