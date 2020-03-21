@@ -43,7 +43,8 @@ app.use(passport.authenticate(strategy));
 
 var port = process.env.PORT || '3000';
 app.set('port', port);
-app.set('trust proxy', true);
+app.set('trust proxy', 'loopback');
+
 
 var server = http.createServer(app);
 var io = require('./sockets')(server);
