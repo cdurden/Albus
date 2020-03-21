@@ -59,7 +59,7 @@ passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
 		var val = (req.body) ? req.body : req.user
 		try{
-			var provider = new lti.Provider(val , 'testconsumerkey')
+			var provider = new lti.Provider(val , 'make-algebra-logical-again')
 			if(req.user){
 				callback(null, val)
 			}
