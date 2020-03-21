@@ -162,6 +162,11 @@ app.get('/:id/screenShot', function (req, res) {
     res.sendfile(req.params.id + '.png');
   });
 })
+// ======================== admin routes =============================//
+app.get('/admin', function (req, res) {
+  console.log(req.user);
+  res.sendfile('./admin/index.html');
+});
 
 var start = function () {
   server.listen(port);
