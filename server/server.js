@@ -55,7 +55,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
-router.post('/', function (req, res) {
+router.get('/', function (req, res) {
 	req.session.lti_token = req.body;
 	if(req.body.custom_class_name && req.body.lis_course_section_sourcedid){
 		req.session.lti_token.lis_course_section_sourcedid_original = req.body.lis_course_section_sourcedid
