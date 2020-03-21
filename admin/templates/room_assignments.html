@@ -41,29 +41,5 @@
     </div>
   </div>
 
-  <script>
-  // generate product JSON
-  $('#generateJSON').click(function() {
 
-    let data = {};
-
-    var titles = $('span[id^=title]').map(function(idx, elem) {
-      return $(elem).text();
-    }).get();
-
-    data['products'] = titles;
-
-    // encode to JSON format
-    var products_json = JSON.stringify(data,null,'\t');
-    $('#printCode').html(products_json);
-  });
-  </script>
-
-  <script>
-  // sortable
-  Sortable.create(productList, {
-    group: "sorting",
-    sort: true
-  });
-  </script>
 </div>

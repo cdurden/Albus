@@ -13,6 +13,10 @@ angular.module('whiteboard-admin')
     templateUrl: 'templates/room_assignments.html',
     link: function(scope, element, attrs) {
         console.log("calling link function");
+  Sortable.create(productList, {
+    group: "sorting",
+    sort: true
+  });
       $('#generateJSON').click(function() {
     
         let data = {};
