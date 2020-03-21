@@ -50,7 +50,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 passport.serializeUser(function(user, done) {
-  console.log(user);
+  console.log('serializing user: ' + user);
   done(null, user.user_id);
 });
 
