@@ -12,7 +12,7 @@ angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).c
             Sockets.emit('suggestions');
           }
         }
-      });
+      }).otherwise({ redirectTo: 'admin' }); ;
 
     $locationProvider.html5Mode({
       enabled: true,
