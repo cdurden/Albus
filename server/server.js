@@ -72,6 +72,7 @@ passport.use('lti-strategy', new CustomStrategy(
 					}
                     console.dir(this);
                     console.log(this.student);
+                    console.log(val);
 					callback(err, val)
 				});
 			}
