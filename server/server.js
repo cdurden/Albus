@@ -55,6 +55,7 @@ passport.deserializeUser(function(id, done) {
   */
 });
 app.use(passport.authenticate(strategy));
+app.get('/', (req, res) => res.send('Hello World!'))
 app.use(express.static(__dirname + '/../client'));
 
 var port = process.env.PORT || '3000';
@@ -71,7 +72,6 @@ var server = https.createServer({
 var io = require('./sockets')(server);
 
 
-app.get('/', (req, res) => res.send('Hello World!'))
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
 app.get('/:id', function (req, res) {
   console.log(req.user);
