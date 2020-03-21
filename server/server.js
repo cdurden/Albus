@@ -43,7 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate(strategy));
 
-var port = process.env.PORT || '3000';
+var port = process.env.PORT || '444';
 app.set('port', port);
 app.set('trust proxy', 'loopback');
 
