@@ -1,4 +1,3 @@
-// Declare app level module which depends on filters, and services
 angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -6,11 +5,12 @@ angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).c
           //template: '<div wb-admin-submissions></div>',
           template: 'Testing!<div wb-admin-submissions></div>',
         //  templateUrl: '/admin/views/admin.html',
-        resolve: {
+/*        resolve: {
           'something': function (Sockets) {
             console.log('requesting suggestions');
             Sockets.emit('suggestions');
           }
+          */
         }
       }).otherwise({ redirectTo: 'admin' }); ;
 
