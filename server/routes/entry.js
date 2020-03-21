@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.post('/lti_launch', function (req, res) {
+router.post('/', function (req, res) {
 	req.session.lti_token = req.body;
 	if(req.body.custom_class_name && req.body.lis_course_section_sourcedid){
 		req.session.lti_token.lis_course_section_sourcedid_original = req.body.lis_course_section_sourcedid
