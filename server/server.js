@@ -136,15 +136,15 @@ app.use( '/api', function ( req, res ) {
 });
 
 // proxy the socket.io polling requests
-app.use( `/${SOCKET_PATH}`, function ( req, res ) {
-	proxy.web( req, res, { target: `https://${HOST}:${API_PORT}/${SOCKET_PATH}` } );
-});
+//app.use( `/${SOCKET_PATH}`, function ( req, res ) {
+//	proxy.web( req, res, { target: `https://${HOST}:${API_PORT}/${SOCKET_PATH}` } );
+//});
 
 // proxy the socket.io WS requests
-server.on( 'upgrade', function( req, socket, head ) {
-//	debug( '⚡️  ---------- SOCKET CONNECTION UPGRADING ---------- ⚡️ ' );
-	proxy.ws( req, socket, head );
-});
+//server.on( 'upgrade', function( req, socket, head ) {
+////	debug( '⚡️  ---------- SOCKET CONNECTION UPGRADING ---------- ⚡️ ' );
+//	proxy.ws( req, socket, head );
+//});
 // ======================== admin routes =============================//
 app.get('/admin', function (req, res) {
   console.log(req.user);
