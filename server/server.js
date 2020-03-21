@@ -52,6 +52,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 passport.serializeUser(function(user, done) {
   console.log('serializing user...');
   console.log(user);
+  console.log(user.user_id);
   done(null, user.user_id);
 });
 
