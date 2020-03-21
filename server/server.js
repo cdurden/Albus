@@ -108,7 +108,7 @@ var SOCKET_PATH = 'ws';
 // ==================== PROXY SERVER ==================== //
 
 var proxy = httpProxy.createProxyServer({
-	target : `http://${HOST}:${API_PORT}`,
+	target : `https://${HOST}:${API_PORT}`,
 	// ws     : true,
 });
 
@@ -131,12 +131,12 @@ proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
 // proxy non-socket requests
 // * not required to proxy the socket.io connection *
 app.use( '/api', function ( req, res ) {
-  proxy.web( req, res, { target: `http://${HOST}:${API_PORT}` } );
+  proxy.web( req, res, { target: `https://${HOST}:${API_PORT}` } );
 });
 
 // proxy the socket.io polling requests
 app.use( `/${SOCKET_PATH}`, function ( req, res ) {
-	proxy.web( req, res, { target: `http://${HOST}:${API_PORT}/${SOCKET_PATH}` } );
+	proxy.web( req, res, { target: `https://${HOST}:${API_PORT}/${SOCKET_PATH}` } );
 });
 
 // proxy the socket.io WS requests
