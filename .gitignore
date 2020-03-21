@@ -18,3 +18,6 @@ deploy
 
 # min
 client/dist/*
+
+server/privkey.pem
+server/fullchain.pem
