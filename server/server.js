@@ -44,7 +44,7 @@ app.use(compression());
 app.use(express.static(__dirname + '/lib'));
 app.use(session({
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     secret: "safsfvvfasfasfjhas iuyowery76"
 }));
 app.use(bodyParser.json());
