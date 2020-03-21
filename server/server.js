@@ -92,12 +92,12 @@ app.use('/', entry)
 app.post('/', function (req, res) {
   res.send('POST request to the homepage')
 })
-/*
-app.get('/', function (req, res) {
+app.get('/test', function (req, res) {
   console.log(req.session.id);
   console.log(req.user);
   res.send('GET request to the homepage')
 })
+/*
  * app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.log(err);
     console.log(user);
