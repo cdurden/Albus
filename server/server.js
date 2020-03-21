@@ -144,6 +144,12 @@ server.on( 'upgrade', function( req, socket, head ) {
 //	debug( '⚡️  ---------- SOCKET CONNECTION UPGRADING ---------- ⚡️ ' );
 	proxy.ws( req, socket, head );
 });
+// ======================== admin routes =============================//
+app.get('/admin', function (req, res) {
+  console.log(req.user);
+  res.sendfile('./admin/index.html');
+});
+
 
 // ======================== main routes ===============================//
 app.get('/test', function (req, res) {
@@ -162,12 +168,6 @@ app.get('/:id/screenShot', function (req, res) {
     res.sendfile(req.params.id + '.png');
   });
 })
-// ======================== admin routes =============================//
-app.get('/admin', function (req, res) {
-  console.log(req.user);
-  res.sendfile('./admin/index.html');
-});
-
 var start = function () {
   server.listen(port);
 };
