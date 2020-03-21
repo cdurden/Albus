@@ -10,8 +10,8 @@ angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).c
             console.log('requesting suggestions');
             Sockets.emit('suggestions');
           }
-          */
         }
+          */
       }).otherwise({ redirectTo: 'admin' }); ;
 
     $locationProvider.html5Mode({
