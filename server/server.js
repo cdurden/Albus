@@ -38,11 +38,23 @@ app.set('trust proxy', 'loopback');
 app.use(compression());
 app.use(express.static(__dirname + '/../client'));
 app.use(express.static(__dirname + '/lib'));
+app.use(session({ secret: "safasfasfjhas iuyowery76"}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: "safasfasfjhas iuyowery76"}));
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  done(err, {id: id});
+  /*
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+  */
+});
 app.use(passport.authenticate(strategy));
 
 var port = process.env.PORT || '3000';
@@ -59,7 +71,7 @@ var server = https.createServer({
 var io = require('./sockets')(server);
 
 
-
+app.get('/', (req, res) => res.send('Hello World!'))
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
 app.get('/:id', function (req, res) {
   console.log(req.user);
