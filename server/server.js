@@ -49,7 +49,7 @@ var io = require('./sockets')(server);
 
 
 
-app.get('/:id', function (req, res) {
+app.get('/:id', passport.authenticat(strategy), function (req, res) {
   res.sendfile('./client/index.html');
 });
 
