@@ -21,7 +21,7 @@ var session = require('express-session');
 
 var LTIStrategy = require('passport-lti');
 var strategy = new LTIStrategy({
-    consumerKey: 'testconsumerkey',
+    consumerKey: 'consumer_secret',
     consumerSecret: 'make-algebra-logical-again',
     // pass the req object to callback
     //passReqToCallback: true,
