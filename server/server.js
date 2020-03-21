@@ -139,6 +139,7 @@ var proxy = httpProxy.createProxyServer({
 	// ws     : true,
 });
 
+/*
 proxy.on( 'error', function ( err ) {
 	// console.error( err.stack );
 	debug( 'PROXY ERROR', err );
@@ -151,6 +152,7 @@ proxy.on( 'proxyReq', function ( proxyReq, req, res ) {
 proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
 	debug( 'Proxy *WS* Request', proxyReqWs.path );
 });
+*/
 
 
 // proxy non-socket requests
@@ -166,7 +168,7 @@ app.use( `/${SOCKET_PATH}`, function ( req, res ) {
 
 // proxy the socket.io WS requests
 server.on( 'upgrade', function( req, socket, head ) {
-	debug( '⚡️  ---------- SOCKET CONNECTION UPGRADING ---------- ⚡️ ' );
+//	debug( '⚡️  ---------- SOCKET CONNECTION UPGRADING ---------- ⚡️ ' );
 	proxy.ws( req, socket, head );
 });
 
