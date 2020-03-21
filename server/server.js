@@ -19,7 +19,7 @@ var session = require('express-session');
 var LTIStrategy = require('passport-lti');
 var strategy = new LTIStrategy({
     consumerKey: 'testconsumerkey',
-    consumerSecret: 'make-algebra-logical-again'
+    consumerSecret: 'make-algebra-logical-again',
     // pass the req object to callback
     passReqToCallback: true,
     // https://github.com/omsmith/ims-lti#nonce-stores
