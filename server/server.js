@@ -54,7 +54,7 @@ passport.deserializeUser(function(id, done) {
   });
   */
 });
-passport.user(strategy);
+passport.use(strategy);
 //app.use(passport.authenticate(strategy));
 app.get('/', (req, res) => res.send('Hello World!'))
 app.use(express.static(__dirname + '/../client'));
