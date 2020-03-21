@@ -8,10 +8,10 @@ angular.module('whiteboard')
       '<div id="chat-container">' +
       '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
+      '</div>' +
       '<form action="">' +
       '      <input id="m" autocomplete="off" /><button>Send</button>' +
       '    </form>' +
-      '</div>' +
       '</div>',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
