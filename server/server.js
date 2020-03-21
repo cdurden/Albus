@@ -75,11 +75,6 @@ app.post('/', passport.authenticate('lti-strategy', {failureFlash: true}),  func
   res.send('POST request to the homepage')
 })
 */
-app.get('/test', function (req, res) {
-  console.log(req.session.id);
-  console.log(req.user);
-  res.send('GET request to the homepage')
-})
 /*
  * app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.log(err);
@@ -106,28 +101,6 @@ var server = https.createServer({
 },app)
 var io = require('./sockets')(server);
 
-
-//app.get('/:id', passport.authenticate(strategy), function (req, res) {
-app.get('/:id', function (req, res) {
-  console.log(req.user);
-  res.sendfile('./client/index.html');
-});
-
-app.get('/:id/screenShot', function (req, res) {
-  webshot('localhost:3000/' + req.params.id, req.params.id + '.png', function(err) {
-    res.sendfile(req.params.id + '.png');
-  });
-})
-
-var start = function () {
-  server.listen(port);
-};
-
-var end = function () {
-  server.close();
-};
-
-start();
 
 var HOST        = 'localhost';
 var API_PORT    = process.env.API_PORT || 444;
@@ -171,6 +144,35 @@ server.on( 'upgrade', function( req, socket, head ) {
 //	debug( '⚡️  ---------- SOCKET CONNECTION UPGRADING ---------- ⚡️ ' );
 	proxy.ws( req, socket, head );
 });
+
+// ======================== main routes ===============================//
+app.get('/test', function (req, res) {
+  console.log(req.session.id);
+  console.log(req.user);
+  res.send('GET request to the homepage')
+})
+//app.get('/:id', passport.authenticate(strategy), function (req, res) {
+app.get('/:id', function (req, res) {
+  console.log(req.user);
+  res.sendfile('./client/index.html');
+});
+
+app.get('/:id/screenShot', function (req, res) {
+  webshot('localhost:3000/' + req.params.id, req.params.id + '.png', function(err) {
+    res.sendfile(req.params.id + '.png');
+  });
+})
+
+var start = function () {
+  server.listen(port);
+};
+
+var end = function () {
+  server.close();
+};
+
+start();
+
 
 exports.start = start;
 exports.end = end;
