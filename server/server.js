@@ -11,32 +11,10 @@ var compression = require('compression');
 var CustomStrategy = require('passport-custom')
 var router = express.Router();
 var lti = require('ims-lti')
-//var angularConfig = require('angularjs-config');
-//var config = require('./config.json');
-//angularConfig.initialize(app, config);
 
 
 var passport = require('passport');
 var session = require('express-session');
-
-/*
-var LTIStrategy = require('passport-lti');
-var strategy = new LTIStrategy({
-    consumerKey: 'consumer_secret',
-    consumerSecret: 'make-algebra-logical-again',
-    // pass the req object to callback
-    //passReqToCallback: true,
-    // https://github.com/omsmith/ims-lti#nonce-stores
-    //nonceStore: new RedisNonceStore('testconsumerkey', redisClient)
-}, function(lti, done) {
-    // LTI launch parameters
-    console.dir(lti);
-    // Perform local authentication if necessary
-    console.log(user);
-    return done(null, user);
-});
-passport.use(strategy);
-*/
 
 app.set('trust proxy', 'loopback');
 app.use(compression());
@@ -63,7 +41,7 @@ var entry = require('./routes/entry')
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
 		var val = (req.body) ? req.body : req.user
-		try{
+		try {
 			var provider = new lti.Provider(val , 'make-algebra-logical-again')
 			if(req.user){
 				callback(null, val)
@@ -72,13 +50,12 @@ passport.use('lti-strategy', new CustomStrategy(
 					if(err){
 						console.log("LTI Error", err, isValid);
 					}
-                    //console.log(val);
 					callback(err, val)
 				});
 			}
 		}
 		catch(err){
-			console.log("Authenication error", err)
+			console.log("Authentication error", err)
 			callback(err, null)
 		}
 	}
@@ -150,6 +127,47 @@ var end = function () {
 };
 
 start();
+
+var HOST        = 'localhost';
+var API_PORT    = process.env.API_PORT || 444;
+var SOCKET_PATH = 'ws';
+// ==================== PROXY SERVER ==================== //
+
+var proxy = httpProxy.createProxyServer({
+	target : `http://${HOST}:${API_PORT}`,
+	// ws     : true,
+});
+
+proxy.on( 'error', function ( err ) {
+	// console.error( err.stack );
+	debug( 'PROXY ERROR', err );
+});
+
+proxy.on( 'proxyReq', function ( proxyReq, req, res ) {
+	debug( 'Proxy Request', proxyReq.path );
+});
+
+proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
+	debug( 'Proxy *WS* Request', proxyReqWs.path );
+});
+
+
+// proxy non-socket requests
+// * not required to proxy the socket.io connection *
+app.use( '/api', function ( req, res ) {
+  proxy.web( req, res, { target: `http://${HOST}:${API_PORT}` } );
+});
+
+// proxy the socket.io polling requests
+app.use( `/${SOCKET_PATH}`, function ( req, res ) {
+	proxy.web( req, res, { target: `http://${HOST}:${API_PORT}/${SOCKET_PATH}` } );
+});
+
+// proxy the socket.io WS requests
+server.on( 'upgrade', function( req, socket, head ) {
+	debug( '⚡️  ---------- SOCKET CONNECTION UPGRADING ---------- ⚡️ ' );
+	proxy.ws( req, socket, head );
+});
 
 exports.start = start;
 exports.end = end;
