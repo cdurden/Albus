@@ -1,4 +1,4 @@
-function adminCtrl($scope, socket) {
+app.controller('adminCtrl', [$scope, function($scope, socket) {
 
   // Socket listeners
   // ================
@@ -6,4 +6,4 @@ function adminCtrl($scope, socket) {
   socket.on('submissions', function (data) {
     $scope.submissions = data;
   });
-}
+}]);
