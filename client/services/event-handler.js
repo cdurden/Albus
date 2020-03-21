@@ -67,7 +67,7 @@ angular.module('whiteboard.services.eventhandler', [])
       var li = document.createElement("li");
       var t = document.createTextNode(msg);
       li.appendChild(t);
-      ChatData.getChat().appendChild(li);
+      ChatData.getChat().append(li);
   }
 
   return {
