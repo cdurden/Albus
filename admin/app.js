@@ -3,7 +3,7 @@ angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).c
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/admin', {
-        templateUrl: 'views/admin.html',
+        templateUrl: '/admin/views/admin.html',
         resolve: {
           'something': function (Sockets) {
             Sockets.emit('suggestions');
