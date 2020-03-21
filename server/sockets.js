@@ -96,7 +96,7 @@ module.exports = function(server) {
       console.log(submissions);
     });
     socket.on('get_room_assignments', function(){
-      room_assignments = ['asdf', 'asfaga'];
+      room_assignments = [{'user_id': 'asdf'}, {'user_id': 'asfaga'}];
       io.emit('room_assignments', room_assignments);
       console.log(room_assignments);
     });
