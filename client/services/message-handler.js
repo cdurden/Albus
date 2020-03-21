@@ -3,6 +3,7 @@ angular.module('whiteboard.services.messagehandler', [])
   function messageHandler (ev) {
       ev.preventDefault(); // prevents page reloading
       Broadcast.sendMessage(ChatData.getInput().value);
+      console.log(ChatData.getInput().value);
       ChatData.getInput().value = '';
       return false;
   }
