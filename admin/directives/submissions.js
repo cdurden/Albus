@@ -4,6 +4,8 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminSubmissions'],
     replace: true,
+    controller: function () {
+    },
     template: 
       '<ul id="submissions">' +
       '<li ng-repeat="submission in submissions">{{submission}}</li>' +
