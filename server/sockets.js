@@ -95,6 +95,11 @@ module.exports = function(server) {
       io.emit('submissions', submissions);
       console.log(submissions);
     });
+    socket.on('get_room_assignments', function(){
+      room_assignments = ['asdf', 'asfaga'];
+      io.emit('room_assignments', room_assignments);
+      console.log(room_assignments);
+    });
 
   });
 
