@@ -4,7 +4,7 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminSubmissions'],
     replace: true,
-    controller: function (scope) {
+    controller: function ($scope) {
       Sockets.on('submissions', function (data) {
         $scope.submissions = data;
       });
@@ -15,7 +15,7 @@ angular.module('whiteboard-admin')
       '</ul>',
     link: function (scope, element, attrs, ctrls) {
       Sockets.on('submissions', function (data) {
-        $scope.submissions = data;
+        scope.submissions = data;
       });
     }
   }
