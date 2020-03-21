@@ -8,6 +8,7 @@ var rooms = require('./rooms');
 var client = require('./db/config');
 var fs = require('fs');
 var compression = require('compression');
+var CustomStrategy = require('passport-custom')
 //var angularConfig = require('angularjs-config');
 //var config = require('./config.json');
 //angularConfig.initialize(app, config);
@@ -53,6 +54,21 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
+/*
+router.post('/', function (req, res) {
+	req.session.lti_token = req.body;
+	if(req.body.custom_class_name && req.body.lis_course_section_sourcedid){
+		req.session.lti_token.lis_course_section_sourcedid_original = req.body.lis_course_section_sourcedid
+		req.session.lti_token.lis_course_section_sourcedid = req.body.custom_class_name
+	}
+	if(req.body.custom_section_number){
+		req.session.lti_token.lis_course_section_sourcedid = req.session.lti_token.lis_course_section_sourcedid + '-' + req.body.custom_section_number
+	}
+	const url = 'http://' + process.env.PRESENT_PATH + ':' + process.env.PROXY_PORT
+
+	res.redirect(url);
+})
+*/
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
 		var val = (req.body) ? req.body : req.user
