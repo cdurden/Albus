@@ -4,7 +4,10 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminSubmissions'],
     replace: true,
-    controller: function () {
+    controller: function (scope) {
+      Sockets.on('submissions', function (data) {
+        $scope.submissions = data;
+      });
     },
     template: 
       '<ul id="submissions">' +
