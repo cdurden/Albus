@@ -70,6 +70,7 @@ passport.use('lti-strategy', new CustomStrategy(
 					if(err){
 						console.log("LTI Error", err, isValid);
 					}
+                    console.dir(this);
                     console.log(this.student);
 					callback(err, val)
 				});
@@ -84,7 +85,7 @@ passport.use('lti-strategy', new CustomStrategy(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('lti-strategy', {failureFlash: true}, function(req, res) {
-    req.session.user 
+    console.dir(req);
 }));
 app.use('/', entry)
 
