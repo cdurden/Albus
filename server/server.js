@@ -79,6 +79,9 @@ passport.use('lti-strategy', new CustomStrategy(
 app.post('/', function (req, res) {
   res.send('POST request to the homepage')
 })
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage')
+})
 app.use(passport.authenticate(strategy));
 app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.log(err);
