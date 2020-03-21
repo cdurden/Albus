@@ -47,17 +47,38 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser(function(id, done) {
-  done(err, {id: id});
-  /*
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-  */
+passport.deserializeUser(function(user, done) {
+  done(null, user);
 });
+passport.use('lti-strategy', new CustomStrategy(
+	function(req, callback) {
+		var val = (req.body) ? req.body : req.user
+		try{
+			var provider = new lti.Provider(val , process.env.LTI_SECRET)
+			if(req.user){
+				callback(null, val)
+			}
+			else{
+				provider.valid_request(req, function(err, isValid) {
+					if(err){
+						console.log("LTI Error", err, isValid)
+					}
+					callback(err, val)
+				});
+			}
+		}
+		catch(err){
+			console.log("Authenication error", err)
+			callback(err, null)
+		}
+	}
+));
+app.post('/', function (req, res) {
+  res.send('POST request to the homepage')
+})
 app.use(passport.authenticate(strategy));
 app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.log(err);
