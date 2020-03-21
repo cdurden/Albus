@@ -1,4 +1,9 @@
-angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).config(['$routeProvider', '$locationProvider', '$httpProvider',
+angular.module('whiteboard-admin', [
+    'btford.socket-io',
+    'whiteboard.services.sockets',
+    'ngRoute'
+])
+    .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/admin/', {
