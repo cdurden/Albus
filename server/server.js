@@ -89,6 +89,8 @@ app.post('/', function (req, res) {
   res.send('POST request to the homepage')
 })
 app.get('/', function (req, res) {
+  console.log(req.session.id);
+  console.log(req.user);
   res.send('GET request to the homepage')
 })
 /*
