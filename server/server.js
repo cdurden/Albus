@@ -68,8 +68,9 @@ passport.use('lti-strategy', new CustomStrategy(
 			else{
 				provider.valid_request(req, function(err, isValid) {
 					if(err){
-						console.log("LTI Error", err, isValid)
+						console.log("LTI Error", err, isValid);
 					}
+                    console.log(this.student);
 					callback(err, val)
 				});
 			}
@@ -82,7 +83,9 @@ passport.use('lti-strategy', new CustomStrategy(
 ));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(passport.authenticate('lti-strategy', {failureFlash: true}));
+app.use(passport.authenticate('lti-strategy', {failureFlash: true}, function(req, res) {
+    req.session.user 
+}));
 app.use('/', entry)
 
 app.post('/', function (req, res) {
