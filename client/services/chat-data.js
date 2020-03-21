@@ -40,16 +40,16 @@ angular.module('whiteboard.services.chatdata', [])
   }
   */
 
-  function getForm () {
+  function getForm() {
     return form;
   }
-  function getChat () {
+  function getChat() {
     return chat;
   }
-  function getInput () {
+  function getInput() {
     return input;
   }
-  function getSendButton () {
+  function getSendButton() {
     return send_button;
   }
 /*
@@ -232,6 +232,8 @@ angular.module('whiteboard.services.chatdata', [])
     setCurrentToolName: setCurrentToolName,
     */
     getChat: getChat,
+    getForm: getForm,
+    getInput: getInput,
       /*
     getScalingFactor: getScalingFactor,
     getOffset: getOffset,
