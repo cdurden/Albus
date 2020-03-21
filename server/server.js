@@ -42,6 +42,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(strategy);
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -54,9 +55,11 @@ passport.deserializeUser(function(id, done) {
   });
   */
 });
-passport.use(strategy);
 //app.use(passport.authenticate(strategy));
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', function(req, res) {
+    console.log(req.user);
+    res.send('Hello World!');
+})
 app.use(express.static(__dirname + '/../client'));
 
 var port = process.env.PORT || '3000';
