@@ -62,7 +62,7 @@ passport.use('lti-strategy', new CustomStrategy(
 	}
 ));
 app.use(express.static(__dirname + '/../client'));
-app.use(express.static(__dirname + '/../admin'));
+app.use('/admin/', express.static(__dirname + '/../admin'));
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
