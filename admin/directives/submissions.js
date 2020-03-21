@@ -2,7 +2,7 @@ angular.module('whiteboard-admin')
 .directive('wbAdminSubmissions', ['Sockets', function (Sockets) {
   return {
     restrict: 'A',
-    require: ['wbChat'],
+    require: ['wbAdminSubmissions'],
     replace: true,
     template: 
       '<ul id="submissions">' +
