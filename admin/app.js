@@ -8,6 +8,7 @@ angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).c
         //  templateUrl: '/admin/views/admin.html',
         resolve: {
           'something': function (Sockets) {
+            console.log('requesting suggestions');
             Sockets.emit('suggestions');
           }
         }
