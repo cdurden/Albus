@@ -33,6 +33,7 @@ var strategy = new LTIStrategy({
 passport.use(strategy);
 
 
+app.set('trust proxy', 'loopback');
 app.use(compression());
 app.use(express.static(__dirname + '/../client'));
 app.use(express.static(__dirname + '/lib'));
@@ -45,7 +46,6 @@ app.use(passport.authenticate(strategy));
 
 var port = process.env.PORT || '3000';
 app.set('port', port);
-app.set('trust proxy', 'loopback');
 
 
 var server = http.createServer(app);
