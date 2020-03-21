@@ -86,12 +86,16 @@ passport.use('lti-strategy', new CustomStrategy(
 app.use(express.static(__dirname + '/../client'));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
+//app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
 //app.use('/', entry)
 
-app.post('/', function (req, res) {
+app.post('/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+  res.send('POST request to the homepage')
+});
+/*app.post('/', function (req, res) {
   res.send('POST request to the homepage')
 })
+*/
 app.get('/test', function (req, res) {
   console.log(req.session.id);
   console.log(req.user);
