@@ -15,6 +15,8 @@ angular.module('whiteboard', [
   'whiteboard.services.zoom',
   'whiteboard.services.leapMotion',
   'whiteboard.services.visualizer',
+  'whiteboard.services.chatdata',
+  'whiteboard.services.messagehandler',
   'ngRoute'
 ])
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
