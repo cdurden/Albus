@@ -1,4 +1,3 @@
-var a = require('debug')('worker:a');
 var express = require('express');
 var app = express();
 var http = require('http');
@@ -27,10 +26,9 @@ var strategy = new LTIStrategy({
     // nonceStore: new RedisNonceStore('testconsumerkey', redisClient)
 }, function(lti, done) {
     // LTI launch parameters
-    // console.dir(lti);
+    console.dir(lti);
     // Perform local authentication if necessary
-    a(lti);
-    a(user);
+    console.log(user);
     return done(null, user);
 });
 passport.use(strategy);
@@ -42,7 +40,7 @@ app.use(express.static(__dirname + '/../client'));
 app.use(express.static(__dirname + '/lib'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: "safjhas iuyowery76"}));
+app.use(session({ secret: "safasfasfjhas iuyowery76"}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate(strategy));
