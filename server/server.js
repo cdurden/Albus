@@ -90,7 +90,8 @@ app.use(passport.session());
 //app.use('/', entry)
 
 app.post('/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
-  res.send('POST request to the homepage')
+  //res.send('POST request to the homepage')
+  res.redirect('/test');
 });
 /*app.post('/', function (req, res) {
   res.send('POST request to the homepage')
