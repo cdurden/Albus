@@ -90,6 +90,12 @@ module.exports = function(server) {
       console.log(msg);
     });
 
+    socket.on('submissions', function(){
+      submissions = ['asdf', 'asfaga'];
+      io.emit('submissions', submissions);
+      console.log(submissions);
+    });
+
   });
 
   return io;
