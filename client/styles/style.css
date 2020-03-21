@@ -24,10 +24,12 @@ h1.title {
 }
 
 #chat-container {
-  pointer-events: none;
   position: absolute;
   bottom: 0px;
   width: 100%;
+}
+#messages-container {
+  pointer-events: none;
 }
 #chat-container input {
     width: 90%;

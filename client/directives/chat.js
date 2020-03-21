@@ -6,10 +6,12 @@ angular.module('whiteboard')
     replace: true,
     template: 
       '<div id="chat-container">' +
+      '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
       '<form action="">' +
       '      <input id="m" autocomplete="off" /><button>Send</button>' +
       '    </form>' +
+      '</div>' +
       '</div>',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
