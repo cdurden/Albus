@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var https = require('https');
+var httpProxy = require( 'http-proxy' );
 var bodyParser = require('body-parser');
 var util = require('./utils/util');
 var rooms = require('./rooms');
