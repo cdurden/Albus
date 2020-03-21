@@ -10,6 +10,7 @@ var fs = require('fs');
 var compression = require('compression');
 var CustomStrategy = require('passport-custom')
 var router = express.Router();
+var lti = require('ims-lti')
 //var angularConfig = require('angularjs-config');
 //var config = require('./config.json');
 //angularConfig.initialize(app, config);
