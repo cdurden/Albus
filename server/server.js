@@ -1,3 +1,4 @@
+var a = require('debug')('worker:a');
 var express = require('express');
 var app = express();
 var http = require('http');
@@ -28,8 +29,8 @@ var strategy = new LTIStrategy({
     // LTI launch parameters
     // console.dir(lti);
     // Perform local authentication if necessary
-    console.dir(lti);
-    console.log(user);
+    a(lti);
+    a(user);
     return done(null, user);
 });
 passport.use(strategy);
