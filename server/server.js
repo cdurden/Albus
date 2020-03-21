@@ -28,6 +28,8 @@ var strategy = new LTIStrategy({
     // LTI launch parameters
     // console.dir(lti);
     // Perform local authentication if necessary
+    console.dir(lti);
+    console.log(user);
     return done(null, user);
 });
 passport.use(strategy);
