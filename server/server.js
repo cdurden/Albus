@@ -39,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: "safjhas iuyowery76"}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate(strategy));
 
 var port = process.env.PORT || '3000';
 app.set('port', port);
