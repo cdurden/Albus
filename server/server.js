@@ -61,6 +61,7 @@ var io = require('./sockets')(server);
 
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
 app.get('/:id', function (req, res) {
+  console.log(req.user);
   res.sendfile('./client/index.html');
 });
 
