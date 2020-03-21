@@ -19,7 +19,6 @@ var lti = require('ims-lti')
 var passport = require('passport');
 var session = require('express-session');
 
-/*
 var LTIStrategy = require('passport-lti');
 var strategy = new LTIStrategy({
     consumerKey: 'consumer_secret',
@@ -36,7 +35,6 @@ var strategy = new LTIStrategy({
     return done(null, user);
 });
 passport.use(strategy);
-*/
 
 
 app.set('trust proxy', 'loopback');
@@ -61,7 +59,7 @@ passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
 		var val = (req.body) ? req.body : req.user
 		try{
-			var provider = new lti.Provider(val , 'smake-algebra-logical-again')
+			var provider = new lti.Provider(val , 'make-algebra-logical-again')
 			if(req.user){
 				callback(null, val)
 			}
@@ -83,7 +81,7 @@ passport.use('lti-strategy', new CustomStrategy(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('lti-strategy', {failureFlash: true}));
-app.use('/', entry)
+app.use('/lti_launch', entry)
 
 app.post('/', function (req, res) {
   res.send('POST request to the homepage')
