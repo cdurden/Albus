@@ -83,7 +83,7 @@ passport.use('lti-strategy', new CustomStrategy(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('lti-strategy', {failureFlash: true}));
-//app.use('/', entry)
+app.use('/', entry)
 
 app.post('/', function (req, res) {
   res.send('POST request to the homepage')
@@ -91,7 +91,8 @@ app.post('/', function (req, res) {
 app.get('/', function (req, res) {
   res.send('GET request to the homepage')
 })
-app.post('/', passport.authenticate(strategy, function(err, user, info) {
+/*
+ * app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.log(err);
     console.log(user);
     console.log(info);
@@ -101,6 +102,7 @@ app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.dir(req.session);
     res.send('Hello World!');
 })
+*/
 app.use(express.static(__dirname + '/../client'));
 
 var port = process.env.PORT || '3000';
