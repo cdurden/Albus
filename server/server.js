@@ -46,8 +46,6 @@ app.use(session({
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -55,19 +53,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
-router.get('/', function (req, res) {
-	req.session.lti_token = req.body;
-	if(req.body.custom_class_name && req.body.lis_course_section_sourcedid){
-		req.session.lti_token.lis_course_section_sourcedid_original = req.body.lis_course_section_sourcedid
-		req.session.lti_token.lis_course_section_sourcedid = req.body.custom_class_name
-	}
-	if(req.body.custom_section_number){
-		req.session.lti_token.lis_course_section_sourcedid = req.session.lti_token.lis_course_section_sourcedid + '-' + req.body.custom_section_number
-	}
-	const url = 'http://' + process.env.PRESENT_PATH + ':' + process.env.PROXY_PORT
-
-	res.redirect(url);
-})
+var entry = require('./routes/entry')
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
 		var val = (req.body) ? req.body : req.user
@@ -91,13 +77,17 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.authenticate('lti-strategy', {failureFlash: true}));
+app.use('/', entry)
+
 app.post('/', function (req, res) {
   res.send('POST request to the homepage')
 })
 app.get('/', function (req, res) {
   res.send('GET request to the homepage')
 })
-app.use(passport.authenticate(strategy));
 app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.log(err);
     console.log(user);
