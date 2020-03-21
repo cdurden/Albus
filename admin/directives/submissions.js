@@ -14,10 +14,10 @@ angular.module('whiteboard-admin')
       '<ul id="submissions">' +
       '<li ng-repeat="submission in submissions">{{submission}}</li>' +
       '</ul>',
-    link: function (scope, element, attrs, ctrls) {
+/*    link: function (scope, element, attrs, ctrls) {
       Sockets.on('submissions', function (data) {
         scope.submissions = data;
       });
-    }
+    }*/
   }
 }]);
