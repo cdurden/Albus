@@ -51,7 +51,7 @@ app.set('trust proxy', 'loopback');
 //var server = http.createServer(app);
 var server = https.createServer({
   key: fs.readFileSync('./server/privkey.pem'),
-  cert: fs.readFileSync('./server/cert.pem')
+  cert: fs.readFileSync('./server/fullchain.pem')
 },app)
 var io = require('./sockets')(server);
 
