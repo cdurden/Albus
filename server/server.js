@@ -36,7 +36,6 @@ passport.use(strategy);
 
 app.set('trust proxy', 'loopback');
 app.use(compression());
-app.use(express.static(__dirname + '/../client'));
 app.use(express.static(__dirname + '/lib'));
 app.use(session({ secret: "safasfasfjhas iuyowery76"}));
 app.use(bodyParser.json());
@@ -56,6 +55,7 @@ passport.deserializeUser(function(id, done) {
   */
 });
 app.use(passport.authenticate(strategy));
+app.use(express.static(__dirname + '/../client'));
 
 var port = process.env.PORT || '3000';
 app.set('port', port);
