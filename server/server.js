@@ -31,6 +31,7 @@ var strategy = new LTIStrategy({
     console.log(user);
     return done(null, user);
 });
+passport.use(strategy);
 
 
 app.set('trust proxy', 'loopback');
@@ -41,7 +42,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(strategy);
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -54,13 +54,17 @@ passport.deserializeUser(function(id, done) {
   });
   */
 });
-app.use(passport.authenticate(strategy));
-app.get('/', function(req, res) {
+app.get('/', passport.authenticate(strategy, function(err, user, info) {
+    console.log(err);
+    console.log(user);
+    console.log(info);
+}), function(req, res) {
     console.log('user:' + req.user);
     console.log('session:' + req.session.id);
     console.dir(req.session);
     res.send('Hello World!');
 })
+app.use(passport.authenticate(strategy));
 app.use(express.static(__dirname + '/../client'));
 
 var port = process.env.PORT || '3000';
