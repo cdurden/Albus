@@ -18,5 +18,9 @@ angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).c
       enabled: true,
       requireBase: false
     });
-}]);
+}]).run(function() {
+  // This is effectively part of the main method initialization code
+  console.log("starting whiteboard-admin");
+  Sockets.emit('suggestions');
+});
 
