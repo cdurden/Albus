@@ -34,6 +34,7 @@ var strategy = new LTIStrategy({
 passport.use(strategy);
 
 
+app.get('/', (req, res) => res.send('Hello World!'))
 app.set('trust proxy', 'loopback');
 app.use(compression());
 app.use(express.static(__dirname + '/lib'));
@@ -55,7 +56,6 @@ passport.deserializeUser(function(id, done) {
   */
 });
 app.use(passport.authenticate(strategy));
-app.get('/', (req, res) => res.send('Hello World!'))
 app.use(express.static(__dirname + '/../client'));
 
 var port = process.env.PORT || '3000';
