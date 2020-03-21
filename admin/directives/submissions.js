@@ -7,7 +7,7 @@ angular.module('whiteboard-admin')
     template: 
       '<ul id="submissions">' +
       '<li ng-repeat="submission in submissions">{{submission}}</li>' +
-      '</ul>' +
+      '</ul>',
     link: function (scope, element, attrs, ctrls) {
       Sockets.on('submissions', function (data) {
         $scope.submissions = data;
