@@ -56,7 +56,7 @@ passport.deserializeUser(function(id, done) {
   });
   */
 });
-app.get('/', passport.authenticate(strategy, function(err, user, info) {
+app.post('/', passport.authenticate(strategy, function(err, user, info) {
     console.log(err);
     console.log(user);
     console.log(info);
