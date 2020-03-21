@@ -22,10 +22,10 @@ angular.module('whiteboard.services.chatdata', [])
 
     //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
 
-    chat = element.find('ul');
-    form = element.find('form');
-    input = element.find('input');
-    send_button = element.find('button');
+    chat = element.find('ul')[0];
+    form = element.find('form')[0];
+    input = element.find('input')[0];
+    send_button = element.find('button')[0];
   }
 
     /*
