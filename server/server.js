@@ -31,9 +31,7 @@ var strategy = new LTIStrategy({
     console.log(user);
     return done(null, user);
 });
-passport.use(strategy,function(req) {
-    console.dir(req);
-});
+passport.use(strategy);
 
 
 app.set('trust proxy', 'loopback');
