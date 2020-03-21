@@ -38,14 +38,14 @@ var strategy = new LTIStrategy({
 passport.use(strategy);
 */
 
-
 app.set('trust proxy', 'loopback');
 app.use(compression());
 app.use(express.static(__dirname + '/lib'));
 app.use(session({
-    resave: true,
+    resave: false,
     saveUninitialized: true,
-    secret: "safsfvvfasfasfjhas iuyowery76"
+    secret: "safsfvvfasfasfjhas iuyowery76",
+    cookie: { secure: true }
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -87,7 +87,7 @@ app.use(express.static(__dirname + '/../client'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
-app.use('/', entry)
+//app.use('/', entry)
 
 app.post('/', function (req, res) {
   res.send('POST request to the homepage')
