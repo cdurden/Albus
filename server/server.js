@@ -70,7 +70,7 @@ passport.use('lti-strategy', new CustomStrategy(
 					if(err){
 						console.log("LTI Error", err, isValid);
 					}
-                    console.log(val);
+                    //console.log(val);
 					callback(err, val)
 				});
 			}
