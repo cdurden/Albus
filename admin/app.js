@@ -28,7 +28,7 @@ angular.module('whiteboard-admin', ['whiteboard.services.sockets', 'ngRoute']).c
       //var currentPath = current.originalPath;
       var nextPath = next.originalPath;
 
-      console.log('Starting to go to %s', currentPath, nextPath);
+      console.log('Starting to go to %s', nextPath);
     });
   }
 ]);
