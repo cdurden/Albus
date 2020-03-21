@@ -83,6 +83,10 @@ angular.module('whiteboard.services.broadcast', [])
     })
   };
 
+  var sendMessage = function (msg) {
+    Sockets.emit('chat message', msg)
+  };
+
   return {
     getSocketId: getSocketId,
     saveSocketId: saveSocketId,
@@ -93,6 +97,7 @@ angular.module('whiteboard.services.broadcast', [])
     finishShape: finishShape,
     deleteShape: deleteShape,
     finishMovingShape: finishMovingShape,
+    sendMessage: sendMessage,
     moveShape: moveShape
   };
 

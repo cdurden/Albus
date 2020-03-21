@@ -55,6 +55,10 @@ angular.module('whiteboard.services.receive', [])
     EventHandler.deleteShape(data.myid, data.socketId);
   });
 
+  Sockets.on('chat message', function (msg) {
+    EventHandler.displayMessage(msg);
+  })
+
   return {};
 
 });

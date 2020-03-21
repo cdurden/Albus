@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.eventhandler', [])
-.factory('EventHandler', ['BoardData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', function (BoardData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap) {
+.factory('EventHandler', ['BoardData', 'ChatData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', function (BoardData, ChatData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap) {
 
   function setSocketId (socketId) {
     BoardData.setSocketId(socketId);
@@ -63,6 +63,13 @@ angular.module('whiteboard.services.eventhandler', [])
     }
   }
 
+  function displayMessage(msg) {
+      var li = document.createElement("li");
+      var t = document.createTextNode(msg);
+      li.appendChild(t);
+      ChatData.getChat().appendChild(li);
+  }
+
   return {
     cursor: cursor,
     setSocketId: setSocketId,
@@ -74,6 +81,7 @@ angular.module('whiteboard.services.eventhandler', [])
     moveShape: moveShape,
     finishMovingShape: finishMovingShape,
     drawExistingPath: drawExistingPath,
-    grabShape: grabShape
+    grabShape: grabShape,
+    displayMessage: displayMessage
   };
 }]);

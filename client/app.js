@@ -30,7 +30,8 @@ angular.module('whiteboard', [
         }
       })
       .when('/:id', {
-        templateUrl: 'views/board.html',
+        //templateUrl: 'views/board.html',
+        templateUrl: 'views/board+chat.html',
         resolve: {
           'somethingElse': function (Sockets, $location) {
             Sockets.emit('roomId', {roomId: $location.path().slice(1)});

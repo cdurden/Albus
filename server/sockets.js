@@ -85,6 +85,10 @@ module.exports = function(server) {
     socket.on('disconnect', function () {
     });
 
+    socket.on('chat message', function(msg){
+      io.emit('chat message', msg);
+    });
+
   });
 
   return io;
