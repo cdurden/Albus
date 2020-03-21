@@ -1,4 +1,4 @@
-app.controller('adminCtrl', [$scope, function($scope, socket) {
+app.controller('adminCtrl', ['$scope', function($scope, socket) {
 
   // Socket listeners
   // ================
