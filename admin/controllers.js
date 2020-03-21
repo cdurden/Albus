@@ -1,9 +1,9 @@
-app.controller('adminCtrl', ['$scope', function($scope, socket) {
+app.controller('adminCtrl', ['$scope','Sockets' function($scope, Sockets) {
 
   // Socket listeners
   // ================
 
-  socket.on('submissions', function (data) {
+  Sockets.on('submissions', function (data) {
     $scope.submissions = data;
   });
 }]);
