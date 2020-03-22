@@ -5,6 +5,7 @@ var client = require('./db/config');
 var request = require('request');
 var _ = require('underscore');
 var auth = require('./auth');
+var async = requires('async');
 
 module.exports = function(server) {
 
