@@ -23,6 +23,7 @@ module.exports = function(server) {
     },
       function(err, res, body) {
         console.log(auth.token);
+        console.log(res);
         console.log(err);
         console.log(body);
         if (typeof(body) !== 'undefined') {
