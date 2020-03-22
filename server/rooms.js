@@ -26,10 +26,13 @@ var roomsManager = {
 
   placeSocket: function (socket) {
     console.log("placing socket");
-    client.hmget(socket.id, ['room'], function(err, result) {
+    client.hgetall(socket.id, function(err, result) {
       console.log(result);
-      var roomId = result;
-      if (roomId == null) {
+      var roomId;
+      if ('room' in result) {
+        roomId = result['room'];
+      }
+      if (roomId) {
         roomId = rooms.generateRandomId(5);
       }
   
