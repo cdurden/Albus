@@ -142,6 +142,7 @@ module.exports = function(server) {
           room_assignments[room_id] = {'users': Object.keys(room.sockets).map(socket => client.hmget(socket, 'id', 'firstname', 'lastname'))}; 
         }
       }
+      io.emit('room_assignments', room_assignments);
       //io.emit('room_assignments', Object.keys(rooms.getRooms()));
       console.log(room_assignments);
     });
