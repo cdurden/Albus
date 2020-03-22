@@ -1,4 +1,5 @@
 var socketio = require('socket.io');
+const redisAdapter = require('socket.io-redis');
 var rooms = require('./rooms');
 var client = require('./db/config');
 var _ = require('underscore');
@@ -9,6 +10,7 @@ module.exports = function(server) {
   var board = {};
 
   var io = socketio.listen(server);
+  io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
 
   io.on('connection', function (socket) {
 
