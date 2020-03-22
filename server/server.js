@@ -37,6 +37,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user_id, done) {
+  console.log("deserializing user");
+  console.log(user_id);
   done(null, user_id);
 });
 var entry = require('./routes/entry')
