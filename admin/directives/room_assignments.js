@@ -5,11 +5,11 @@ angular.module('whiteboard-admin')
     require: ['wbAdminRoomAssignments'],
     replace: true,
     controller: function ($scope) {
-      Sockets.on('room_assignments', function (data) {
+      Sockets.on('student_assignments', function (data) {
         $scope.rooms = data;
         console.log(data);
       });
-      Sockets.emit('get_room_assignments');
+      Sockets.emit('get_student_assignments');
     },
     templateUrl: 'templates/room_assignments.html',
     link: function(scope, element, attrs) {
@@ -52,11 +52,11 @@ angular.module('whiteboard-admin')
            
           $('.roomList').each(function(i,elmt) { 
             var room=$(elmt).find(".room").text();
-            var user_ids = $(elmt).find('span[id^=user_id]').map(function(idx, elem) {
-              return {'user_id': $(elem).text()};
+            var student_ids = $(elmt).find('span[id^=student_id]').map(function(idx, elem) {
+              return {'id': $(elem).text()};
             }).get();
         
-            rooms[room] = {'users': user_ids};
+            rooms[room] = student_ids;
           });
       
           // encode to JSON format

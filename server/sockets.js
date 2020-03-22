@@ -127,8 +127,8 @@ module.exports = function(server) {
       submissions = ['asdf', 'asfaga'];
       io.emit('submissions', submissions);
     });
-    socket.on('get_room_assignments', function(){
-      socket_assignments = {} 
+    socket.on('get_student_assignments', function(){
+      student_assignments = {} 
       for (room_id in rooms.getRooms()) {
         room = io.sockets.adapter.rooms[room_id];
         if (typeof(room) != 'undefined') {
@@ -136,21 +136,21 @@ module.exports = function(server) {
         }
       }
       console.log(socket_assignments);
-      function get_user_data_by_socket(socket, callback) {
+      function get_student_data_by_socket(socket, callback) {
         keys = ['id', 'firstname', 'lastname'];
         client.hmget(socket, keys, function(err, results) {
-          var user_data = {};
-          keys.forEach((elmt, i) => { user_data[elmt] = results[i]; });
-          callback(err, user_data);
+          var student_data = {};
+          keys.forEach((elmt, i) => { student_data[elmt] = results[i]; });
+          callback(err, student_data);
         });
       }
       async.transform(socket_assignments, function (obj, val, key, callback) {
-        async.map(val, get_user_data_by_socket, function(err, results) {
+        async.map(val, get_student_data_by_socket, function(err, results) {
           obj[key] = results;
           callback();
 });
       }, function (err, result) {
-        io.emit('room_assignments', result);
+        io.emit('student_assignments', result);
       });
     });
     socket.on('get_users', function() {
