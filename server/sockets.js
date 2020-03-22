@@ -127,24 +127,29 @@ module.exports = function(server) {
       io.emit('submissions', submissions);
     });
     socket.on('get_room_assignments', function(){
-      room_assignments = {}
-      /*
-      request({hostname: "https://localhost:444/api/users", json: true}, function(err, res, body) {
-        for (user in body.data) {
-          io.emit('room_assignments', room_assignments);
-        }
-      });
-      */
+      socket_assignments = {} 
       for (room_id in rooms.getRooms()) {
         room = io.sockets.adapter.rooms[room_id];
         if (typeof(room) != 'undefined') {
-            console.log(Object.keys(room.sockets));
-          room_assignments[room_id] = {'users': Object.keys(room.sockets).map(socket => client.hmget(socket, 'id', 'firstname', 'lastname'))}; 
+          socket_assignments[room_id] = Object.keys(room.sockets)
         }
       }
-      io.emit('room_assignments', room_assignments);
-      //io.emit('room_assignments', Object.keys(rooms.getRooms()));
-      console.log(room_assignments);
+      function get_user_data_by_socket(socket, callback) {
+        keys = ['id', 'firstname', 'lastname'];
+        client.hmget(socket, keys, function(err, results) {
+          var user_data = {};
+          keys.forEach((elmt, i) => { user_data[elmt] = results[i]; });
+          callback(err, user_data);
+        }
+      }
+      async.transform(socket_assignments, function (obj, val, key, callback) {
+        setImmediate(function () {
+          obj[key] = async.map(val, get_user_data_by_socket);
+          callback();
+        })
+      }, function (err, result) {
+        io.emit('room_assignments', result);
+      });
     });
     socket.on('get_users', function() {
         request({hostname: "https://localhost:444/api/users", json: true}, function(err, res, body) { io.emit('users', body) });
