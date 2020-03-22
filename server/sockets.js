@@ -24,7 +24,9 @@ module.exports = function(server) {
       function(err, res, body) {
         console.log(err);
         console.log(body);
-        client.hmset(socket.id, Object.entries(body).flat);
+        if (typeof(body) !== 'undefined') {
+          client.hmset(socket.id, Object.entries(body).flat);
+        }
     });
     
     setInterval(function() {
