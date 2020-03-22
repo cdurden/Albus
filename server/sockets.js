@@ -15,20 +15,23 @@ module.exports = function(server) {
 
   io.on('connection', function (socket) {
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
+      lti_user_id = socket.handshake.session.passport.user;
       request.post({
         uri: "https://dev.algebra742.org:444/api/users/",
         headers : { "Authorization" : "Bearer " + auth.token },
-        form: { lti_user_id: socket.handshake.session.passport.user },
+        form: { 'lti_user_id': lti_user_id },
         json: true
       },
         function(error, response, body) {
         if (!error && response.statusCode == 200) {
+          console.log(lti_user_id);
           console.log(auth.token);
           console.log(body);
           if (typeof(body) !== 'undefined') {
             client.hmset(socket.id, Object.entries(body).flat);
           }
         } else {
+          console.log(lti_user_id);
           console.log(socket.handshake.session);
           console.log(socket.handshake.session.id);
           console.log(response.statusCode);
