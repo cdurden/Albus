@@ -27,6 +27,7 @@ var roomsManager = {
   placeSocket: function (socket) {
     console.log("placing socket");
     client.hmget(socket.id, ['room'], function(err, result) {
+      console.log(result);
       var roomId = result;
       if (roomId == null) {
         roomId = rooms.generateRandomId(5);
