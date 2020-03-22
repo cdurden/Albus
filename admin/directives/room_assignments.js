@@ -22,6 +22,7 @@ angular.module('whiteboard-admin')
         }
         $scope.rooms = rooms;
         console.log(data);
+        console.log(rooms);
       });
       Sockets.emit('get_socket_data');
     },
