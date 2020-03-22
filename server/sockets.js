@@ -139,6 +139,7 @@ module.exports = function(server) {
       for (room_id in rooms.getRooms()) {
         room = io.sockets.adapter.rooms[room_id];
         if (typeof(room) != 'undefined') {
+            console.log(Object.keys(room.sockets));
           room_assignments[room_id] = {'users': Object.keys(room.sockets).map(socket => client.get(socket))}; 
         }
       }
