@@ -125,7 +125,6 @@ module.exports = function(server) {
     socket.on('submissions', function(){
       submissions = ['asdf', 'asfaga'];
       io.emit('submissions', submissions);
-      console.log(submissions);
     });
     socket.on('get_room_assignments', function(){
       room_assignments = {}
@@ -140,7 +139,7 @@ module.exports = function(server) {
         room = io.sockets.adapter.rooms[room_id];
         if (typeof(room) != 'undefined') {
             console.log(Object.keys(room.sockets));
-          room_assignments[room_id] = {'users': Object.keys(room.sockets).map(socket => client.get(socket))}; 
+          room_assignments[room_id] = {'users': Object.keys(room.sockets).map(socket => client.hmget(socket))}; 
         }
       }
       //io.emit('room_assignments', Object.keys(rooms.getRooms()));
