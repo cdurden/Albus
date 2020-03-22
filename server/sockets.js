@@ -179,8 +179,14 @@ module.exports = function(server) {
       io.clients((error, clients) => {
         console.log(clients);
         if (error) throw error;
-        async.mapValues(clients, client.hgetall, function(err, results) {
-          io.emit('socket_data', results);
+        async.map(clients, function(client_id, callback) {
+          client.hgetall(client_id, function(err, results) {
+            callback(err,[client_id, results]);
+          }),
+        },
+        function(err, results) {
+            result = results.reduce((map, obj) => (map[obj.key] = obj.val, map), {});
+            io.emit('socket_data', results);
         });
       });
     });
