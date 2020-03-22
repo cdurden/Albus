@@ -28,8 +28,8 @@ module.exports = function(server) {
           console.log(auth.token);
           console.log(body);
           body_json = JSON.parse(body)
-          if ('data' in body_json && data.length == 1) {
-            client.hmset(socket.id, Object.entries(data[0]).flat);
+          if ('data' in body_json && body_json['data'].length == 1) {
+            client.hmset(socket.id, Object.entries(body_json['data'][0]).flat);
           }
         } else {
           console.log(lti_user_id);
