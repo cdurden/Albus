@@ -184,7 +184,7 @@ module.exports = function(server) {
     });
     socket.on('assign_sockets_to_rooms', function(assignments){
       for (socket in assignments) {
-        hmsetAsync(socket, 'roomId', assignments[socket]).then(hmgetAsync, socket, 'roomId').then(function(result) {io.emit('assignment', result)}).catch(console.error);
+        //hmsetAsync(socket, 'roomId', assignments[socket]).then(hmgetAsync, socket, 'roomId').then(function(result) {io.emit('assignment', result)}).catch(console.error);
       }
     });
 
