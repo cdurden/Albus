@@ -9,7 +9,8 @@ module.exports = function(server) {
   var room = {};
   var board = {};
 
-  var io = socketio.listen(server);
+  //var io = socketio.listen(server);
+  const io = socketio(3000);
   io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
 
   io.on('connection', function (socket) {
