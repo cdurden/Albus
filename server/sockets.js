@@ -145,10 +145,10 @@ module.exports = function(server) {
         });
       }
       async.transform(socket_assignments, function (obj, val, key, callback) {
-        setImmediate(function () {
-          obj[key] = async.map(val, get_user_data_by_socket);
-          callback();
-        })
+        async.map(val, get_user_data_by_socket, 
+          async.map(val, get_user_data_by_socket, function(err, results) {
+            obj[key] = results;
+});
       }, function (err, result) {
         io.emit('room_assignments', result);
       });
