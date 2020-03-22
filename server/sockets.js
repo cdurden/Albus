@@ -177,6 +177,7 @@ module.exports = function(server) {
     socket.on('get_socket_data', function() {
       console.log("getting socket data");
       io.clients((error, clients) => {
+        console.log(clients);
         if (error) throw error;
         async.mapValues(Object.keys(clients), client.hgetall, function(err, results) {
           io.emit('socket_data', results);
