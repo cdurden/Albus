@@ -179,7 +179,7 @@ module.exports = function(server) {
       io.clients((error, clients) => {
         console.log(clients);
         if (error) throw error;
-        async.mapValues(Object.keys(clients), client.hgetall, function(err, results) {
+        async.mapValues(clients, client.hgetall, function(err, results) {
           io.emit('socket_data', results);
         });
       });
