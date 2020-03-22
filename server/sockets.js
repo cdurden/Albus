@@ -21,14 +21,16 @@ module.exports = function(server) {
       form: { lti_user_id: socket.handshake.session.user },
       json: true
     },
-      function(err, res, body) {
+      function(error, response, body) {
+      if (!error && response.statusCode == 200) {
         console.log(auth.token);
-        console.log(res);
-        console.log(err);
         console.log(body);
         if (typeof(body) !== 'undefined') {
           client.hmset(socket.id, Object.entries(body).flat);
         }
+      } else {
+        console.log(error);
+      }
     });
     
     setInterval(function() {
