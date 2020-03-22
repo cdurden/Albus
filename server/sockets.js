@@ -135,6 +135,7 @@ module.exports = function(server) {
           socket_assignments[room_id] = Object.keys(room.sockets)
         }
       }
+      console.log(socket_assignments);
       function get_user_data_by_socket(socket, callback) {
         keys = ['id', 'firstname', 'lastname'];
         client.hmget(socket, keys, function(err, results) {
