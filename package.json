@@ -33,6 +33,7 @@
     }
   },
   "dependencies": {
+    "async": "^3.2.0",
     "ims-lti": "^3.0.2",
     "http-proxy": "^1.18.0",
     "request": "^2.88.2",

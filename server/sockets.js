@@ -140,7 +140,7 @@ module.exports = function(server) {
           var user_data = {};
           keys.forEach((elmt, i) => { user_data[elmt] = results[i]; });
           callback(err, user_data);
-        }
+        });
       }
       async.transform(socket_assignments, function (obj, val, key, callback) {
         setImmediate(function () {
