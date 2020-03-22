@@ -175,6 +175,7 @@ module.exports = function(server) {
       });
     });
     socket.on('get_socket_data', function() {
+      console.log("getting socket data");
       io.clients((error, clients) => {
         if (error) throw error;
         async.mapValues(Object.keys(clients), client.hgetall, function(err, results) {
@@ -183,6 +184,7 @@ module.exports = function(server) {
       });
     });
     socket.on('assign_sockets_to_rooms', function(assignments){
+      console.log("assigning sockets to rooms");
       for (socket in assignments) {
         hmsetAsync(socket, 'roomId', assignments[socket]).then(hmgetAsync, socket, 'roomId').then(function(result) {io.emit('assignment', result)}).catch(console.error);
       }
