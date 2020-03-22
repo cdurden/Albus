@@ -29,6 +29,8 @@ module.exports = function(server) {
           console.log(body);
           body_json = JSON.parse(body)
           if ('data' in body_json && body_json['data'].length == 1) {
+            console.log(body_json['data'][0]);
+            console.log(Object.entries(body_json['data'][0]));
             client.hmset(socket.id, Object.entries(body_json['data'][0]).flat);
           }
         } else {
