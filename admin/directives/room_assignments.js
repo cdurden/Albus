@@ -18,7 +18,7 @@ angular.module('whiteboard-admin')
           if (!(data[socket].roomId in rooms)) {
               rooms[data[socket].roomId] = [];
           }
-          rooms[data[socket].roomId].push(data[socket]);
+          rooms[data[socket].roomId].push({'socket_id': socket, 'data': data[socket]});
         }
         $scope.rooms = rooms;
         console.log(data);
@@ -63,11 +63,14 @@ angular.module('whiteboard-admin')
         });
         $('#generateJSON').click(function() {
       
-          /*
           let rooms = {};
+          let sockets = {};
            
           $('.roomList').each(function(i,elmt) { 
             var room=$(elmt).find(".room").text();
+            $(elmt).find('span[id^=socket_id]').each(function(j,elmt) {
+              
+            });
             var student_ids = $(elmt).find('span[id^=student_id]').map(function(idx, elem) {
               return {'id': $(elem).text()};
             }).get();
@@ -78,7 +81,6 @@ angular.module('whiteboard-admin')
           // encode to JSON format
           var rooms_json = JSON.stringify(rooms,null,'\t');
           $('#printCode').html(rooms_json);
-          */
           let sockets = {};
         });
       });
