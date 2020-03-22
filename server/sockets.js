@@ -128,7 +128,7 @@ module.exports = function(server) {
       io.emit('submissions', submissions);
     });
     socket.on('get_student_assignments', function(){
-      student_assignments = {} 
+      socket_assignments = {} 
       for (room_id in rooms.getRooms()) {
         room = io.sockets.adapter.rooms[room_id];
         if (typeof(room) != 'undefined') {
