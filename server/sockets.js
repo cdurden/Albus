@@ -96,6 +96,14 @@ module.exports = function(server) {
       console.log(submissions);
     });
     socket.on('get_room_assignments', function(){
+      room_assignments = {}
+      for (room in rooms) {
+        room_assignments[room] = Object.keys(io.sockets.adapter.rooms[room].sockets); 
+      }
+      io.emit('room_assignments', room_assignments);
+      console.log(room_assignments);
+    });
+    socket.on('set_room_assignments', function(rooms){
       room_assignments = [{'users': [{'user_id': 'asdf'}, {'user_id': 'asfaga'}]},{'users':[{'user_id': 'asdjklf'}, {'user_id': 'asfaasjlkhga'}]}];
       io.emit('room_assignments', room_assignments);
       console.log(room_assignments);

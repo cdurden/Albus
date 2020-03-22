@@ -47,14 +47,15 @@ angular.module('whiteboard-admin')
         });
         $('#generateJSON').click(function() {
       
-          let rooms = [];
+          let rooms = {};
            
           $('.roomList').each(function(i,elmt) { 
-            var titles = $(elmt).find('span[id^=title]').map(function(idx, elem) {
+            var room=$(elmt).find(".room").text();
+            var user_ids = $(elmt).find('span[id^=user_id]').map(function(idx, elem) {
               return $(elem).text();
             }).get();
         
-            rooms[i] = titles;
+            rooms[room] = {'users': user_ids};
           });
       
           // encode to JSON format
