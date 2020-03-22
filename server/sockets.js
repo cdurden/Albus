@@ -16,10 +16,10 @@ module.exports = function(server) {
   io.on('connection', function (socket) {
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       lti_user_id = socket.handshake.session.passport.user;
-      request.post({
-        uri: "https://dev.algebra742.org:444/api/users/",
+      request({
+        url: "https://dev.algebra742.org:444/api/users/",
         headers : { "Authorization" : "Bearer " + auth.token },
-        form: { 'lti_user_id': lti_user_id },
+        qs: { 'lti_user_id': lti_user_id },
         //json: true
       },
         function(error, response, body) {
