@@ -104,7 +104,7 @@ module.exports = function(server) {
         }
       }
       //io.emit('room_assignments', room_assignments);
-      io.emit('room_assignments', rooms);
+      io.emit('room_assignments', Object.keys(rooms));
       console.log(room_assignments);
     });
     socket.on('set_room_assignments', function(rooms){
