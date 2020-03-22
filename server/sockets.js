@@ -186,7 +186,7 @@ module.exports = function(server) {
         },
         function(err, results) {
             //result = results.reduce((map, obj) => (map[obj.key] = obj.val, map), {});
-            result = new Map(arr.map(obj => [obj.key, obj.val]));
+            result = new Map(results.map(obj => [obj.key, obj.val]));
             console.log(results);
             console.log(result);
             io.emit('socket_data', result);
