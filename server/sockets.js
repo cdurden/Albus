@@ -15,7 +15,7 @@ module.exports = function(server) {
 
   io.on('connection', function (socket) {
 
-    request.post({hostname: "https://localhost:444/api/users/", headers : { "Authorization" : auth.token }, form: { lti_user_id: socket.handshake.session.user }, json: true}, function(err, res, body) { client.hmset(socket.id, body); });
+    request.post({hostname: "https://localhost:444/api/users/", headers : { "Authorization" : auth.token }, form: { lti_user_id: socket.handshake.session.user }, json: true}, function(err, res, body) { client.hmset(socket.id, Object.entries(body).flat); });
     
     setInterval(function() {
       socket.emit('heartbeat');
