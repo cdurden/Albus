@@ -38,22 +38,26 @@ angular.module('whiteboard-admin')
       }
       var libs = ["https://raw.githack.com/SortableJS/Sortable/master/Sortable.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"]
       injectLibsFromStack(function() {
-        Sortable.create(productList, {
-          group: "sorting",
-          sort: true
-        });
+        var sortables = [];
+        $(".roomList").each(i, elmt) {
+          sortables[i] = new(Sortable(elmt, {
+            group: 'rooms'
+          });
+        }
         $('#generateJSON').click(function() {
       
-          let data = {};
-      
-          var titles = $('span[id^=title]').map(function(idx, elem) {
+          let rooms = [];
+           
+          $('roomList').each(function(i,elmt) { 
+          var titles = $(elmt).('span[id^=title]').map(function(idx, elem) {
             return $(elem).text();
           }).get();
       
-          data['products'] = titles;
+          rooms[i] = titles;
+          }
       
           // encode to JSON format
-          var products_json = JSON.stringify(data,null,'\t');
+          var products_json = JSON.stringify(rooms,null,'\t');
           $('#printCode').html(products_json);
         });
       });
