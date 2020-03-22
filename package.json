@@ -33,6 +33,7 @@
     }
   },
   "dependencies": {
+    "request": "^2.88.2",
     "express-socket.io-session": "^1.3.5",
     "express-session": "^1.17.0",
     "passport": "^0.4.1",
