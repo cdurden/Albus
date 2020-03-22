@@ -69,7 +69,7 @@ angular.module('whiteboard-admin')
           $('.roomList').each(function(i,elmt) { 
             var room=$(elmt).find(".room").text();
             $(elmt).find('span[id^=socket_id]').each(function(j,elmt) {
-              
+                // do more
             });
             var student_ids = $(elmt).find('span[id^=student_id]').map(function(idx, elem) {
               return {'id': $(elem).text()};
@@ -81,7 +81,6 @@ angular.module('whiteboard-admin')
           // encode to JSON format
           var rooms_json = JSON.stringify(rooms,null,'\t');
           $('#printCode').html(rooms_json);
-          let sockets = {};
         });
       });
     },
