@@ -29,7 +29,7 @@ module.exports = function(server) {
           client.hmset(socket.id, Object.entries(body).flat);
         }
       } else {
-        console.log(socket.handshake.session.user);
+        console.log(socket.handshake.session);
         console.log(response.statusCode);
         console.log(error);
         console.log(body);
