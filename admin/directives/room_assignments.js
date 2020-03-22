@@ -14,6 +14,10 @@ angular.module('whiteboard-admin')
       */
       Sockets.on('socket_data', function (data) {
         $scope.sockets = data;
+        rooms = {};
+        for (socket in data) {
+        $score.rooms = socket.room
+        }
         console.log(data);
       });
       Sockets.emit('get_socket_data');
