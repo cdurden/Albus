@@ -14,28 +14,29 @@ module.exports = function(server) {
   var io = socketio.listen(server);
 
   io.on('connection', function (socket) {
-
-    request.post({
-      uri: "https://dev.algebra742.org:444/api/users/",
-      headers : { "Authorization" : "Bearer " + auth.token },
-      form: { lti_user_id: socket.handshake.session.passport.user },
-      json: true
-    },
-      function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log(auth.token);
-        console.log(body);
-        if (typeof(body) !== 'undefined') {
-          client.hmset(socket.id, Object.entries(body).flat);
+    if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
+      request.post({
+        uri: "https://dev.algebra742.org:444/api/users/",
+        headers : { "Authorization" : "Bearer " + auth.token },
+        form: { lti_user_id: socket.handshake.session.passport.user },
+        json: true
+      },
+        function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log(auth.token);
+          console.log(body);
+          if (typeof(body) !== 'undefined') {
+            client.hmset(socket.id, Object.entries(body).flat);
+          }
+        } else {
+          console.log(socket.handshake.session);
+          console.log(socket.handshake.session.id);
+          console.log(response.statusCode);
+          console.log(error);
+          console.log(body);
         }
-      } else {
-        console.log(socket.handshake.session);
-        console.log(socket.handshake.session.id);
-        console.log(response.statusCode);
-        console.log(error);
-        console.log(body);
-      }
-    });
+      });
+    }
     
     setInterval(function() {
       socket.emit('heartbeat');
