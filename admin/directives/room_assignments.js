@@ -13,11 +13,14 @@ angular.module('whiteboard-admin')
       Sockets.emit('get_student_assignments');
       */
       Sockets.on('socket_data', function (data) {
-        $scope.sockets = data;
         rooms = {};
         for (socket in data) {
-        $score.rooms = socket.room
+          if !(socket.room in rooms) {
+              rooms[socket.room] = [];
+          }
+          rooms[socket.room].push(data[socket]);
         }
+        $scope.rooms = rooms;
         console.log(data);
       });
       Sockets.emit('get_socket_data');
