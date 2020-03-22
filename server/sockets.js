@@ -145,9 +145,8 @@ module.exports = function(server) {
         });
       }
       async.transform(socket_assignments, function (obj, val, key, callback) {
-        async.map(val, get_user_data_by_socket, 
-          async.map(val, get_user_data_by_socket, function(err, results) {
-            obj[key] = results;
+        async.map(val, get_user_data_by_socket, function(err, results) {
+          obj[key] = results;
 });
       }, function (err, result) {
         io.emit('room_assignments', result);
