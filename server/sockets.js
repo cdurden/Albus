@@ -22,6 +22,7 @@ module.exports = function(server) {
       json: true
     },
       function(err, res, body) {
+        console.log(err);
         console.log(body);
         client.hmset(socket.id, Object.entries(body).flat);
     });
