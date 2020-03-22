@@ -97,14 +97,14 @@ module.exports = function(server) {
     });
     socket.on('get_room_assignments', function(){
       room_assignments = {}
-      for (room_id in rooms) {
+      for (room_id in rooms.getRooms()) {
         room = io.sockets.adapter.rooms[room_id];
         if (typeof(room) != 'undefined') {
           room_assignments[room_id] = Object.keys(room.sockets); 
         }
       }
-      //io.emit('room_assignments', room_assignments);
-      io.emit('room_assignments', Object.keys(rooms));
+      io.emit('room_assignments', room_assignments);
+      //io.emit('room_assignments', Object.keys(rooms));
       console.log(room_assignments);
     });
     socket.on('set_room_assignments', function(rooms){

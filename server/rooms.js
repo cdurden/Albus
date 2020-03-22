@@ -6,6 +6,10 @@ var rooms = {};
 
 var roomsManager = {
 
+  getRooms: function () {
+    return rooms;
+  },
+  
   getRoom: function (roomId) {
     return rooms[roomId];
   },
