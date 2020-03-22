@@ -70,6 +70,7 @@ app.use(passport.session());
 //app.use('/', entry)
 
 app.post('/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+  console.log(req.session);
   //res.send('POST request to the homepage')
   res.redirect('/test');
 });
@@ -158,6 +159,7 @@ app.get('/admin', function (req, res) {
 
 // ======================== main routes ===============================//
 app.get('/test', function (req, res) {
+  console.log(req.session);
   console.log(req.session.id);
   console.log(req.user);
   res.send('GET request to the homepage')
