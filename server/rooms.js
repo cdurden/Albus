@@ -29,7 +29,7 @@ var roomsManager = {
     client.hgetall(socket.id, function(err, result) {
       console.log(result);
       var roomId;
-      if ('room' in result) {
+      if (result !== null && 'room' in result) {
         roomId = result['room'];
       }
       if (roomId) {
