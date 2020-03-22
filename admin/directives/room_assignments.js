@@ -15,10 +15,10 @@ angular.module('whiteboard-admin')
       Sockets.on('socket_data', function (data) {
         rooms = {};
         for (socket in data) {
-          if (!(socket.roomId in rooms)) {
-              rooms[socket.roomId] = [];
+          if (!(data[socket].roomId in rooms)) {
+              rooms[data[socket].roomId] = [];
           }
-          rooms[socket.roomId].push(data[socket]);
+          rooms[data[socket].roomId].push(data[socket]);
         }
         $scope.rooms = rooms;
         console.log(data);
