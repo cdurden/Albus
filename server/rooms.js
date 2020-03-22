@@ -65,7 +65,7 @@ var roomsManager = {
         }
         // console.log('Current room ' + roomId + ' has ' + count + ' members');
       });
-    }
+    })
   },
   
   addMember: function (socket, roomId) {
