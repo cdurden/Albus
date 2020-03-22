@@ -40,7 +40,8 @@ angular.module('whiteboard-admin')
       injectLibsFromStack(function() {
         var sortables = [];
         $(".roomList").each(function(i, elmt) {
-          sortables[i] = new Sortable(elmt, {
+          //sortables[i] = new Sortable(elmt, {
+          sortables[i] = Sortable.create(elmt, {
             group: 'rooms'
           });
         });
