@@ -184,7 +184,6 @@ var end = function () {
 start();
 
 
-exports.user = user;
 exports.start = start;
 exports.end = end;
 exports.app = app;
