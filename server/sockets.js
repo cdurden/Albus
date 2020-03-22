@@ -103,8 +103,8 @@ module.exports = function(server) {
           room_assignments[room_id] = Object.keys(room.sockets); 
         }
       }
-      //io.emit('room_assignments', room_assignments);
-      io.emit('room_assignments', Object.keys(rooms.getRooms()));
+      io.emit('room_assignments', room_assignments);
+      //io.emit('room_assignments', Object.keys(rooms.getRooms()));
       console.log(room_assignments);
     });
     socket.on('set_room_assignments', function(rooms){
