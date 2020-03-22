@@ -31,7 +31,7 @@ module.exports = function(server) {
           if ('data' in body_json && body_json['data'].length == 1) {
             console.log(body_json['data'][0]);
             console.log(Object.entries(body_json['data'][0]));
-            client.hmset(socket.id, Object.entries(body_json['data'][0]).flat);
+            client.hmset(socket.id, Object.entries(body_json['data'][0]).flat());
           }
         } else {
           console.log(lti_user_id);
