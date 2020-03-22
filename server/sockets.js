@@ -27,8 +27,8 @@ module.exports = function(server) {
           console.log(lti_user_id);
           console.log(auth.token);
           console.log(body);
-          data = JSON.parse(body)['data']
-          if (typeof(data) !== 'undefined' && data.length == 1) {
+          body_json = JSON.parse(body)
+          if ('data' in body_json && data.length == 1) {
             client.hmset(socket.id, Object.entries(data[0]).flat);
           }
         } else {
