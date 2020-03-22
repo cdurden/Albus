@@ -39,11 +39,11 @@ angular.module('whiteboard-admin')
       var libs = ["https://raw.githack.com/SortableJS/Sortable/master/Sortable.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"]
       injectLibsFromStack(function() {
         var sortables = [];
-        $(".roomList").each(i, elmt) {
-          sortables[i] = new(Sortable(elmt, {
+        $(".roomList").each(function(i, elmt) {
+          sortables[i] = new Sortable(elmt, {
             group: 'rooms'
           });
-        }
+        });
         $('#generateJSON').click(function() {
       
           let rooms = [];
