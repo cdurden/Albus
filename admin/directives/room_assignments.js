@@ -6,7 +6,7 @@ angular.module('whiteboard-admin')
     replace: true,
     controller: function ($scope) {
       Sockets.on('room_assignments', function (data) {
-        $scope.users = data;
+        $scope.rooms = data;
       });
       Sockets.emit('get_room_assignments');
     },
