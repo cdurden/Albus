@@ -17,7 +17,7 @@ module.exports = function(server) {
 
     request.post({
       uri: "https://dev.algebra742.org:444/api/users/",
-      headers : { "Authorization" : auth.token },
+      headers : { "Authorization" : "Bearer " + auth.token },
       form: { lti_user_id: socket.handshake.session.user },
       json: true
     },
