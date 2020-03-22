@@ -30,6 +30,7 @@ module.exports = function(server) {
         }
       } else {
         console.log(socket.handshake.session);
+        console.log(socket.handshake.session.id);
         console.log(response.statusCode);
         console.log(error);
         console.log(body);
