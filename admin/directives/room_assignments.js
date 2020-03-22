@@ -27,7 +27,7 @@ angular.module('whiteboard-admin')
             //when successful, inject the next script
             scriptTag.onload = function(e){
               console.log("---> loaded: " + e.target.src);
-              injectLibFromStack(callback);
+              injectLibsFromStack(callback);
             };
       
             //append the script tag to the <head></head>
