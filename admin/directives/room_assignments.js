@@ -15,7 +15,7 @@ angular.module('whiteboard-admin')
       Sockets.on('socket_data', function (data) {
         rooms = {};
         for (socket in data) {
-          if !(socket.room in rooms) {
+          if (!(socket.room in rooms)) {
               rooms[socket.room] = [];
           }
           rooms[socket.room].push(data[socket]);
