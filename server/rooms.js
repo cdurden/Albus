@@ -32,7 +32,7 @@ var roomsManager = {
       if (result !== null && 'room' in result) {
         roomId = result['room'];
       } else {
-        roomId = rooms.generateRandomId(5);
+        roomId = generateRandomId(5);
       }
   
       socket.room = roomId;
