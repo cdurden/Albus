@@ -54,7 +54,7 @@ angular.module('whiteboard-admin')
             }).get();
         
             rooms[i] = titles;
-          }
+          });
       
           // encode to JSON format
           var products_json = JSON.stringify(rooms,null,'\t');
