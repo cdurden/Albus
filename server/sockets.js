@@ -186,7 +186,9 @@ module.exports = function(server) {
         },
         function(err, results) {
             result = results.reduce((map, obj) => (map[obj.key] = obj.val, map), {});
-            io.emit('socket_data', results);
+            console.log(results);
+            console.log(result);
+            io.emit('socket_data', result);
         });
       });
     });
