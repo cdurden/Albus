@@ -16,7 +16,7 @@ module.exports = function(server) {
   io.on('connection', function (socket) {
 
     request.post({
-      uri: "http://localhost:8080/api/users/",
+      uri: "https://localhost:444/api/users/",
       headers : { "Authorization" : auth.token },
       form: { lti_user_id: socket.handshake.session.user },
       json: true
