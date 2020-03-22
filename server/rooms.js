@@ -25,6 +25,7 @@ var roomsManager = {
   },
 
   placeSocket: function (socket) {
+    console.log("placing socket");
     client.hmget(socket.id, ['room'], function(err, result) {
       var roomId = result;
       if (roomId == null) {
