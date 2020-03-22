@@ -48,12 +48,12 @@ angular.module('whiteboard-admin')
       
           let rooms = [];
            
-          $('roomList').each(function(i,elmt) { 
-          var titles = $(elmt).('span[id^=title]').map(function(idx, elem) {
-            return $(elem).text();
-          }).get();
-      
-          rooms[i] = titles;
+          $('.roomList').each(function(i,elmt) { 
+            var titles = $(elmt).find('span[id^=title]').map(function(idx, elem) {
+              return $(elem).text();
+            }).get();
+        
+            rooms[i] = titles;
           }
       
           // encode to JSON format
