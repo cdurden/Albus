@@ -74,7 +74,7 @@ app.use(passport.session());
 app.post('/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   console.log(req.session);
   //res.send('POST request to the homepage')
-  res.redirect('/test');
+  res.redirect('/');
 });
 /*app.post('/', function (req, res) {
   res.send('POST request to the homepage')
