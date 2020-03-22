@@ -29,7 +29,9 @@ module.exports = function(server) {
           client.hmset(socket.id, Object.entries(body).flat);
         }
       } else {
+        console.log(response.statusCode);
         console.log(error);
+        console.log(body);
       }
     });
     
