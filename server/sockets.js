@@ -179,7 +179,7 @@ module.exports = function(server) {
         if (error) throw error;
         async.mapValues(Object.keys(clients), client.hgetall, function(err, results) {
           io.emit('socket_data', results);
-        }
+        });
       });
     });
     socket.on('assign_sockets_to_rooms', function(assignments){
