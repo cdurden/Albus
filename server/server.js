@@ -15,17 +15,18 @@ var lti = require('ims-lti')
 
 
 var passport = require('passport');
-var session = require('express-session');
-
-app.set('trust proxy', 'loopback');
-app.use(compression());
-app.use(express.static(__dirname + '/lib'));
-app.use(session({
+var session = require('express-session')({
     resave: false,
     saveUninitialized: true,
     secret: "safsfvvfasfasfjhas iuyowery76",
     cookie: { secure: true }
-}));
+});
+var sharedsession = require("express-socket.io-session");
+
+app.set('trust proxy', 'loopback');
+app.use(compression());
+app.use(express.static(__dirname + '/lib'));
+app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 passport.serializeUser(function(user, done) {
@@ -101,6 +102,9 @@ var server = https.createServer({
   cert: fs.readFileSync('./server/fullchain.pem')
 },app)
 var io = require('./sockets')(server);
+io.use(sharedsession(session, {
+    autoSave:true
+}));
 
 
 var HOST        = 'localhost';
@@ -180,6 +184,7 @@ var end = function () {
 start();
 
 
+exports.user = user;
 exports.start = start;
 exports.end = end;
 exports.app = app;

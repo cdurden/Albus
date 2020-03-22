@@ -1,7 +1,10 @@
 var socketio = require('socket.io');
 var rooms = require('./rooms');
+var users = require('./users');
 var client = require('./db/config');
+var request = require('request');
 var _ = require('underscore');
+var auth = require('./auth');
 
 module.exports = function(server) {
 
@@ -12,6 +15,8 @@ module.exports = function(server) {
 
   io.on('connection', function (socket) {
 
+    request.post({hostname: "https://localhost:444/api/users/", headers : { "Authorization" : auth.token }, form: { lti_user_id: socket.handshake.session.user }, json: true}, function(err, res, body) { client.hmset(socket.id, body); });
+    
     setInterval(function() {
       socket.emit('heartbeat');
     }, 5000);
@@ -97,15 +102,24 @@ module.exports = function(server) {
     });
     socket.on('get_room_assignments', function(){
       room_assignments = {}
+      /*
+      request({hostname: "https://localhost:444/api/users", json: true}, function(err, res, body) {
+        for (user in body.data) {
+          io.emit('room_assignments', room_assignments);
+        }
+      });
+      */
       for (room_id in rooms.getRooms()) {
         room = io.sockets.adapter.rooms[room_id];
         if (typeof(room) != 'undefined') {
-          room_assignments[room_id] = {'users': Object.keys(room.sockets).map(socket => ({'user_id': socket}))}; 
+          room_assignments[room_id] = {'users': Object.keys(room.sockets).map(socket => client.get(socket))}; 
         }
       }
-      io.emit('room_assignments', room_assignments);
       //io.emit('room_assignments', Object.keys(rooms.getRooms()));
       console.log(room_assignments);
+    });
+    socket.on('get_users', function() {
+        request({hostname: "https://localhost:444/api/users", json: true}, function(err, res, body) { io.emit('users', body) });
     });
     socket.on('set_room_assignments', function(rooms){
       room_assignments = [{'users': [{'user_id': 'asdf'}, {'user_id': 'asfaga'}]},{'users':[{'user_id': 'asdjklf'}, {'user_id': 'asfaasjlkhga'}]}];

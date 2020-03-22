@@ -19,5 +19,6 @@ deploy
 # min
 client/dist/*
 
+server/auth.js
 server/privkey.pem
 server/fullchain.pem
