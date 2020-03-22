@@ -20,7 +20,7 @@ module.exports = function(server) {
         uri: "https://dev.algebra742.org:444/api/users/",
         headers : { "Authorization" : "Bearer " + auth.token },
         form: { 'lti_user_id': lti_user_id },
-        json: true
+        //json: true
       },
         function(error, response, body) {
         if (!error && response.statusCode == 200) {
