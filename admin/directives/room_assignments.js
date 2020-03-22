@@ -53,7 +53,7 @@ angular.module('whiteboard-admin')
           $('.roomList').each(function(i,elmt) { 
             var room=$(elmt).find(".room").text();
             var user_ids = $(elmt).find('span[id^=user_id]').map(function(idx, elem) {
-              return $(elem).text();
+              return {'user_id': $(elem).text()};
             }).get();
         
             rooms[room] = {'users': user_ids};
