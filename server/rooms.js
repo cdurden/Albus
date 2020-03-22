@@ -31,8 +31,7 @@ var roomsManager = {
       var roomId;
       if (result !== null && 'room' in result) {
         roomId = result['room'];
-      }
-      if (roomId) {
+      } else {
         roomId = rooms.generateRandomId(5);
       }
   
