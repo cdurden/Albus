@@ -30,7 +30,6 @@ var roomsManager = {
       if (roomId == null) {
         roomId = rooms.generateRandomId(5);
       }
-      rooms.addMember(socket, roomId);
   
       socket.room = roomId;
       socket.join(roomId);
