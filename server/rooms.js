@@ -3,6 +3,16 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
+function generateRandomId(length) {
+    var id = "";
+    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    return id;
+}
 
 var roomsManager = {
 
@@ -12,6 +22,50 @@ var roomsManager = {
   
   getRoom: function (roomId) {
     return rooms[roomId];
+  },
+
+  placeSocket: function (socket) {
+    client.hmget(socket.id, 'room', function(err, result) {
+      var roomId = result;
+      if (roomId == null) {
+        roomId = rooms.generateRandomId(5);
+      }
+      rooms.addMember(socket, roomId);
+  
+      socket.room = roomId;
+      socket.join(roomId);
+  
+      if (!rooms[roomId]) {
+        rooms[roomId] = {};
+      }
+  
+      client.get(roomId, function (err, reply) {
+        if (reply) {
+          storedRoom = JSON.parse(reply);
+          _.extend(rooms[roomId], storedRoom);
+        } else {
+          client.set(roomId, JSON.stringify({}));
+          rooms[roomId] = {};
+        }
+        
+        if (!rooms[roomId]) {
+          rooms[roomId] = {};
+        }
+  
+        // add member to room based on socket id
+        // console.log(rooms[roomId]);
+        var socketId = socket.id;
+        rooms[roomId][socketId] = {};
+        socket.emit('showExisting', rooms[roomId]);
+        //console.log(rooms[roomId]);
+        
+        var count = 0;
+        for (var member in rooms[roomId]) {
+          count++;
+        }
+        // console.log('Current room ' + roomId + ' has ' + count + ' members');
+      });
+    }
   },
   
   addMember: function (socket, roomId) {

@@ -5,11 +5,18 @@ angular.module('whiteboard-admin')
     require: ['wbAdminRoomAssignments'],
     replace: true,
     controller: function ($scope) {
+        /*
       Sockets.on('student_assignments', function (data) {
         $scope.rooms = data;
         console.log(data);
       });
       Sockets.emit('get_student_assignments');
+      */
+      Sockets.on('socket_data', function (data) {
+        $scope.sockets = data;
+        console.log(data);
+      });
+      Sockets.emit('get_socket_data');
     },
     templateUrl: 'templates/room_assignments.html',
     link: function(scope, element, attrs) {
@@ -48,6 +55,7 @@ angular.module('whiteboard-admin')
         });
         $('#generateJSON').click(function() {
       
+          /*
           let rooms = {};
            
           $('.roomList').each(function(i,elmt) { 
@@ -60,8 +68,10 @@ angular.module('whiteboard-admin')
           });
       
           // encode to JSON format
-          var products_json = JSON.stringify(rooms,null,'\t');
-          $('#printCode').html(products_json);
+          var rooms_json = JSON.stringify(rooms,null,'\t');
+          $('#printCode').html(rooms_json);
+          */
+          let sockets = {};
         });
       });
     },

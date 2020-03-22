@@ -6,7 +6,26 @@ var request = require('request');
 var _ = require('underscore');
 var auth = require('./auth');
 var async = require('async');
+const { promisify } = require("util");
+const getAsync = promisify(client.get).bind(client);
+const setAsync = promisify(client.set).bind(client);
+const hmgetAsync = promisify(client.hmget).bind(client);
+const hmsetAsync = promisify(client.hmset).bind(client);
 
+function get_data_by_socket(socket, keys, callback) {
+  client.hmget(socket, keys, function(err, results) {
+    var student_data = {};
+    keys.forEach((elmt, i) => { student_data[elmt] = results[i]; });
+    callback(err, student_data);
+  });
+}
+function get_all_data_by_socket(socket, callback) {
+  client.hgetall(socket, function(err, results) {
+    var data = {};
+    keys.forEach((elmt, i) => { student_data[elmt] = results[i]; });
+    callback(err, student_data);
+  });
+}
 module.exports = function(server) {
 
   var room = {};
@@ -44,7 +63,8 @@ module.exports = function(server) {
         }
       });
     }
-    
+    rooms.placeSocket(socket);
+ 
     setInterval(function() {
       socket.emit('heartbeat');
     }, 5000);
@@ -56,9 +76,14 @@ module.exports = function(server) {
       socket.emit('socketId', {socketId: socket.id});
     });
 
+/*
     socket.on('roomId', function (data) {
       rooms.addMember(socket, data.roomId);
     });
+    socket.on('get_assignment', function (data) {
+    });
+*/
+
 
     socket.on('newShape', function (data) {
       socket.to(this.room).emit('shapeCreated', data);
@@ -138,11 +163,7 @@ module.exports = function(server) {
       console.log(socket_assignments);
       function get_student_data_by_socket(socket, callback) {
         keys = ['id', 'firstname', 'lastname'];
-        client.hmget(socket, keys, function(err, results) {
-          var student_data = {};
-          keys.forEach((elmt, i) => { student_data[elmt] = results[i]; });
-          callback(err, student_data);
-        });
+        get_data_by_socket(socket, keys, callback);
       }
       async.transform(socket_assignments, function (obj, val, key, callback) {
         async.map(val, get_student_data_by_socket, function(err, results) {
@@ -153,13 +174,18 @@ module.exports = function(server) {
         io.emit('student_assignments', result);
       });
     });
-    socket.on('get_users', function() {
-        request({hostname: "https://localhost:444/api/users", json: true}, function(err, res, body) { io.emit('users', body) });
+    socket.on('get_socket_data', function() {
+      io.clients((error, clients) => {
+        if (error) throw error;
+        async.mapValues(Object.keys(clients), client.hgetall, function(err, results) {
+          io.emit('socket_data', results);
+        }
+      });
     });
-    socket.on('set_room_assignments', function(rooms){
-      room_assignments = [{'users': [{'user_id': 'asdf'}, {'user_id': 'asfaga'}]},{'users':[{'user_id': 'asdjklf'}, {'user_id': 'asfaasjlkhga'}]}];
-      io.emit('room_assignments', room_assignments);
-      console.log(room_assignments);
+    socket.on('assign_sockets_to_rooms', function(assignments){
+      for (socket in assignments) {
+        hmsetAsync(socket, 'roomId', assignments[socket]).then(hmgetAsync, socket, 'roomId').then(function(result) {io.emit('assignment', result)}).catch(console.error);
+      }
     });
 
   });

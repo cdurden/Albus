@@ -25,12 +25,19 @@ angular.module('whiteboard', [
       .when('/', {
         resolve: {
           'something': function (Sockets, Auth, $location) {
+            /*
             var roomId = Auth.generateRandomId(5);
             Sockets.emit('roomId', {roomId: roomId});
             $location.path('/' + roomId);
+            Sockets.on('assignment', function(data) {
+              $location.path('/' + data);
+            });
+            Sockets.emit('get_assignment');
+            */
           }
         }
-      })
+      });
+      /*
       .when('/:id', {
         //templateUrl: 'views/board.html',
         templateUrl: 'views/board+chat.html',
@@ -41,6 +48,7 @@ angular.module('whiteboard', [
         },
         //authenticate: true
       });
+      */
 
     $locationProvider.html5Mode({
       enabled: true,
