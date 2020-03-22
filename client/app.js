@@ -23,6 +23,7 @@ angular.module('whiteboard', [
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
+        templateUrl: 'views/board+chat.html',
         resolve: {
           'something': function (Sockets, Auth, $location) {
             /*
