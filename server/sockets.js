@@ -202,7 +202,7 @@ module.exports = function(server) {
       for (socket_id in assignments) {
         callback = (function(socket_id) {
           return(function(err, result) { rooms.placeSocket(io.sockets.connected[socket_id]);});
-        )(socket_id);
+        })(socket_id);
         client.hmset(socket_id, ['roomId', assignments[socket_id]['roomId']], callback);
         //hmsetAsync(socket, 'roomId', assignments[socket]).then(hmgetAsync, socket, 'roomId').then(function(result) {io.emit('assignment', result)}).catch(console.error);
         //rooms.placeSocket(socket);
