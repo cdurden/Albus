@@ -6,6 +6,7 @@ angular.module('whiteboard')
     replace: true,
     templateUrl: './templates/task.html',
     controller: function () {
+      Sockets.emit("get_task");
       this.requestData = function (ev) {
           ev.preventDefault(); // prevents page reloading
           Sockets.emit("get_task");
