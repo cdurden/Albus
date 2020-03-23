@@ -14,7 +14,7 @@ angular.module('whiteboard')
         InputHandler[ev.type](ev);
       }
       this.submenuCloser = function (action) {
-        // console.log('close?')
+        console.log('close?')
         $scope.$emit('toggleAllSubmenu', action);
       }
     },
