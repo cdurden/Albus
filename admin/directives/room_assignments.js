@@ -69,7 +69,7 @@ angular.module('whiteboard-admin')
           $('.roomList').each(function(i,room_elmt) { 
             var room=$(room_elmt).find(".room").text();
             $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
-                sockets[$(socket_elem).text()] = {'roomId': room };
+                sockets[$(socket_elmt).text()] = {'roomId': room };
                 // do more
             });
             var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
