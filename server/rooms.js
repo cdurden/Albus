@@ -29,8 +29,8 @@ var roomsManager = {
     client.hgetall(socket.id, function(err, result) {
       console.log(result);
       var roomId;
-      if (result !== null && 'room' in result) {
-        roomId = result['room'];
+      if (result !== null && 'roomId' in result) {
+        roomId = result['roomId'];
       } else {
         roomId = generateRandomId(5);
       }
