@@ -21,6 +21,12 @@ angular.module('whiteboard-admin')
           rooms[data[socket].roomId].push({'socket_id': socket, 'data': data[socket]});
         }
         $scope.rooms = rooms;
+        $(".roomList").each(function(i, elmt) {
+          Sortable.create(elmt, {
+            group: 'rooms'
+          });
+        });
+
         console.log(data);
         console.log(rooms);
       });
