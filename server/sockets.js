@@ -206,7 +206,7 @@ module.exports = function(server) {
       }
     });
     socket.on('get_task', function(){
-      client.hget('task', function(err, result) {
+      client.get('task', function(err, result) {
         console.log(result);
         io.emit('task', result);
       });
