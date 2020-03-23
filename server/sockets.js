@@ -211,7 +211,8 @@ module.exports = function(server) {
       });
     });
     socket.on('assign_task', function(data){
-      client.hset('task', data, function(err, result) {
+      console.log(data);
+      client.hset('task', data, function(err) {
         client.hget('task', function(err, result) {
           io.emit('task', result);
         });

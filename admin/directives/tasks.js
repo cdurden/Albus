@@ -7,6 +7,7 @@ angular.module('whiteboard-admin')
     templateUrl: 'templates/tasks.html',
     controller: function ($scope) {
       Sockets.on('task', function (data) {
+          console.log(data);
           $scope.task = data;
       });
       Sockets.emit('get_task');
