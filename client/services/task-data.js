@@ -22,7 +22,7 @@ angular.module('whiteboard.services.taskdata', [])
 
     //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
 
-    task = element.find('div.task-data-container');
+    task = element.find('#task-data-container');
     form = element.find('form');
     input = element.find('input');
     send_button = element.find('button');
