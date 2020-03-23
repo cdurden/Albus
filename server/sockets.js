@@ -214,6 +214,7 @@ module.exports = function(server) {
     socket.on('assign_task', function(data){
       console.log(data);
       client.hset('task', data, function(err) {
+        console.log(err);
         client.hget('task', function(err, result) {
           console.log(result);
           io.emit('task', result);
