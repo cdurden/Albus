@@ -5,6 +5,7 @@ angular.module('whiteboard')
     require: ['wbChat'],
     replace: true,
     template: 
+      '<div id="chat-container">' +
       '<script>' +
       'function openForm() {' +
       '      document.getElementById("myForm").style.display = "block";' +
@@ -13,7 +14,6 @@ angular.module('whiteboard')
       '      document.getElementById("myForm").style.display = "none";' +
       '}' +
       '</script>' +
-      '<div id="chat-container">' +
       '<div id="chat-popup">' +
       '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
