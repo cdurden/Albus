@@ -72,7 +72,7 @@ angular.module('whiteboard-admin')
             group: 'rooms'
           });
         });
-        $('.roomsList').on('mouseup touchend', function() {
+        $('.roomsList').on('mouseup', function() {
           $('.roomList').each(function(i,room_elmt) { 
             var room=$(room_elmt).find(".room").text();
             $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
