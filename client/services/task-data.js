@@ -22,16 +22,13 @@ angular.module('whiteboard.services.taskdata', [])
 
     //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
 
-    task = element.find('ul');
+    task = element.find('div.task-data-container');
     form = element.find('form');
     input = element.find('input');
     send_button = element.find('button');
   }
   function displayData(data) {
-      var li = document.createElement("li");
-      var t = document.createTextNode(data);
-      li.appendChild(t);
-      getChat().append(li);
+      getTask().html(data);
   }
 
 
@@ -217,6 +214,7 @@ angular.module('whiteboard.services.taskdata', [])
 
   return {
     getShapeStorage: getShapeStorage,
+    displayData: displayData,
    /* getCursor: getCursor,
     setCursor: setCursor,
     moveCursor: moveCursor,
