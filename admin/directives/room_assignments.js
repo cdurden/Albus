@@ -23,7 +23,7 @@ angular.module('whiteboard-admin')
         }
 //        $scope.$apply(function() {
           $scope.rooms = rooms;
-          $scope.emit("socket_data", rooms);
+          $scope.$emit("socket_data", rooms);
 //        });
 
         console.log(data);
