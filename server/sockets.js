@@ -205,6 +205,10 @@ module.exports = function(server) {
         //rooms.placeSocket(socket);
       }
     });
+    socket.on('get_task', function(){
+      data = 'asdf';
+      io.emit('task', data);
+    });
 
   });
 
