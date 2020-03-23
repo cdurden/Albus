@@ -29,7 +29,7 @@ angular.module('whiteboard.services.taskdata', [])
   }
   function displayData(data) {
       console.log(data);
-      getTask().html(data);
+      getTask().text(data);
   }
 
 
