@@ -45,8 +45,6 @@ module.exports = function(server) {
         function(error, response, body) {
         if (!error && response.statusCode == 200) {
           console.log(lti_user_id);
-          console.log(auth.token);
-          console.log(body);
           body_json = JSON.parse(body)
           if ('data' in body_json && body_json['data'].length == 1) {
             console.log(body_json['data'][0]);
@@ -55,7 +53,6 @@ module.exports = function(server) {
           }
         } else {
           console.log(lti_user_id);
-          console.log(socket.handshake.session);
           console.log(socket.handshake.session.id);
           console.log(response.statusCode);
           console.log(error);
