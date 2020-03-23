@@ -27,7 +27,7 @@ angular.module('whiteboard')
       ChatData.createChat(element);
       //ChatData.getInput().bind('keypress', chatCtrl.handleEvent);
       //ChatData.getSendButton().bind('click', chatCtrl.handleEvent);
-      ChatData.getForm().bind("submit",chatCtrl.handleEvent);
+      ChatData.getForm().bind("submit",chatCtrl['chat'].handleEvent);
 
         /*
       $('body').on('keypress', function (ev) {
