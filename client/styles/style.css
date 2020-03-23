@@ -23,20 +23,6 @@ h1.title {
   height: 100%;
 }
 
-#chat-container {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-}
-#messages-container {
-  pointer-events: none;
-}
-#chat-container input {
-    width: 90%;
-}
-#chat-container ul {
-    list-style-type: none
-}
 #board-container {
   height: 95%;
   width: 100%;

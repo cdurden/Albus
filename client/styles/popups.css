@@ -1,3 +1,21 @@
+/*
+#chat-container {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}   
+#messages-container {
+  pointer-events: none;
+} 
+#chat-container input {
+    width: 90%;
+}
+*/
+#chat-container ul {
+    list-style-type: none
+}
+
+
 {box-sizing: border-box;}
 
 /* Button used to open the chat form - fixed at the bottom of the page */
