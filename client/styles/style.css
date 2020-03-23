@@ -914,3 +914,9 @@ svg.strokeColor {
   }
 
 }
+
+.roomList {
+    min-height: 50px;
+    border: 1px solid;
+    padding: 2px;
+}
