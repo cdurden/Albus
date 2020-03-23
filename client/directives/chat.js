@@ -6,6 +6,7 @@ angular.module('whiteboard')
     replace: true,
     template: 
       '<div id="chat-container">' +
+      '<button class="open-button" onclick="openForm()">Chat</button>' +
       '<div id="chat-popup">' +
       '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
@@ -15,7 +16,6 @@ angular.module('whiteboard')
       '    </form>' +
       '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>' +
       '</div>' +
-      '<button class="open-button" onclick="openForm()">Chat</button>' +
       '</div>',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
