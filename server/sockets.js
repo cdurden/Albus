@@ -197,7 +197,7 @@ module.exports = function(server) {
       console.log("assigning sockets to rooms");
       for (socket_id in assignments) {
         client.hmset(socket_id, ['roomId', assignments[socket_id]['roomId']], function(err, result) {
-          rooms.placeSocket(socket);
+          rooms.placeSocket(io.sockets.connected[socket_id]);
         });
         //hmsetAsync(socket, 'roomId', assignments[socket]).then(hmgetAsync, socket, 'roomId').then(function(result) {io.emit('assignment', result)}).catch(console.error);
         //rooms.placeSocket(socket);
