@@ -1,6 +1,6 @@
 function openForm() {
-      document.getElementById("chat-form").style.display = "block";
+      document.getElementById("chat-popup").style.display = "block";
 }
 function closeForm() {
-      document.getElementById("chat-form").style.display = "none";
+      document.getElementById("chat-popup").style.display = "none";
 }
