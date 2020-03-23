@@ -15,7 +15,7 @@ angular.module('whiteboard-admin')
     link: function(scope, element, attrs, ctrls) {
       $(element).find("#assign-task-form").bind("submit",function(ev) {
           ev.preventDefault();
-          Sockets.emit('assign_task', $scope.task);
+          Sockets.emit('assign_task', scope.task);
       });
     },
   }
