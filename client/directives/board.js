@@ -22,7 +22,7 @@ angular.module('whiteboard')
       var boardCtrl = ctrls[0];
       BoardData.createBoard(element);
       BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
-      BoardData.getCanvas().bind('click', function() { boardCtrl.submenuCloser({action: 'hide', level: '2'})});
+      BoardData.getCanvas().bind('click', function() { boardCtrl.submenuCloser({action: 'hide', level: '1'})});
 
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
