@@ -17,7 +17,7 @@ angular.module('whiteboard')
       TaskData.createTask(element);
       //TaskData.getInput().bind('keypress', taskCtrl.handleEvent);
       //TaskData.getSendButton().bind('click', taskCtrl.handleEvent);
-      TaskData.getForm().bind("submit",taskCtrl.handleEvent);
+      TaskData.getForm().bind("submit",taskCtrl.requestData);
 
         /*
       $('body').on('keypress', function (ev) {
