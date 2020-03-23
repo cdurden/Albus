@@ -4,13 +4,13 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminTasks'],
     replace: true,
+    templateUrl: 'templates/tasks.html',
     controller: function ($scope) {
       Sockets.on('task', function (data) {
           $scope.task = data;
       });
       Sockets.emit('get_task');
     },
-    templateUrl: 'templates/room_assignments.html',
     link: function(scope, element, attrs, ctrls) {
       $(element).find("#task-form").bind("submit",function() {
           Sockets.emit('assign_task', $scope.task);
