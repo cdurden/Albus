@@ -62,7 +62,7 @@ angular.module('whiteboard-admin')
           console.log(elmt);
           sortable = new Sortable(elmt, {
             group: 'rooms'
-          })
+          });
           sortable.onChange(function() {
             $('.roomList').each(function(i,room_elmt) { 
               var room=$(room_elmt).find(".room").text();
