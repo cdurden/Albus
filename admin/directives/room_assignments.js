@@ -23,11 +23,17 @@ angular.module('whiteboard-admin')
         }
 //        $scope.$apply(function() {
           $scope.rooms = rooms;
+          $scope.emit("socket_data", rooms);
 //        });
 
         console.log(data);
         console.log(rooms);
       });
+      $scope.$on("socket_data", function (evt, rooms) {
+      //arg is your payload
+        console.log(rooms);
+        $scope.rooms = rooms
+      }
       Sockets.emit('get_socket_data');
     },
     templateUrl: 'templates/room_assignments.html',
