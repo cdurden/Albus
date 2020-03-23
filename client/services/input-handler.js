@@ -347,7 +347,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function touchStart (ev) {
-      console.log('touchstart');
+    console.log('touchstart');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     toggle(toolName);
@@ -365,7 +365,8 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function touchEnd (ev) {
-      console.log('touchend');
+    console.log('touchend');
+    ev.preventDefault();
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     if (isToggled(toolName)) {
