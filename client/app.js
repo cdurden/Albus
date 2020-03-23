@@ -16,6 +16,7 @@ angular.module('whiteboard', [
   'whiteboard.services.leapMotion',
   'whiteboard.services.visualizer',
   'whiteboard.services.chatdata',
+  'whiteboard.services.questiondata',
   'whiteboard.services.messagehandler',
   'ngRoute'
 ])
