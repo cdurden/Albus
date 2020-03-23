@@ -6,12 +6,12 @@ angular.module('whiteboard')
     replace: true,
     template: 
       '<div class="chat-container">' +
-      '<button type="button" class="btn btn-info open-button" onclick="openForm()">Chat</button>' +
+      '<button type="button" class="open-button" onclick="openForm()">Chat</button>' +
       '<div id="chat-popup">' +
       '<ul id="messages"></ul>' +
       '<form action="" id="chat-form" class="form-container">' +
       '  <textarea placeholder="Type message..." id="m" autocomplete="off" /><button>Send</button>' +
-      '<button type="button" class="btn btn-info cancel" onclick="closeForm()">Close</button>' +
+      '<button type="button" class="cancel" onclick="closeForm()">Close</button>' +
       '</form>' +
       '</div>' +
       '</div>',
