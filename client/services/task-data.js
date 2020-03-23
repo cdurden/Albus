@@ -30,7 +30,7 @@ angular.module('whiteboard.services.taskdata', [])
   function displayData(data) {
       console.log(data);
       getTask().text(data);
-//      MathJax.typeset();
+      MathJax.typeset();
   }
 
 
