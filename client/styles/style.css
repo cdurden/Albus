@@ -28,62 +28,62 @@ h1.title {
   width: 100%;
 }
 
-svg {
+#board-container svg {
   height: 100%;
   width: 100%;
   position: absolute;
   cursor: url('../assets/images/cursors/path.png'), auto;
 }
 
-svg.path {
+#board-container svg.path {
   cursor: url('../assets/images/cursors/path.png'), auto;
 }
 
-svg.line {
+#board-container svg.line {
   cursor: url('../assets/images/cursors/line.png'), auto;
 }
 
-svg.arrow {
+#board-container svg.arrow {
   cursor: url('../assets/images/cursors/arrow.png'), auto;
 }
 
-svg.rectangle {
+#board-container svg.rectangle {
   cursor: url('../assets/images/cursors/rectangle.png'), auto;
 }
 
-svg.circle {
+#board-container svg.circle {
   cursor: url('../assets/images/cursors/circle.png'), auto;
 }
 
-svg.text {
+#board-container svg.text {
   cursor: url('../assets/images/cursors/text.png'), auto;
 }
 
-svg.magnify {
+#board-container svg.magnify {
   cursor: url('../assets/images/cursors/magnify.png'), auto;
 }
 
-svg.eraser {
+#board-container svg.eraser {
   cursor: url('../assets/images/cursors/eraser.png'), auto;
 }
 
-svg.pan {
+#board-container svg.pan {
   cursor: url('../assets/images/cursors/pan.png'), auto;
 }
 
-svg.move {
+#board-container svg.move {
   cursor: url('../assets/images/cursors/move.png'), auto;
 }
 
-svg.copy {
+#board-container svg.copy {
   cursor: url('../assets/images/cursors/copy.png'), auto;
 }
 
-svg.fill {
+#board-container svg.fill {
   cursor: url('../assets/images/cursors/fill.png'), auto;
 }
 
-svg.strokeColor {
+#board-container svg.strokeColor {
   cursor: url('../assets/images/cursors/strokeColor.png'), auto;
 }
 /*
