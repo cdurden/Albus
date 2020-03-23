@@ -19,7 +19,7 @@ angular.module('whiteboard')
       '</div>',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
-        MessageHandler(ev);
+        MessageHandler['chat'](ev);
       }
     },
     link: function (scope, element, attrs, ctrls) {
@@ -27,7 +27,7 @@ angular.module('whiteboard')
       ChatData.createChat(element);
       //ChatData.getInput().bind('keypress', chatCtrl.handleEvent);
       //ChatData.getSendButton().bind('click', chatCtrl.handleEvent);
-      ChatData.getForm().bind("submit",chatCtrl['chat'].handleEvent);
+      ChatData.getForm().bind("submit",chatCtrl.handleEvent);
 
         /*
       $('body').on('keypress', function (ev) {
