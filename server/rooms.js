@@ -124,6 +124,10 @@ var roomsManager = {
   },
 
   editShape: function (shape, socket) {
+    console.log(rooms);
+    console.log(socket.room);
+    console.log(shape.socketId);
+    console.log(shape.myid);
     rooms[socket.room][shape.socketId][shape.myid]['mouseX'] = shape.mouseX;
     rooms[socket.room][shape.socketId][shape.myid]['mouseY'] = shape.mouseY;   
   },
