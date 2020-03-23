@@ -36,6 +36,9 @@
 
 #chat-toggle-button {
     float: right;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
 }
 
 /* Button used to open the chat form - fixed at the bottom of the page */
