@@ -32,7 +32,7 @@
 }
 
 /* Button used to open the task form - fixed at the top of the page */
-.open-button {
+.task-open-button {
   position: fixed;
   top: 0px;
   right: 0px;
