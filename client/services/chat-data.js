@@ -52,6 +52,7 @@ angular.module('whiteboard.services.chatdata', [])
   function getInputMessage() {
     var input = getInput();
     message = input.val();
+    return message;
   }
   function getSendButton() {
     return send_button;
