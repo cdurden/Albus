@@ -28,6 +28,7 @@ angular.module('whiteboard.services.taskdata', [])
     send_button = element.find('button');
   }
   function displayData(data) {
+      console.log(data);
       getTask().html(data);
   }
 
