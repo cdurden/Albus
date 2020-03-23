@@ -5,13 +5,24 @@ angular.module('whiteboard')
     require: ['wbChat'],
     replace: true,
     template: 
+      '<script>' +
+      'function openForm() {' +
+      '      document.getElementById("myForm").style.display = "block";' +
+      '}' +
+      'function closeForm() {' +
+      '      document.getElementById("myForm").style.display = "none";' +
+      '}' +
+      '</script>' +
       '<div id="chat-container">' +
+      '<div id="chat-popup">' +
       '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
       '</div>' +
       '<form action="">' +
       '      <input id="m" autocomplete="off" /><button>Send</button>' +
       '    </form>' +
+      '</div>' +
+      '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>' +
       '</div>',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
