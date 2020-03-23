@@ -347,6 +347,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function touchStart (ev) {
+      console.log('touchstart');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     toggle(toolName);
@@ -364,6 +365,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function touchEnd (ev) {
+      console.log('touchend');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     if (isToggled(toolName)) {
@@ -373,6 +375,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function mouseDown (ev) {
+    console.log('mousedown');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     toggle(toolName);
@@ -390,6 +393,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function mouseUp (ev) {
+    console.log('mouseup');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     if (isToggled(toolName)) {
