@@ -1,22 +1,10 @@
 angular.module('whiteboard')
-.directive('wbChat', ['ChatData', 'Broadcast', 'Receive', function (ChatData) {
+.directive('wbChat', ['ChatData', 'Sockets', function (ChatData) {
   return {
     restrict: 'A',
     require: ['wbChat'],
     replace: true,
     templateUrl: './templates/chat.html',
-      /*
-      '<div class="chat-container">' +
-      '<button type="button" class="open-button" onclick="openForm()">Chat</button>' +
-      '<div id="chat-popup">' +
-      '<ul id="messages"></ul>' +
-      '<form action="" id="chat-form" class="form-container">' +
-      '  <textarea placeholder="Type message..." id="m" autocomplete="off" /><button>Send</button>' +
-      '<button type="button" class="cancel" onclick="closeForm()">Close</button>' +
-      '</form>' +
-      '</div>' +
-      '</div>',
-      */
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
         MessageHandler['chat'](ev);
@@ -34,6 +22,11 @@ angular.module('whiteboard')
         boardCtrl.handleEvent(ev);
       });
       */
+
+  Sockets.on('chat message', function (msg) {
+    ChatData.displayMessage(msg);
+  })
+
 
     }
   }

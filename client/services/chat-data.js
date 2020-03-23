@@ -49,6 +49,10 @@ angular.module('whiteboard.services.chatdata', [])
   function getInput() {
     return input;
   }
+  function getInputMessage() {
+    var input = getInput();
+    message = input.val();
+  }
   function getSendButton() {
     return send_button;
   }
@@ -207,6 +211,13 @@ angular.module('whiteboard.services.chatdata', [])
     return tool['stroke-width'];
   }
   */
+  function displayMessage(msg) {
+      var li = document.createElement("li");
+      var t = document.createTextNode(msg);
+      li.appendChild(t);
+      getChat().append(li);
+  }
+  
 
   return {
     getShapeStorage: getShapeStorage,
@@ -215,6 +226,7 @@ angular.module('whiteboard.services.chatdata', [])
     moveCursor: moveCursor,
     */
     createChat: createChat,
+    displayMessage: displayMessage,
       /*
     getCurrentShape: getCurrentShape,
     getShapeById: getShapeById,
