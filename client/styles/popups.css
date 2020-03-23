@@ -1,7 +1,7 @@
 {box-sizing: border-box;}
 
 /* Button used to open the chat form - fixed at the bottom of the page */
-.open-button {
+.open-button,.cancel {
   position: fixed;
   bottom: 23px;
   right: 28px;
