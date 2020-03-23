@@ -246,6 +246,7 @@ angular.module('whiteboard.services.chatdata', [])
     getChat: getChat,
     getForm: getForm,
     getInput: getInput,
+    getInputMessage: getInputMessage,
       /*
     getScalingFactor: getScalingFactor,
     getOffset: getOffset,
