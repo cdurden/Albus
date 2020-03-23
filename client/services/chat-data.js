@@ -24,7 +24,7 @@ angular.module('whiteboard.services.chatdata', [])
 
     chat = element.find('ul');
     form = element.find('form');
-    input = element.find('input');
+    input = element.find('textarea');
     send_button = element.find('button');
   }
 
