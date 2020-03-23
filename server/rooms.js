@@ -116,6 +116,7 @@ var roomsManager = {
 
   addShape: function (shape, socket) {
     console.log(socket);
+    console.log(rooms);
     console.log(socket.room);
     console.log(shape.socketId);
     console.log(shape.myid);
