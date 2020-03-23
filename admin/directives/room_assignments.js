@@ -61,7 +61,7 @@ angular.module('whiteboard-admin')
         var val = value || null;            
         if (val)
           create_sortables();
-      }
+      });
         console.log(data);
         console.log(rooms);
       });
