@@ -6,15 +6,7 @@ angular.module('whiteboard')
     replace: true,
     template: 
       '<div id="chat-container">' +
-      '<script>' +
-      'function openForm() {' +
-      '      document.getElementById("myForm").style.display = "block";' +
-      '}' +
-      '' +
-      'function closeForm() {' +
-      '      document.getElementById("myForm").style.display = "none";' +
-      '}' +
-      '</script>' +
+      '<button class="open-button" onclick="openForm()">Chat</button>'
       '<div id="chat-popup">' +
       '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
