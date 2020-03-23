@@ -17,6 +17,19 @@
 
 
 {box-sizing: border-box;}
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
 
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button,.cancel {
