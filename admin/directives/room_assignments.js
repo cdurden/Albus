@@ -26,7 +26,25 @@ angular.module('whiteboard-admin')
         $(".roomList").each(function(i, elmt) {
           Sortable.create(elmt, {
             group: 'rooms'
-          });
+          }).onChange(
+            $('.roomList').each(function(i,room_elmt) { 
+              var room=$(room_elmt).find(".room").text();
+              $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
+                  sockets[$(socket_elmt).text()] = {'roomId': room };
+                  // do more
+              });
+              var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
+                return {'id': $(elem).text()};
+              }).get();
+          
+              rooms[room] = student_ids;
+            });
+        
+            // encode to JSON format
+            var rooms_json = JSON.stringify(rooms,null,'\t');
+            var sockets_json = JSON.stringify(sockets,null,'\t');
+            $('#printCode').html(sockets_json);
+          );
         });
 
         console.log(data);
@@ -73,23 +91,6 @@ angular.module('whiteboard-admin')
           });
         });
         $('.roomsList').on('mouseup', function() {
-          $('.roomList').each(function(i,room_elmt) { 
-            var room=$(room_elmt).find(".room").text();
-            $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
-                sockets[$(socket_elmt).text()] = {'roomId': room };
-                // do more
-            });
-            var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
-              return {'id': $(elem).text()};
-            }).get();
-        
-            rooms[room] = student_ids;
-          });
-      
-          // encode to JSON format
-          var rooms_json = JSON.stringify(rooms,null,'\t');
-          var sockets_json = JSON.stringify(sockets,null,'\t');
-          $('#printCode').html(sockets_json);
         });
         $('#generateJSON').click(function() {
       
