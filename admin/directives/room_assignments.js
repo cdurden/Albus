@@ -4,6 +4,7 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminRoomAssignments'],
     replace: true,
+    templateUrl: 'templates/room_assignments.html',
     controller: function ($scope) {
         /*
       Sockets.on('student_assignments', function (data) {
@@ -69,7 +70,6 @@ angular.module('whiteboard-admin')
       });
       Sockets.emit('get_socket_data');
     },
-    templateUrl: 'templates/room_assignments.html',
     link: function(scope, element, attrs) {
       console.log("calling link function");
       function injectLibsFromStack(callback){
