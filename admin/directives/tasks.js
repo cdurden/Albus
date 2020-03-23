@@ -13,7 +13,8 @@ angular.module('whiteboard-admin')
       Sockets.emit('get_task');
     },
     link: function(scope, element, attrs, ctrls) {
-      $(element).find("#assign-task-form").bind("submit",function() {
+      $(element).find("#assign-task-form").bind("submit",function(ev) {
+          ev.preventDefault();
           Sockets.emit('assign_task', $scope.task);
       });
     },
