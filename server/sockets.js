@@ -206,8 +206,16 @@ module.exports = function(server) {
       }
     });
     socket.on('get_task', function(){
-      data = 'asdf';
-      io.emit('task', data);
+      client.hget('task', function(err, result) {
+        io.emit('task', result);
+      });
+    });
+    socket.on('assign_task', function(data){
+      client.hset('task', data, function(err, result) {
+        client.hget('task', function(err, result) {
+          io.emit('task', result);
+        });
+      });
     });
 
   });
