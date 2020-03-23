@@ -28,6 +28,7 @@ angular.module('whiteboard')
       Sockets.on('task', function (data) {
         console.log(data);
         TaskData.displayData(data);
+        scope.MathJax.typeset();
       })
 
     }
