@@ -32,7 +32,7 @@
 }
 
 /* Button used to open the chat form - fixed at the bottom of the page */
-.open-button,.cancel {
+.open-button {
   position: fixed;
   bottom: 23px;
   right: 28px;
