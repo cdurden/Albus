@@ -215,6 +215,7 @@ module.exports = function(server) {
       console.log(data);
       client.hset('task', data, function(err) {
         client.hget('task', function(err, result) {
+          console.log(result);
           io.emit('task', result);
         });
       });
