@@ -60,9 +60,10 @@ angular.module('whiteboard-admin')
         $(".roomList").each(function(i, elmt) {
           console.log("creating sortable on element:");
           console.log(elmt);
-          Sortable.create(elmt, {
+          sortable = new Sortable(elmt, {
             group: 'rooms'
-          }).onChange(function() {
+          })
+          sortable.onChange(function() {
             $('.roomList').each(function(i,room_elmt) { 
               var room=$(room_elmt).find(".room").text();
               $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
