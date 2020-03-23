@@ -57,7 +57,7 @@ angular.module('whiteboard-admin')
           });
         });
       }
-      scope.$watch("rooms", function (value) {//I change here
+      $scope.$watch("rooms", function (value) {//I change here
         var val = value || null;            
         if (val)
           create_sortables();
