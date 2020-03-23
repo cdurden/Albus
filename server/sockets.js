@@ -195,6 +195,7 @@ module.exports = function(server) {
     });
     socket.on('assign_sockets_to_rooms', function(assignments){
       console.log("assigning sockets to rooms");
+      console.log(assignments);
       for (socket_id in assignments) {
         client.hmset(socket_id, ['roomId', assignments[socket_id]['roomId']], function(err, result) {
           console.log(socket_id);
