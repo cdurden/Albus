@@ -20,7 +20,7 @@
 .task-popup {
   display: none;
   position: fixed;
-  bottom: 0;
+  top: 0;
   right: 15px;
   border: 3px solid #f1f1f1;
   z-index: 9;
@@ -31,10 +31,10 @@
   right: 0;
 }
 
-/* Button used to open the task form - fixed at the bottom of the page */
+/* Button used to open the task form - fixed at the top of the page */
 .open-button {
   position: fixed;
-  bottom: 0px;
+  top: 0px;
   right: 0px;
 /*
   background-color: #555;
