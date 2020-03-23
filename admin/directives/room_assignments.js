@@ -55,6 +55,7 @@ angular.module('whiteboard-admin')
       var libs = ["https://raw.githack.com/SortableJS/Sortable/master/Sortable.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"]
       injectLibsFromStack(function() {
         var sortables = [];
+        console.log("creating sortables");
         $(".roomList").each(function(i, elmt) {
           //sortables[i] = new Sortable(elmt, {
           console.log("creating sortable on element:");
