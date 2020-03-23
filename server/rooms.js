@@ -131,8 +131,12 @@ var roomsManager = {
     console.log(socket.room);
     console.log(shape.socketId);
     console.log(shape.myid);
-    rooms[socket.room][shape.socketId][shape.myid]['mouseX'] = shape.mouseX;
-    rooms[socket.room][shape.socketId][shape.myid]['mouseY'] = shape.mouseY;   
+    //it seems that the client was setting the socketId of the shape
+    //rooms[socket.room][shape.socketId][shape.myid]['mouseX'] = shape.mouseX;
+    //rooms[socket.room][shape.socketId][shape.myid]['mouseY'] = shape.mouseY;   
+    //here the line has been modified to use the id of the current socket.
+    rooms[socket.room][socket.id][shape.myid]['mouseX'] = shape.mouseX;
+    rooms[socket.room][socket.id][shape.myid]['mouseY'] = shape.mouseY;   
   },
 
   moveShape: function (shape, socket) {
