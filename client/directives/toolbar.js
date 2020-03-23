@@ -488,7 +488,7 @@ angular.module('whiteboard')
         if ($el.hasClass('level-one') || $el.hasClass('level-two-items') || $el.hasClass('thickness')) {
           // console.log('over level one');
           var bgSizes = ctrl.calcBg(ev.clientX, $el.offset().left);
-          setBg($el, bgSizes);
+          //setBg($el, bgSizes);
 
         } else if ($el.hasClass('color-palette')) {
           var bgSizes = ctrl.calcBg(ev.clientX, $el.offset().left);
