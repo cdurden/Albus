@@ -9,8 +9,8 @@ angular.module('whiteboard')
       '<button type="button" class="open-button" onclick="openForm()">Chat</button>' +
       '<div id="chat-popup">' +
       '<ul id="messages"></ul>' +
-      '<form action="" id="chat-form">' +
-      '  <textarea id="m" autocomplete="off" /><button>Send</button>' +
+      '<form action="" id="chat-form" class="form-container">' +
+      '  <textarea id="m" autocomplete="off" /><br/><button>Send</button>' +
       '<br/>' +
       '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>' +
       '</form>' +
