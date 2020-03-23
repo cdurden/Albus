@@ -8,14 +8,12 @@ angular.module('whiteboard')
       '<div class="chat-container">' +
       '<button type="button" class="open-button" onclick="openForm()">Chat</button>' +
       '<div id="chat-popup">' +
-      '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
       '</div>' +
       '<form action="" id="chat-form">' +
       '      <input id="m" autocomplete="off" /><button>Send</button>' +
       '    </form>' +
       '<button type="button" class="btn cancel" onclick="closeForm()">Close</button>' +
-      '</div>' +
       '</div>',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
