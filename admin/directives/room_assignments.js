@@ -83,7 +83,7 @@ angular.module('whiteboard-admin')
               var rooms_json = JSON.stringify(rooms,null,'\t');
               var sockets_json = JSON.stringify(sockets,null,'\t');
               $('#printCode').html(sockets_json);
-            });
+            },
           });
         });
         $('#generateJSON').click(function() {
