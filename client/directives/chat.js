@@ -6,7 +6,7 @@ angular.module('whiteboard')
     replace: true,
     template: 
       '<div id="chat-container">' +
-      '<button class="open-button" onclick="openForm()">Chat</button>' +
+      '<button type="button" class="open-button" onclick="openForm()">Chat</button>' +
       '<div id="chat-popup">' +
       '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
