@@ -19,7 +19,7 @@ angular.module('whiteboard')
       '<div id="messages-container">' +
       '<ul id="messages"></ul>' +
       '</div>' +
-      '<form action="">' +
+      '<form action="" id="chat-form">' +
       '      <input id="m" autocomplete="off" /><button>Send</button>' +
       '    </form>' +
       '</div>' +
