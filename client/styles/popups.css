@@ -46,6 +46,20 @@
   width: 280px;
 */
 }
+.cancel {
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+/*
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 280px;
+*/
+}
 .form-container .btn {
 /*
   background-color: #4CAF50;

@@ -11,7 +11,6 @@ angular.module('whiteboard')
       '<ul id="messages"></ul>' +
       '<form action="" id="chat-form" class="form-container">' +
       '  <textarea placeholder="Type message..." id="m" autocomplete="off" /><br/><button>Send</button>' +
-      '<br/>' +
       '<button type="button" class="btn btn-info cancel" onclick="closeForm()">Close</button>' +
       '</form>' +
       '</div>' +
