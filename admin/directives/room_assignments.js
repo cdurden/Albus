@@ -57,6 +57,8 @@ angular.module('whiteboard-admin')
         var sortables = [];
         $(".roomList").each(function(i, elmt) {
           //sortables[i] = new Sortable(elmt, {
+          console.log("creating sortable on element:");
+          console.log(elmt);
           sortables[i] = Sortable.create(elmt, {
             group: 'rooms'
           });
