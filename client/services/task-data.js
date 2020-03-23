@@ -1,28 +1,28 @@
-angular.module('whiteboard.services.questiondata', [])
-.factory('QuestionData', function () {
+angular.module('whiteboard.services.taskdata', [])
+.factory('TaskData', function () {
   //svgWidth/Height are the width and height of the DOM element
-  var questionWidth = 1500; //sizeX
-  var questionHeight = 1000; //sizeY
+  var taskWidth = 1500; //sizeX
+  var taskHeight = 1000; //sizeY
   //offsetX/Y measure the top-left point of the viewbox
   var offsetX = 0;
   var offsetY = 0;
   //scalingFactor is the level of zooming relative to the start
   var scalingFactor = 1;
 
-  var question;
+  var task;
   var form;
   var input;
   var send_button;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
-  var questionMarginX; //canvasX
-  var questionMarginY; //canvasY
+  var taskMarginX; //canvasX
+  var taskMarginY; //canvasY
   var socketId;
 
-  function createQuestion (element) {
+  function createTask (element) {
 
     //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
 
-    question = element.find('ul');
+    task = element.find('ul');
     form = element.find('form');
     input = element.find('input');
     send_button = element.find('button');
@@ -43,8 +43,8 @@ angular.module('whiteboard.services.questiondata', [])
   function getForm() {
     return form;
   }
-  function getQuestion() {
-    return question;
+  function getTask() {
+    return task;
   }
   function getInput() {
     return input;
@@ -214,7 +214,7 @@ angular.module('whiteboard.services.questiondata', [])
     setCursor: setCursor,
     moveCursor: moveCursor,
     */
-    createQuestion: createQuestion,
+    createTask: createTask,
       /*
     getCurrentShape: getCurrentShape,
     getShapeById: getShapeById,
@@ -231,7 +231,7 @@ angular.module('whiteboard.services.questiondata', [])
       /*
     setCurrentToolName: setCurrentToolName,
     */
-    getQuestion: getQuestion,
+    getTask: getTask,
     getForm: getForm,
     getInput: getInput,
       /*

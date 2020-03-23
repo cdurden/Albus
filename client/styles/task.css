@@ -1,5 +1,5 @@
 /*
-#question-container {
+#task-container {
   position: absolute;
   bottom: 0px;
   width: 100%;
@@ -7,17 +7,17 @@
 #messages-container {
   pointer-events: none;
 } 
-#question-container input {
+#task-container input {
     width: 90%;
 }
 */
-#question-container ul {
+#task-container ul {
     list-style-type: none
 }
 
 
 {box-sizing: border-box;}
-.question-popup {
+.task-popup {
   display: none;
   position: fixed;
   bottom: 0;
@@ -25,13 +25,13 @@
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
-.question-container {
+.task-container {
   position: fixed;
   bottom: 0;
   right: 0;
 }
 
-/* Button used to open the question form - fixed at the bottom of the page */
+/* Button used to open the task form - fixed at the bottom of the page */
 .open-button {
   position: fixed;
   bottom: 0px;
@@ -75,7 +75,7 @@
 */
 }
 
-/* The popup question - hidden by default */
+/* The popup task - hidden by default */
 .form-popup {
   display: none;
   position: fixed;

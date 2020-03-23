@@ -16,7 +16,7 @@ angular.module('whiteboard', [
   'whiteboard.services.leapMotion',
   'whiteboard.services.visualizer',
   'whiteboard.services.chatdata',
-  'whiteboard.services.questiondata',
+  'whiteboard.services.taskdata',
   'whiteboard.services.messagehandler',
   'ngRoute'
 ])
@@ -24,7 +24,7 @@ angular.module('whiteboard', [
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/board+chat+question.html',
+        templateUrl: 'views/board+chat+task.html',
         resolve: {
           'something': function (Sockets, Auth, $location) {
             /*
