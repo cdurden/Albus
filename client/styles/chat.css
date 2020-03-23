@@ -28,7 +28,13 @@
 .chat-container {
   position: fixed;
   bottom: 0;
-  right: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 55px;
+}
+
+#chat-toggle-button {
+    float: right;
 }
 
 /* Button used to open the chat form - fixed at the bottom of the page */

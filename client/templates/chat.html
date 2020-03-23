@@ -1,10 +1,11 @@
 <div class="chat-container">
-<button type="button" class="open-button" onclick="openChatForm()">Chat</button>
+<button type="button" class="chat-toggle-button" onclick="openChatForm()">Chat</button>
 <div id="chat-popup">
 <ul id="messages"></ul>
 <form action="" id="chat-form" class="form-container">
-  <textarea placeholder="Type message..." id="m" autocomplete="off" /><button>Send</button>
-<button type="button" class="cancel" onclick="closeChatForm()">Close</button>
+  <textarea placeholder="Type message..." id="m" autocomplete="off" /><button id="chat-send-button">Send</button>
+<!--<button type="button" class="cancel" onclick="closeChatForm()">Close</button>
+-->
 </form>
 </div>
 </div>
