@@ -4,7 +4,8 @@ angular.module('whiteboard')
     restrict: 'A',
     require: ['wbChat'],
     replace: true,
-    template: 
+    templateUrl: './templates/chat.html',
+      /*
       '<div class="chat-container">' +
       '<button type="button" class="open-button" onclick="openForm()">Chat</button>' +
       '<div id="chat-popup">' +
@@ -15,6 +16,7 @@ angular.module('whiteboard')
       '</form>' +
       '</div>' +
       '</div>',
+      */
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
         MessageHandler['chat'](ev);
