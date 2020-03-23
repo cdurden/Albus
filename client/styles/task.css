@@ -30,7 +30,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 55px;
+  padding-left: 55px;
 }
 
 /* Button used to open the task form - fixed at the top of the page */
