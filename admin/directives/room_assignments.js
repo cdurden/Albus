@@ -30,6 +30,8 @@ angular.module('whiteboard-admin')
         $scope.rooms = rooms
       });
       function create_sortables() {
+        let rooms = {};
+        let sockets = {};
         $(".roomList").each(function(i, elmt) {
           console.log("creating sortable on element:");
           console.log(elmt);
