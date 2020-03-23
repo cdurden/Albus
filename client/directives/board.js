@@ -9,20 +9,16 @@ angular.module('whiteboard')
       '   <div wb-toolbar></div>' +
       '   <div wb-layers></div>' +
       '</div>',
-    controller: function ($scope, InputHandler) {
+    controller: function (InputHandler) {
       this.handleEvent = function (ev) {
         InputHandler[ev.type](ev);
-      }
-      this.submenuCloser = function (action) {
-        console.log('close?')
-        $scope.$emit('toggleAllSubmenu', action);
       }
     },
     link: function (scope, element, attrs, ctrls) {
       var boardCtrl = ctrls[0];
       BoardData.createBoard(element);
       BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
-      BoardData.getCanvas().bind('click', function() { boardCtrl.submenuCloser({action: 'hide', level: '1'})});
+      BoardData.getCanvas().bind('click', function() {scope.$emit('activateMenu', 'hide');});
 
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
