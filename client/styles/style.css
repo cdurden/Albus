@@ -11,7 +11,7 @@ html{
 
 h1.title {
   position: absolute;
-  background-image: url('../assets/images/logo.png');
+/*  background-image: url('../assets/images/logo.png');*/
   background-size: cover;
   background-repeat: no-repeat;
   right: 20px;
