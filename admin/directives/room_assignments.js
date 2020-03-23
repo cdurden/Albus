@@ -33,7 +33,7 @@ angular.module('whiteboard-admin')
       //arg is your payload
         console.log(rooms);
         $scope.rooms = rooms
-      }
+      });
       Sockets.emit('get_socket_data');
     },
     templateUrl: 'templates/room_assignments.html',
