@@ -12,6 +12,7 @@ angular.module('whiteboard-admin')
       });
       Sockets.emit('get_student_assignments');
       */
+      $scope.rooms = {}
       Sockets.on('socket_data', function (data) {
         rooms = {};
         for (socket in data) {
@@ -62,27 +63,27 @@ angular.module('whiteboard-admin')
         $(".roomList").each(function(i, elmt) {
           console.log("creating sortable on element:");
           console.log(elmt);
-          sortable = new Sortable(elmt, {
-            group: 'rooms'
-          });
-          sortable.onChange(function() {
-            $('.roomList').each(function(i,room_elmt) { 
-              var room=$(room_elmt).find(".room").text();
-              $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
-                  sockets[$(socket_elmt).text()] = {'roomId': room };
-                  // do more
+          Sortable.create(elmt, {
+            group: 'rooms',
+            onChange: function() {
+              $('.roomList').each(function(i,room_elmt) { 
+                var room=$(room_elmt).find(".room").text();
+                $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
+                    sockets[$(socket_elmt).text()] = {'roomId': room };
+                    // do more
+                });
+                var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
+                  return {'id': $(elem).text()};
+                }).get();
+            
+                rooms[room] = student_ids;
               });
-              var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
-                return {'id': $(elem).text()};
-              }).get();
           
-              rooms[room] = student_ids;
+              // encode to JSON format
+              var rooms_json = JSON.stringify(rooms,null,'\t');
+              var sockets_json = JSON.stringify(sockets,null,'\t');
+              $('#printCode').html(sockets_json);
             });
-        
-            // encode to JSON format
-            var rooms_json = JSON.stringify(rooms,null,'\t');
-            var sockets_json = JSON.stringify(sockets,null,'\t');
-            $('#printCode').html(sockets_json);
           });
         });
         $('#generateJSON').click(function() {
