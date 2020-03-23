@@ -1,25 +1,15 @@
 angular.module('whiteboard')
-.directive('wbTask', ['TaskData', 'Broadcast', 'Receive', function (TaskData) {
+.directive('wbTask', ['TaskData', 'Sockets', function (TaskData, Sockets) {
   return {
     restrict: 'A',
     require: ['wbTask'],
     replace: true,
     templateUrl: './templates/task.html',
-      /*
-      '<div class="task-container">' +
-      '<button type="button" class="open-button" onclick="openForm()">Task</button>' +
-      '<div id="task-popup">' +
-      '<ul id="messages"></ul>' +
-      '<form action="" id="task-form" class="form-container">' +
-      '  <textarea placeholder="Type message..." id="m" autocomplete="off" /><button>Send</button>' +
-      '<button type="button" class="cancel" onclick="closeForm()">Close</button>' +
-      '</form>' +
-      '</div>' +
-      '</div>',
-      */
-    controller: function (MessageHandler) {
-      this.handleEvent = function (ev) {
-        MessageHandler['task'](ev);
+    controller: function () {
+      this.requestData = function (ev) {
+          ev.preventDefault(); // prevents page reloading
+          Sockets.emit("get_task");
+          return false;
       }
     },
     link: function (scope, element, attrs, ctrls) {
@@ -34,6 +24,9 @@ angular.module('whiteboard')
         boardCtrl.handleEvent(ev);
       });
       */
+      Sockets.on('task', function (data) {
+        TaskData.displayData(data);
+      })
 
     }
   }

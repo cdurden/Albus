@@ -27,6 +27,13 @@ angular.module('whiteboard.services.taskdata', [])
     input = element.find('input');
     send_button = element.find('button');
   }
+  function displayData(data) {
+      var li = document.createElement("li");
+      var t = document.createTextNode(data);
+      li.appendChild(t);
+      getChat().append(li);
+  }
+
 
     /*
   function handleWindowResize (newPageSize) {
