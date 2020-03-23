@@ -61,7 +61,7 @@ module.exports = function(server) {
       });
     }
     console.log("does the socket have an id?");
-    console.log(socket);
+    //console.log(socket);
     console.log(socket.id);
     rooms.placeSocket(socket);
  
