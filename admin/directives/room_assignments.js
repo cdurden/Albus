@@ -20,9 +20,7 @@ angular.module('whiteboard-admin')
           }
           rooms[data[socket].roomId].push({'socket_id': socket, 'data': data[socket]});
         }
-        $scope.$apply(function(){
-          $scope.rooms = rooms;
-        });
+        $scope.rooms = rooms;
 
         console.log(data);
         console.log(rooms);
