@@ -33,6 +33,10 @@
   padding-left: 55px;
 }
 
+.task-toggle-button {
+    float: right;
+}
+
 /* Button used to open the task form - fixed at the top of the page */
 .task-open-button {
   position: fixed;
