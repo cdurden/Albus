@@ -27,7 +27,7 @@
 }
 .task-container {
   position: fixed;
-  bottom: 0;
+  top: 0;
   right: 0;
 }
 
