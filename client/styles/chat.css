@@ -26,7 +26,7 @@
   z-index: 9;
 }
 .chat-container {
-  z-index: -1;
+  z-index: 0;
   position: fixed;
   bottom: 0;
   left: 0;
