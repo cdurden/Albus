@@ -8,8 +8,8 @@ angular.module('whiteboard-admin', [
     $routeProvider
       .when('/admin/', {
           //template: '<div wb-admin-submissions></div>',
-          template: '<div wb-admin-submissions></div><div wb-admin-room-assignments></div>',
-        //  templateUrl: '/admin/views/admin.html',
+          //template: '<div wb-admin-submissions></div><div wb-admin-room-assignments></div>',
+          templateUrl: '/admin/views/admin.html',
 /*        resolve: {
           'something': function (Sockets) {
             console.log('requesting suggestions');
