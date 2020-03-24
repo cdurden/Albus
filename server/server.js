@@ -68,12 +68,16 @@ app.use(passport.session());
 //app.use('/', entry)
 
 app.post('/lti/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
-  const {path} = req.params;
   console.log("lti route used");
-  console.log(path);
   console.log(req.session);
   //res.send('POST request to the homepage')
-  res.redirect('/'+path);
+  res.redirect('/');
+});
+app.use('/lti/', function(req,res) {
+  console.log("lti route used");
+  console.log(req.session);
+  //res.send('POST request to the homepage')
+  res.redirect('/');
 });
 
 app.use(express.static(__dirname + '/lib'));
