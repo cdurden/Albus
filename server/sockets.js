@@ -151,7 +151,7 @@ module.exports = function(server) {
 
     socket.on('submissions', function(){
       submissions = ['asdf', 'asfaga'];
-      io.emit('submissions', submissions);
+      socket.emit('submissions', submissions);
     });
     socket.on('get_student_assignments', function(){
       socket_assignments = {} 
@@ -172,7 +172,7 @@ module.exports = function(server) {
           callback();
 });
       }, function (err, result) {
-        io.emit('student_assignments', result);
+        socket.emit('student_assignments', result);
       });
     });
     socket.on('get_socket_data', function() {
@@ -190,7 +190,7 @@ module.exports = function(server) {
             //result = new Map(results.map(obj => [obj.key, obj.val]));
             console.log(results);
             console.log(result);
-            io.emit('socket_data', result);
+            socket.emit('socket_data', result);
         });
       });
     });
@@ -209,21 +209,21 @@ module.exports = function(server) {
     socket.on('get_task', function(){
       client.get('task', function(err, result) {
         console.log(result);
-        io.emit('task', result);
+        socket.emit('task', result);
       });
     });
     socket.on('get_tasks', function(){
       tasks_json = fs.readFileSync('./data/tasks.json');
       tasks = JSON.parse(tasks_json);
       console.log(tasks);
-      io.emit('tasks', tasks);
+      socket.emit('tasks', tasks);
     });
     socket.on('view_task', function(task_id){
       console.log(task_id);
       tasks_json = fs.readFileSync('./data/tasks.json');
       tasks = JSON.parse(tasks_json);
       task = tasks[task_id];
-      io.emit('show_task', task);
+      socket.emit('show_task', task);
     });
     socket.on('assign_task', function(data){
       console.log(data);
