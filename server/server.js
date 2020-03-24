@@ -73,7 +73,7 @@ app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
 //app.use('/', entry)
 
-app.post('/lti/:path', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+app.all('/lti/:path', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   const {path} = req.params;
   console.log(path);
   console.log(req.session);
