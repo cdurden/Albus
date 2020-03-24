@@ -65,9 +65,6 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
-app.use(express.static(__dirname + '/../client'));
-app.use('/data/', express.static(__dirname + '/../data'));
-app.use('/admin/', express.static(__dirname + '/../admin'));
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
@@ -80,6 +77,9 @@ app.all('/lti/:path', passport.authenticate('lti-strategy', {failureFlash: true}
   //res.send('POST request to the homepage')
   res.redirect('/'+path);
 });
+app.use(express.static(__dirname + '/../client'));
+app.use('/data/', express.static(__dirname + '/../data'));
+app.use('/admin/', express.static(__dirname + '/../admin'));
 /*app.post('/', function (req, res) {
   res.send('POST request to the homepage')
 })
