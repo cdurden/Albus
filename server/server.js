@@ -59,6 +59,10 @@ passport.use('lti-strategy', new CustomStrategy(
 ));
 
 app.enable('trust proxy')
+app.use(function(req,res,next) {
+    console.log("new request");
+    next();
+});
 app.use(compression());
 app.use(session);
 app.use(bodyParser.json());
