@@ -24,7 +24,7 @@ var session = require('express-session')({
 var sharedsession = require("express-socket.io-session");
 
 app.enable('trust proxy')
-//app.set('trust proxy', 'loopback');
+app.set('trust proxy', 'loopback');
 app.use(compression());
 app.use(express.static(__dirname + '/lib'));
 app.use(session);
