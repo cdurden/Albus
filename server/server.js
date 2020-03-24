@@ -70,7 +70,7 @@ app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
 //app.use('/', entry)
 
-app.all('/lti/:path', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+app.all('/lti/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   const {path} = req.params;
   console.log("lti route used");
   console.log(path);
