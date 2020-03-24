@@ -73,10 +73,12 @@ app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
 //app.use('/', entry)
 
-app.post('/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+app.post('/lti/:path', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+  const {path} = req.params;
+  console.log(path);
   console.log(req.session);
   //res.send('POST request to the homepage')
-  res.redirect('/');
+  res.redirect('/'+path);
 });
 /*app.post('/', function (req, res) {
   res.send('POST request to the homepage')
