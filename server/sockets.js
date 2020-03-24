@@ -214,6 +214,7 @@ module.exports = function(server) {
     socket.on('get_tasks', function(){
       tasks_json = fs.readFileSync('./data/tasks.json');
       tasks = JSON.parse(tasks_json);
+      console.log(tasks);
       io.emit('tasks', tasks);
     });
     socket.on('view_tasks', function(task_id){
