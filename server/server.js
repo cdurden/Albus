@@ -99,13 +99,13 @@ var port = process.env.PORT || '3000';
 app.set('port', port);
 
 
-var server = http.createServer(app);
 /*
-var server = https.createServer({
-  key: fs.readFileSync('./server/privkey.pem'),
-  cert: fs.readFileSync('./server/fullchain.pem')
-},app)
+var server = http.createServer(app);
 */
+var server = https.createServer({
+//  key: fs.readFileSync('./server/privkey.pem'),
+//  cert: fs.readFileSync('./server/fullchain.pem')
+},app)
 var io = require('./sockets')(server);
 io.use(sharedsession(session, {
     autoSave:true
