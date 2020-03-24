@@ -65,6 +65,7 @@ passport.use('lti-strategy', new CustomStrategy(
 	}
 ));
 app.use(express.static(__dirname + '/../client'));
+app.use('/data/', express.static(__dirname + '/../data'));
 app.use('/admin/', express.static(__dirname + '/../admin'));
 app.use(passport.initialize());
 app.use(passport.session());
