@@ -12,7 +12,7 @@ angular.module('whiteboard-admin')
       });
       Sockets.on('show_task', function (data) {
           console.log(data);
-          $scope.task = data;
+          $scope.task = data.task;
       });
       Sockets.on('tasks', function (data) {
           console.log(data);
