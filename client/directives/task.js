@@ -11,6 +11,11 @@ angular.module('whiteboard')
           ev.preventDefault(); // prevents page reloading
           Sockets.emit("get_task");
           return false;
+      };
+      this.submit = function (ev) {
+          ev.preventDefault(); // prevents page reloading
+          Sockets.emit("submit");
+          return false;
       }
     },
     link: function (scope, element, attrs, ctrls) {
@@ -18,7 +23,7 @@ angular.module('whiteboard')
       TaskData.createTask(element);
       //TaskData.getInput().bind('keypress', taskCtrl.handleEvent);
       //TaskData.getSendButton().bind('click', taskCtrl.handleEvent);
-      TaskData.getForm().bind("submit",taskCtrl.requestData);
+      TaskData.getSubmitButton().bind("click", taskCtrl.submit);
 
         /*
       $('body').on('keypress', function (ev) {
@@ -29,7 +34,10 @@ angular.module('whiteboard')
         console.log(data);
         TaskData.displayData(data);
       })
-
+      Sockets.on('submission_confirmation', function (data) {
+        console.log(data);
+        TaskData.confirmSubmission(data);
+      })
     }
   }
 }]);

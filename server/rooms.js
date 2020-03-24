@@ -3,16 +3,6 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
-function generateRandomId(length) {
-    var id = "";
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < length; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-
-    return id;
-}
 
 var roomsManager = {
 
@@ -32,7 +22,7 @@ var roomsManager = {
       if (result !== null && 'roomId' in result) {
         roomId = result['roomId'];
       } else {
-        roomId = generateRandomId(5);
+        roomId = utils.generateRandomId(5);
       }
   
       socket.room = roomId;

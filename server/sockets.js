@@ -211,6 +211,17 @@ module.exports = function(server) {
         io.emit('task', result);
       });
     });
+    socket.on('get_tasks', function(){
+      tasks_json = fs.readFileSync('./data/tasks.json');
+      tasks = JSON.parse(tasks_json);
+      io.emit('tasks', tasks);
+    });
+    socket.on('view_tasks', function(task_id){
+      tasks_json = fs.readFileSync('./data/tasks.json');
+      tasks = JSON.parse(tasks_json);
+      task = tasks[task_id]
+      io.emit('show_task', task);
+    });
     socket.on('assign_task', function(data){
       console.log(data);
       client.set('task', data, function(err) {

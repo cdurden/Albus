@@ -25,7 +25,7 @@ angular.module('whiteboard.services.taskdata', [])
     task = element.find('#task-data-container');
     form = element.find('form');
     input = element.find('input');
-    send_button = element.find('button');
+    submit_button = element.find('#task-submit-button');
   }
   function displayData(data) {
       console.log(data);
@@ -55,8 +55,8 @@ angular.module('whiteboard.services.taskdata', [])
   function getInput() {
     return input;
   }
-  function getSendButton() {
-    return send_button;
+  function getSubmitButton() {
+    return submit_button;
   }
 /*
   function getCursor () {
