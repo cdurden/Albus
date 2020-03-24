@@ -72,6 +72,7 @@ app.use(passport.session());
 
 app.all('/lti/:path', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   const {path} = req.params;
+  console.log("lti route used");
   console.log(path);
   console.log(req.session);
   //res.send('POST request to the homepage')
