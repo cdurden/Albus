@@ -10,12 +10,8 @@ var client = require('./db/config');
 var fs = require('fs');
 var compression = require('compression');
 var CustomStrategy = require('passport-custom')
-var router = express.Router();
 var lti = require('ims-lti')
-
-//app.enable('trust proxy')
-app.set('trust proxy', 1);
-
+var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
 var session = require('express-session')({
     resave: false,
@@ -23,26 +19,21 @@ var session = require('express-session')({
     secret: "safsfvvfasfasfjhas iuyowery76",
     cookie: { secure: true }
 });
-var sharedsession = require("express-socket.io-session");
+//var router = express.Router();
+//var entry = require('./routes/entry')
 
-app.use(compression());
-app.use(express.static(__dirname + '/lib'));
-app.use(session);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 passport.serializeUser(function(user, done) {
   console.log('serializing user...');
   console.log(user);
   console.log(user.user_id);
   done(null, user.user_id);
 });
-
 passport.deserializeUser(function(user_id, done) {
   console.log("deserializing user");
   console.log(user_id);
   done(null, user_id);
 });
-var entry = require('./routes/entry')
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
 		var val = (req.body) ? req.body : req.user
@@ -65,12 +56,18 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
+
+app.enable('trust proxy')
+app.use(compression());
+app.use(session);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
 //app.use('/', entry)
 
-app.all('/lti/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+app.post('/lti/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   const {path} = req.params;
   console.log("lti route used");
   console.log(path);
@@ -78,6 +75,8 @@ app.all('/lti/', passport.authenticate('lti-strategy', {failureFlash: true}),  f
   //res.send('POST request to the homepage')
   res.redirect('/'+path);
 });
+
+app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
 app.use('/data/', express.static(__dirname + '/../data'));
 app.use('/admin/', express.static(__dirname + '/../admin'));
