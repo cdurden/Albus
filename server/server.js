@@ -67,7 +67,10 @@ app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
 //app.use('/', entry)
 
-app.post('/lti/', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+app.post('/lti/', function(req, res) {
+  console.log("POST to /lti/");
+  next();
+}, passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   console.log("lti route used");
   console.log(req.session);
   //res.send('POST request to the homepage')
