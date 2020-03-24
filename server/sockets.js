@@ -1,5 +1,6 @@
 var socketio = require('socket.io');
 var rooms = require('./rooms');
+var fs = require('fs');
 var users = require('./users');
 var client = require('./db/config');
 var request = require('request');
