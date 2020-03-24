@@ -241,6 +241,7 @@ angular.module('whiteboard.services.taskdata', [])
     getTask: getTask,
     getForm: getForm,
     getInput: getInput,
+    getSubmitButton: getSubmitButton,
       /*
     getScalingFactor: getScalingFactor,
     getOffset: getOffset,
