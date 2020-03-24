@@ -9,14 +9,15 @@ var rooms = require('./rooms');
 var client = require('./db/config');
 var fs = require('fs');
 var compression = require('compression');
-var CustomStrategy = require('passport-custom')
-var lti = require('ims-lti')
+var CustomStrategy = require('passport-custom');
+var lti = require('ims-lti');
+var auth = require('./auth');
 var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
 var session = require('express-session')({
     resave: false,
     saveUninitialized: true,
-    secret: "safsfvvfasfasfjhas iuyowery76",
+    secret: auth.token,
     cookie: { secure: true }
 });
 //var router = express.Router();
@@ -83,6 +84,10 @@ app.use('/lti/', function(req,res) {
   console.log(req.session);
   //res.send('POST request to the homepage')
   res.redirect('/');
+});
+app.use(function(req, res, next) {
+    console.log("passed authentication middleware");
+    next();
 });
 
 app.use(express.static(__dirname + '/lib'));
