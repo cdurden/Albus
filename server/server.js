@@ -13,6 +13,8 @@ var CustomStrategy = require('passport-custom')
 var router = express.Router();
 var lti = require('ims-lti')
 
+app.enable('trust proxy')
+app.set('trust proxy', true);
 
 var passport = require('passport');
 var session = require('express-session')({
@@ -23,8 +25,6 @@ var session = require('express-session')({
 });
 var sharedsession = require("express-socket.io-session");
 
-app.enable('trust proxy')
-app.set('trust proxy', 'loopback');
 app.use(compression());
 app.use(express.static(__dirname + '/lib'));
 app.use(session);
