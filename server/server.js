@@ -39,6 +39,7 @@ passport.deserializeUser(function(user_id, done) {
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
         console.log("using lti-strategy");
+        console.log(req.user);
 		var val = (req.body) ? req.body : req.user
         console.log(val);
 		try {
