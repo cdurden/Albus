@@ -33,7 +33,8 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user_id, done) {
   console.log("deserializing user");
   console.log(user_id);
-  done(null, user_id);
+  user = {user_id: user_id}
+  done(null, user);
 });
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
