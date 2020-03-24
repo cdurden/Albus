@@ -39,10 +39,6 @@ passport.deserializeUser(function(user_id, done) {
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
         console.log("using lti-strategy");
-        console.log(req.user);
-        if (type(req.user)  !== 'undefined') {
-            callback(null, req.user);
-        }
 		var val = (req.body) ? req.body : req.user
         console.log(val);
 		try {
@@ -78,7 +74,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 //app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
 //app.use('/', entry)
-app.use(passport.authenticate('lti-strategy', {failureFlash: true}));
+app.get(function(req, res, next) {
+    console.log(req.user);
+    if (type(req.user)  === 'undefined') {
+        next();
+    } else {
+        next("route");
+    }
+}, passport.authenticate('lti-strategy', {failureFlash: true}));
 /*
 app.post('/lti/', function(req, res, next) {
   console.log("POST to /lti/");
