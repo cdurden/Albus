@@ -38,6 +38,7 @@ passport.deserializeUser(function(user_id, done) {
 });
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
+        console.log("using lti-strategy");
 		var val = (req.body) ? req.body : req.user
 		try {
 			var provider = new lti.Provider(val , 'make-algebra-logical-again')
