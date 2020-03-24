@@ -13,8 +13,8 @@ var CustomStrategy = require('passport-custom')
 var router = express.Router();
 var lti = require('ims-lti')
 
-app.enable('trust proxy')
-//app.set('trust proxy', true);
+//app.enable('trust proxy')
+app.set('trust proxy', 1);
 
 var passport = require('passport');
 var session = require('express-session')({
