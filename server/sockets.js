@@ -231,7 +231,7 @@ module.exports = function(server) {
         console.log(err);
         client.get('task', function(err, result) {
           console.log(result);
-          io.broadcast.emit('task', result);
+          io.emit('task', result);
         });
       });
     });
