@@ -3,7 +3,7 @@
       <div id="task-selector-container">
           <form action="">
               <select id="task-selector" name="task" multiple>
-                  <option ng-repeat="task in tasks" value="{{task}}">{{task.title}}</option>
+                  <option ng-repeat="(task_id, task) in tasks" value="{{task_id}}">{{task.title}}</option>
               </select>
           </form>
       </div>
