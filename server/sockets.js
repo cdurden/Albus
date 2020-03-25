@@ -212,6 +212,24 @@ module.exports = function(server) {
         socket.emit('task', result);
       });
     });
+    socket.on('get-snow-qm-task', function(data){
+      request({
+        url: "https://dev.algebra742.org:444/api/snow-qm-task/",
+        headers : { "Authorization" : "Bearer " + auth.token },
+        qs: { 'collection_id': data['collection_id'], 'task_id': data['task_id'] },
+        //json: true
+      },
+      function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log(lti_user_id);
+          socket.emit('task', {'html': body});
+        } else {
+          console.log(response.statusCode);
+          console.log(error);
+          console.log(body);
+        }
+      });
+    });
     socket.on('get_tasks', function(){
       tasks_json = fs.readFileSync('./data/tasks.json');
       tasks = JSON.parse(tasks_json);
