@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var https = require('https');
-var httpProxy = require( 'http-proxy' );
+//var httpProxy = require( 'http-proxy' );
+var proxy = require( 'express-http-proxy' );
 var bodyParser = require('body-parser');
 var util = require('./utils/util');
 var rooms = require('./rooms');
@@ -147,10 +148,12 @@ var API_PORT    = process.env.API_PORT || 444;
 var SOCKET_PATH = 'ws';
 // ==================== PROXY SERVER ==================== //
 
+/*
 var proxy = httpProxy.createProxyServer({
 	target : `https://${HOST}:${API_PORT}`,
 	// ws     : true,
 });
+*/
 
 /*
 proxy.on( 'error', function ( err ) {
@@ -167,14 +170,19 @@ proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
 });
 */
 
+app.get('/admin', function (req, res) {
+  console.log(req.user);
+  res.sendfile('./admin/index.html');
+});
 
 // proxy non-socket requests
 // * not required to proxy the socket.io connection *
-app.use( '/api/', function ( req, res ) {
-  console.log("redirecting");
-  req.url = req.url.split("/api").pop();
+/*
+app.use(function ( req, res ) {
   proxy.web( req, res, { target: `https://${HOST}:${API_PORT}` } );
 });
+*/
+app.use(proxy(`https://${HOST}:${API_PORT}`));
 
 // proxy the socket.io polling requests
 //app.use( `/${SOCKET_PATH}`, function ( req, res ) {
@@ -187,10 +195,6 @@ app.use( '/api/', function ( req, res ) {
 //	proxy.ws( req, socket, head );
 //});
 // ======================== admin routes =============================//
-app.get('/admin', function (req, res) {
-  console.log(req.user);
-  res.sendfile('./admin/index.html');
-});
 
 
 // ======================== main routes ===============================//
