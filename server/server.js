@@ -170,7 +170,8 @@ proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
 
 // proxy non-socket requests
 // * not required to proxy the socket.io connection *
-app.use( '/api', function ( req, res ) {
+app.use( '/api/', function ( req, res ) {
+  req.url = req.url.split("/api").pop();
   proxy.web( req, res, { target: `https://${HOST}:${API_PORT}` } );
 });
 
