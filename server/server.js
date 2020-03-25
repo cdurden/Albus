@@ -183,7 +183,7 @@ app.use(function ( req, res ) {
   proxy.web( req, res, { target: `https://${HOST}:${API_PORT}` } );
 });
 */
-app.use(proxy(`http://${HOST}:${API_PORT}`));
+//app.use(proxy(`http://${HOST}:${API_PORT}`));
 
 // proxy the socket.io polling requests
 //app.use( `/${SOCKET_PATH}`, function ( req, res ) {
