@@ -143,7 +143,7 @@ io.use(sharedsession(session, {
 }));
 
 
-var HOST        = 'dev.algebra742.org';
+var HOST        = 'localhost';
 //var API_PORT    = process.env.API_PORT || 444;
 var API_PORT    = process.env.API_PORT || 8080;
 var SOCKET_PATH = 'ws';
