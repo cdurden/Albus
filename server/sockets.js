@@ -215,9 +215,9 @@ module.exports = function(server) {
     socket.on('get-snow-qm-task', function(data){
       console.log("getting snow-qm task");
       request({
-        url: "https://dev.algebra742.org:444/api/snow-qm-task/",
+        url: "https://dev.algebra742.org:444/api/snow-qm-task/"+data['collection_id']+"/"+data['task_id'],
         headers : { "Authorization" : "Bearer " + auth.token },
-        qs: { 'collection_id': data['collection_id'], 'task_id': data['task_id'] },
+        //qs: { 'collection_id': data['collection_id'], 'task_id': data['task_id'] },
         //json: true
       },
       function(error, response, body) {
