@@ -143,7 +143,7 @@ io.use(sharedsession(session, {
 }));
 
 
-var HOST        = 'localhost';
+var HOST        = 'dev.algebra742.org';
 var API_PORT    = process.env.API_PORT || 444;
 var SOCKET_PATH = 'ws';
 // ==================== PROXY SERVER ==================== //
