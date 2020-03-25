@@ -225,7 +225,7 @@ module.exports = function(server) {
       function(error, response, body) {
         if (!error && response.statusCode == 200) {
           console.log("received 200 status for snow-qm response");
-          socket.emit('task', {'html': body});
+          socket.emit('snow_qm_task', {'html': body, 'collection': data['collection'], 'task': data['task']});
         } else {
           console.log(response.statusCode);
           console.log(error);
