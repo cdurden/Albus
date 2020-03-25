@@ -213,6 +213,7 @@ module.exports = function(server) {
       });
     });
     socket.on('get-snow-qm-task', function(data){
+      console.log("getting snow-qm task");
       request({
         url: "https://dev.algebra742.org:444/api/snow-qm-task/",
         headers : { "Authorization" : "Bearer " + auth.token },
@@ -221,7 +222,7 @@ module.exports = function(server) {
       },
       function(error, response, body) {
         if (!error && response.statusCode == 200) {
-          console.log(lti_user_id);
+          console.log("received 200 status for snow-qm response");
           socket.emit('task', {'html': body});
         } else {
           console.log(response.statusCode);
