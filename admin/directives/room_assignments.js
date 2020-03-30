@@ -15,6 +15,7 @@ angular.module('whiteboard-admin')
       */
       $scope.rooms = {}
       Sockets.on('socket_data', function (data) {
+        console.log(data);
         rooms = {};
         for (socket in data) {
           if (!(data[socket].roomId in rooms)) {
