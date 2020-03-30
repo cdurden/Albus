@@ -9,7 +9,7 @@ var users = {};
 var usersManager = {
 
   getUsers: function () {
-    users = request({hostname: "https://localhost:444/api/users", json: true}, function(err, res, body) {}); 
+    users = request({hostname: "https://www.algebra742.org:444/api/users", json: true}, function(err, res, body) {}); 
     return users;
   },
   

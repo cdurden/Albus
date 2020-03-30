@@ -29,6 +29,9 @@
     width: 100%;
     max-height: 5em;
 }
+#chat-popup {
+    display: none;
+}
 .chat-container textarea {
     font-size: 18pt;
 }

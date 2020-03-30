@@ -143,10 +143,12 @@ io.use(sharedsession(session, {
 }));
 
 
+/*
 var HOST        = 'localhost';
 //var API_PORT    = process.env.API_PORT || 444;
 var API_PORT    = process.env.API_PORT || 8080;
 var SOCKET_PATH = 'ws';
+*/
 // ==================== PROXY SERVER ==================== //
 
 /*
@@ -171,10 +173,12 @@ proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
 });
 */
 
+/*
 app.get('/admin', function (req, res) {
   console.log(req.user);
   res.sendfile('./admin/index.html');
 });
+*/
 
 // proxy non-socket requests
 // * not required to proxy the socket.io connection *
@@ -183,7 +187,7 @@ app.use(function ( req, res ) {
   proxy.web( req, res, { target: `https://${HOST}:${API_PORT}` } );
 });
 */
-app.use(proxy(`http://${HOST}:${API_PORT}`));
+//app.use(proxy(`http://${HOST}:${API_PORT}`));
 
 // proxy the socket.io polling requests
 //app.use( `/${SOCKET_PATH}`, function ( req, res ) {
