@@ -25,6 +25,7 @@ var roomsManager = {
         roomId = utils.generateRandomId(5);
       }
       if (socket.room != roomId) {
+          console.log("clearing board on "+socket.id);
           socket.emit('clearBoard', rooms[roomId]);
       }
       socket.room = roomId;
