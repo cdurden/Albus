@@ -130,9 +130,8 @@ var port = process.env.PORT || '3000';
 app.set('port', port);
 
 
-/*
 var server = http.createServer(app);
-*/
+/*
 var server = https.createServer({
   key: fs.readFileSync(process.env.PRIVATE_KEY_FILE),
   cert: fs.readFileSync(process.env.PUBLIC_KEY_FILE)
@@ -141,6 +140,7 @@ var io = require('./sockets')(server);
 io.use(sharedsession(session, {
     autoSave:true
 }));
+*/
 
 
 /*
