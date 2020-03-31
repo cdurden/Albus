@@ -24,7 +24,9 @@ var roomsManager = {
       } else {
         roomId = utils.generateRandomId(5);
       }
-  
+      if (socket.room != roomId) {
+          socket.emit('clearBoard', rooms[roomId]);
+      }
       socket.room = roomId;
       socket.join(roomId);
       client.hmset(socket.id, 'roomId', roomId, function(err) {

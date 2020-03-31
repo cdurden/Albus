@@ -33,6 +33,10 @@ angular.module('whiteboard.services.boarddata', [])
     }
   };
 
+  function clearBoard() {
+    getBoard().clear();
+  }
+
   function createBoard (element) {
 
     ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
@@ -243,6 +247,7 @@ angular.module('whiteboard.services.boarddata', [])
     unsetEditorShape: unsetEditorShape,
     getEditorShape: getEditorShape,
     setStrokeWidth: setStrokeWidth,
-    getStrokeWidth: getStrokeWidth
+    getStrokeWidth: getStrokeWidth,
+    clearBoard: clearBoard,
   }
 });

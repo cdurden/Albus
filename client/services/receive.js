@@ -20,6 +20,9 @@ angular.module('whiteboard.services.receive', [])
       }
     }
   });
+  Sockets.on('clearBoard', function (data) {
+    EventHandler.clearBoard();
+  });
 
   Sockets.on('heartbeat', function () {
     Sockets.emit('heartbeat');
