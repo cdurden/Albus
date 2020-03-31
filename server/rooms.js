@@ -49,6 +49,7 @@ var roomsManager = {
           // console.log(rooms[roomId]);
           var socketId = socket.id;
           rooms[roomId][socketId] = {};
+          console.log("emitting showExisting");
           socket.emit('showExisting', rooms[roomId]);
           //console.log(rooms[roomId]);
           
