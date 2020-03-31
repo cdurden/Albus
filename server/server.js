@@ -136,11 +136,11 @@ var server = https.createServer({
   key: fs.readFileSync(process.env.PRIVATE_KEY_FILE),
   cert: fs.readFileSync(process.env.PUBLIC_KEY_FILE)
 },app)
+*/
 var io = require('./sockets')(server);
 io.use(sharedsession(session, {
     autoSave:true
 }));
-*/
 
 
 /*
