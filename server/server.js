@@ -109,6 +109,8 @@ app.use(function(req, res, next) {
     console.log("passed authentication middleware");
     next();
 });
+app.use(express.static(__dirname + '/lib'));
+app.use(express.static(__dirname + '/../client'));
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
@@ -116,8 +118,6 @@ app.get('/', function (req, res) {
 });
 
 
-app.use(express.static(__dirname + '/lib'));
-app.use(express.static(__dirname + '/../client'));
 app.use('/data/', express.static(__dirname + '/../data'));
 app.use('/admin/', express.static(__dirname + '/../admin'));
 /*app.post('/', function (req, res) {
