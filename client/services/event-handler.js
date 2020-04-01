@@ -87,5 +87,6 @@ angular.module('whiteboard.services.eventhandler', [])
     drawExistingPath: drawExistingPath,
     grabShape: grabShape,
     displayMessage: displayMessage
+    clearBoard: clearBoard,
   };
 }]);
