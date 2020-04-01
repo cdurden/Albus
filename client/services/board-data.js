@@ -34,7 +34,7 @@ angular.module('whiteboard.services.boarddata', [])
   };
 
   function clearBoard() {
-    getBoard().clear();
+    getCanvas().empty();
   }
 
   function createBoard (element) {
