@@ -1,7 +1,7 @@
 angular.module('whiteboard.services.eventhandler', [])
 .factory('EventHandler', ['BoardData', 'ChatData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', function (BoardData, ChatData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap) {
 
-  clearBoard() {
+  function clearBoard() {
     BoardData.clearBoard();
   };
 
