@@ -67,14 +67,18 @@ app.use(function(req,res,next) {
     console.log("new request");
     next();
 });
-app.use(compression());
+
 app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use('/', passport.authenticate('lti-strategy', {failureFlash: true}));
-//app.use('/', entry)
+
+app.use(express.static(__dirname + '/lib'));
+app.use(express.static(__dirname + '/../client'));
+app.use('/data/', express.static(__dirname + '/../data'));
+app.use('/admin/', express.static(__dirname + '/../admin'));
+
 app.get(function(req, res, next) {
     console.log(req.user);
     if (type(req.user)  === 'undefined') {
@@ -83,6 +87,14 @@ app.get(function(req, res, next) {
         next("route");
     }
 }, passport.authenticate('lti-strategy', {failureFlash: true}));
+
+app.use(compression());
+
+var port = process.env.PORT || '3000';
+app.set('port', port);
+
+var server = http.createServer(app);
+
 /*
 app.post('/lti/', function(req, res, next) {
   console.log("POST to /lti/");
@@ -109,17 +121,13 @@ app.use(function(req, res, next) {
     console.log("passed authentication middleware");
     next();
 });
-app.use(express.static(__dirname + '/lib'));
-app.use(express.static(__dirname + '/../client'));
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
-  res.sendfile('/../client/index.html');
+  res.sendfile('./client/index.html');
 });
 
 
-app.use('/data/', express.static(__dirname + '/../data'));
-app.use('/admin/', express.static(__dirname + '/../admin'));
 /*app.post('/', function (req, res) {
   res.send('POST request to the homepage')
 })
@@ -137,11 +145,6 @@ app.use('/admin/', express.static(__dirname + '/../admin'));
 })
 */
 
-var port = process.env.PORT || '3000';
-app.set('port', port);
-
-
-var server = http.createServer(app);
 /*
 var server = https.createServer({
   key: fs.readFileSync(process.env.PRIVATE_KEY_FILE),
