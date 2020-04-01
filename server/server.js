@@ -94,6 +94,11 @@ app.post('/lti/', function(req, res, next) {
   res.redirect('/');
 });
 */
+var io = require('./sockets')(server);
+io.use(sharedsession(session, {
+    autoSave:true
+}));
+
 app.use('/lti/', function(req,res) {
   console.log("lti route used");
   console.log(req.session);
@@ -104,6 +109,12 @@ app.use(function(req, res, next) {
     console.log("passed authentication middleware");
     next();
 });
+app.get('/', function (req, res) {
+  console.log("responding to GET request at /");
+  console.log(req.user);
+  res.sendfile('/../client/index.html');
+});
+
 
 app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
@@ -137,11 +148,6 @@ var server = https.createServer({
   cert: fs.readFileSync(process.env.PUBLIC_KEY_FILE)
 },app)
 */
-var io = require('./sockets')(server);
-io.use(sharedsession(session, {
-    autoSave:true
-}));
-
 
 /*
 var HOST        = 'localhost';
