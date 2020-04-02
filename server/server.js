@@ -95,6 +95,7 @@ var server = http.createServer(app);
 
 app.post('/lti/', function(req, res, next) {
   console.log("POST to /lti/");
+  console.log(req.headers)
   next();
 }, passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   console.log("lti route used");
