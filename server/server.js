@@ -39,6 +39,34 @@ passport.deserializeUser(function(user_id, done) {
   user = {'user_id': user_id}
   done(null, user);
 });
+var LTIStrategy = require('passport-lti');
+var strategy = new LTIStrategy({
+    createProvider : function (req, done) {
+        // Lookup your LTI customer in your DB with req's params, and get its secret
+        // Dummy DB lookup
+        DAO.getConsumer(
+            req.body.oauth_consumer_key,
+            function callback (err, consumer){
+                if(err){
+                    // Standard error, will crash the process
+                    return done(err);
+                }
+
+                if(consumer.is_authorized){
+                    var consumer = new lti.Provider(auth.consumer_key, auth.consumer_secret);
+                    return done(null, consumer);
+                }
+                else {
+                    // String error, will fail the strategy (and not crash it)
+                    return done("not_authorized");
+                }
+            }
+        );
+    }
+);
+passport.use('lti-strategy', strategy);
+
+/*
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
         console.log("using lti-strategy");
@@ -63,18 +91,17 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
-app.use(session);
-app.use(lti({
-  consumer_key: auth.consumer_key,       // Required if not using credentials.
-  consumer_secret: auth.consumer_secret, // Required if not using credentials.
-
-/*
-  store: {                   // Optional.
-    type: "redis",           // If store is omitted memory will be used.
-    client: redisClient      // Required when using Redis.
-  }
 */
-}));
+app.get(function(req, res, next) {
+    console.log(req.user);
+    if (type(req.user)  === 'undefined') {
+        next();
+    } else {
+        next("route");
+    }
+}, passport.authenticate('lti-strategy', {failureFlash: true}));
+
+app.use(session);
 app.use('/lti/', function (req, res,next) {
   res.send('passed lti middleware')
   console.log(req.session);
