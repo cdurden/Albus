@@ -44,7 +44,7 @@ passport.use('lti-strategy', new CustomStrategy(
 		var val = (req.body) ? req.body : req.user
         console.log(val);
 		try {
-			var provider = new lti.Provider(val , 'make-algebra-logical-again')
+			var provider = new lti.Provider(auth.consumer_key, auth.consumer_secret)
 			if(req.user){
 				callback(null, val)
 			} else {
