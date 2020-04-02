@@ -23,6 +23,7 @@ var session = require('express-session')({
 });
 //var router = express.Router();
 //var entry = require('./routes/entry')
+app.enable('trust proxy')
 
 
 passport.serializeUser(function(user, done) {
@@ -62,7 +63,6 @@ passport.use('lti-strategy', new CustomStrategy(
 	}
 ));
 
-app.enable('trust proxy')
 app.use(function(req,res,next) {
     console.log("new request");
     next();
