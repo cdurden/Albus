@@ -63,7 +63,8 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
-app.use(ltiMiddleware({
+app.use(session);
+app.use(lti({
   consumer_key: auth.consumer_key,       // Required if not using credentials.
   consumer_secret: auth.consumer_secret, // Required if not using credentials.
 
@@ -74,13 +75,18 @@ app.use(ltiMiddleware({
   }
 */
 }));
+app.use('/lti/', function (req, res,next) {
+  res.send('passed lti middleware')
+  console.log(req.session);
+  console.log(req.user);
+  next();
+})
 
 app.use(function(req,res,next) {
     console.log("new request");
     next();
 });
 
-app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
