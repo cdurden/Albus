@@ -11,7 +11,8 @@ var client = require('./db/config');
 var fs = require('fs');
 var compression = require('compression');
 var CustomStrategy = require('passport-custom');
-var lti = require('ims-lti');
+//var lti = require('ims-lti');
+var lti = require('express-ims-lti');
 var auth = require('./auth');
 var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
@@ -62,6 +63,17 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
+app.use(ltiMiddleware({
+  consumer_key: auth.consumer_key,       // Required if not using credentials.
+  consumer_secret: auth.consumer_secret, // Required if not using credentials.
+
+/*
+  store: {                   // Optional.
+    type: "redis",           // If store is omitted memory will be used.
+    client: redisClient      // Required when using Redis.
+  }
+*/
+}));
 
 app.use(function(req,res,next) {
     console.log("new request");
