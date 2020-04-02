@@ -63,7 +63,7 @@ var strategy = new LTIStrategy({
             }
         );
     }
-);
+});
 passport.use('lti-strategy', strategy);
 
 /*
