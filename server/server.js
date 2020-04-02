@@ -48,16 +48,19 @@ var strategy = new LTIStrategy({
             req.body.oauth_consumer_key,
             function callback (err, consumer){
                 if(err){
+                    console.log("lti auth failure");
                     // Standard error, will crash the process
                     return done(err);
                 }
 
                 if(consumer.is_authorized){
+                    console.log("consumer is authorized");
                     var consumer = new lti.Provider(auth.consumer_key, auth.consumer_secret);
                     return done(null, consumer);
                 }
                 else {
                     // String error, will fail the strategy (and not crash it)
+                    console.log("consumer not authorized");
                     return done("not_authorized");
                 }
             }
