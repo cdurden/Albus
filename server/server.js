@@ -88,14 +88,11 @@ app.get(function(req, res, next) {
     }
 }, passport.authenticate('lti-strategy', {failureFlash: true}));
 
-app.use(compression());
-
 var port = process.env.PORT || '3000';
 app.set('port', port);
 
 var server = http.createServer(app);
 
-/*
 app.post('/lti/', function(req, res, next) {
   console.log("POST to /lti/");
   next();
@@ -105,18 +102,22 @@ app.post('/lti/', function(req, res, next) {
   //res.send('POST request to the homepage')
   res.redirect('/');
 });
-*/
+
+app.use(compression());
+
 var io = require('./sockets')(server);
 io.use(sharedsession(session, {
     autoSave:true
 }));
 
+/*
 app.use('/lti/', function(req,res) {
   console.log("lti route used");
   console.log(req.session);
   //res.send('POST request to the homepage')
   res.redirect('/');
 });
+*/
 app.use(function(req, res, next) {
     console.log("passed authentication middleware");
     next();
