@@ -18,9 +18,13 @@ angular.module('whiteboard.services.reveal', [])
       }
   }
   function getCSS() {
-      return(["https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+      stylesheets = ["https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
               "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css",
-              "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css"]);
+              "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css"];
+      if (isPrintingPdf()) {
+          stylesheets.concat(getSlidesBaseHref()+"./styles/pdf.css");
+      }
+      return(stylesheets)
   }
   function load(callback) {
       Promise.all(getScripts().map(function(script) {
