@@ -55,7 +55,7 @@ angular.module('whiteboard')
                 section.attr("data-markdown", '');
                 section.attr("data-separator", '^---$');
                 div = angular.element("<div>");
-                div.attr('my-include', "'./slides/"+steps[0]+"'");
+                div.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[0]+"'");
                 div.html(slideLoadFailedHtml(steps[0]));
                   /*
                 section.attr("id", steps[0]);
@@ -68,7 +68,7 @@ angular.module('whiteboard')
                 */
                 section.append(div);
               } else {
-                section.attr('my-include', "'./slides/"+steps[0]+"'");
+                section.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[0]+"'");
                 section.attr("id", steps[0]);
                 section.html(slideLoadFailedHtml(steps[0]));
               }
@@ -95,7 +95,7 @@ angular.module('whiteboard')
                   subSection.attr("data-markdown", '');
                   subSection.attr("data-separator", '^---$');
                   div = angular.element("<div>");
-                  div.attr('my-include', "'./slides/"+steps[j]+"'");
+                  div.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[j]+"'");
                   div.html(slideLoadFailedHtml(steps[0]));
                   /*
                   script = angular.element("<script>");
@@ -107,7 +107,7 @@ angular.module('whiteboard')
                   subSection.append(div);
                 } else {
                   console.log("slide "+steps[j]+" has html");
-                  subSection.attr('my-include', "'./slides/"+steps[j]+"'");
+                  subSection.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[j]+"'");
                   subSection.html(slideLoadFailedHtml(steps[0]));
                   subSection.attr("id", steps[j]);
                 }
