@@ -11,7 +11,7 @@ angular.module('whiteboard')
       console.log(deck);
       $http({
         method: 'GET',
-        url: Reveal.getSlidesBaseHref+"./slides/decks/"+deck+".json"
+        url: Reveal.getSlidesBaseHref()+"./slides/decks/"+deck+".json"
       }).then(function success(response) {
           console.log(response);
           if (typeof(response.data.collection) !== 'undefined') {
