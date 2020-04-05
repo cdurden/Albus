@@ -9,12 +9,12 @@ angular.module('whiteboard.services.reveal', [])
   }
   function load(callback) {
       Promise.all(getScripts().map(function(script) {
-          angularLoad.loadScript(script).then(function(result) {
+          return angularLoad.loadScript(script).then(function(result) {
               return result;
           });
       })).then(function() {
           Promise.all(getCSS().map(function(stylesheet) {
-              angularLoad.loadCSS(stylesheet).then(function(result) {
+              return angularLoad.loadCSS(stylesheet).then(function(result) {
                   return result;
               });
           })).then(callback);
