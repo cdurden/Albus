@@ -29,7 +29,7 @@ angular.module('whiteboard', [
         let originalOnUrlChange = $delegate.onUrlChange;
         $delegate.onUrlChange = function (...args) {
             if (ignoredPattern.test($window.location.hash)) return;
-            originalOnUrlChange.apply($delegate, args);
+        //    originalOnUrlChange.apply($delegate, args);
         };
         let originalUrl = $delegate.url;
         $delegate.url = function (...args) {
