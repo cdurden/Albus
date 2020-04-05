@@ -43,6 +43,7 @@ h1.title {
   height: 100%;
   width: 100%;
   z-index: 1;
+  pointer-events: all;
   			-webkit-touch-callout: none ;
 			-webkit-user-select: none ;
 }
