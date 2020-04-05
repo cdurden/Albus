@@ -114,5 +114,6 @@ angular.module('whiteboard.services.reveal', [])
       initialize: initialize,
       load: load,
       getSlidesBaseHref: getSlidesBaseHref,
+      setPrintingPdf: setPrintingPdf
   }
 }]);
