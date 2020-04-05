@@ -74,6 +74,7 @@ passport.use(strategy);
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
         console.log("using lti-strategy");
+        console.log(req.body);
 		var val = (req.body) ? req.body : req.user
         console.log(val);
 		try {
