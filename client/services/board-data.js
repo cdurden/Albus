@@ -40,9 +40,10 @@ angular.module('whiteboard.services.boarddata', [])
   function createBoard (element) {
 
     //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
+    //board = Raphael(element[0]);
     ResizeSensorApi.create(element, handleWindowResize);
 
-    board = Raphael(element[0]);
+    board = Raphael(element);
     board.setViewBox(0, 0, svgWidth, svgHeight, true);
     board.canvas.setAttribute('preserveAspectRatio', 'none');
 
