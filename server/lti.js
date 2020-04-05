@@ -38,7 +38,7 @@ passport.use('lti-strategy', new CustomStrategy(
 		var val = (req.body) ? req.body : req.user
         console.log(val);
 		try {
-			var provider = new lti.Provider(auth.consumer_key, auth.consumer_secret, trustProxy: true)
+			var provider = new lti.Provider auth.consumer_key, auth.consumer_secret, trustProxy: true
 			if(req.user){
 				callback(null, val)
 			} else {
