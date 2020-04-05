@@ -1,10 +1,21 @@
 angular.module('whiteboard.services.reveal', [])
 .factory('Reveal', ['angularLoad', function (angularLoad) {
+  var print = false;
+  function setPrintingPdf(print_) {
+      print = print_;
+  }
+  function isPrintingPdf() {
+      return(print);
+  }
   function getSlidesBaseHref() {
       return("/static/teaching_assets/slides/");
   }
   function getScripts() {
-      return([getSlidesBaseHref()+"./reveal.js/js/reveal.js"]);
+      if (isPrintingPdf()) {
+          return([getSlidesBaseHref()+"./js/reveal.js"]);
+      } else {
+          return([getSlidesBaseHref()+"./reveal.js/js/reveal.js"]);
+      }
   }
   function getCSS() {
       return(["https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
@@ -102,5 +113,6 @@ angular.module('whiteboard.services.reveal', [])
   return {
       initialize: initialize,
       load: load,
+      getSlidesBaseHref: getSlidesBaseHref,
   }
 }]);

@@ -4,14 +4,14 @@ angular.module('whiteboard')
       controller: ["$scope", "$location", "$http", "$routeParams", function($scope, $location, $http, $routeParams) {
       $scope.slides = [];
       //hash_parts = $location.hash().split("/");
-      //return ( /print-pdf/gi ).test( window.location.search );
-      //hash_parts = window.location.hash.substr(1).split("%2F");
-      //deck = hash_parts[0] ? hash_parts[0] : hash_parts[1];
-      deck = "EfficientlySolvingInequalities";
+      Reveal.setPrintingPdf( ( /print-pdf/gi ).test( window.location.search ) );
+      hash_parts = window.location.hash.substr(1).split("%2F");
+      deck = hash_parts[0] ? hash_parts[0] : hash_parts[1];
+      //deck = "EfficientlySolvingInequalities";
       console.log(deck);
       $http({
         method: 'GET',
-        url: "/static/teaching_assets/slides/decks/"+deck+".json"
+        url: Reveal.getSlidesBaseHref+"./slides/decks/"+deck+".json"
       }).then(function success(response) {
           console.log(response);
           if (typeof(response.data.collection) !== 'undefined') {
@@ -126,16 +126,6 @@ angular.module('whiteboard')
             elem.append(section);
           }
           Reveal.load(Reveal.initialize);
-          //elem.append(BoardData.getCanvas()); //cannot draw
-          //elem.append(BoardData.getBoard());
-          //$compile(elem)(scope);
-          /*
-          if(Reveal.isReady()) {
-            Reveal.sync();
-          } else {
-            init_reveal(deck);
-          }
-          */
         }
       });
     }
