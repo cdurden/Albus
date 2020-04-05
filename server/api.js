@@ -24,6 +24,7 @@ function getApiUserFromSession(session, callback) {
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
       body_json = JSON.parse(body)
+      console.log(body)
       if ('data' in body_json) {
         callback(null, body_json['data']);
       }
