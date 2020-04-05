@@ -18,8 +18,8 @@ angular.module('whiteboard')
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
       var boardCtrl = ctrls[0];
       BoardData.setOffset({
-          x: $("#slide_container").offset().left,
-          y: $("#slide_container").offset().top,
+          x: $(".reveal").find(".slides").offset().left,
+          y: $(".reveal").find(".slides").offset().top,
       });
       BoardData.createBoard(element);
       BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
