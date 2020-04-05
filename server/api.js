@@ -15,6 +15,9 @@ function getApiUserFromSession(session, callback) {
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
     headers : { "Authorization" : "Bearer " + auth.token },
+    rejectUnauthorized: false,
+    requestCert: true,
+    agent: false
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
