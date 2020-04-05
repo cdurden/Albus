@@ -22,7 +22,7 @@ angular.module('whiteboard.services.reveal', [])
               "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css",
               "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css"];
       if (isPrintingPdf()) {
-          stylesheets.concat(getSlidesBaseHref()+"./styles/pdf.css");
+          stylesheets = stylesheets.concat(getSlidesBaseHref()+"./styles/pdf.css");
       }
       return(stylesheets)
   }
