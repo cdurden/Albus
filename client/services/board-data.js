@@ -46,8 +46,10 @@ angular.module('whiteboard.services.boarddata', [])
     board.canvas.setAttribute('preserveAspectRatio', 'none');
 
     $canvas = element.find('svg');
-    canvasMarginX = $canvas.position().left;
-    canvasMarginY = $canvas.position().top;
+    //canvasMarginX = $canvas.position().left;
+    //canvasMarginY = $canvas.position().top;
+    canvasMarginX = $canvas.offset().left; // TODO: see if this has negative consequences relative to the previous two lines
+    canvasMarginY = $canvas.offset().top;
   }
 
   function handleWindowResize (newPageSize) {
