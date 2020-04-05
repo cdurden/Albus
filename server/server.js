@@ -19,7 +19,7 @@ var passport = require('passport');
 var session = require('express-session')({
     resave: false,
     saveUninitialized: true,
-    secret: auth.token,
+    secret: auth.session_secret,
     cookie: { secure: true }
 });
 //var router = express.Router();
