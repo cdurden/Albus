@@ -1,6 +1,6 @@
 div.background {
   position: absolute;
-  background-image: url('../assets/images/bg.jpg');
+/*  background-image: url('../assets/images/bg.jpg');*/
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
