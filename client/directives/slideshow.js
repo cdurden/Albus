@@ -56,7 +56,7 @@ angular.module('whiteboard')
                 section.attr("data-separator", '^---$');
                 div = angular.element("<div>");
                 div.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[0]+"'");
-                div.html(slideLoadFailedHtml(steps[0]));
+                //div.html(slideLoadFailedHtml(steps[0]));
                   /*
                 section.attr("id", steps[0]);
                 section.attr("data-markdown", '');
@@ -70,7 +70,7 @@ angular.module('whiteboard')
               } else {
                 section.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[0]+"'");
                 section.attr("id", steps[0]);
-                section.html(slideLoadFailedHtml(steps[0]));
+                //section.html(slideLoadFailedHtml(steps[0]));
               }
                   /*
               section.attr('ng-include', "'./slides/"+steps[0]+".html?raw=true'");
@@ -96,7 +96,7 @@ angular.module('whiteboard')
                   subSection.attr("data-separator", '^---$');
                   div = angular.element("<div>");
                   div.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[j]+"'");
-                  div.html(slideLoadFailedHtml(steps[0]));
+                  //div.html(slideLoadFailedHtml(steps[0]));
                   /*
                   script = angular.element("<script>");
                   script.attr('type', 'text/template');
@@ -108,7 +108,7 @@ angular.module('whiteboard')
                 } else {
                   console.log("slide "+steps[j]+" has html");
                   subSection.attr('my-include', "'/static/teaching_assets/slides/slides/"+steps[j]+"'");
-                  subSection.html(slideLoadFailedHtml(steps[0]));
+                  //subSection.html(slideLoadFailedHtml(steps[0]));
                   subSection.attr("id", steps[j]);
                 }
                 //if (j < steps.length - 1)
