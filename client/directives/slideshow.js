@@ -11,7 +11,7 @@ angular.module('whiteboard')
       console.log(deck);
       $http({
         method: 'GET',
-        url: "./decks/"+deck+".json?raw=true"
+        url: "/static/teaching_assets/slides/decks/"+deck+".json"
       }).then(function success(response) {
           console.log(response);
           if (typeof(response.data.collection) !== 'undefined') {
