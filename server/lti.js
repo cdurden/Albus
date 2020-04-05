@@ -56,10 +56,12 @@ passport.use('lti-strategy', new CustomStrategy(
 	}
 ));
 app.use(session);
+/*
 app.use(ltiMiddleware({
   consumer_key: auth.consumer_key,       // Required if not using credentials.
   consumer_secret: auth.consumer_secret, // Required if not using credentials.
 }));
+*/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
