@@ -18,7 +18,7 @@ function getApiUserFromSession(session, callback) {
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
-    headers : { "Authorization" : "Bearer " + auth.token },
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
   },
     function(error, response, body) {
