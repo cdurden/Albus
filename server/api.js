@@ -1,4 +1,5 @@
 var request = require('request');
+var auth = require('./auth');
 var scheme = "https";
 var host = "localhost";
 var port = 444;
