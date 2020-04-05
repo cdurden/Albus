@@ -19,6 +19,7 @@ angular.module('whiteboard', [
   'whiteboard.services.chatdata',
   'whiteboard.services.taskdata',
   'whiteboard.services.messagehandler',
+  'whiteboard.services.reveal',
   'ngRoute'
 ])
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
