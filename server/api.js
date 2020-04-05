@@ -5,10 +5,10 @@ function getSocketUser(socket) {
     return(socket.handshake.session.passport.user);
 }
 function getApiUserFromSocket(socket, callback) {
+  var lti_user_id = getSocketUser(socket);
   request({
-    url: `${scheme}://${host}:${port}/api/user/`,
+    url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
     headers : { "Authorization" : "Bearer " + auth.token },
-    qs: { 'user': getSocketUser(socket), 'auth_scheme': 'lti' },
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {

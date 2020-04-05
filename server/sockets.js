@@ -1,5 +1,6 @@
 var socketio = require('socket.io');
 var rooms = require('./rooms');
+var api = require('./api');
 var fs = require('fs');
 var users = require('./users');
 var client = require('./db/config');
@@ -35,32 +36,12 @@ module.exports = function(server) {
   var io = socketio.listen(server);
 
   io.on('connection', function (socket) {
-    if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
-      lti_user_id = socket.handshake.session.passport.user;
-      request({
-        url: "https://dev.algebra742.org:444/api/users/",
-        headers : { "Authorization" : "Bearer " + auth.token },
-        qs: { 'lti_user_id': lti_user_id },
-        //json: true
-      },
-        function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-          console.log(lti_user_id);
-          body_json = JSON.parse(body)
-          if ('data' in body_json && body_json['data'].length == 1) {
-            console.log(body_json['data'][0]);
-            console.log(Object.entries(body_json['data'][0]));
-            client.hmset(socket.id, Object.entries(body_json['data'][0]).flat());
-          }
-        } else {
-          console.log(lti_user_id);
-          console.log(socket.handshake.session.id);
-          console.log(response.statusCode);
-          console.log(error);
-          console.log(body);
-        }
+   // if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
+      api.getUserFromSocket(socket, function(error, data) {
+          console.log(data);
+          //client.hmset(socket.id, Object.entries(body_json['data'][0]).flat());
       });
-    }
+  //  }
     console.log("does the socket have an id?");
     //console.log(socket);
     console.log(socket.id);
