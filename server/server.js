@@ -39,6 +39,7 @@ passport.deserializeUser(function(user_id, done) {
   user = {'user_id': user_id}
   done(null, user);
 });
+/*
 var LTIStrategy = require('passport-lti');
 var strategy = new LTIStrategy({
     createProvider : function (req, done) {
@@ -68,8 +69,8 @@ var strategy = new LTIStrategy({
     }
 });
 passport.use(strategy);
+*/
 
-/*
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
         console.log("using lti-strategy");
@@ -94,7 +95,18 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
-*/
+
+app.post('/lti/', function(req, res, next) {
+  console.log("POST to /lti/");
+  console.log(req.headers)
+  next();
+}, passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
+  console.log("lti route used");
+  console.log(req.session);
+  //res.send('POST request to the homepage')
+  res.redirect('/');
+});
+
 app.get(function(req, res, next) {
     console.log(req.user);
     if (type(req.user)  === 'undefined') {
@@ -140,17 +152,6 @@ var port = process.env.PORT || '3000';
 app.set('port', port);
 
 var server = http.createServer(app);
-
-app.post('/lti/', function(req, res, next) {
-  console.log("POST to /lti/");
-  console.log(req.headers)
-  next();
-}, passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
-  console.log("lti route used");
-  console.log(req.session);
-  //res.send('POST request to the homepage')
-  res.redirect('/');
-});
 
 app.use(compression());
 
