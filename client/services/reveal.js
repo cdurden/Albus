@@ -1,10 +1,14 @@
 angular.module('whiteboard.services.reveal', [])
 .factory('Reveal', ['angularLoad', function (angularLoad) {
+  function getSlidesBaseHref() {
+      return("/static/teaching_assets/slides/");
+  }
   function getScripts() {
-      return(["/static/teaching_assets/slides/reveal.js/js/reveal.js"]);
+      return([getSlidesBaseHref()+"./reveal.js/js/reveal.js"]);
   }
   function getCSS() {
-      return(["https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css",
+      return(["https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+              "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css",
               "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css"]);
   }
   function load(callback) {
@@ -60,26 +64,26 @@ angular.module('whiteboard.services.reveal', [])
         }
       ],
       chalkboard: {
-          src: './slides/'+deck+'/chalkboard.json',
+          src: getSlidesBaseHref()+'./slides/'+deck+'/chalkboard.json',
           readOnly: false,
       },
   	audio: {
-        prefix: './slides/'+deck+'/audio/',
+        prefix: getSlidesBaseHref()+'./slides/'+deck+'/audio/',
         suffix: '.webm',
         advance: 0,
         playerStyle: 'position: fixed; top: 4px; left: 25%; width: 50%; height:75px; z-index: 33;',
         playerOpacity: 0.25,
       },
       dependencies: [
-        { src: './reveal.js/plugin/math/math.js', async: true },
-        { src: './reveal.js-plugins/anything/anything.js' },
-        { src: './reveal.js/plugin/markdown/marked.js' },
-        { src: './reveal.js/plugin/markdown/markdown.js' },
-        { src: './reveal_countdown/countdown.js' },
+        { src: getSlidesBaseHref()+'./reveal.js/plugin/math/math.js', async: true },
+        { src: getSlidesBaseHref()+'./reveal.js-plugins/anything/anything.js' },
+        { src: getSlidesBaseHref()+'./reveal.js/plugin/markdown/marked.js' },
+        { src: getSlidesBaseHref()+'./reveal.js/plugin/markdown/markdown.js' },
+        { src: getSlidesBaseHref()+'./reveal_countdown/countdown.js' },
         // audio recording
-    	  { src: './reveal.js-plugins/audio-slideshow/RecordRTC.js', condition: function( ) { return !!document.body.classList; } },				
-    	  { src: './reveal.js-plugins/audio-slideshow/slideshow-recorder.js', condition: function( ) { return !!document.body.classList; } },				
-    	  { src: './reveal.js-plugins/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList; } },
+    	  { src: getSlidesBaseHref()+'./reveal.js-plugins/audio-slideshow/RecordRTC.js', condition: function( ) { return !!document.body.classList; } },				
+    	  { src: getSlidesBaseHref()+'./reveal.js-plugins/audio-slideshow/slideshow-recorder.js', condition: function( ) { return !!document.body.classList; } },				
+    	  { src: getSlidesBaseHref()+'./reveal.js-plugins/audio-slideshow/audio-slideshow.js', condition: function( ) { return !!document.body.classList; } },
         // broadcasting audio/video
         /*
         { src: './reveal.js-plugins/broadcast/RTCMultiConnection.min.js'},
