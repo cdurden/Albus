@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http');
-var https = require('https');
+//var https = require('https');
 //var httpProxy = require( 'http-proxy' );
 var proxy = require( 'express-http-proxy' );
 var bodyParser = require('body-parser');
@@ -12,7 +12,7 @@ var fs = require('fs');
 var compression = require('compression');
 var CustomStrategy = require('passport-custom');
 //var lti = require('ims-lti');
-var lti = require('express-ims-lti');
+var lti = require('@dinoboff/ims-lti');
 var auth = require('./auth');
 var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
@@ -45,7 +45,7 @@ passport.use('lti-strategy', new CustomStrategy(
 		var val = (req.body) ? req.body : req.user
         console.log(val);
 		try {
-			var provider = new lti.Provider(auth.consumer_key, auth.consumer_secret)
+            var provider = new lti.Provider(auth.consumer_key, auth.consumer_secret, {trustProxy: true})
 			if(req.user){
 				callback(null, val)
 			} else {
@@ -64,52 +64,15 @@ passport.use('lti-strategy', new CustomStrategy(
 	}
 ));
 app.use(session);
-app.use(lti({
-  consumer_key: auth.consumer_key,       // Required if not using credentials.
-  consumer_secret: auth.consumer_secret, // Required if not using credentials.
-
-/*
-  store: {                   // Optional.
-    type: "redis",           // If store is omitted memory will be used.
-    client: redisClient      // Required when using Redis.
-  }
-*/
-}));
-app.use('/lti/', function (req, res,next) {
-  res.send('passed lti middleware')
-  console.log(req.session);
-  console.log(req.user);
-  next();
-})
-
-app.use(function(req,res,next) {
-    console.log("new request");
-    next();
-});
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
 app.use('/data/', express.static(__dirname + '/../data'));
 app.use('/admin/', express.static(__dirname + '/../admin'));
-
-app.get(function(req, res, next) {
-    console.log(req.user);
-    if (type(req.user)  === 'undefined') {
-        next();
-    } else {
-        next("route");
-    }
-}, passport.authenticate('lti-strategy', {failureFlash: true}));
-
-var port = process.env.PORT || '3000';
-app.set('port', port);
-
-var server = http.createServer(app);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.post('/lti/', function(req, res, next) {
   console.log("POST to /lti/");
@@ -121,6 +84,8 @@ app.post('/lti/', function(req, res, next) {
   //res.send('POST request to the homepage')
   res.redirect('/');
 });
+
+var server = http.createServer(app);
 
 app.use(compression());
 
@@ -136,11 +101,11 @@ app.use('/lti/', function(req,res) {
   //res.send('POST request to the homepage')
   res.redirect('/');
 });
-*/
 app.use(function(req, res, next) {
     console.log("passed authentication middleware");
     next();
 });
+*/
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
@@ -232,12 +197,6 @@ app.use(function ( req, res ) {
 
 
 // ======================== main routes ===============================//
-app.get('/test', function (req, res) {
-  console.log(req.session);
-  console.log(req.session.id);
-  console.log(req.user);
-  res.send('GET request to the homepage')
-})
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
 app.get('/:id', function (req, res) {
   console.log(req.user);
