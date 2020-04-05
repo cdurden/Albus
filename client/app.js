@@ -22,7 +22,7 @@ angular.module('whiteboard', [
   'whiteboard.services.reveal',
   'ngRoute'
 ])
-app.config(['$provide', function ($provide) {
+.config(['$provide', function ($provide) {
     $provide.decorator('$browser', ['$delegate', '$window', function ($delegate, $window) {
         // normal anchors
         let ignoredPattern = /^#[a-zA-Z0-9%2F\/\?].*/;
