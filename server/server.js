@@ -99,6 +99,7 @@ passport.use('lti-strategy', new CustomStrategy(
 app.post('/lti/', function(req, res, next) {
   console.log("POST to /lti/");
   console.log(req.headers)
+  console.log(req.session)
   next();
 }, passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
   console.log("lti route used");
