@@ -24,6 +24,7 @@ var session = require('express-session')({
 });
 //var router = express.Router();
 //var entry = require('./routes/entry')
+var port = 3000;
 app.enable('trust proxy')
 
 
