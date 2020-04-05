@@ -126,7 +126,8 @@ angular.module('whiteboard')
             elem.append(section);
           }
           Reveal.load(Reveal.initialize);
-          elem.append(BoardData.getCanvas());
+          //elem.append(BoardData.getCanvas()); //cannot draw
+          elem.append(BoardData.getBoard());
           //$compile(elem)(scope);
           /*
           if(Reveal.isReady()) {
