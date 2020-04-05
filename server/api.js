@@ -11,6 +11,7 @@ function getSessionUser(session) {
 }
 function getApiUserFromSession(session, callback) {
   var lti_user_id = getSessionUser(session);
+  console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
     headers : { "Authorization" : "Bearer " + auth.token },
