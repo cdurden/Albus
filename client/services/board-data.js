@@ -125,6 +125,8 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function getOffset () {
+    offsetX = $canvas.offset().left; // TODO: see if this has negative consequences relative to the previous two lines
+    offsetY = $canvas.offset().top;
     return {
       x: offsetX,
       y: offsetY
