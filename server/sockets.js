@@ -39,7 +39,7 @@ module.exports = function(server) {
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log(data);
-          //client.hmset(socket.id, Object.entries(body_json['data'][0]).flat());
+        client.hmset(socket.id, Object.entries(data).flat());
       });
     }
     console.log("does the socket have an id?");
