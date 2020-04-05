@@ -2,11 +2,11 @@ angular.module('whiteboard.services.reveal', [])
 .factory('Reveal', ['angularLoad', function (angularLoad) {
   function getScripts() {
       return(["/static/teaching_assets/slides/reveal.js/js/reveal.js"]);
-  },
+  }
   function getCSS() {
       return(["https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css",
               "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css"]);
-  },
+  }
   function load(callback) {
       Promise.all(getScripts().map(function(script) {
           angularLoad.loadScript(script).then(function(result) {
@@ -19,7 +19,7 @@ angular.module('whiteboard.services.reveal', [])
               });
           })).then(callback);
       });
-  },
+  }
   function initialize () {
     Reveal.initialize({
       math: {
