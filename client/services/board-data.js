@@ -39,8 +39,8 @@ angular.module('whiteboard.services.boarddata', [])
 
   function createBoard (element) {
 
-    //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
-    ResizeSensorApi.create(element[0], handleWindowResize);
+    ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
+    //ResizeSensorApi.create(element[0], handleWindowResize);
 
     board = Raphael(element[0]);
     board.setViewBox(0, 0, svgWidth, svgHeight, true);
@@ -126,8 +126,6 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function getOffset () {
-    //offsetX = $canvas.offset().left; // TODO: see if this has negative consequences relative to the previous two lines
-    //offsetY = $canvas.offset().top;
     return {
       x: offsetX,
       y: offsetY
