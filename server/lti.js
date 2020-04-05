@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var compression = require('compression');
 var CustomStrategy = require('passport-custom');
-var lti = require('express-ims-lti');
+var ltiMiddleware = require('express-ims-lti');
+var lti = require('ims-lti');
 var auth = require('./auth');
 var passport = require('passport');
 var session = require('express-session')({
@@ -55,7 +56,7 @@ passport.use('lti-strategy', new CustomStrategy(
 	}
 ));
 app.use(session);
-app.use(lti({
+app.use(ltiMiddleware({
   consumer_key: auth.consumer_key,       // Required if not using credentials.
   consumer_secret: auth.consumer_secret, // Required if not using credentials.
 }));
