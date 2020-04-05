@@ -1,4 +1,4 @@
-var request = require('request');
+var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
 var auth = require('./auth');
 var scheme = "https";
 var host = "localhost";
@@ -15,9 +15,6 @@ function getApiUserFromSession(session, callback) {
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
     headers : { "Authorization" : "Bearer " + auth.token },
-    rejectUnauthorized: false,
-    requestCert: true,
-    agent: false
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
