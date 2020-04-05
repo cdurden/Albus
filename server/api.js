@@ -4,8 +4,11 @@ var port = 444;
 function getSocketUser(socket) {
     return(socket.handshake.session.passport.user);
 }
-function getApiUserFromSocket(socket, callback) {
-  var lti_user_id = getSocketUser(socket);
+function getSessionUser(session) {
+    return(session.passport.user);
+}
+function getApiUserFromSession(session, callback) {
+  var lti_user_id = getSessionUser(session);
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
     headers : { "Authorization" : "Bearer " + auth.token },
@@ -40,4 +43,5 @@ function getApiUsers(socket, callback) {
 }
 module.exports = {
     getApiUsers: getApiUsers,
+    getApiUserFromSession: getApiUserFromSession,
 }
