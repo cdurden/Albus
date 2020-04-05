@@ -23,6 +23,7 @@ function getApiUserFromSession(session, callback) {
         callback(null, body_json['data']);
       }
     } else {
+      console.log(error);
       callback(error, null);
     }
   });
