@@ -42,7 +42,7 @@ h1.title {
   position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 30; /* TODO: figure out how to reliably set on top */
   pointer-events: all;
   			-webkit-touch-callout: none ;
 			-webkit-user-select: none ;
