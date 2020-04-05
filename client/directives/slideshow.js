@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('slideshow', ['$compile', 'Sockets', function($compile, Sockets) {
+.directive('slideshow', ['$compile', 'Sockets', 'Reveal', function($compile, Sockets, Reveal) {
   return {
       controller: ["$scope", "$location", "$http", "$routeParams", function($scope, $location, $http, $routeParams) {
       $scope.slides = [];
@@ -125,6 +125,7 @@ angular.module('whiteboard')
             }
             elem.append(section);
           }
+          Reveal.load(Reveal.initialize);
           //$compile(elem)(scope);
           /*
           if(Reveal.isReady()) {
