@@ -16,8 +16,7 @@ var session = require('express-session')({
     secret: auth.token,
     cookie: { secure: true }
 });
-//var router = express.Router();
-//var entry = require('./routes/entry')
+
 app.enable('trust proxy')
 
 passport.serializeUser(function(user, done) {
