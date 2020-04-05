@@ -36,12 +36,12 @@ module.exports = function(server) {
   var io = socketio.listen(server);
 
   io.on('connection', function (socket) {
-   // if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
+    if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
           console.log(data);
           //client.hmset(socket.id, Object.entries(body_json['data'][0]).flat());
       });
-  //  }
+    }
     console.log("does the socket have an id?");
     //console.log(socket);
     console.log(socket.id);
