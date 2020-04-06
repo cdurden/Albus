@@ -125,7 +125,7 @@ angular.module('whiteboard')
             }
             elem.append(section);
           }
-          Reveal.load(function() { Reveal.initialize(Reveal.replaceWindowResizeEventHandler) });
+          Reveal.load(function() { Reveal.initialize(Reveal.replaceWindowResizeEventListener) });
         }
       });
     }
