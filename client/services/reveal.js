@@ -121,22 +121,24 @@ angular.module('whiteboard.services.reveal', [])
           resolve();
       }).then(function () {
           var slides = document.querySelector( '.reveal .slides' );
-          var rect = slides.getBoundingClientRect();
+          var slides_rect = slides.getBoundingClientRect();
+          var board = BoardData.getBoard();
+          var board_rect = board.getBoundingClientRect();
           BoardData.setOffset({
               //x: -slides.offsetLeft,
               //y: -slides.offsetTop
-              x: -rect.left,
-              y: -rect.top,
+              x: -slides_rect.left,
+              y: -slides_rect.top,
           });
           var newPageSize = {
               //width: window.innerWidth,
               //height: window.innerHeight
-              width: rect.width,
-              height: rect.height,
+              width: board_rect.width,
+              height: board_rect.height,
           }
-          var scale = rect.width / slides.offsetWidth;
+          //var scale = rect.width / slides.offsetWidth;
           //BoardData.setZoomScale(Reveal.getScale());
-          BoardData.setZoomScale(scale);
+          //BoardData.setZoomScale(scale);
           BoardData.handleWindowResize(newPageSize);
       });
   }
