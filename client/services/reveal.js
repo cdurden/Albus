@@ -133,7 +133,7 @@ angular.module('whiteboard.services.reveal', [])
   }
   return {
       initialize: initialize,
-      replaceResizeEventListener: replaceResizeEventListener,
+      replaceWindowResizeEventListener: replaceWindowResizeEventListener,
       load: load,
       getSlidesBaseHref: getSlidesBaseHref,
       setPrintingPdf: setPrintingPdf
