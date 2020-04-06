@@ -121,13 +121,18 @@ angular.module('whiteboard.services.reveal', [])
           resolve();
       }).then(function () {
           slides = document.querySelector( '.reveal .slides' );
+          rect = slides.getBoundingClientRect();
           BoardData.setOffset({
-              x: -slides.offsetLeft,
-              y: -slides.offsetTop
+              //x: -slides.offsetLeft,
+              //y: -slides.offsetTop
+              x: rect.left,
+              y: rect.top,
           });
           newPageSize = {
-              width: window.innerWidth,
-              height: window.innerHeight
+              //width: window.innerWidth,
+              //height: window.innerHeight
+              width: rect.width,
+              height: rect.height,
           }
           BoardData.setZoomScale(Reveal.getScale());
           BoardData.handleWindowResize(newPageSize);
