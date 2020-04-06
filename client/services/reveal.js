@@ -127,7 +127,7 @@ angular.module('whiteboard.services.reveal', [])
           });
       });
   }
-  function replaceResizeEventListener() {
+  function replaceWindowResizeEventListener() {
       window.removeEventListener("resize", Reveal.onWindowResize);
       window.addEventListener("resize", onWindowResize);
   }
