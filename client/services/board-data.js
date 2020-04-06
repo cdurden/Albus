@@ -252,5 +252,6 @@ angular.module('whiteboard.services.boarddata', [])
     setStrokeWidth: setStrokeWidth,
     getStrokeWidth: getStrokeWidth,
     clearBoard: clearBoard,
+    handleWindowResize: handleWindowResize,
   }
 });
