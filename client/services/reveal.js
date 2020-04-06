@@ -125,6 +125,11 @@ angular.module('whiteboard.services.reveal', [])
               x: -slides.offsetLeft,
               y: -slides.offsetTop
           });
+          newPageSize = {
+              width: window.innerWidth,
+              height: window.innerHeight
+          }
+          BoardData.handleWindowResize(newPageSize);
       });
   }
   function replaceWindowResizeEventListener() {
