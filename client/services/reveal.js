@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.reveal', [])
-.factory('Reveal', ['angularLoad', function (angularLoad) {
+.factory('Reveal', ['angularLoad', 'BoardData', function (angularLoad, BoardData) {
   var print = false;
   function setPrintingPdf(print_) {
       print = print_;
@@ -114,8 +114,25 @@ angular.module('whiteboard.services.reveal', [])
       //transition: Reveal.getQueryHash().transition || 'none',
     });
   }
+  function onWindowResize() {
+      const promise = new Promise((resolve, reject) => {
+          Reveal.layout();
+          resolve();
+      }).then(function () {
+          slides = document.querySelector( '.reveal .slides' );
+          BoardData.setOffset({
+              x: -slides.offsetLeft,
+              y: -slides.offsetTop
+          });
+      });
+  }
+  function replaceResizeEventListener() {
+      window.removeEventListener("resize", Reveal.onWindowResize);
+      window.addEventListener("resize", onWindowResize);
+  }
   return {
       initialize: initialize,
+      replaceResizeEventListener: replaceResizeEventListener,
       load: load,
       getSlidesBaseHref: getSlidesBaseHref,
       setPrintingPdf: setPrintingPdf
