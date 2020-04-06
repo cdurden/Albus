@@ -125,8 +125,8 @@ angular.module('whiteboard.services.reveal', [])
           BoardData.setOffset({
               //x: -slides.offsetLeft,
               //y: -slides.offsetTop
-              x: rect.left,
-              y: rect.top,
+              x: -rect.left,
+              y: -rect.top,
           });
           newPageSize = {
               //width: window.innerWidth,
