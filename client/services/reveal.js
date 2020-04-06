@@ -120,21 +120,23 @@ angular.module('whiteboard.services.reveal', [])
           Reveal.layout();
           resolve();
       }).then(function () {
-          slides = document.querySelector( '.reveal .slides' );
-          rect = slides.getBoundingClientRect();
+          var slides = document.querySelector( '.reveal .slides' );
+          var rect = slides.getBoundingClientRect();
           BoardData.setOffset({
               //x: -slides.offsetLeft,
               //y: -slides.offsetTop
               x: -rect.left,
               y: -rect.top,
           });
-          newPageSize = {
+          var newPageSize = {
               //width: window.innerWidth,
               //height: window.innerHeight
               width: rect.width,
               height: rect.height,
           }
-          BoardData.setZoomScale(Reveal.getScale());
+          var scale = rect.width / slides.offsetWidth;
+          //BoardData.setZoomScale(Reveal.getScale());
+          BoardData.setZoomScale(scale);
           BoardData.handleWindowResize(newPageSize);
       });
   }
