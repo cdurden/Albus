@@ -122,8 +122,8 @@ angular.module('whiteboard.services.reveal', [])
       }).then(function () {
           var slides = document.querySelector( '.reveal .slides' );
           var slides_rect = slides.getBoundingClientRect();
-          var board = BoardData.getBoard();
-          var board_rect = board.getBoundingClientRect();
+          var canvas = BoardData.getCanvas();
+          var canvas_rect = canvas.getBoundingClientRect();
           BoardData.setOffset({
               //x: -slides.offsetLeft,
               //y: -slides.offsetTop
@@ -133,8 +133,8 @@ angular.module('whiteboard.services.reveal', [])
           var newPageSize = {
               //width: window.innerWidth,
               //height: window.innerHeight
-              width: board_rect.width,
-              height: board_rect.height,
+              width: canvas_rect.width,
+              height: canvas_rect.height,
           }
           //var scale = rect.width / slides.offsetWidth;
           //BoardData.setZoomScale(Reveal.getScale());
