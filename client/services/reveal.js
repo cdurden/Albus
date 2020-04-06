@@ -122,7 +122,7 @@ angular.module('whiteboard.services.reveal', [])
       }).then(function () {
           var slides = document.querySelector( '.reveal .slides' );
           var slides_rect = slides.getBoundingClientRect();
-          var board_container = document.getElementById('board_container');
+          var board_container = document.getElementById('board-container');
           var board_container_rect = board_container.getBoundingClientRect();
           BoardData.setOffset({
               //x: -slides.offsetLeft,
