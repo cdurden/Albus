@@ -39,7 +39,7 @@ angular.module('whiteboard.services.reveal', [])
           })).then(callback);
       });
   }
-  function initialize () {
+  function initialize (callback) {
     Reveal.initialize({
       math: {
         mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
@@ -113,6 +113,7 @@ angular.module('whiteboard.services.reveal', [])
       loop: false,
       //transition: Reveal.getQueryHash().transition || 'none',
     });
+    callback();
   }
   function onWindowResize() {
       const promise = new Promise((resolve, reject) => {
