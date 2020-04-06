@@ -129,6 +129,7 @@ angular.module('whiteboard.services.reveal', [])
               width: window.innerWidth,
               height: window.innerHeight
           }
+          BoardData.setZoomScale(Reveal.getScale());
           BoardData.handleWindowResize(newPageSize);
       });
   }
