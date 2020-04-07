@@ -124,13 +124,16 @@ angular.module('whiteboard.services.reveal', [])
           var slides_rect = slides.getBoundingClientRect();
           var board_container = document.getElementById('board-container');
           var board_container_rect = board_container.getBoundingClientRect();
-          var svgDims = BoardData.getOriginalDims()
-          var offset = {
-              x: -slides_rect.left/slides_rect.width*svgDims.width,
-              y: -slides_rect.top/slides_rect.height*svgDims.height,
+          var scale = {
+              x: board_container_rect.width/slides_rect.width,
+              y: board_container_rect.height/slides_rect.height
           }
-          BoardData.setOffset(offset);
+          var offset = {
+              x: -scale.x*slides_rect.left,
+              y: -scale.y*slides_rect.top,
+          }
           /*
+          BoardData.setOffset(offset);
           var newPageSize = {
               //width: window.innerWidth,
               //height: window.innerHeight
@@ -142,8 +145,8 @@ angular.module('whiteboard.services.reveal', [])
           //BoardData.setZoomScale(scale);
           //BoardData.setZoomScale(Reveal.getScale());
           //BoardData.handleWindowResize(svgDims);
-          var viewBoxWidth = board_container_rect.width/slides_rect.width*svgDims.width;
-          var viewBoxHeight = board_container_rect.height/slides_rect.height*svgDims.height;
+          var viewBoxWidth = scale*window.innerWidth;
+          var viewBoxHeight = scale*window.innerHeight;
           BoardData.getBoard().setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight); 
       });
   }
