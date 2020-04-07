@@ -145,8 +145,8 @@ angular.module('whiteboard.services.reveal', [])
           //BoardData.setZoomScale(scale);
           //BoardData.setZoomScale(Reveal.getScale());
           //BoardData.handleWindowResize(svgDims);
-          var viewBoxWidth = scale*window.innerWidth;
-          var viewBoxHeight = scale*window.innerHeight;
+          var viewBoxWidth = scale.x*window.innerWidth;
+          var viewBoxHeight = scale.y*window.innerHeight;
           BoardData.getBoard().setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight); 
       });
   }
