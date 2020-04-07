@@ -125,7 +125,6 @@ angular.module('whiteboard.services.reveal', [])
           var board_container = document.getElementById('board-container');
           var board_container_rect = board_container.getBoundingClientRect();
           svgDims = BoardData.getOriginalDims()
-          
           BoardData.setOffset({
               x: -slides_rect.left/slides_rect.width*svgDims.width,
               y: -slides_rect.top/slides_rect.height*svgDims.height,
@@ -138,10 +137,13 @@ angular.module('whiteboard.services.reveal', [])
               height: svgDims.height*board_container_rect.height/slides_rect.height,
           }
           */
-          var scale = slides_rect.width / board_container_rect.width;
-          BoardData.setZoomScale(scale);
+          //var scale = slides_rect.width / board_container_rect.width;
+          //BoardData.setZoomScale(scale);
           //BoardData.setZoomScale(Reveal.getScale());
-          BoardData.handleWindowResize(BoardData.getOriginalDims());
+          //BoardData.handleWindowResize(svgDims);
+          viewBoxWidth = board_container_rect.width/slides_rect.width*svgDims.width;
+          viewBoxHeight = board_container_rect.height/slides_rect.height*svgDims.height;
+          BoardData.getBoard().setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight); 
       });
   }
   function replaceWindowResizeEventListener() {
