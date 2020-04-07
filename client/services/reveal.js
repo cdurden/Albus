@@ -142,9 +142,8 @@ angular.module('whiteboard.services.reveal', [])
           //BoardData.setZoomScale(scale);
           //BoardData.setZoomScale(Reveal.getScale());
           //BoardData.handleWindowResize(svgDims);
-          var scale = window.viewBoxWidth/window.innerWidth;
-          viewBoxWidth = board_container_rect.width/slides_rect.width*svgDims.width*scale;
-          viewBoxHeight = board_container_rect.height/slides_rect.height*svgDims.height*scale;
+          viewBoxWidth = board_container_rect.width/slides_rect.width*svgDims.width;
+          viewBoxHeight = board_container_rect.height/slides_rect.height*svgDims.height;
           BoardData.getBoard().setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight); 
       });
   }
