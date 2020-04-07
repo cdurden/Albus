@@ -124,21 +124,22 @@ angular.module('whiteboard.services.reveal', [])
           var slides_rect = slides.getBoundingClientRect();
           var board_container = document.getElementById('board-container');
           var board_container_rect = board_container.getBoundingClientRect();
+          svgDims = BoardData.getOriginalDims()
           BoardData.setOffset({
               //x: -slides.offsetLeft,
               //y: -slides.offsetTop
-              x: -slides_rect.left,
-              y: -slides_rect.top,
+              x: -slides_rect.left/slides_rect.width*svgDims.width,
+              y: -slides_rect.top/slides_rect.height*svgDims.height,
           });
           var newPageSize = {
               //width: window.innerWidth,
               //height: window.innerHeight
-              width: board_container_rect.width,
-              height: board_container_rect.height,
+              width: svgDims.width*board_container_rect.width/slides_rect.width,
+              height: svgDims.height*board_container_rect.height/slides_rect.height,
           }
-          //var scale = rect.width / slides.offsetWidth;
-          //BoardData.setZoomScale(Reveal.getScale());
+          //var scale = slides_rect.width / board_container_rect.width;
           //BoardData.setZoomScale(scale);
+          //BoardData.setZoomScale(Reveal.getScale());
           BoardData.handleWindowResize(newPageSize);
       });
   }
