@@ -142,8 +142,8 @@ angular.module('whiteboard.services.reveal', [])
           //BoardData.setZoomScale(scale);
           //BoardData.setZoomScale(Reveal.getScale());
           //BoardData.handleWindowResize(svgDims);
-          viewBoxWidth = board_container_rect.width/slides_rect.width*svgDims.width;
-          viewBoxHeight = board_container_rect.height/slides_rect.height*svgDims.height;
+          var viewBoxWidth = board_container_rect.width/slides_rect.width*svgDims.width;
+          var viewBoxHeight = board_container_rect.height/slides_rect.height*svgDims.height;
           BoardData.getBoard().setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight); 
       });
   }
