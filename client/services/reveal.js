@@ -124,8 +124,8 @@ angular.module('whiteboard.services.reveal', [])
           var slides_rect = slides.getBoundingClientRect();
           var board_container = document.getElementById('board-container');
           var board_container_rect = board_container.getBoundingClientRect();
-          svgDims = BoardData.getOriginalDims()
-          offset = {
+          var svgDims = BoardData.getOriginalDims()
+          var offset = {
               x: -slides_rect.left/slides_rect.width*svgDims.width,
               y: -slides_rect.top/slides_rect.height*svgDims.height,
           }
