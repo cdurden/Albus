@@ -1,6 +1,6 @@
 angular.module('whiteboard.services.sockets', [])
 .factory('Sockets', function (socketFactory) {
-  var myIoSocket = io.connect({'path': '/socket.io'});
+  var myIoSocket = io('/client',{'path': '/socket.io'});
 
   mySocket = socketFactory({
     ioSocket: myIoSocket

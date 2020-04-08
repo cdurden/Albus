@@ -15,6 +15,8 @@ module.exports = function(server) {
   var board = {};
 
   var io = socketio.listen(server);
+  adminIo = io.of('/admin');
+  clientIo = io.of('/client');
 
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
@@ -24,7 +26,7 @@ module.exports = function(server) {
     })); 
   }
   function getAllClientData(callback) {
-    io.clients((error, clients) => {
+    clientIo.clients((error, clients) => {
       console.log(clients);
       if (error) throw error;
       Promise.all(clients.map(function(clientId) {
@@ -38,7 +40,6 @@ module.exports = function(server) {
     });
   }
 
-  adminIo = io.of('/admin');
   adminIo.on('connection', function(socket) {
     socket.on('disconnect', function(){ });
     socket.on('submissions', function(){
@@ -53,7 +54,7 @@ module.exports = function(server) {
       console.log("assigning sockets to rooms");
       console.log(assignments);
       for (socketId in assignments) {
-        rooms.assignRoomToSocket(io.sockets.connected[socketId], assignments[socketId]);
+        rooms.assignRoomToSocket(clientIo.sockets.connected[socketId], assignments[socketId]);
       }
     });
     socket.on('getTask', function(){
@@ -81,12 +82,12 @@ module.exports = function(server) {
         console.log(err);
         client.get('task', function(err, result) {
           console.log(result);
-          io.emit('task', result);
+          //io.emit('task', result); // TODO: assign to specific socket
         });
       });
     });
   });
-  io.on('connection', function (socket) {
+  clientIo.on('connection', function (socket) {
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log(data);
@@ -199,7 +200,7 @@ function get_all_data_by_socket(socket, callback) {
 }
       */
     socket.on('chat message', function(msg){
-      io.emit('chat message', msg);
+      clientIo.emit('chat message', msg);
       console.log(msg);
     });
 
