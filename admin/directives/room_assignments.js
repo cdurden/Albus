@@ -1,5 +1,5 @@
 angular.module('whiteboard-admin')
-.directive('wbAdminRoomAssignments', ['Sockets', function (Sockets) {
+.directive('wbAdminRoomAssignments', ['Sockets', 'angularLoad', function (Sockets, angularLoad) {
   return {
     restrict: 'A',
     require: ['wbAdminRoomAssignments'],
@@ -68,6 +68,7 @@ angular.module('whiteboard-admin')
     },
     link: function(scope, element, attrs) {
       console.log("calling link function");
+        /*
       function injectLibsFromStack(callback){
           if(libs.length > 0){
       
@@ -91,7 +92,42 @@ angular.module('whiteboard-admin')
           }
           else return callback();
       }
-      var libs = ["https://raw.githack.com/SortableJS/Sortable/master/Sortable.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"]
+      */
+      var sortableScripts = ["https://raw.githack.com/SortableJS/Sortable/master/Sortable.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"]
+      Promise.all(sortableScripts.map(function(script) {
+        return(angularLoad.loadScript(script).then(function(result) {
+          return result;
+        });
+      })).then(function() {
+        var sortables = [];
+        console.log("creating sortables");
+        $('#generateJSON').click(function() {
+      
+          let rooms = {};
+          let sockets = {};
+           
+          $('.roomList').each(function(i,room_elmt) { 
+            var room=$(room_elmt).find(".room").text();
+            $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
+                sockets[$(socket_elmt).text()] = {'roomId': room };
+                // do more
+            });
+            var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
+              return {'id': $(elem).text()};
+            }).get();
+        
+            rooms[room] = student_ids;
+          });
+      
+          // encode to JSON format
+          var rooms_json = JSON.stringify(rooms,null,'\t');
+          var sockets_json = JSON.stringify(sockets,null,'\t');
+          $('#printCode').html(sockets_json);
+          Sockets.emit('assign_sockets_to_rooms', sockets);
+        });
+      });
+          
+        /*
       injectLibsFromStack(function() {
         var sortables = [];
         console.log("creating sortables");
@@ -120,6 +156,7 @@ angular.module('whiteboard-admin')
           Sockets.emit('assign_sockets_to_rooms', sockets);
         });
       });
+      */
     },
   }
 }]);
