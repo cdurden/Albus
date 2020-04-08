@@ -97,7 +97,7 @@ angular.module('whiteboard-admin')
       Promise.all(sortableScripts.map(function(script) {
         return(angularLoad.loadScript(script).then(function(result) {
           return result;
-        });
+        }));
       })).then(function() {
         var sortables = [];
         console.log("creating sortables");
