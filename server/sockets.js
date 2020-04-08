@@ -19,7 +19,9 @@ module.exports = function(server) {
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       console.log(result);
-      resolve({socketId: result});
+      var map = {};
+      map[socketId] = result;
+      resolve(map);
     })); 
   }
   function getAllClientData(callback) {
