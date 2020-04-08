@@ -27,31 +27,27 @@ angular.module('whiteboard-admin')
             callback();
           });
         }
+        function updateRooms() {
+          $('.roomList').each(function(i,roomElmt) { 
+            var roomId=$(roomElmt).find(".room").text();
+            var sockets = {};
+            $(roomElmt).find('span[id^=socketId]').each(function(j,socketElmt) {
+                $scope.sockets[$(socketElmt).text()]['roomId'] = roomId;
+                // do more
+            });
+            //rooms[roomId] = sockets;
+          });
+        }
         function createSortables() {
-          let rooms = {};
-          let sockets = {};
+          //var rooms = {};
           $(".roomList").each(function(i, elmt) {
             console.log("creating sortable on element:");
             console.log(elmt);
             Sortable.create(elmt, {
               group: 'rooms',
               onChange: function() {
-                $('.roomList').each(function(i,roomElmt) { 
-                  var room=$(roomElmt).find(".room").text();
-                  $(roomElmt).find('span[id^=socket_id]').each(function(j,socketElmt) {
-                      sockets[$(socketElmt).text()] = {'roomId': room };
-                      // do more
-                  });
-                  var student_ids = $(roomElmt).find('span[id^=student_id]').map(function(idx, elem) {
-                    return {'id': $(elem).text()};
-                  }).get();
-              
-                  rooms[room] = student_ids;
-                });
-            
-                // encode to JSON format
-                //var rooms_json = JSON.stringify(rooms,null,'\t');
-                var socketsJSON = JSON.stringify(sockets,null,'\t');
+                updateRooms();
+                var socketsJSON = JSON.stringify($scope.sockets,null,'\t');
                 $('#printCode').html(socketsJSON);
               },
             });
@@ -64,26 +60,11 @@ angular.module('whiteboard-admin')
           var val = value || null;            
           if (val)
             loadSortableJS(createSortables);
-          let rooms = {};
-          let sockets = {};
-          $('.roomList').each(function(i,roomElmt) { 
-            var room=$(roomElmt).find(".room").text();
-            $(roomElmt).find('span[id^=socketId]').each(function(j,socketElmt) {
-                sockets[$(socketElmt).text()] = {'roomId': room };
-                // do more
-            });
-            var student_ids = $(roomElmt).find('span[id^=student_id]').map(function(idx, elem) {
-              return {'id': $(elem).text()};
-            }).get();
-        
-            rooms[room] = student_ids;
-          });
-      
-          // encode to JSON format
-          //var rooms_json = JSON.stringify(rooms,null,'\t');
-          var sockets_json = JSON.stringify(sockets,null,'\t');
-          $scope.sockets = sockets;
-          $('#printCode').html(sockets_json);
+          updateRooms();
+          var socketsJSON = JSON.stringify($scope.sockets,null,'\t');
+          $('#printCode').html(socketsJSON);
+          //let rooms = {};
+          //let sockets = {};
         });
         console.log(data);
         console.log(rooms);
