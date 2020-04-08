@@ -34,7 +34,7 @@ module.exports = function(server) {
         console.log(results);
         //result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
         //console.log(result);
-        callback(err, results);
+        callback(results);
       });
     });
   }
@@ -157,7 +157,7 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('getAllClientData', function() {
       console.log("getting socket data");
-      getAllClientData(function(result) { socket.emit("allClientData", result) });
+      getAllClientData(function(results) { socket.emit("allClientData", results) });
     });
     socket.on('assignRooms', function(assignments){
       console.log("assigning sockets to rooms");
