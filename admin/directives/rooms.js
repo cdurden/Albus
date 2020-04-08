@@ -10,6 +10,7 @@ angular.module('whiteboard-admin')
       Sockets.on('allClientData', function (data) {
         console.log(data);
         rooms = {};
+        $scope.sockets = data;
         for (socketId in data) {
           if (!(data[socketId].roomId in rooms)) {
               rooms[data[socketId].roomId] = [];
@@ -30,7 +31,6 @@ angular.module('whiteboard-admin')
         function updateRooms() {
           $('.roomList').each(function(i,roomElmt) { 
             var roomId=$(roomElmt).find(".room").text();
-            var sockets = {};
             $(roomElmt).find('span[id^=socketId]').each(function(j,socketElmt) {
                 $scope.sockets[$(socketElmt).text()]['roomId'] = roomId;
                 // do more
