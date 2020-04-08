@@ -33,6 +33,7 @@
     }
   },
   "dependencies": {
+    "connect-redis": "^4.0.4",
     "@dinoboff/ims-lti": "^3.1.0-rc7",
     "express-ims-lti": "^0.2.4",
     "express-http-proxy": "^1.6.0",

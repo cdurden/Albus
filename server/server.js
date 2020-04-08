@@ -16,11 +16,13 @@ var lti = require('@dinoboff/ims-lti');
 var auth = require('./auth');
 var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
+var redisStore = require('connect-redis')(session);
 var session = require('express-session')({
     resave: false,
     saveUninitialized: true,
     secret: auth.session_secret,
     cookie: { secure: true }
+    store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 86400 }),
 });
 //var router = express.Router();
 //var entry = require('./routes/entry')

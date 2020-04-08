@@ -38,6 +38,54 @@ module.exports = function(server) {
     });
   }
 
+  admin_io = io.of('/admin');
+  admin_io.on('connection', function(socket) {
+    socket.on('disconnect', function(){ });
+    socket.on('submissions', function(){
+      submissions = ['asdf', 'asfaga'];
+      socket.emit('submissions', submissions);
+    });
+    socket.on('getAllClientData', function() {
+      console.log("getting socket data");
+      getAllClientData(function(results) { socket.emit("allClientData", results) });
+    });
+    socket.on('assignRooms', function(assignments){
+      console.log("assigning sockets to rooms");
+      console.log(assignments);
+      for (socketId in assignments) {
+        rooms.assignRoomToSocket(io.sockets.connected[socketId], assignments[socketId]);
+      }
+    });
+    socket.on('getTask', function(){
+      client.get('task', function(err, result) {
+        console.log(result);
+        socket.emit('task', result);
+      });
+    });
+    socket.on('getTasks', function(){
+      tasks_json = fs.readFileSync('./data/tasks.json');
+      tasks = JSON.parse(tasks_json);
+      console.log(tasks);
+      socket.emit('tasks', tasks);
+    });
+    socket.on('viewTask', function(task_id){
+      console.log(task_id);
+      tasks_json = fs.readFileSync('./data/tasks.json');
+      tasks = JSON.parse(tasks_json);
+      task = tasks[task_id];
+      socket.emit('showTask', task);
+    });
+    socket.on('assignTask', function(data){
+      console.log(data);
+      client.set('task', data, function(err) {
+        console.log(err);
+        client.get('task', function(err, result) {
+          console.log(result);
+          io.emit('task', result);
+        });
+      });
+    });
+  });
   io.on('connection', function (socket) {
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
@@ -45,7 +93,9 @@ module.exports = function(server) {
         client.hmset(socket.id, Object.entries(data).flat());
       });
     }
-    rooms.placeSocket(socket);
+    rooms.placeSocket(socket, function() {
+      getAllClientData(function(results) { socket.emit("allClientData", results) });
+    });
  
     setInterval(function() {
       socket.emit('heartbeat');
@@ -65,7 +115,6 @@ module.exports = function(server) {
     socket.on('get_assignment', function (data) {
     });
 */
-
 
     socket.on('newShape', function (data) {
       socket.to(this.room).emit('shapeCreated', data);
@@ -126,6 +175,7 @@ module.exports = function(server) {
     });
 
       // ----------------- 
+      /*
 const getAsync = promisify(client.get).bind(client);
 const setAsync = promisify(client.set).bind(client);
 const hmgetAsync = promisify(client.hmget).bind(client);
@@ -145,54 +195,10 @@ function get_all_data_by_socket(socket, callback) {
     callback(err, student_data);
   });
 }
+      */
     socket.on('chat message', function(msg){
       io.emit('chat message', msg);
       console.log(msg);
-    });
-
-    socket.on('submissions', function(){
-      submissions = ['asdf', 'asfaga'];
-      socket.emit('submissions', submissions);
-    });
-    socket.on('getAllClientData', function() {
-      console.log("getting socket data");
-      getAllClientData(function(results) { socket.emit("allClientData", results) });
-    });
-    socket.on('assignRooms', function(assignments){
-      console.log("assigning sockets to rooms");
-      console.log(assignments);
-      for (socketId in assignments) {
-        rooms.assignRoomToSocket(io.sockets.connected[socketId], assignments[socketId]);
-      }
-    });
-    socket.on('getTask', function(){
-      client.get('task', function(err, result) {
-        console.log(result);
-        socket.emit('task', result);
-      });
-    });
-    socket.on('getTasks', function(){
-      tasks_json = fs.readFileSync('./data/tasks.json');
-      tasks = JSON.parse(tasks_json);
-      console.log(tasks);
-      socket.emit('tasks', tasks);
-    });
-    socket.on('viewTask', function(task_id){
-      console.log(task_id);
-      tasks_json = fs.readFileSync('./data/tasks.json');
-      tasks = JSON.parse(tasks_json);
-      task = tasks[task_id];
-      socket.emit('showTask', task);
-    });
-    socket.on('assignTask', function(data){
-      console.log(data);
-      client.set('task', data, function(err) {
-        console.log(err);
-        client.get('task', function(err, result) {
-          console.log(result);
-          io.emit('task', result);
-        });
-      });
     });
 
   });
