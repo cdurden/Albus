@@ -154,7 +154,7 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('getAllClientData', function() {
       console.log("getting socket data");
-      getAllClientData(function(result) { socket.emit("allClientData", result) };
+      getAllClientData(function(result) { socket.emit("allClientData", result) });
     });
     socket.on('assignRooms', function(assignments){
       console.log("assigning sockets to rooms");
