@@ -21,7 +21,7 @@ var session = require('express-session')({
     resave: false,
     saveUninitialized: true,
     secret: auth.session_secret,
-    cookie: { secure: true }
+    cookie: { secure: true },
     store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 86400 }),
 });
 //var router = express.Router();
