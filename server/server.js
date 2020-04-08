@@ -16,8 +16,9 @@ var lti = require('@dinoboff/ims-lti');
 var auth = require('./auth');
 var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
+var session = require('express-session');
 var redisStore = require('connect-redis')(session);
-var session = require('express-session')({
+session({
     resave: false,
     saveUninitialized: true,
     secret: auth.session_secret,
