@@ -18,13 +18,13 @@ var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
 var session = require('express-session');
 var redisStore = require('connect-redis')(session);
-session({
+app.use(session({
 //    cookie: { secure: true },
     store: new redisStore({ client: client }),
     resave: false,
     saveUninitialized: true,
     secret: auth.session_secret,
-});
+}));
 //var router = express.Router();
 //var entry = require('./routes/entry')
 var port = 3000;
@@ -67,7 +67,6 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
-app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
