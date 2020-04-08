@@ -24,7 +24,7 @@ session = expressSession({
     resave: false,
     saveUninitialized: true,
     secret: auth.session_secret,
-})
+});
 app.use(session);
 //var router = express.Router();
 //var entry = require('./routes/entry')
