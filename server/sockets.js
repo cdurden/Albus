@@ -38,8 +38,8 @@ module.exports = function(server) {
     });
   }
 
-  admin_io = io.of('/admin');
-  admin_io.on('connection', function(socket) {
+  adminIo = io.of('/admin');
+  adminIo.on('connection', function(socket) {
     socket.on('disconnect', function(){ });
     socket.on('submissions', function(){
       submissions = ['asdf', 'asfaga'];
