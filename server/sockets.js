@@ -27,6 +27,7 @@ module.exports = function(server) {
       if (error) throw error;
       Promise.all(clients.map(function(clientId) {
         return getSocketData(clientId, function(err, result) {
+          console.log(result);
           resolve([clientId, result])
         });
       })).then(function(results) {
