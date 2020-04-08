@@ -48,7 +48,25 @@ function getApiUsers(socket, callback) {
     }
   });
 }
+function getTask(collection, task, callback) {
+  console.log("Getting API user based on lti_user_id: "+lti_user_id);
+  request({
+    url: `${scheme}://${host}:${port}/api/task/${collection}/${task}`,
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+    agent: agent,
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      console.log(error);
+      callback(error, null);
+    }
+  });
+}
 module.exports = {
     getApiUsers: getApiUsers,
     getApiUserFromSession: getApiUserFromSession,
+    getTask: getTask,
 }

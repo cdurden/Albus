@@ -6,15 +6,8 @@ angular.module('whiteboard-admin')
     replace: true,
     templateUrl: 'templates/room_assignments.html',
     controller: function ($scope) {
-        /*
-      Sockets.on('student_assignments', function (data) {
-        $scope.rooms = data;
-        console.log(data);
-      });
-      Sockets.emit('get_student_assignments');
-      */
       $scope.rooms = {}
-      Sockets.on('socket_data', function (data) {
+      Sockets.on('allClientData', function (data) {
         console.log(data);
         rooms = {};
         for (socket in data) {
@@ -25,12 +18,14 @@ angular.module('whiteboard-admin')
         }
 //        $scope.$apply(function() {
           $scope.rooms = rooms;
-          $scope.$emit("update_rooms", rooms);
+//          $scope.$emit("update_rooms", rooms);
 //        });
+          /*
       $scope.$on("update_rooms", function (evt, rooms) {
         console.log(rooms);
         $scope.rooms = rooms
       });
+      */
       function create_sortables() {
         let rooms = {};
         let sockets = {};
@@ -69,7 +64,7 @@ angular.module('whiteboard-admin')
         console.log(data);
         console.log(rooms);
       });
-      Sockets.emit('get_socket_data');
+      Sockets.emit('getAllClientData');
     },
     link: function(scope, element, attrs) {
       console.log("calling link function");

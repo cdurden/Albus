@@ -13,6 +13,11 @@ var roomsManager = {
   getRoom: function (roomId) {
     return rooms[roomId];
   },
+  assignRoomToSocket(socket, roomId) {
+      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
+          placeSocket(socket);
+      });
+  },
 
   placeSocket: function (socket) {
     console.log("placing socket");

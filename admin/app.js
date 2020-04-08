@@ -1,4 +1,5 @@
 angular.module('whiteboard-admin', [
+    'angularLoad',
     'btford.socket-io',
     'whiteboard.services.sockets',
     'ngRoute'
