@@ -19,9 +19,8 @@ module.exports = function(server) {
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       console.log(result);
-      var map = {};
-      map[socketId] = result;
-      resolve(map);
+      result['socketId'] = socketId
+      resolve(result);
     })); 
   }
   function getAllClientData(callback) {
@@ -32,9 +31,9 @@ module.exports = function(server) {
         return getSocketData(clientId);
       })).then(function(results) {
         console.log(results);
-        //result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
+        result = results.reduce((map, obj) => (map[obj['socketId']] = obj, map), {});
         //console.log(result);
-        callback(results);
+        callback(result);
       });
     });
   }
