@@ -94,7 +94,7 @@ var server = http.createServer(app);
 app.use(compression());
 
 var io = require('./sockets')(server);
-io.use(sharedsession(session, {
+io.of('/client').use(sharedsession(session, {
     autoSave:true
 }));
 

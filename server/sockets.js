@@ -15,8 +15,6 @@ module.exports = function(server) {
   var board = {};
 
   var io = socketio.listen(server);
-  adminIo = io.of('/admin');
-  clientIo = io.of('/client');
 
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
@@ -26,7 +24,7 @@ module.exports = function(server) {
     })); 
   }
   function getAllClientData(callback) {
-    clientIo.clients((error, clients) => {
+    io.of('/client').clients((error, clients) => {
       console.log(clients);
       if (error) throw error;
       Promise.all(clients.map(function(clientId) {
@@ -40,7 +38,7 @@ module.exports = function(server) {
     });
   }
 
-  adminIo.on('connection', function(socket) {
+  io.of('/admin').on('connection', function(socket) {
     socket.on('disconnect', function(){ });
     socket.on('submissions', function(){
       submissions = ['asdf', 'asfaga'];
@@ -54,7 +52,7 @@ module.exports = function(server) {
       console.log("assigning sockets to rooms");
       console.log(assignments);
       for (socketId in assignments) {
-        rooms.assignRoomToSocket(clientIo.sockets.connected[socketId], assignments[socketId]);
+        rooms.assignRoomToSocket(io.of('/client').sockets.connected[socketId], assignments[socketId]);
       }
     });
     socket.on('getTask', function(){
@@ -87,7 +85,7 @@ module.exports = function(server) {
       });
     });
   });
-  clientIo.on('connection', function (socket) {
+  io.of('/client').on('connection', function (socket) {
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log(data);
@@ -96,7 +94,7 @@ module.exports = function(server) {
     }
     rooms.placeSocket(socket, function() {
       console.log("emitting client data to admin");
-      getAllClientData(function(results) { adminIo.emit("allClientData", results) });
+      getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
     });
  
     setInterval(function() {
@@ -174,7 +172,7 @@ module.exports = function(server) {
     });
 
     socket.on('disconnect', function () {
-      getAllClientData(function(results) { adminIo.emit("allClientData", results) });
+      getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
     });
 
       // ----------------- 
@@ -200,7 +198,7 @@ function get_all_data_by_socket(socket, callback) {
 }
       */
     socket.on('chat message', function(msg){
-      clientIo.emit('chat message', msg);
+      io.of('/client').emit('chat message', msg);
       console.log(msg);
     });
 
