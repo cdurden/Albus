@@ -19,7 +19,7 @@ var roomsManager = {
       });
   },
 
-  placeSocket: function (socket) {
+  placeSocket: function (socket, callback) {
     console.log("placing socket");
     client.hgetall(socket.id, function(err, result) {
       console.log(result);
@@ -59,6 +59,7 @@ var roomsManager = {
           rooms[roomId][socketId] = {};
           console.log("emitting showExisting");
           socket.emit('showExisting', rooms[roomId]);
+          callback();
           //console.log(rooms[roomId]);
           
           var count = 0;
