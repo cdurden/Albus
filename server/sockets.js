@@ -28,8 +28,8 @@ module.exports = function(server) {
           return([clientId, result]);
         })
       })).then(function(results) {
-        result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
         console.log(results);
+        result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
         console.log(result);
         callback(err, result);
       });
