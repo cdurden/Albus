@@ -26,7 +26,7 @@ module.exports = function(server) {
       Promise.all(clients.map(function(clientId) {
         return getSocketData(clientId, function(err, result) {
           return([clientId, result]);
-        }
+        })
       })).then(function(results) {
         result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
         console.log(results);
