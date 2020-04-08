@@ -14,7 +14,7 @@ angular.module('whiteboard-admin')
           if (!(data[socket].roomId in rooms)) {
               rooms[data[socket].roomId] = [];
           }
-          rooms[data[socket].roomId].push({'socket_id': socket, 'data': data[socket]});
+          rooms[data[socket].roomId].push({'socketId': socket, 'data': data[socket]});
         }
         $scope.rooms = rooms;
         function loadSortableJS(callback) {
@@ -24,34 +24,8 @@ angular.module('whiteboard-admin')
               return result;
             }));
           })).then(function() {
-            var sortables = [];
-            console.log("creating sortables");
-            $('#generateJSON').click(function() {
-          
-              let rooms = {};
-              let sockets = {};
-               
-              $('.roomList').each(function(i,room_elmt) { 
-                var room=$(room_elmt).find(".room").text();
-                $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
-                    sockets[$(socket_elmt).text()] = {'roomId': room };
-                    // do more
-                });
-                var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
-                  return {'id': $(elem).text()};
-                }).get();
-            
-                rooms[room] = student_ids;
-              });
-          
-              // encode to JSON format
-              var rooms_json = JSON.stringify(rooms,null,'\t');
-              var sockets_json = JSON.stringify(sockets,null,'\t');
-              $('#printCode').html(sockets_json);
-              Sockets.emit('assign_sockets_to_rooms', sockets);
-            });
+            callback();
           });
-          callback();
         }
         function createSortables() {
           let rooms = {};
@@ -62,13 +36,13 @@ angular.module('whiteboard-admin')
             Sortable.create(elmt, {
               group: 'rooms',
               onChange: function() {
-                $('.roomList').each(function(i,room_elmt) { 
-                  var room=$(room_elmt).find(".room").text();
-                  $(room_elmt).find('span[id^=socket_id]').each(function(j,socket_elmt) {
-                      sockets[$(socket_elmt).text()] = {'roomId': room };
+                $('.roomList').each(function(i,roomElmt) { 
+                  var room=$(roomElmt).find(".room").text();
+                  $(roomElmt).find('span[id^=socket_id]').each(function(j,socketElmt) {
+                      sockets[$(socketElmt).text()] = {'roomId': room };
                       // do more
                   });
-                  var student_ids = $(room_elmt).find('span[id^=student_id]').map(function(idx, elem) {
+                  var student_ids = $(roomElmt).find('span[id^=student_id]').map(function(idx, elem) {
                     return {'id': $(elem).text()};
                   }).get();
               
@@ -80,6 +54,28 @@ angular.module('whiteboard-admin')
                 var sockets_json = JSON.stringify(sockets,null,'\t');
                 $('#printCode').html(sockets_json);
               },
+            });
+            $('#generateJSON').click(function() {
+              let rooms = {};
+              let sockets = {};
+              $('.roomList').each(function(i,roomElmt) { 
+                var room=$(roomElmt).find(".room").text();
+                $(roomElmt).find('span[id^=socket_id]').each(function(j,socketElmt) {
+                    sockets[$(socketElmt).text()] = {'roomId': room };
+                    // do more
+                });
+                var student_ids = $(roomElmt).find('span[id^=student_id]').map(function(idx, elem) {
+                  return {'id': $(elem).text()};
+                }).get();
+            
+                rooms[room] = student_ids;
+              });
+          
+              // encode to JSON format
+              //var rooms_json = JSON.stringify(rooms,null,'\t');
+              var sockets_json = JSON.stringify(sockets,null,'\t');
+              $('#printCode').html(sockets_json);
+              Sockets.emit('assignRooms', sockets);
             });
           });
         }
