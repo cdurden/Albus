@@ -19,11 +19,11 @@ var passport = require('passport');
 var session = require('express-session');
 var redisStore = require('connect-redis')(session);
 session({
+//    cookie: { secure: true },
+    store: new redisStore({ client: client }),
     resave: false,
     saveUninitialized: true,
     secret: auth.session_secret,
-    cookie: { secure: true },
-    store: new redisStore({ client: client }),
 });
 //var router = express.Router();
 //var entry = require('./routes/entry')
