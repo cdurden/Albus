@@ -94,6 +94,7 @@ module.exports = function(server) {
       });
     }
     rooms.placeSocket(socket, function() {
+      console.log("emitting client data to admin");
       getAllClientData(function(results) { admin_io.emit("allClientData", results) });
     });
  
