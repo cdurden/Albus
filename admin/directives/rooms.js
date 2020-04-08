@@ -50,32 +50,13 @@ angular.module('whiteboard-admin')
                 });
             
                 // encode to JSON format
-                var rooms_json = JSON.stringify(rooms,null,'\t');
-                var sockets_json = JSON.stringify(sockets,null,'\t');
-                $('#printCode').html(sockets_json);
+                //var rooms_json = JSON.stringify(rooms,null,'\t');
+                var socketsJSON = JSON.stringify(sockets,null,'\t');
+                $('#printCode').html(socketsJSON);
               },
             });
             $('#generateJSON').click(function() {
-              let rooms = {};
-              let sockets = {};
-              $('.roomList').each(function(i,roomElmt) { 
-                var room=$(roomElmt).find(".room").text();
-                $(roomElmt).find('span[id^=socket_id]').each(function(j,socketElmt) {
-                    sockets[$(socketElmt).text()] = {'roomId': room };
-                    // do more
-                });
-                var student_ids = $(roomElmt).find('span[id^=student_id]').map(function(idx, elem) {
-                  return {'id': $(elem).text()};
-                }).get();
-            
-                rooms[room] = student_ids;
-              });
-          
-              // encode to JSON format
-              //var rooms_json = JSON.stringify(rooms,null,'\t');
-              var sockets_json = JSON.stringify(sockets,null,'\t');
-              $('#printCode').html(sockets_json);
-              Sockets.emit('assignRooms', sockets);
+              Sockets.emit('assignRooms', $scope.sockets);
             });
           });
         }
@@ -83,6 +64,26 @@ angular.module('whiteboard-admin')
           var val = value || null;            
           if (val)
             loadSortableJS(createSortables);
+          let rooms = {};
+          let sockets = {};
+          $('.roomList').each(function(i,roomElmt) { 
+            var room=$(roomElmt).find(".room").text();
+            $(roomElmt).find('span[id^=socket_id]').each(function(j,socketElmt) {
+                sockets[$(socketElmt).text()] = {'roomId': room };
+                // do more
+            });
+            var student_ids = $(roomElmt).find('span[id^=student_id]').map(function(idx, elem) {
+              return {'id': $(elem).text()};
+            }).get();
+        
+            rooms[room] = student_ids;
+          });
+      
+          // encode to JSON format
+          //var rooms_json = JSON.stringify(rooms,null,'\t');
+          var sockets_json = JSON.stringify(sockets,null,'\t');
+          $scope.sockets = sockets;
+          $('#printCode').html(sockets_json);
         });
         console.log(data);
         console.log(rooms);
