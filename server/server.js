@@ -23,7 +23,7 @@ session({
     saveUninitialized: true,
     secret: auth.session_secret,
     cookie: { secure: true },
-    store: new redisStore({ host: 'localhost', port: 6379, client: client, ttl: 86400 }),
+    store: new redisStore({ client: client }),
 });
 //var router = express.Router();
 //var entry = require('./routes/entry')
