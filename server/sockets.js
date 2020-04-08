@@ -16,8 +16,9 @@ module.exports = function(server) {
 
   var io = socketio.listen(server);
 
-  function getSocketData(socketId, callback) {
+  function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
+      console.log(result);
       resolve(result);
     })); 
   }
@@ -26,10 +27,7 @@ module.exports = function(server) {
       console.log(clients);
       if (error) throw error;
       Promise.all(clients.map(function(clientId) {
-        return getSocketData(clientId, function(err, result) {
-          console.log(result);
-          resolve([clientId, result])
-        });
+        return getSocketData(clientId);
       })).then(function(results) {
         console.log(results);
         result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
