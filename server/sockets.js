@@ -19,6 +19,22 @@ module.exports = function(server) {
   function getSocketData(socketId, callback) {
     client.hgetall(socketId, callback); 
   }
+  function getAllClientData(callback) {
+    io.clients((error, clients) => {
+      console.log(clients);
+      if (error) throw error;
+      Promise.all(clients.map(function(clientId) {
+        return getSocketData(clientId, function(err, result) {
+          return([clientId, result]);
+        }
+      })).then(function(results) {
+        result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
+        console.log(results);
+        console.log(result);
+        callback(err, result);
+      });
+    });
+  }
 
   io.on('connection', function (socket) {
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
@@ -138,21 +154,7 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('getAllClientData', function() {
       console.log("getting socket data");
-      io.clients((error, clients) => {
-        console.log(clients);
-        if (error) throw error;
-        async.map(clients, function(clientId, callback) {
-          getSocketData(clientId, function(err, results) {
-            callback(err, [clientId, results]);
-          });
-        },
-        function(err, results) {
-          result = results.reduce((map, obj) => (map[obj[0]] = obj[1], map), {});
-          console.log(results);
-          console.log(result);
-          socket.emit('allClientData', result);
-        });
-      });
+      getAllClientData(function(result) { socket.emit("allClientData", result) };
     });
     socket.on('assignRooms', function(assignments){
       console.log("assigning sockets to rooms");

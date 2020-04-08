@@ -4,7 +4,7 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminRoomAssignments'],
     replace: true,
-    templateUrl: 'templates/room_assignments.html',
+    templateUrl: 'templates/rooms.html',
     controller: function ($scope) {
       $scope.rooms = {}
       Sockets.on('allClientData', function (data) {
