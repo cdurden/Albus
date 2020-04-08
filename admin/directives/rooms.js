@@ -10,11 +10,11 @@ angular.module('whiteboard-admin')
       Sockets.on('allClientData', function (data) {
         console.log(data);
         rooms = {};
-        for (socket in data) {
-          if (!(data[socket].roomId in rooms)) {
-              rooms[data[socket].roomId] = [];
+        for (socketId in data) {
+          if (!(data[socketId].roomId in rooms)) {
+              rooms[data[socketId].roomId] = [];
           }
-          rooms[data[socket].roomId].push({'socketId': socket, 'data': data[socket]});
+          rooms[data[socketId].roomId].push({'socketId': socketId, 'data': data[socketId]});
         }
         $scope.rooms = rooms;
         function loadSortableJS(callback) {
@@ -68,7 +68,7 @@ angular.module('whiteboard-admin')
           let sockets = {};
           $('.roomList').each(function(i,roomElmt) { 
             var room=$(roomElmt).find(".room").text();
-            $(roomElmt).find('span[id^=socket_id]').each(function(j,socketElmt) {
+            $(roomElmt).find('span[id^=socketId]').each(function(j,socketElmt) {
                 sockets[$(socketElmt).text()] = {'roomId': room };
                 // do more
             });
