@@ -173,6 +173,7 @@ module.exports = function(server) {
     });
 
     socket.on('disconnect', function () {
+      getAllClientData(function(results) { adminIo.emit("allClientData", results) });
     });
 
       // ----------------- 
