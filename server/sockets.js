@@ -37,8 +37,23 @@ module.exports = function(server) {
       });
     });
   }
+  function registerCommonListeners(socket) {
+    socket.on('getAssignedTask', function(){
+      client.get('task', function(err, result) {
+        console.log(result);
+        try {
+          data = JSON.parse(result);
+          socket.emit('task', data);
+        } catch {
+          return;
+        }
+      });
+    });
+  }
+
 
   io.of('/admin').on('connection', function(socket) {
+    registerCommonListeners(socket);
     socket.on('disconnect', function(){ });
     socket.on('submissions', function(){
       submissions = ['asdf', 'asfaga'];
@@ -54,17 +69,6 @@ module.exports = function(server) {
       for (socketId in assignments) {
         rooms.assignRoomToSocket(io.of('/client').sockets.connected[socketId], assignments[socketId]);
       }
-    });
-    socket.on('getAssignedTask', function(){
-      client.get('task', function(err, result) {
-        console.log(result);
-        try {
-          data = JSON.parse(result);
-          socket.emit('task', data);
-        } catch {
-          return;
-        }
-      });
     });
     socket.on('getTaskFromSource', function(source){
       api.getTaskFromSource(source, function(error, data) {
@@ -121,6 +125,7 @@ module.exports = function(server) {
       });
     });
 
+    registerCommonListeners(socket);
     socket.on('idRequest', function () {
       socket.emit('socketId', {socketId: socket.id});
     });
