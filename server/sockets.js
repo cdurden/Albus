@@ -62,7 +62,7 @@ module.exports = function(server) {
       });
     });
     socket.on('getTasks', function(){
-      api.getTasks(result, function(error, data) {
+      api.getTasks(function(error, data) {
         socket.emit('tasks', data);
       });
     });
