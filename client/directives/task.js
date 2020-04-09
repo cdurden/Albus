@@ -20,7 +20,7 @@ angular.module('whiteboard')
       //    element.html(html);
       //}).then(function (response) {
           //element.replaceWith($compile(element.html())(scope));
-          element.html($compile(response.data)(data));// TODO: figure out if this is correct
+          element.html($compile(response.data)(scope));// TODO: figure out if this is correct
       });
     });
   }
