@@ -10,16 +10,12 @@ angular.module('whiteboard-admin')
           console.log(data);
           $scope.task = data;
       });
-      Sockets.on('show_task', function (data) {
-          console.log(data);
-          $scope.task = data.task;
-      });
       Sockets.on('tasks', function (data) {
           console.log(data);
           $scope.tasks = data;
       });
-      Sockets.emit('get_task');
-      Sockets.emit('get_tasks');
+      Sockets.emit('getTask');
+      Sockets.emit('getTasks');
     },
     link: function(scope, element, attrs, ctrls) {
       $(element).find("#assign-task-form").bind("submit",function(ev) {

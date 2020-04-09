@@ -2,6 +2,7 @@ angular.module('whiteboard-admin', [
     'angularLoad',
     'btford.socket-io',
     'whiteboard.admin.services.sockets',
+    'whiteboard.admin.services.receive',
     'ngRoute'
 ])
     .config(['$routeProvider', '$locationProvider', '$httpProvider',
