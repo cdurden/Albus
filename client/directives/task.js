@@ -10,6 +10,7 @@ angular.module('whiteboard')
   var linker = function(scope, element, attrs) {
     var loader;
     scope.$watch("task", function(task) {
+      console.log("updating task");
       if (typeof task.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
