@@ -80,7 +80,7 @@ function getTask(task_id, callback) {
 }
 function getTaskFromSource(source, callback) {
   request({
-    url: `${scheme}://${host}:${port}/api/task/source/${source}`,
+    url: `${scheme}://${host}:${port}/api/task/source/${source}/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
   },
