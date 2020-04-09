@@ -58,7 +58,8 @@ module.exports = function(server) {
     socket.on('getAssignedTask', function(){
       client.get('task', function(err, result) {
         console.log(result);
-        socket.emit('task', result);
+        data = JSON.parse(result);
+        socket.emit('task', data);
       });
     });
     socket.on('getTaskFromSource', function(source){
@@ -80,7 +81,8 @@ module.exports = function(server) {
     });
     socket.on('assignTask', function(data){
       console.log(data);
-      client.set('task', data, function(err) {
+      json = JSON.stringify(data);
+      client.set('task', json, function(err) {
         console.log(err);
         client.get('task', function(err, result) {
           console.log(result);
