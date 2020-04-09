@@ -18,7 +18,7 @@ angular.module('whiteboard')
     //    element.html(html);
     //}).then(function (response) {
         //element.replaceWith($compile(element.html())(scope));
-        element.replaceWith($compile(html)(scope));
+        element.html($compile(html)(scope));
     });
   }
   return {
