@@ -17,10 +17,12 @@ angular.module('whiteboard')
     link: function (scope, element, attrs, ctrls) {
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
       var boardCtrl = ctrls[0];
+        /*
       BoardData.setOffset({
           x: $(".reveal").find(".slides").offset().left,
           y: $(".reveal").find(".slides").offset().top,
       });
+      */
       BoardData.createBoard(element);
       BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
       BoardData.getCanvas().bind('click', function() {scope.$emit('activateMenu', 'hide');});
