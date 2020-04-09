@@ -27,10 +27,10 @@ angular.module('whiteboard')
     replace: true,
     controller: function ($scope) {
       $scope.task = TaskData.getTask();
-      Sockets.emit("getTask");
+      Sockets.emit("getAssignedTask");
       this.requestData = function (ev) {
           ev.preventDefault(); // prevents page reloading
-          Sockets.emit("getTask");
+          Sockets.emit("getAssignedTask");
           return false;
       };
       this.submit = function (ev) {
