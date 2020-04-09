@@ -14,10 +14,11 @@ angular.module('whiteboard')
     } else {
         loader = getTemplate(scope.task.template);
     }
-    var promise = loader.success(function(html) {
-        element.html(html);
-    }).then(function (response) {
-        element.replaceWith($compile(element.html())(scope));
+    var promise = loader.then(function(html) {
+    //    element.html(html);
+    //}).then(function (response) {
+        //element.replaceWith($compile(element.html())(scope));
+        element.replaceWith($compile(html)(scope));
     });
   }
   return {
