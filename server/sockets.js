@@ -62,10 +62,9 @@ module.exports = function(server) {
       });
     });
     socket.on('getTasks', function(){
-      tasks_json = fs.readFileSync('./data/tasks.json');
-      tasks = JSON.parse(tasks_json);
-      console.log(tasks);
-      socket.emit('tasks', tasks);
+      api.getTasks(result, function(error, data) {
+        socket.emit('tasks', data);
+      });
     });
     socket.on('viewTask', function(task_id){
       console.log(task_id);
@@ -103,6 +102,13 @@ module.exports = function(server) {
 
     socket.on('heartbeat', function () {
     })
+    socket.on('getTask', function(){
+      client.get('task', function(err, result) {
+        api.getTask(result, function(error, data) {
+          socket.emit('task', data);
+        });
+      });
+    });
 
     socket.on('idRequest', function () {
       socket.emit('socketId', {socketId: socket.id});

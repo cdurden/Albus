@@ -48,6 +48,22 @@ function getApiUsers(socket, callback) {
     }
   });
 }
+function getTasks(callback) {
+  request({
+      url: `${scheme}://${host}:${port}/api/tasks/snow-qm:inequalities:.*/`,
+    headers : { "Authorization" : "Bearer " + auth.token },
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      body_json = JSON.parse(body)
+      if ('data' in body_json) {
+        callback(null, body_json['data']);
+      }
+    } else {
+      callback(error, null);
+    }
+  });
+}
 function getTask(collection, task, callback) {
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
