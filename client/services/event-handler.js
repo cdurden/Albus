@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.eventhandler', [])
-.factory('EventHandler', ['BoardData', 'ChatData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', function (BoardData, ChatData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap) {
+.factory('EventHandler', ['BoardData', 'ChatData', 'TaskData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', function (BoardData, ChatData, TaskData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap) {
 
   function clearBoard() {
     BoardData.clearBoard();
@@ -73,6 +73,9 @@ angular.module('whiteboard.services.eventhandler', [])
       li.appendChild(t);
       ChatData.getChat().append(li);
   }
+  function setTask(data) {
+      TaskData.setTask(data);
+  }
 
   return {
     cursor: cursor,
@@ -87,6 +90,7 @@ angular.module('whiteboard.services.eventhandler', [])
     drawExistingPath: drawExistingPath,
     grabShape: grabShape,
     displayMessage: displayMessage,
+    setTask: setTask,
     clearBoard: clearBoard,
   };
 }]);

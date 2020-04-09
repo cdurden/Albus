@@ -1,15 +1,30 @@
 angular.module('whiteboard')
 .directive('wbTask', ['TaskData', 'Sockets', function (TaskData, Sockets) {
+  var getTemplate = function(template) {
+    var templateLoader,
+    baseUrl = './templates/',
+    var templateUrl = baseUrl + template;
+    templateLoader = $http.get(templateUrl, {cache: $templateCache});
+    return templateLoader;
+  }
+  var linker = function(scope, element, attrs) {
+    var loader = getTemplate(scope.task.template);
+    var promise = loader.success(function(html) {
+        element.html(html);
+    }).then(function (response) {
+        element.replaceWith($compile(element.html())(scope));
+    });
+  }
   return {
     restrict: 'A',
     require: ['wbTask'],
     replace: true,
-    templateUrl: './templates/task.html',
-    controller: function () {
-      Sockets.emit("get_task");
+    controller: function ($scope) {
+      $scope.task = TaskData.getTask();
+      Sockets.emit("getTask");
       this.requestData = function (ev) {
           ev.preventDefault(); // prevents page reloading
-          Sockets.emit("get_task");
+          Sockets.emit("getTask");
           return false;
       };
       this.submit = function (ev) {
@@ -18,26 +33,31 @@ angular.module('whiteboard')
           return false;
       }
     },
-    link: function (scope, element, attrs, ctrls) {
+    link: linker,
+      /*
+      function (scope, element, attrs, ctrls) {
       var taskCtrl = ctrls[0];
       TaskData.createTask(element);
       //TaskData.getInput().bind('keypress', taskCtrl.handleEvent);
       //TaskData.getSendButton().bind('click', taskCtrl.handleEvent);
       TaskData.getSubmitButton().bind("click", taskCtrl.submit);
+      */
 
         /*
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
       });
       */
+      /*
       Sockets.on('task', function (data) {
         console.log(data);
         TaskData.displayData(data);
       })
-      Sockets.on('submission_confirmation', function (data) {
+      Sockets.on('submissionConfirmation', function (data) {
         console.log(data);
         TaskData.confirmSubmission(data);
       })
+      */
     }
   }
 }]);
