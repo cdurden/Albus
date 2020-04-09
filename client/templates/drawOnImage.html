@@ -1,0 +1,13 @@
+<div class="task-container">
+  <button type="button" id="task-toggle-button" onclick="toggleTaskForm()">Hide task</button>
+  <button type="button" id="task-submit-button">Submit</button>
+  <div id="task-popup">
+    <div id="task-data-container">
+      {{ task.data.data.directions }}
+      <div class="image-container" style="position: absolute; top: {{ task.data.data.top }}; left: {{ task.data.data.left }};">
+        <img src="{{ task.data.data.img_src }}">
+      </div>
+    </div>
+  </div>
+</div>
+
