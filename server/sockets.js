@@ -106,6 +106,7 @@ module.exports = function(server) {
     });
   });
   io.of('/client').on('connection', function (socket) {
+    console.log("connection from socket "+socket.id);
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log(data);
@@ -200,6 +201,7 @@ module.exports = function(server) {
     });
 
     socket.on('disconnect', function () {
+      console.log("disconnect from socket "+socket.id);
       getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
     });
 
