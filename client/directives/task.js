@@ -9,18 +9,18 @@ angular.module('whiteboard')
   }
   var linker = function(scope, element, attrs) {
     var loader;
-    scope.$watch(function(scope) { return scope.task.data; }, function(task) {
+    scope.$watch("task.data", function(data) {
       console.log("updating task");
-      if (typeof task.template === 'undefined') {
+      if (typeof data.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
-          loader = getTemplate(task.template);
+          loader = getTemplate(data.template);
       }
       var promise = loader.then(function(response) {
       //    element.html(html);
       //}).then(function (response) {
           //element.replaceWith($compile(element.html())(scope));
-          element.html($compile(response.data)(scope));// TODO: figure out if this is correct
+          element.html($compile(response.data)(data));// TODO: figure out if this is correct
       });
     });
   }
