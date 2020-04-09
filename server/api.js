@@ -50,7 +50,7 @@ function getApiUsers(socket, callback) {
 }
 function getTasks(callback) {
   request({
-      url: `${scheme}://${host}:${port}/api/tasks/snow-qm:inequalities:.*/`,
+      url: `${scheme}://${host}:${port}/api/tasks/snow-qm:tasks:.*/`,
     headers : { "Authorization" : "Bearer " + auth.token },
   },
     function(error, response, body) {
