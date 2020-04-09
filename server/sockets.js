@@ -61,6 +61,8 @@ module.exports = function(server) {
         try {
           data = JSON.parse(result);
           socket.emit('task', data);
+        } catch {
+          return;
         }
       });
     });
