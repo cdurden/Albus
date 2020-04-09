@@ -9,7 +9,7 @@ angular.module('whiteboard-admin')
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;
-          $scope.task.json = JSON.dump(data.data);
+          $scope.task.json = JSON.stringify(data.data);
       });
       Sockets.on('tasks', function (data) {
           console.log(data);
