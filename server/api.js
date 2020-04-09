@@ -79,7 +79,6 @@ function getTask(task_id, callback) {
   });
 }
 function getTaskFromSource(source, callback) {
-  console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
     url: `${scheme}://${host}:${port}/api/task/source/${source}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
