@@ -54,6 +54,7 @@ function getTasks(callback) {
     headers : { "Authorization" : "Bearer " + auth.token },
   },
     function(error, response, body) {
+        console.log(response);
     if (!error && response.statusCode == 200) {
       body_json = JSON.parse(body)
       if ('data' in body_json) {
