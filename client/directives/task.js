@@ -8,7 +8,7 @@ angular.module('whiteboard')
     return templateLoader;
   }
   var linker = function(scope, element, attrs) {
-    if (typeof scope.task === 'undefined') {
+    if (typeof scope.task.template === 'undefined') {
         element.html("");
         return;
     }
