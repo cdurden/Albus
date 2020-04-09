@@ -11,10 +11,10 @@ angular.module('whiteboard')
     var loader;
     scope.$watch("task.data", function(data) {
       console.log("updating task");
-      if (typeof data.template === 'undefined') {
+      if (typeof data.data.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
-          loader = getTemplate(data.template);
+          loader = getTemplate(data.data.template);
       }
       var promise = loader.then(function(response) {
       //    element.html(html);
