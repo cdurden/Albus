@@ -94,7 +94,7 @@ module.exports = function(server) {
         console.log(err);
         client.get('task', function(err, result) {
           console.log(result);
-          //io.emit('task', result); // TODO: assign to specific socket
+          io.of('/client').emit('task', result); // TODO: assign to specific socket
         });
       });
     });
