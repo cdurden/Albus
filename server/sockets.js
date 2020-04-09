@@ -69,7 +69,7 @@ module.exports = function(server) {
       for (socketId in assignments) {
         console.log(io.sockets.connected);
         console.log(io.of("/client").connected);
-        rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]);
+        rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
       }
     });
     socket.on('getTaskFromSource', function(source){
