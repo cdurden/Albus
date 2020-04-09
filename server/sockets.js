@@ -58,8 +58,10 @@ module.exports = function(server) {
     socket.on('getAssignedTask', function(){
       client.get('task', function(err, result) {
         console.log(result);
-        data = JSON.parse(result);
-        socket.emit('task', data);
+        try {
+          data = JSON.parse(result);
+          socket.emit('task', data);
+        }
       });
     });
     socket.on('getTaskFromSource', function(source){
