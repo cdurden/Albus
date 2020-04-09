@@ -55,10 +55,15 @@ module.exports = function(server) {
         rooms.assignRoomToSocket(io.of('/client').sockets.connected[socketId], assignments[socketId]);
       }
     });
-    socket.on('getTask', function(){
+    socket.on('getAssignedTask', function(){
       client.get('task', function(err, result) {
         console.log(result);
         socket.emit('task', result);
+      });
+    });
+    socket.on('getTaskFromSource', function(source){
+      api.getTaskFromSource(source, function(error, data) {
+        socket.emit('task', data);
       });
     });
     socket.on('getTasks', function(){

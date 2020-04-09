@@ -62,10 +62,26 @@ function getTasks(callback) {
     }
   });
 }
-function getTask(collection, task, callback) {
+function getTask(task_id, callback) {
+  request({
+    url: `${scheme}://${host}:${port}/api/task/${task_id}`,
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+    agent: agent,
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      console.log(error);
+      callback(error, null);
+    }
+  });
+}
+function getTaskFromSource(source, callback) {
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
-    url: `${scheme}://${host}:${port}/api/task/${collection}/${task}`,
+    url: `${scheme}://${host}:${port}/api/task/source/${source}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
   },
@@ -83,5 +99,6 @@ module.exports = {
     getApiUsers: getApiUsers,
     getApiUserFromSession: getApiUserFromSession,
     getTask: getTask,
+    getTaskFromSource: getTaskFromSource,
     getTasks: getTasks,
 }

@@ -1,5 +1,8 @@
 body {font-family: Arial;}
 
+#task-selector {
+    min-width: 10em;
+}
 /* Style the tab */
 .tab {
   overflow: hidden;

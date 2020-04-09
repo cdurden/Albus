@@ -14,7 +14,7 @@ angular.module('whiteboard-admin')
           console.log(data);
           $scope.tasks = data;
       });
-      Sockets.emit('getTask');
+      Sockets.emit('getAssignedTask');
       Sockets.emit('getTasks');
     },
     link: function(scope, element, attrs, ctrls) {
@@ -24,7 +24,7 @@ angular.module('whiteboard-admin')
       });
       $(element).find("#task-selector").change(function(ev) {
           ev.preventDefault();
-          Sockets.emit('view_task', $(this).val());
+          Sockets.emit('getTaskFromSource', $(this).val());
       });
     },
   }
