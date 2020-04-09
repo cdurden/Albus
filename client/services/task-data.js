@@ -12,7 +12,7 @@ angular.module('whiteboard.services.taskdata', [])
   var task = {};
 
   function setTask(data) {
-      task['data'] = data;
+      task = data;
   }
   function getTask() {
       return task;
