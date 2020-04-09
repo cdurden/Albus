@@ -19,53 +19,7 @@ angular.module('whiteboard.services.taskdata', [])
   }
 
   return {
-    getShapeStorage: getShapeStorage,
-    displayData: displayData,
-   /* getCursor: getCursor,
-    setCursor: setCursor,
-    moveCursor: moveCursor,
-    */
-    createTask: createTask,
     setTask: setTask,
     getTask: getTask,
-      /*
-    getCurrentShape: getCurrentShape,
-    getShapeById: getShapeById,
-    getCurrentTool: getCurrentTool,
-    generateShapeId: generateShapeId,
-    getCurrentShapeId: getCurrentShapeId,
-    setColors: setColors,
-    setZoomScale: setZoomScale,
-    getZoomScale: getZoomScale,
-    getCanvas: getCanvas,
-    */
-    setSocketId: setSocketId,
-    getSocketId: getSocketId,
-      /*
-    setCurrentToolName: setCurrentToolName,
-    */
-    getTask: getTask,
-    getForm: getForm,
-    getInput: getInput,
-    getSubmitButton: getSubmitButton,
-      /*
-    getScalingFactor: getScalingFactor,
-    getOffset: getOffset,
-    getCanvasMargin: getCanvasMargin,
-    */
-    pushToStorage: pushToStorage,
-      /*
-    setCurrentShape: setCurrentShape,
-    unsetCurrentShape: unsetCurrentShape,
-    getViewBoxDims: getViewBoxDims,
-    setViewBoxDims: setViewBoxDims,
-    setOffset: setOffset,
-    getOriginalDims: getOriginalDims,
-    setEditorShape: setEditorShape,
-    unsetEditorShape: unsetEditorShape,
-    getEditorShape: getEditorShape,
-    setStrokeWidth: setStrokeWidth,
-    getStrokeWidth: getStrokeWidth
-    */
   }
 });
