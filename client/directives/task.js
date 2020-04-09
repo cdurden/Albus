@@ -8,11 +8,12 @@ angular.module('whiteboard')
     return templateLoader;
   }
   var linker = function(scope, element, attrs) {
+    var loader;
     if (typeof scope.task.template === 'undefined') {
-        element.html("");
-        return;
+        loader = getTemplate("task.html");
+    } else {
+        loader = getTemplate(scope.task.template);
     }
-    var loader = getTemplate(scope.task.template);
     var promise = loader.success(function(html) {
         element.html(html);
     }).then(function (response) {
