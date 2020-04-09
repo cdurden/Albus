@@ -4,24 +4,7 @@ var _ = require('underscore');
 
 var rooms = {};
 
-var roomsManager = {
-
-  getRooms: function () {
-    return rooms;
-  },
-  
-  getRoom: function (roomId) {
-    return rooms[roomId];
-  },
-  assignRoomToSocket(socket, roomId) {
-      console.log("assigning "+socket.id+" to room "+roomId)
-/*      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
-          placeSocket(socket);
-      });
-      */
-  },
-
-  placeSocket: function (socket, callback) {
+function placeSocket(socket, callback) {
     console.log("placing socket");
     client.hgetall(socket.id, function(err, result) {
       console.log(result);
@@ -73,6 +56,23 @@ var roomsManager = {
       });
     });
   },
+var roomsManager = {
+
+  getRooms: function () {
+    return rooms;
+  },
+  
+  getRoom: function (roomId) {
+    return rooms[roomId];
+  },
+  placeSocket: placeSocket,
+  assignRoomToSocket(socket, roomId) {
+      console.log("assigning "+socket.id+" to room "+roomId)
+      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
+          placeSocket(socket);
+      });
+  },
+
   
   addMember: function (socket, roomId) {
 
