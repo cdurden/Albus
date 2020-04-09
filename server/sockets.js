@@ -93,8 +93,12 @@ module.exports = function(server) {
       client.set('task', json, function(err) {
         console.log(err);
         client.get('task', function(err, result) {
-          console.log(result);
-          io.of('/client').emit('task', result); // TODO: assign to specific socket
+          try {
+            data = JSON.parse(result);
+            io.of('/client').emit('task', data); // TODO: assign to specific socket
+          } catch {
+            return;
+          }
         });
       });
     });
