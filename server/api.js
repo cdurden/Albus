@@ -85,4 +85,5 @@ module.exports = {
     getApiUsers: getApiUsers,
     getApiUserFromSession: getApiUserFromSession,
     getTask: getTask,
+    getTasks: getTasks,
 }
