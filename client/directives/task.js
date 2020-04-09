@@ -1,8 +1,8 @@
 angular.module('whiteboard')
 .directive('wbTask', ['TaskData', 'Sockets', function (TaskData, Sockets) {
   var getTemplate = function(template) {
-    var templateLoader,
-    baseUrl = './templates/',
+    var templateLoader;
+    var baseUrl = './templates/';
     var templateUrl = baseUrl + template;
     templateLoader = $http.get(templateUrl, {cache: $templateCache});
     return templateLoader;
