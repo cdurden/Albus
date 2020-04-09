@@ -68,9 +68,10 @@ var roomsManager = {
   placeSocket: placeSocket,
   assignRoomToSocket(socket, roomId) {
       console.log("assigning "+socket.id+" to room "+roomId)
-      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
+ /*     client.hmset(socket.id, ['roomId', roomId], function(err, result) {
           placeSocket(socket);
       });
+      */
   },
 
   
