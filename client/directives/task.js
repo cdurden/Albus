@@ -57,7 +57,7 @@ angular.module('whiteboard')
         console.log(data);
         TaskData.confirmSubmission(data);
       })
-      */
     }
+      */
   }
 }]);
