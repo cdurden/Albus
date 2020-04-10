@@ -51,18 +51,23 @@
   };
   </script>
   <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.11/split.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="lib/angular/angular.min.js"></script>
   <!--<script src="js/angularjs-config.js"></script> -->
   <script src="lib/angular-route/angular-route.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
   <script src="lib/angular-socket-io/socket.min.js"></script>
   
   <!-- custom Raphael - do not switch to CDN -->
   <script src="js/raphael.js"></script>
-  
   <script src="js/resize-handler.min.js"></script>
+  <script>
+  Split(['#wb-task', '#wb-board'], {
+    sizes: [25, 75],
+    direciton: 'vertical',
+  })
+  </script>
   
   <!-- Leap Motion -->
   <!--
