@@ -10,6 +10,7 @@ angular.module('whiteboard')
   var linker = function(scope, element, attrs) {
     Split(['#task-container', '#board-container'], {
       sizes: [25, 75],
+      minSize: [0, 300],
       direction: 'vertical',
     })
     var loader;
