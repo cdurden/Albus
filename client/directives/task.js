@@ -8,6 +8,10 @@ angular.module('whiteboard')
     return templateLoader;
   }
   var linker = function(scope, element, attrs) {
+    Split(['#wb-task', '#wb-board'], {
+      sizes: [25, 75],
+      direction: 'vertical',
+    })
     var loader;
     scope.$watch("task.data", function(data) {
       console.log("updating task");
