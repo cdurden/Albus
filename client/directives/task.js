@@ -8,7 +8,7 @@ angular.module('whiteboard')
     return templateLoader;
   }
   var linker = function(scope, element, attrs) {
-    Split(['#wb-task', '#wb-board'], {
+    Split(['#task-container', '#board-container'], {
       sizes: [25, 75],
       direction: 'vertical',
     })
