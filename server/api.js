@@ -25,8 +25,8 @@ function submit(session, data, callback) {
     console.log(response)
     if (!error && response.statusCode == 201) {
       console.log(body)
-      data = JSON.parse(body)
-      callback(null, data);
+      //data = JSON.parse(body)
+      callback(null, body);
     } else {
       console.log(error);
       callback(error, null);
