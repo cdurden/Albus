@@ -35,7 +35,7 @@ angular.module('whiteboard')
     replace: true,
     scope: {
         'data': '='
-    }
+    },
     controller: function ($scope) {
       $scope.task = TaskData.getTask();
       Sockets.emit("getAssignedTask");
