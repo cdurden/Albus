@@ -33,6 +33,9 @@ angular.module('whiteboard')
     restrict: 'A',
     require: ['wbTask'],
     replace: true,
+    scope: {
+        'data': '='
+    }
     controller: function ($scope) {
       $scope.task = TaskData.getTask();
       Sockets.emit("getAssignedTask");
