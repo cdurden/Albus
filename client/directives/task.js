@@ -19,7 +19,7 @@ angular.module('whiteboard')
       console.log("submitting answers");
       data = {
           'task_id': scope.task.data.id,
-          'data': scope.form.data,
+          'data': scope.data,
       }
       Sockets.emit("submit", data);
     };
