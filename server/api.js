@@ -15,11 +15,11 @@ function getSessionUser(session) {
 }
 function submit(session, data, callback) {
   data.lti_user_id = getSessionUser(session);
-  console.log("Submitting a task response for lti_user_id: "+lti_user_id);
+  console.log("Submitting a task response for lti_user_id: "+data.lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/task/${data.task_id}/submissions/`, {
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
-    json: data.data,
+    json: data,
   },
   function(error, response, body) {
     if (!error && response.statusCode == 200) {
