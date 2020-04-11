@@ -7,12 +7,21 @@ angular.module('whiteboard')
     templateLoader = $http.get(templateUrl, {cache: $templateCache});
     return templateLoader;
   }
-  var linker = function(scope, element, attrs) {
+  var linker = function(scope, element, attrs, ctrls) {
+    scope.form = ctrls[0];
     Split(['#task-container', '#board-container'], {
       sizes: [25, 75],
       minSize: [0, 300],
       direction: 'vertical',
     })
+    scope.submit = function() {
+      console.log("submitting answers");
+      data = {
+          'task_id': scope.task.data.id,
+          'data': scope.form.data,
+      }
+      Sockets.emit("submit", data);
+    };
     var loader;
     scope.$watch("task.data", function(data) {
       console.log("updating task");
@@ -31,20 +40,12 @@ angular.module('whiteboard')
   }
   return {
     restrict: 'A',
-    require: ['wbTask'],
+    require: ['^form'],
     replace: true,
     controller: function ($scope) {
       $scope.task = TaskData.getTask();
       $scope.data = {};
       Sockets.emit("getAssignedTask");
-      $scope.submit = function() {
-        console.log("submitting answers");
-        data = {
-            'task_id': $scope.task.data.id,
-            'data': $scope.answerForm.data,
-        }
-        Sockets.emit("submit", data);
-      };
       this.requestData = function (ev) {
           ev.preventDefault(); // prevents page reloading
           Sockets.emit("getAssignedTask");
