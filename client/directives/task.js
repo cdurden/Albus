@@ -7,8 +7,9 @@ angular.module('whiteboard')
     templateLoader = $http.get(templateUrl, {cache: $templateCache});
     return templateLoader;
   }
-  var linker = function(scope, element, attrs, ctrls) {
-    scope.form = ctrls[0];
+  //var linker = function(scope, element, attrs, ctrls) {
+  var linker = function(scope, element, attrs) {
+    //scope.form = ctrls[0];
     Split(['#task-container', '#board-container'], {
       sizes: [25, 75],
       minSize: [0, 300],
