@@ -36,6 +36,13 @@ angular.module('whiteboard')
     controller: function ($scope) {
       $scope.task = TaskData.getTask();
       Sockets.emit("getAssignedTask");
+      $scope.submit = function() {
+        data = {
+            'task_id': $scope.task.data.id,
+            'data': $scope.data,
+        }
+        Sockets.emit("submit", data);
+      };
       this.requestData = function (ev) {
           ev.preventDefault(); // prevents page reloading
           Sockets.emit("getAssignedTask");

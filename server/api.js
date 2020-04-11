@@ -13,6 +13,24 @@ function getSocketUser(socket) {
 function getSessionUser(session) {
     return(session.passport.user);
 }
+function submit(session, data, callback) {
+  data.lti_user_id = getSessionUser(session);
+  console.log("Submitting a task response for lti_user_id: "+lti_user_id);
+  request.post(`${scheme}://${host}:${port}/api/task/${data.task_id}/submissions/`, {
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+    agent: agent,
+    json: data.data,
+  },
+  function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      console.log(error);
+      callback(error, null);
+    }
+  });
+}
 function getApiUserFromSession(session, callback) {
   var lti_user_id = getSessionUser(session);
   console.log("Getting API user based on lti_user_id: "+lti_user_id);

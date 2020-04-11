@@ -5,6 +5,10 @@ angular.module('whiteboard-admin')
     require: ['wbAdminSubmissions'],
     replace: true,
     controller: function ($scope) {
+      $scope.submissions = [];
+      Sockets.on('submission', function (data) {
+        $scope.submissions.concat(data);
+      });
       Sockets.on('submissions', function (data) {
         $scope.submissions = data;
       });
