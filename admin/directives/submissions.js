@@ -4,6 +4,7 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminSubmissions'],
     replace: true,
+    templateUrl: "./templates/submissions.html",
     controller: function ($scope) {
       $scope.submissions = [];
       Sockets.on('submission', function (data) {
@@ -15,9 +16,5 @@ angular.module('whiteboard-admin')
       });
       Sockets.emit('submissions');
     },
-    template: 
-      '<ul id="submissions">' +
-      '<li ng-repeat="submission in submissions">{{submission}}</li>' +
-      '</ul>',
   }
 }]);

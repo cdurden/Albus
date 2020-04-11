@@ -132,6 +132,13 @@ module.exports = function(server) {
         //socket.emit('confirmSubmission', data);
       });
     });
+    socket.on('getSubmissions', function(){
+      api.getSubmissions(function(error, data) {
+        console.log(data)
+        io.of('/admin').emit('submissions', data);
+        //socket.emit('confirmSubmission', data);
+      });
+    });
     socket.on('getTask', function(){
       client.get('task', function(err, result) {
         api.getTask(result, function(error, data) {

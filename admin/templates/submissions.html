@@ -1,0 +1,23 @@
+<input ng-model="query" type="text"
+        placeholder="Filter by" autofocus>
+<input ng-repeat-start="field in Object.keys(submissions[0])" type="radio" ng-model="orderBy" name="orderBy" id="{{ 'orderBy'+$index }}" value="{{ field }}">
+<label ng-repeat-end for="{{ 'orderBy'+$index }}">{{ field }}</label>
+<br>
+<table id="submissions">
+    <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Task</th>
+        <th>Submitted</th>
+        <th>Graded</th>
+        <th>Feedback</th>
+    </tr>
+<tr ng-repeat="submission in submissions | filter:query | orderBy: orderBy ">{{submission}}
+    <td>{{ submission.user.firstname }}</td>
+    <td>{{ submission.user.lastname }}</td>
+    <td>{{ submission.task.title }}</td>
+    <td>{{ submission.datetime }}</td>
+    <td>{{ submission.graded }}</td>
+    <td>{{ submission.feedback.length }}</td>
+</tr>
+</table>

@@ -33,6 +33,20 @@ function submit(session, data, callback) {
     }
   });
 }
+function getSubmissions(callback) {
+  request({
+      url: `${scheme}://${host}:${port}/api/submissions/`,
+    headers : { "Authorization" : "Bearer " + auth.token },
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      callback(error, null);
+    }
+  });
+}
 function getApiUserFromSession(session, callback) {
   var lti_user_id = getSessionUser(session);
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
@@ -121,4 +135,5 @@ module.exports = {
     getTaskFromSource: getTaskFromSource,
     getTasks: getTasks,
     submit: submit,
+    getSubmissions: getSubmissions,
 }
