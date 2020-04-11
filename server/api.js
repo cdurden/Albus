@@ -56,11 +56,11 @@ function getApiUserFromSession(session, callback) {
     agent: agent,
   },
     function(error, response, body) {
-        print(response)
     if (!error && response.statusCode == 200) {
       data = JSON.parse(body)
       callback(null, data);
     } else {
+      console.log("Error getting API user");
       console.log(error);
       callback(error, null);
     }
