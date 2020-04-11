@@ -60,8 +60,13 @@ function getApiUserFromSession(session, callback) {
       data = JSON.parse(body)
       callback(null, data);
     } else {
-      console.log("Error getting API user");
-      console.log(error);
+      if (!error) {
+        console.log("Response status code: "+response.statusCode);
+        console.log(body);
+      } else {
+        console.log("Error getting API user");
+        console.log(error);
+      }
       callback(error, null);
     }
   });
