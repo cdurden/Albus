@@ -1,3 +1,4 @@
+<div>
 <input ng-model="query" type="text"
         placeholder="Filter by" autofocus>
 <input ng-repeat-start="field in Object.keys(submissions[0])" type="radio" ng-model="orderBy" name="orderBy" id="{{ 'orderBy'+$index }}" value="{{ field }}">
@@ -21,3 +22,4 @@
     <td>{{ submission.feedback.length }}</td>
 </tr>
 </table>
+</div>
