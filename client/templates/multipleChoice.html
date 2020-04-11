@@ -1,0 +1,13 @@
+<div class="task-container">
+  <button type="button" id="task-toggle-button" onclick="toggleTaskForm()">Hide task</button>
+  <button type="button" id="task-submit-button">Submit</button>
+  <div id="task-popup">
+    <div id="task-data-container">
+      {{ task.data.data.directions }}
+      <input ng-repeat="choice in task.data.data.choices" type="radio" name="answer" id="{{ 'answer'+$index }}" value="{{ $index }}">
+        <label for={{ "answer"+$index }}>{{ choice }}</label><br>
+      </input>
+    </div>
+  </div>
+</div>
+
