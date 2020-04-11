@@ -7,6 +7,7 @@ angular.module('whiteboard-admin')
     controller: function ($scope) {
       $scope.submissions = [];
       Sockets.on('submission', function (data) {
+        console.log(data);
         $scope.submissions.concat(data);
       });
       Sockets.on('submissions', function (data) {
