@@ -109,8 +109,9 @@ module.exports = function(server) {
     console.log("connection from socket "+socket.id);
     if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
-        console.log(data);
-        client.hmset(socket.id, Object.entries(data).flat());
+        if (data) {
+          client.hmset(socket.id, Object.entries(data).flat());
+        }
       });
     }
     rooms.placeSocket(socket, function() {

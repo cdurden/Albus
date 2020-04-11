@@ -56,6 +56,7 @@ function getApiUserFromSession(session, callback) {
     agent: agent,
   },
     function(error, response, body) {
+        print(response)
     if (!error && response.statusCode == 200) {
       data = JSON.parse(body)
       callback(null, data);
