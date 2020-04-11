@@ -4,9 +4,8 @@
   <div id="task-popup">
     <div id="task-data-container">
       {{ task.data.data.directions }}
-      <input ng-repeat="choice in task.data.data.choices" type="radio" name="answer" id="{{ 'answer'+$index }}" value="{{ $index }}">
-        <label for={{ "answer"+$index }}>{{ choice }}</label><br>
-      </input>
+      <input ng-repeat-start="choice in task.data.data.choices" type="radio" name="answer" id="{{ 'answer'+$index }}" value="{{ $index }}">
+      <label ng-repeat-end for={{ "answer"+$index }}>{{ choice }}</label><br>
     </div>
   </div>
 </div>
