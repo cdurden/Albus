@@ -129,7 +129,7 @@ module.exports = function(server) {
       api.submit(socket.handshake.session, data, function(error, data) {
         console.log(data)
         io.of('/admin').emit('submission', data);
-        socket.emit('confirmSubmission', data);
+        //socket.emit('confirmSubmission', data);
       });
     });
     socket.on('getTask', function(){
