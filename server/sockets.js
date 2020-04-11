@@ -125,6 +125,7 @@ module.exports = function(server) {
     socket.on('heartbeat', function () {
     })
     socket.on('submit', function(data){
+      console.log(data);
       api.submit(socket.handshake.session, data, function(error, data) {
         io.of('/admin').emit('submission', data);
         socket.emit('confirmSubmission', data);
