@@ -118,4 +118,5 @@ module.exports = {
     getTask: getTask,
     getTaskFromSource: getTaskFromSource,
     getTasks: getTasks,
+    submit: submit,
 }
