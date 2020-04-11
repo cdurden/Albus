@@ -38,6 +38,7 @@ angular.module('whiteboard')
     },
     controller: function ($scope) {
       $scope.task = TaskData.getTask();
+      $scope.data = {};
       Sockets.emit("getAssignedTask");
       $scope.submit = function() {
         console.log("submitting answers");
