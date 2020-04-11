@@ -22,7 +22,7 @@ function submit(session, data, callback) {
     json: data,
   },
   function(error, response, body) {
-    if (!error && response.statusCode == 200) {
+    if (!error && response.statusCode == 201) {
       data = JSON.parse(body)
       callback(null, data);
     } else {
