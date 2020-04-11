@@ -33,9 +33,6 @@ angular.module('whiteboard')
     restrict: 'A',
     require: ['wbTask'],
     replace: true,
-    scope: {
-        'data': '='
-    },
     controller: function ($scope) {
       $scope.task = TaskData.getTask();
       $scope.data = {};
@@ -44,7 +41,7 @@ angular.module('whiteboard')
         console.log("submitting answers");
         data = {
             'task_id': $scope.task.data.id,
-            'data': $scope.data,
+            'data': $scope.answerForm.data,
         }
         Sockets.emit("submit", data);
       };
