@@ -22,6 +22,7 @@ function submit(session, data, callback) {
     json: data,
   },
   function(error, response, body) {
+    console.log(response)
     if (!error && response.statusCode == 201) {
       console.log(body)
       data = JSON.parse(body)
