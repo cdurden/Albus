@@ -28,9 +28,7 @@ angular.module('whiteboard')
       })
       scope.i = 0;
       scope.$watch("taskData[tasks][i]", function(task) {
-        scope.$apply(function() {
           scope.task = task;
-        });
       }, objectEquality=true);
     }
   }
