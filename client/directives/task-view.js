@@ -43,9 +43,9 @@ angular.module('whiteboard')
                   return;
               });
           }))
-          .concat([loader]).then(function(result) {
+          .concat([loader.then(function(result) {
               return result;
-          });
+          })]);
       }).then(function(response) {
        element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
       });
