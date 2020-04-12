@@ -10,11 +10,6 @@ angular.module('whiteboard')
   //var linker = function(scope, element, attrs, ctrls) {
   var linker = function(scope, element, attrs) {
     //scope.form = ctrls[0];
-    Split(['#task-container', '#board-container'], {
-      sizes: [25, 75],
-      minSize: [0, 300],
-      direction: 'vertical',
-    })
     scope.submit = function() {
       console.log("submitting answers");
       data = {

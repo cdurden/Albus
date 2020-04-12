@@ -37,7 +37,12 @@ h1.title {
 .app-container {
   height: 100%;
 }
-
+#board-overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 31;
+}
 #board-container {
   position: fixed;
   height: 100%;

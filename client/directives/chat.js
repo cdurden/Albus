@@ -1,21 +1,21 @@
 angular.module('whiteboard')
-.directive('wbChat', ['ChatData', 'Sockets', function (ChatData, Sockets) {
+.directive('wbFeed', ['FeedData', 'Sockets', function (FeedData, Sockets) {
   return {
     restrict: 'A',
-    require: ['wbChat'],
+    require: ['wbFeed'],
     replace: true,
-    templateUrl: './templates/chat.html',
+    templateUrl: './templates/feed.html',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {
-        MessageHandler['chat'](ev);
+        MessageHandler['feed'](ev);
       }
     },
     link: function (scope, element, attrs, ctrls) {
-      var chatCtrl = ctrls[0];
-      ChatData.createChat(element);
-      //ChatData.getInput().bind('keypress', chatCtrl.handleEvent);
-      //ChatData.getSendButton().bind('click', chatCtrl.handleEvent);
-      ChatData.getForm().bind("submit",chatCtrl.handleEvent);
+      var feedCtrl = ctrls[0];
+      FeedData.createFeed(element);
+      //FeedData.getInput().bind('keypress', feedCtrl.handleEvent);
+      //FeedData.getSendButton().bind('click', feedCtrl.handleEvent);
+      FeedData.getForm().bind("submit",feedCtrl.handleEvent);
 
         /*
       $('body').on('keypress', function (ev) {
@@ -23,8 +23,8 @@ angular.module('whiteboard')
       });
       */
 
-  Sockets.on('chat message', function (msg) {
-    ChatData.displayMessage(msg);
+  Sockets.on('feed message', function (msg) {
+    FeedData.displayMessage(msg);
   })
 
 

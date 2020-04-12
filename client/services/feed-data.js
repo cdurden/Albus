@@ -1,11 +1,11 @@
-angular.module('whiteboard.services.chatdata', [])
-.factory('ChatData', function () {
-  var chat;
+angular.module('whiteboard.services.feeddata', [])
+.factory('FeedData', function () {
+  var feed;
   var form;
   var input;
   var send_button;
-  function createChat (element) {
-    chat = element.find('ul');
+  function createFeed (element) {
+    feed = element.find('ul');
     form = element.find('form');
     input = element.find('textarea');
     send_button = element.find('button');
@@ -13,8 +13,8 @@ angular.module('whiteboard.services.chatdata', [])
   function getForm() {
     return form;
   }
-  function getChat() {
-    return chat;
+  function getFeed() {
+    return feed;
   }
   function getInput() {
     return input;
@@ -39,17 +39,17 @@ angular.module('whiteboard.services.chatdata', [])
       var li = document.createElement("li");
       var t = document.createTextNode(msg);
       li.appendChild(t);
-      getChat().append(li);
+      getFeed().append(li);
   }
 
   return {
-    createChat: createChat,
+    createFeed: createFeed,
     displayMessage: displayMessage,
       /*
     setSocketId: setSocketId,
     getSocketId: getSocketId,
     */
-    getChat: getChat,
+    getFeed: getFeed,
     getForm: getForm,
     getInput: getInput,
     getInputMessage: getInputMessage,

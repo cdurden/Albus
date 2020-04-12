@@ -4,17 +4,23 @@ angular.module('whiteboard')
     restrict: 'A',
     require: ['wbBoard'],
     replace: true,
-    template: 
-      '<div id="board-container">' +
-      '   <div wb-toolbar></div>' +
-      '   <div wb-layers></div>' +
-      '</div>',
+    templateUrl: './templates/board.html',
     controller: function (InputHandler) {
       this.handleEvent = function (ev) {
         InputHandler[ev.type](ev);
       }
     },
     link: function (scope, element, attrs, ctrls) {
+      Split(['#interactive-space', '#task-container'], {
+        sizes: [75, 25],
+        minSize: [200, 200],
+        direction: 'vertical',
+      })
+      Split(['#drawings-space', '#feed-container'], {
+        sizes: [75,25],
+        minSize: [200, 200],
+        direction: 'horizontal',
+      })
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
       var boardCtrl = ctrls[0];
         /*

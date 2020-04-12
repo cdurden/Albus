@@ -16,7 +16,7 @@ angular.module('whiteboard', [
   'whiteboard.services.zoom',
   'whiteboard.services.leapMotion',
   'whiteboard.services.visualizer',
-  'whiteboard.services.chatdata',
+  'whiteboard.services.feeddata',
   'whiteboard.services.taskdata',
   'whiteboard.services.messagehandler',
   'whiteboard.services.reveal',
@@ -43,7 +43,7 @@ angular.module('whiteboard', [
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/board+chat+task.html',
+        templateUrl: 'views/board.html',
         //templateUrl: 'views/board+chat.html',
         //templateUrl: 'views/board.html',
         resolve: {
