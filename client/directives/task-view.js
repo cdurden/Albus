@@ -24,7 +24,7 @@ angular.module('whiteboard')
       if (typeof task === 'undefined' || typeof task.data ==='undefined' || typeof task.data.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
-          loader = getTemplate(task.data.template)
+          loader = getTemplate(task.data.template);
       }
       if (typeof task.data.scripts === 'undefined') {
           task.data.scripts = [];
@@ -45,7 +45,7 @@ angular.module('whiteboard')
           }))
           .concat([loader.then(function(result) {
               return(result);
-          })]);
+          })]));
       }).then(function(response) {
        element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
       });
