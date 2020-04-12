@@ -145,9 +145,10 @@ function getTasksFromSource(sources, callback) {
     url: `${scheme}://${host}:${port}/api/tasks/source/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
+    useQuerystring: true,
     qs: {'source': sources},
   },
-    function(error, response, body) {
+  function(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
       data = JSON.parse(body)
