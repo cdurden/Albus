@@ -5,6 +5,6 @@
     <div wb-task-view></div>
   </div>
   <div id="task-selector-container" class="split split-horizontal">
-      <a ng-repeat="task in tasks" ng-click="i=$index">{{ $index }}</a>
+      <a ng-repeat="task in tasks" ng-model="i" ng-click="i=$index">{{ $index }}</a>
   </div>
 </div>
