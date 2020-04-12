@@ -1,12 +1,18 @@
-<div id="task-space" class="split">
-  <div id="task-container" class="split split-horizontal">
-      <!--
-    <button type="button" id="task-toggle-button" onclick="toggleTaskForm()">Hide task</button>
-    <button type="button" id="task-submit-button">Submit</button>
-      -->
-    <div wb-task-view></div>
+<div id="board-overlay">
+  <div id="interactive-space" class="split">
+    <div id="drawing-space" class="split split-horizontal"></div>
+    <div id="feed-space" wb-feed class="split split-horizontal"></div>
   </div>
-  <div id="task-selector-container" class="split split-horizontal">
-      <a ng-repeat="task in tasks" ng-click="setTaskIndex($index)"> {{ $index }} </a>
+  <div id="task-space" class="split">
+    <div id="task-container" class="split split-horizontal">
+      <!--
+      <button type="button" id="task-toggle-button" onclick="toggleTaskForm()">Hide task</button>
+      <button type="button" id="task-submit-button">Submit</button>
+      -->
+      <div wb-task-view></div>
+    </div>
+    <div id="task-selector-container" class="split split-horizontal">
+        <a ng-repeat="task in tasks" ng-click="setTaskIndex($index)"> {{ $index }} </a>
+    </div>
   </div>
 </div>

@@ -11,19 +11,6 @@ angular.module('whiteboard')
       }
     },
     link: function (scope, element, attrs, ctrls) {
-      Split(['#interactive-space', '#task-space-container'], {
-        sizes: [75, 25],
-        minSize: [0, 0],
-        snapOffset: 0,
-        direction: 'vertical',
-      })
-      Split(['#drawing-space', '#feed-space'], {
-        sizes: [75,25],
-        minSize: [0, 0],
-        snapOffset: 0,
-        expandToMin: false,
-        direction: 'horizontal',
-      })
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
       var boardCtrl = ctrls[0];
         /*
