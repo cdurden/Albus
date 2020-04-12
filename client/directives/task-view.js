@@ -21,10 +21,10 @@ angular.module('whiteboard')
     scope.$watch("$parent.task", function(task) {
       scope.task = task;
       console.log("updating task");
-      if (typeof task === 'undefined' || typeof task.template === 'undefined') {
+      if (typeof task === 'undefined' || typeof task.data ==='undefined' || typeof task.data.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
-          loader = getTemplate(task.template);
+          loader = getTemplate(task.data.template);
       }
       var promise = loader.then(function(response) {
        element.html($compile(response.data)(scope));// TODO: figure out if this is correct
