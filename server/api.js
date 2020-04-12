@@ -149,6 +149,7 @@ function getTasksFromSource(sources, callback) {
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
+      console.log(body);
       data = JSON.parse(body)
       callback(null, data);
     } else {
