@@ -40,7 +40,7 @@ h1.title {
 #board-overlay {
     pointer-events: none;
 }
-#task-container, #feed-container,.gutter {
+#task-container, #feed-container, #task-selector-container, #task-view-container, .gutter {
     pointer-events: all;
 }
 #task-view-container {
