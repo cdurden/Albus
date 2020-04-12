@@ -36,6 +36,19 @@ angular.module('whiteboard')
       if (typeof task.data.css === 'undefined') {
           task.data.css = [];
       }
+      scriptLoader = function() { return task.data.scripts.reduce( async (accumulatorPromise, nextScript) => { 
+              return accumulatorPromise.then(() => {
+                  return angularLoad.loadScript(nextScript);             
+              });
+          }, Promise.resolve());
+      }
+      if (task.data.preloadScripts) {
+          preLoader = scriptLoader;
+          postLoader = function() { return [] };
+      } else {
+          preLoader = function() { return [] };
+          postLoader = scriptLoader;
+      }
       Promise.all(
           /*
           task.data.scripts.map(function(script) {
@@ -49,18 +62,13 @@ angular.module('whiteboard')
                   return;
               });
           }))
-          .concat([
-              task.data.scripts.reduce( async (accumulatorPromise, nextScript) => {
-                  return accumulatorPromise.then(() => {
-                      return angularLoad.loadScript(nextScript);
-                  });
-              }, Promise.resolve())
-          ])
+          .concat([preLoader()])
           .concat([getTemplate(task.data.template).then(function(result) {
               return(result);
           })]))
        .then(function(response) {
            element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
+           postLoader()
        });
     }, objectEquality=true);
   }
