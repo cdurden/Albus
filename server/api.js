@@ -181,4 +181,6 @@ module.exports = {
     getTasks: getTasks,
     submit: submit,
     getSubmissions: getSubmissions,
+    getTasksDataFromCollection: getTasksDataFromCollection,
+    getTasksFromSource: getTasksFromSource,
 }
