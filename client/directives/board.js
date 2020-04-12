@@ -11,7 +11,7 @@ angular.module('whiteboard')
       }
     },
     link: function (scope, element, attrs, ctrls) {
-      Split(['#interactive-space', '#task-space'], {
+      Split(['#interactive-space', '#task-space-container'], {
         sizes: [75, 25],
         minSize: [0, 0],
         snapOffset: 0,

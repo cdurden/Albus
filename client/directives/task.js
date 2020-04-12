@@ -48,7 +48,7 @@ angular.module('whiteboard')
     scope: {
         'form': '=',
     },
-    replace: true,
+    //replace: true,
     controller: function ($scope) {
       $scope.tasks = TaskData.getTasks();
       $scope.data = {};
