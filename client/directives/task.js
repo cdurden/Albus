@@ -10,6 +10,7 @@ angular.module('whiteboard')
   //var linker = function(scope, element, attrs, ctrls) {
   var linker = function(scope, element, attrs) {
     //scope.form = ctrls[0];
+    scope.i = 0;
     scope.submit = function() {
       console.log("submitting answers");
       data = {
@@ -19,12 +20,12 @@ angular.module('whiteboard')
       Sockets.emit("submit", data);
     };
     var loader;
-    scope.$watch("task.data", function(data) {
+    scope.$watch("tasks[i]", function(task) {
       console.log("updating task");
-      if (typeof data === 'undefined' || typeof data.data.template === 'undefined') {
+      if (typeof task === 'undefined' || typeof task.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
-          loader = getTemplate(data.data.template);
+          loader = getTemplate(task.template);
       }
       var promise = loader.then(function(response) {
       //    element.html(html);
@@ -42,7 +43,7 @@ angular.module('whiteboard')
     },
     replace: true,
     controller: function ($scope) {
-      $scope.task = TaskData.getTask();
+      $scope.tasks = TaskData.getTasks();
       $scope.data = {};
       Sockets.emit("getAssignedTask");
       this.requestData = function (ev) {

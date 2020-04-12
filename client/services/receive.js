@@ -66,9 +66,9 @@ angular.module('whiteboard.services.receive', [])
     EventHandler.displayMessage(msg);
   })
   */
-  Sockets.on('task', function (data) {
+  Sockets.on('tasks', function (data) {
     console.log(data);
-    EventHandler.setTask(data);
+    EventHandler.setTasks(data);
   })
   Sockets.on('submissionConfirmation', function (data) {
     console.log(data);

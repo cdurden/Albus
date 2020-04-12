@@ -76,6 +76,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function setTask(data) {
       TaskData.setTask(data);
   }
+  function setTasks(data) {
+      TaskData.setTasks(data);
+  }
 
   return {
     cursor: cursor,
@@ -91,6 +94,7 @@ angular.module('whiteboard.services.eventhandler', [])
     grabShape: grabShape,
     displayMessage: displayMessage,
     setTask: setTask,
+    setTasks: setTasks,
     clearBoard: clearBoard,
   };
 }]);

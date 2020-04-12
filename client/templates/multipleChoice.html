@@ -2,9 +2,9 @@
   <button type="button" id="task-toggle-button" onclick="toggleTaskForm()">Hide task</button>
   <div id="task-popup">
     <div id="task-data-container">
-      {{ task.data.data.directions }}
+      {{ task.data.directions }}
       <form name="answerForm">
-        <input ng-repeat-start="choice in task.data.data.choices" type="radio" ng-model="data.answer" name="answer" id="{{ 'answer'+$index }}" value="{{ $index }}" required>
+        <input ng-repeat-start="choice in task.data.choices" type="radio" ng-model="data.answer" name="answer" id="{{ 'answer'+$index }}" value="{{ $index }}" required>
         <label ng-repeat-end for={{ "answer"+$index }}>{{ choice }}</label><br>
         <span ng-show="answerForm.answer.$error.required">Answer choice is required.</span>
         <button ng-disabled="answerForm.answer.$dirty && answerForm.answer.$invalid" ng-click="submit()">Submit</button>
