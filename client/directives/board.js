@@ -14,11 +14,13 @@ angular.module('whiteboard')
       Split(['#interactive-space', '#task-container'], {
         sizes: [75, 25],
         minSize: [0, 0],
+        snapOffset: 0,
         direction: 'vertical',
       })
       Split(['#drawing-space', '#feed-container'], {
         sizes: [75,25],
         minSize: [0, 0],
+        snapOffset: 0,
         direction: 'horizontal',
       })
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
