@@ -73,10 +73,10 @@ module.exports = function(server) {
       }
     });
     socket.on('getTaskFromSource', function(source){
+      if (source.length > 1) {
+          source = source[0];
+      }
       api.getTaskFromSource(source, function(error, data) {
-        if (data.length > 1) {
-            data = data[0];
-        }
         socket.emit('task', data);
       });
     });
