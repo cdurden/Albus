@@ -142,10 +142,10 @@ function getTasks(task_ids, callback) {
 }
 function getTasksFromSource(sources, callback) {
   request({
-    url: `${scheme}://${host}:${port}/api/tasks/`,
+    url: `${scheme}://${host}:${port}/api/tasks/source/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
-    qs: {'sources': sources},
+    qs: {'source': sources},
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
