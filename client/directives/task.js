@@ -9,6 +9,13 @@ angular.module('whiteboard')
   }
   //var linker = function(scope, element, attrs, ctrls) {
   var linker = function(scope, element, attrs) {
+    Split(['#task-container', '#task-selector-container'], {
+      sizes: [75,25],
+      minSize: [0, 0],
+      snapOffset: 0,
+      expandToMin: false,
+      direction: 'horizontal',
+    })
     //scope.form = ctrls[0];
     scope.i = 0;
     scope.submit = function() {
@@ -33,7 +40,7 @@ angular.module('whiteboard')
           //element.replaceWith($compile(element.html())(scope));
           element.html($compile(response.data)(scope));// TODO: figure out if this is correct
       });
-    });
+    }, objectEquality=true);
   }
   return {
     restrict: 'A',

@@ -24,13 +24,6 @@ angular.module('whiteboard')
         expandToMin: false,
         direction: 'horizontal',
       })
-      Split(['#task-container', '#task-selector-container'], {
-        sizes: [75,25],
-        minSize: [0, 0],
-        snapOffset: 0,
-        expandToMin: false,
-        direction: 'horizontal',
-      })
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
       var boardCtrl = ctrls[0];
         /*
