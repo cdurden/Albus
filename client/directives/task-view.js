@@ -17,7 +17,6 @@ angular.module('whiteboard')
       }
       Sockets.emit("submit", data);
     };
-    var loader;
     scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
       var task = newValues[0][newValues[1]];
       scope.task = task;
