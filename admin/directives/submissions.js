@@ -14,7 +14,7 @@ angular.module('whiteboard-admin')
       Sockets.on('submissions', function (data) {
         $scope.submissions = data;
       });
-      Sockets.emit('submissions');
+      Sockets.emit('getSubmissions');
     },
   }
 }]);
