@@ -21,7 +21,7 @@ angular.module('whiteboard')
     var loader;
     scope.$watch("task.data", function(data) {
       console.log("updating task");
-      if (typeof data.data.template === 'undefined') {
+      if (typeof data === 'undefined' || typeof data.data.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
           loader = getTemplate(data.data.template);
