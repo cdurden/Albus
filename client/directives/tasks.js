@@ -30,9 +30,11 @@ angular.module('whiteboard')
         direction: 'horizontal',
       })
       scope.i = 0;
+        /*
       scope.$watch("taskData.tasks[i]", function(task) {
           scope.task = task;
       }, objectEquality=true);
+      */
       scope.$watch("taskData.tasks", function(tasks) {
           scope.tasks = tasks;
       }, objectEquality=true);

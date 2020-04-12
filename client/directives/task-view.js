@@ -18,7 +18,8 @@ angular.module('whiteboard')
       Sockets.emit("submit", data);
     };
     var loader;
-    scope.$watch("$parent.task", function(task) {
+    scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
+      var task = newValues[0][newValues[1]];
       scope.task = task;
       console.log("updating task");
       if (typeof task === 'undefined') {
