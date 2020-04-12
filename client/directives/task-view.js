@@ -37,16 +37,25 @@ angular.module('whiteboard')
           task.data.css = [];
       }
       Promise.all(
+          /*
           task.data.scripts.map(function(script) {
               return angularLoad.loadScript(script).then(function(result) {
                   return;
               })
           })
+          */
           .concat(task.data.css.map(function(stylesheet) {
               return angularLoad.loadCSS(stylesheet).then(function(result) {
                   return;
               });
           }))
+          .concat([
+              task.data.scripts.reduce( async (accumulatorPromise, nextScript) => {
+                  return accumulatorPromise.then(() => {
+                      return methodThatReturnsAPromise(nextScript);
+                  });
+              }, Promise.resolve())
+          ])
           .concat([getTemplate(task.data.template).then(function(result) {
               return(result);
           })]))
