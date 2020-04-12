@@ -68,7 +68,9 @@ angular.module('whiteboard')
           })]))
        .then(function(response) {
            element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
-           postLoader()
+           postLoader().then(function(result) {
+               eval(task.data.onload);
+           });
        });
     }, objectEquality=true);
   }
