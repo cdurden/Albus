@@ -120,7 +120,7 @@ function getTask(task_id, callback) {
 }
 function getTasks(task_ids, callback) {
   if (task_ids) {
-      qs = {'task_id': task_ids}:
+      qs = {'task_id': task_ids};
   } else {
       qs = {};
   }
