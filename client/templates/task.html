@@ -1,18 +1,3 @@
-<div id="task-space" class="split split-horizontal">
-  <div id="task-container" class="task-container">
-    <button type="button" id="task-toggle-button" onclick="toggleTaskForm()">Hide task</button>
-    <button type="button" id="task-submit-button">Submit</button>
-    <div id="task-data-container">
-    {{ task.data.data.directions }}
-    </div>
-    <!--
-    <form action="" id="task-form" class="form-container">
-      <textarea placeholder="Type message..." id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <button type="button" class="cancel" onclick="closeTaskForm()">Hide</button>
-    -->
-  </div>
-  <div id="task-selector-container" class="split split-horizontal">
-      <a ng-repeat="task in tasks" ng-click="i=$index">{{ $index }}</a>
-  </div>
+<div id="task-data-container">
+  {{ task.data.data.directions }}
 </div>
