@@ -33,7 +33,7 @@ angular.module('whiteboard')
       if (typeof task.data.scripts === 'undefined') {
           task.data.scripts = [];
       }
-      if (typeof task.data.scripts === 'undefined') {
+      if (typeof task.data.css === 'undefined') {
           task.data.css = [];
       }
       Promise.all(
