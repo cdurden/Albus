@@ -8,20 +8,20 @@ function updateScroll(){
 $("#messages").on('scroll', function(){
     if (scrollTop == scrollHeight) { scrolled = false; } else { scrolled=true; }
 });
-function openChatForm() {
-    document.getElementById("chat-popup").style.display = "block";
+function openFeedForm() {
+    document.getElementById("feed-popup").style.display = "block";
 }
-function closeChatForm() {
-    document.getElementById("chat-popup").style.display = "none";
+function closeFeedForm() {
+    document.getElementById("feed-popup").style.display = "none";
 }
-function toggleChatForm() {
-  var x = document.getElementById("chat-popup");
-  var btn = document.getElementById("chat-toggle-button");
+function toggleFeedForm() {
+  var x = document.getElementById("feed-popup");
+  var btn = document.getElementById("feed-toggle-button");
   if (x.style.display === "none") {
     x.style.display = "block";
-    //btn.innerHTML = "Hide chat";
+    //btn.innerHTML = "Hide feed";
   } else {
     x.style.display = "none";
-    //btn.innerHTML = "Show chat";
+    //btn.innerHTML = "Show feed";
   }
 }

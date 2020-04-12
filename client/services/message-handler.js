@@ -1,10 +1,10 @@
 angular.module('whiteboard.services.messagehandler', [])
-.factory('MessageHandler', ['ChatData', 'EventHandler', 'Broadcast', function (ChatData, EventHandler, Broadcast) {
-  function chat (ev) {
+.factory('MessageHandler', ['FeedData', 'EventHandler', 'Broadcast', function (FeedData, EventHandler, Broadcast) {
+  function feed (ev) {
       ev.preventDefault(); // prevents page reloading
-      Broadcast.chat(ChatData.getInputMessage());
-      console.log(ChatData.getInputMessage());
-      ChatData.getInput().val('');
+      Broadcast.feed(FeedData.getInputMessage());
+      console.log(FeedData.getInputMessage());
+      FeedData.getInput().val('');
       return false;
   }
   function raiseHand (ev) {
@@ -20,7 +20,7 @@ angular.module('whiteboard.services.messagehandler', [])
       return false;
   }
   return {
-      chat: chat,
+      feed: feed,
       raiseHand: raiseHand,
       submit: submit,
   }
