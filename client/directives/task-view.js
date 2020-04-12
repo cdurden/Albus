@@ -45,10 +45,10 @@ angular.module('whiteboard')
           }))
           .concat([loader.then(function(result) {
               return(result);
-          })]));
-      }).then(function(response) {
-       element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
-      });
+          })]))
+       .then(function(response) {
+           element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
+       });
     }, objectEquality=true);
   }
   return {
