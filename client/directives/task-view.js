@@ -44,7 +44,7 @@ angular.module('whiteboard')
               })
           })
           */
-          .concat(task.data.css.map(function(stylesheet) {
+          [].concat(task.data.css.map(function(stylesheet) {
               return angularLoad.loadCSS(stylesheet).then(function(result) {
                   return;
               });
