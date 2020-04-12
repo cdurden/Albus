@@ -16,7 +16,7 @@ angular.module('whiteboard')
         minSize: [200, 200],
         direction: 'vertical',
       })
-      Split(['#drawings-space', '#feed-container'], {
+      Split(['#drawing-space', '#feed-container'], {
         sizes: [75,25],
         minSize: [200, 200],
         direction: 'horizontal',
