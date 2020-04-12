@@ -74,7 +74,7 @@ module.exports = function(server) {
     });
     socket.on('getTaskFromSource', function(source){
       if (source.length > 1) {
-          source = source[0];
+          source = source.pop();
       }
       api.getTaskFromSource(source, function(error, data) {
         socket.emit('task', data);
