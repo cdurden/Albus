@@ -11,6 +11,9 @@ angular.module('whiteboard')
       $scope.taskData = TaskData.getData();
       $scope.data = {};
       Sockets.emit("getAssignedTasks");
+      $scope.setTaskIndex = function(i) {
+          $scope.i = i;
+      }
       this.requestData = function (ev) {
           ev.preventDefault(); // prevents page reloading
           Sockets.emit("getAssignedTasks");
