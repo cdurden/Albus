@@ -43,6 +43,10 @@ h1.title {
 #task-container, #feed-container,.gutter {
     pointer-events: all;
 }
+.task-container {
+    position: absolute;
+    left: 55px;
+}
 #board-container {
   position: fixed;
   height: 100%;
@@ -126,7 +130,7 @@ h1.title {
  */
 
 .toolbar {
-  z-index: 1;
+  z-index: 35;
   position: absolute;
   top: 0px;
   left: -150px;
