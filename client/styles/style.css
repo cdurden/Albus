@@ -37,6 +37,9 @@ h1.title {
 .app-container {
   height: 100%;
 }
+#drawing-space {
+    pointer-events: none;
+}
 #board-container {
   position: fixed;
   height: 100%;
