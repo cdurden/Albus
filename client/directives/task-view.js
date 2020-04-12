@@ -44,7 +44,7 @@ angular.module('whiteboard')
               });
           }))
           .concat([loader.then(function(result) {
-              return result;
+              return(result);
           })]);
       }).then(function(response) {
        element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
