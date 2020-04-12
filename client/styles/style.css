@@ -37,12 +37,6 @@ h1.title {
 .app-container {
   height: 100%;
 }
-#board-overlay {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    z-index: 31;
-}
 #board-container {
   position: fixed;
   height: 100%;
@@ -51,6 +45,14 @@ h1.title {
   pointer-events: all;
   			-webkit-touch-callout: none ;
 			-webkit-user-select: none ;
+}
+#board-overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 29;
 }
 
 #board-container svg {
