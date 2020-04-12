@@ -21,6 +21,7 @@ angular.module('whiteboard')
         sizes: [75,25],
         minSize: [0, 0],
         snapOffset: 0,
+        expandToMin: false,
         direction: 'horizontal',
       })
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
