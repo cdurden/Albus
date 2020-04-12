@@ -3,7 +3,7 @@ angular.module('whiteboard')
   return {
     restrict: 'A',
     require: ['wbFeed'],
-    replace: true,
+    //replace: true,
     templateUrl: './templates/feed.html',
     controller: function (MessageHandler) {
       this.handleEvent = function (ev) {

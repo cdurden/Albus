@@ -17,7 +17,7 @@ angular.module('whiteboard')
         snapOffset: 0,
         direction: 'vertical',
       })
-      Split(['#drawing-space', '#feed-container'], {
+      Split(['#drawing-space', '#feed-space'], {
         sizes: [75,25],
         minSize: [0, 0],
         snapOffset: 0,
