@@ -21,10 +21,14 @@ angular.module('whiteboard')
     scope.$watch("$parent.task", function(task) {
       scope.task = task;
       console.log("updating task");
-      if (typeof task === 'undefined' || typeof task.data ==='undefined' || typeof task.data.template === 'undefined') {
-          loader = getTemplate("task.html");
-      } else {
-          loader = getTemplate(task.data.template);
+      if (typeof task === 'undefined') {
+          task = {};
+      }
+      typeof task.data ==='undefined') {
+          task.data = {};
+      }
+      if (typeof task.data.template === 'undefined') {
+          task.data.template = "task.html";
       }
       if (typeof task.data.scripts === 'undefined') {
           task.data.scripts = [];
@@ -43,7 +47,7 @@ angular.module('whiteboard')
                   return;
               });
           }))
-          .concat([loader.then(function(result) {
+          .concat([getTemplate(task.data.template).then(function(result) {
               return(result);
           })]))
        .then(function(response) {
