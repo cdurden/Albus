@@ -74,6 +74,9 @@ module.exports = function(server) {
     });
     socket.on('getTaskFromSource', function(source){
       api.getTaskFromSource(source, function(error, data) {
+        if (data.length > 1) {
+            data = data[0];
+        }
         socket.emit('task', data);
       });
     });
@@ -107,19 +110,19 @@ module.exports = function(server) {
     socket.on('assignTasks', function(data){
       console.log(data);
       api.getTasksFromSource(data, function(error, data) {
-        socket.emit('task', data);
-      });
-      json = JSON.stringify(data);
-      client.set('tasks', json, function(err) {
-        console.log(err);
-        client.get('tasks', function(err, result) {
-          try {
-            data = JSON.parse(result);
-            io.of('/client').emit('tasks', data); // TODO: assign to specific socket
-          } catch {
-            return;
-          }
+        json = JSON.stringify(data);
+        client.set('tasks', json, function(err) {
+          console.log(err);
+          client.get('tasks', function(err, result) {
+            try {
+              data = JSON.parse(result);
+              io.of('/client').emit('tasks', data); // TODO: assign to specific socket
+            } catch {
+              return;
+            }
+          });
         });
+        //socket.emit('task', data);
       });
     });
     socket.on('getSubmissions', function(){
