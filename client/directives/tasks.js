@@ -18,7 +18,7 @@ angular.module('whiteboard')
       };
     },
     link: function(scope, element, attrs) {
-      var scope.taskData = TaskData.getData();
+      scope.taskData = TaskData.getData();
       Split(['#task-container', '#task-selector-container'], {
         sizes: [75,25],
         minSize: [0, 0],
