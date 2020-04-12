@@ -12,6 +12,7 @@
 }
 */
 #feed-toggle-button {
+    /*
     position: absolute;
     z-index: 1;
     font-size: 24px;
@@ -19,6 +20,7 @@
     bottom: 5px;
     bottom: auto;
     left: auto;
+    */
 }
 .feed-container ul {
     list-style-type: none;
@@ -30,6 +32,7 @@
     max-height: 5em;
 }
 #feed-popup {
+    display: block;
 /*    display: none;*/
 }
 .feed-container textarea {
@@ -38,12 +41,14 @@
 
 {box-sizing: border-box;}
 .feed-popup {
+    /*
   display: none;
   position: fixed;
   bottom: 0;
   right: 15px;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  */
 }
 /*
 .feed-container {
