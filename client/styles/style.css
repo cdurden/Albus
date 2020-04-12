@@ -37,7 +37,7 @@ h1.title {
 .app-container {
   height: 100%;
 }
-#drawing-space {
+#drawing-space, #interaction-space {
     pointer-events: none;
 }
 #board-container {
