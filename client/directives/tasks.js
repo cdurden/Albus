@@ -28,15 +28,8 @@ angular.module('whiteboard')
       })
       scope.i = 0;
       scope.$watch("taskData[tasks][i]", function(task) {
-        scope.task = task;
-        console.log("updating task");
-        if (typeof task === 'undefined' || typeof task.template === 'undefined') {
-            loader = getTemplate("task.html");
-        } else {
-            loader = getTemplate(task.template);
-        }
-        var promise = loader.then(function(response) {
-         element.html($compile(response.data)(scope));// TODO: figure out if this is correct
+        scope.$apply(function() {
+          scope.task = task;
         });
       }, objectEquality=true);
     }
