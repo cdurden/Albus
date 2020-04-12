@@ -7,6 +7,7 @@
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
+/*
 .task-container {
   position: fixed;
   top: 0;
@@ -14,6 +15,7 @@
   width: 100%;
   padding-left: 55px;
 }
+*/
 
 #task-toggle-button {
     float: right;
