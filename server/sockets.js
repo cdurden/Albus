@@ -49,6 +49,17 @@ module.exports = function(server) {
         }
       });
     });
+    socket.on('getAssignedTasks', function(){
+      client.get('tasks', function(err, result) {
+        console.log(result);
+        try {
+          data = JSON.parse(result);
+          socket.emit('tasks', data);
+        } catch {
+          return;
+        }
+      });
+    });
   }
 
 
