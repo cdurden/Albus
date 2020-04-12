@@ -104,6 +104,13 @@ module.exports = function(server) {
         });
       });
     });
+    socket.on('getSubmissions', function(){
+      api.getSubmissions(function(error, data) {
+        console.log(data)
+        io.of('/admin').emit('submissions', data);
+        //socket.emit('confirmSubmission', data);
+      });
+    });
   });
   io.of('/client').on('connection', function (socket) {
     console.log("connection from socket "+socket.id);
@@ -130,13 +137,6 @@ module.exports = function(server) {
       api.submit(socket.handshake.session, data, function(error, data) {
         console.log(data)
         io.of('/admin').emit('submission', data);
-        //socket.emit('confirmSubmission', data);
-      });
-    });
-    socket.on('getSubmissions', function(){
-      api.getSubmissions(function(error, data) {
-        console.log(data)
-        io.of('/admin').emit('submissions', data);
         //socket.emit('confirmSubmission', data);
       });
     });
