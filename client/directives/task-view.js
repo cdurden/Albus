@@ -24,20 +24,26 @@ angular.module('whiteboard')
       if (typeof task === 'undefined' || typeof task.data ==='undefined' || typeof task.data.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
-          loader = 
+          loader = getTemplate(task.data.template)
+      }
+      if (typeof task.data.scripts === 'undefined') {
+          task.data.scripts = [];
+      }
+      if (typeof task.data.scripts === 'undefined') {
+          task.data.css = [];
       }
       Promise.all(
-          task.scripts.map(function(script) {
+          task.data.scripts.map(function(script) {
               return angularLoad.loadScript(script).then(function(result) {
                   return;
               })
           })
-          .concat(task.css.map(function(stylesheet) {
+          .concat(task.data.css.map(function(stylesheet) {
               return angularLoad.loadCSS(stylesheet).then(function(result) {
                   return;
               });
           }))
-          .concat([getTemplate(task.data.template)]).then(function(result) {
+          .concat([loader]).then(function(result) {
               return result;
           });
       }).then(function(response) {
