@@ -136,7 +136,7 @@
 /* Full-width textarea */
 .form-container textarea {
   width: 100%;
-  padding: 15px;
+  padding: 0;
   /*
   margin: 5px 0 22px 0;
   border: none;
