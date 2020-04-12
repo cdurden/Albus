@@ -9,7 +9,8 @@ angular.module('whiteboard.services.taskdata', [])
   //scalingFactor is the level of zooming relative to the start
   var scalingFactor = 1;
 
-  var tasks = [];
+  var data = {};
+  data.tasks = [];
 
     /*
   var task = {};
@@ -20,11 +21,14 @@ angular.module('whiteboard.services.taskdata', [])
       return task;
   }
   */
-  function setTasks(data) {
-      tasks = data;
+  function setTasks(tasks) {
+      data.tasks = tasks;
   }
   function getTasks() {
-      return tasks;
+      return data.tasks;
+  }
+  function getData() {
+      return data;
   }
 
   return {
@@ -34,5 +38,6 @@ angular.module('whiteboard.services.taskdata', [])
     */
     setTasks: setTasks,
     getTasks: getTasks,
+    getData: getData,
   }
 });
