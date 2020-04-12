@@ -52,7 +52,7 @@ angular.module('whiteboard')
           .concat([
               task.data.scripts.reduce( async (accumulatorPromise, nextScript) => {
                   return accumulatorPromise.then(() => {
-                      return methodThatReturnsAPromise(nextScript);
+                      return angularLoad.loadScript(nextScript);
                   });
               }, Promise.resolve())
           ])
