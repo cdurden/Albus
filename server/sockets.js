@@ -78,7 +78,7 @@ module.exports = function(server) {
       });
     });
     socket.on('getTasks', function(){
-      api.getTasks(function(error, data) {
+      api.getTasksDataFromCollection('tasks', function(error, data) {
         socket.emit('tasks', data);
       });
     });
@@ -92,12 +92,30 @@ module.exports = function(server) {
     socket.on('assignTask', function(data){
       console.log(data);
       json = JSON.stringify(data);
-      client.set('task', json, function(err) {
+      client.set('tasks', json, function(err) {
         console.log(err);
-        client.get('task', function(err, result) {
+        client.get('tasks', function(err, result) {
           try {
             data = JSON.parse(result);
-            io.of('/client').emit('task', data); // TODO: assign to specific socket
+            io.of('/client').emit('tasks', data); // TODO: assign to specific socket
+          } catch {
+            return;
+          }
+        });
+      });
+    });
+    socket.on('assignTasks', function(data){
+      console.log(data);
+      api.getTasksFromSource(data, function(error, data) {
+        socket.emit('task', data);
+      });
+      json = JSON.stringify(data);
+      client.set('tasks', json, function(err) {
+        console.log(err);
+        client.get('tasks', function(err, result) {
+          try {
+            data = JSON.parse(result);
+            io.of('/client').emit('tasks', data); // TODO: assign to specific socket
           } catch {
             return;
           }

@@ -88,9 +88,9 @@ function getApiUsers(socket, callback) {
     }
   });
 }
-function getTasks(callback) {
+function getTasksDataFromCollection(collection, callback) {
   request({
-      url: `${scheme}://${host}:${port}/api/tasks/snow-qm:tasks:.*/`,
+      url: `${scheme}://${host}:${port}/api/tasks/data/snow-qm:${collection}:.*/`,
     headers : { "Authorization" : "Bearer " + auth.token },
   },
     function(error, response, body) {
@@ -107,6 +107,45 @@ function getTask(task_id, callback) {
     url: `${scheme}://${host}:${port}/api/task/${task_id}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      console.log(error);
+      callback(error, null);
+    }
+  });
+}
+function getTasks(task_ids, callback) {
+  if (task_ids) {
+      qs = {'task_id': task_ids}:
+  } else {
+      qs = {};
+  }
+  request({
+    url: `${scheme}://${host}:${port}/api/tasks/`,
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+    agent: agent,
+    qs: qs,
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      console.log(error);
+      callback(error, null);
+    }
+  });
+}
+function getTasksFromSource(sources, callback) {
+  request({
+    url: `${scheme}://${host}:${port}/api/tasks/`,
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+    agent: agent,
+    qs: {'sources': sources},
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {

@@ -21,7 +21,7 @@ angular.module('whiteboard-admin')
     link: function(scope, element, attrs, ctrls) {
       $(element).find("#assign-task-form").bind("submit",function(ev) {
           ev.preventDefault();
-          Sockets.emit('assignTask', scope.task);
+          Sockets.emit('assignTasks', scope.selectedTasks);
       });
       $(element).find("#task-selector").change(function(ev) {
           ev.preventDefault();
