@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbTaskView', ['$compile', '$http', '$templateCache', 'TaskData', 'Sockets', function($compile, $http, $templateCache, TaskData, Sockets) {
+.directive('wbTaskView', ['$compile', '$http', '$templateCache', 'TaskData', 'Sockets', "angularLoad", function($compile, $http, $templateCache, TaskData, Sockets, angularLoad) {
   var getTemplate = function(template) {
     var templateLoader;
     var baseUrl = './templates/';
@@ -24,10 +24,24 @@ angular.module('whiteboard')
       if (typeof task === 'undefined' || typeof task.data ==='undefined' || typeof task.data.template === 'undefined') {
           loader = getTemplate("task.html");
       } else {
-          loader = getTemplate(task.data.template);
+          loader = 
       }
-      var promise = loader.then(function(response) {
-       element.html($compile(response.data)(scope));// TODO: figure out if this is correct
+      Promise.all(
+          task.scripts.map(function(script) {
+              return angularLoad.loadScript(script).then(function(result) {
+                  return;
+              })
+          })
+          .concat(task.css.map(function(stylesheet) {
+              return angularLoad.loadCSS(stylesheet).then(function(result) {
+                  return;
+              });
+          }))
+          .concat([getTemplate(task.data.template)]).then(function(result) {
+              return result;
+          });
+      }).then(function(response) {
+       element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
       });
     }, objectEquality=true);
   }
