@@ -1,9 +1,9 @@
-    <div id="task-data-container">
-      {{ task.data.directions }}
-      <form name="answerForm">
-        <input ng-repeat-start="choice in task.data.choices" type="radio" ng-model="data.answer" name="answer" id="{{ 'answer'+$index }}" value="{{ $index }}" required>
-        <label ng-repeat-end for={{ "answer"+$index }}>{{ choice }}</label><br>
-        <span ng-show="answerForm.answer.$error.required">Answer choice is required.</span>
-        <button ng-disabled="answerForm.answer.$dirty && answerForm.answer.$invalid" ng-click="submit()">Submit</button>
-      </form>
-    </div>
+<div id="task-view-container">
+  {{ task.data.directions }}
+  <form name="answerForm">
+    <input ng-repeat-start="choice in task.data.choices" type="radio" ng-model="data.answer" name="answer" id="{{ 'answer'+$index }}" value="{{ $index }}" required>
+    <label ng-repeat-end for={{ "answer"+$index }}>{{ choice }}</label><br>
+    <span ng-show="answerForm.answer.$error.required">Answer choice is required.</span>
+    <button ng-disabled="answerForm.answer.$dirty && answerForm.answer.$invalid" ng-click="submit()">Submit</button>
+  </form>
+</div>

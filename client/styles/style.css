@@ -43,7 +43,7 @@ h1.title {
 #task-container, #feed-container,.gutter {
     pointer-events: all;
 }
-.task-container {
+#task-view-container {
     position: absolute;
     left: 55px;
 }
