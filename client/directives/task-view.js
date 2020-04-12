@@ -24,7 +24,7 @@ angular.module('whiteboard')
       if (typeof task === 'undefined') {
           task = {};
       }
-      typeof task.data ==='undefined') {
+      if (typeof task.data ==='undefined') {
           task.data = {};
       }
       if (typeof task.data.template === 'undefined') {
