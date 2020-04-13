@@ -11,23 +11,18 @@ angular.module('whiteboard')
       }
     },
     link: function (scope, element, attrs, ctrls) {
-      var feedCtrl = ctrls[0];
       FeedData.createFeed(element);
-      //FeedData.getInput().bind('keypress', feedCtrl.handleEvent);
-      //FeedData.getSendButton().bind('click', feedCtrl.handleEvent);
       FeedData.getForm().bind("submit",feedCtrl.handleEvent);
-
-        /*
-      $('body').on('keypress', function (ev) {
-        boardCtrl.handleEvent(ev);
+      var feedCtrl = ctrls[0];
+      scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
+        var task = newValues[0][newValues[1]];
+        scope.task = task;
       });
+        /*
+      Sockets.on('feed message', function (msg) {
+        FeedData.displayMessage(msg);
+      })
       */
-
-  Sockets.on('feed message', function (msg) {
-    FeedData.displayMessage(msg);
-  })
-
-
     }
   }
 }]);

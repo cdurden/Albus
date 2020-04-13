@@ -1,4 +1,7 @@
 <div id="feed-container" class="feed-container">
+    <ul>
+        <li ng-repeat="submission in task.submissions">You submitted an answer at {{submission.datetime}}</li>
+    </ul>
 <div id="feed-toggle-button" onclick="toggleFeedForm()"><i class="fas fa-comment"></i></div>
 </div>
 
