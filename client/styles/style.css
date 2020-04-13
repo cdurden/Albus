@@ -38,6 +38,7 @@ h1.title {
   height: 100%;
 }
 #board-overlay {
+    font-size: 18pt;
     pointer-events: none;
 }
 #task-space {
