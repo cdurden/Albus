@@ -11,9 +11,9 @@ angular.module('whiteboard')
       }
     },
     link: function (scope, element, attrs, ctrls) {
+      var feedCtrl = ctrls[0];
       FeedData.createFeed(element);
       FeedData.getForm().bind("submit",feedCtrl.handleEvent);
-      var feedCtrl = ctrls[0];
       scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
         var task = newValues[0][newValues[1]];
         scope.task = task;
