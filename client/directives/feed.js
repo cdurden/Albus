@@ -12,9 +12,11 @@ angular.module('whiteboard')
     },
     scope: {},
     link: function (scope, element, attrs, ctrls) {
+        /*
       var feedCtrl = ctrls[0];
       FeedData.createFeed(element);
       FeedData.getForm().bind("submit",feedCtrl.handleEvent);
+      */
       scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
         var task = newValues[0][newValues[1]];
         scope.task = task;
