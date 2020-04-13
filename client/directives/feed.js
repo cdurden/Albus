@@ -2,7 +2,7 @@ angular.module('whiteboard')
 .directive('wbFeed', ['FeedData', 'Sockets', function (FeedData, Sockets) {
   return {
     restrict: 'A',
-    require: ['wbFeed'],
+    //require: ['wbFeed'],
     //replace: true,
     templateUrl: './templates/feed.html',
     controller: function (MessageHandler) {
@@ -10,6 +10,7 @@ angular.module('whiteboard')
         MessageHandler['feed'](ev);
       }
     },
+    scope: {},
     link: function (scope, element, attrs, ctrls) {
       var feedCtrl = ctrls[0];
       FeedData.createFeed(element);
