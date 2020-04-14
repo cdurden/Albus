@@ -43,9 +43,9 @@ angular.module('whiteboard', [
   function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/board.html',
-        //templateUrl: 'views/board+chat.html',
         //templateUrl: 'views/board.html',
+        //templateUrl: 'views/board+chat.html',
+        templateUrl: 'views/slides.html',
         resolve: {
           'something': function (Sockets, Auth, $location) {
             /*
