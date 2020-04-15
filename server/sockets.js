@@ -219,6 +219,7 @@ module.exports = function(server) {
 
     socket.on('newShape', function (data) {
       console.log("new shape");
+      console.log(this);
       console.log(this.room);
       socket.to(this.room).emit('shapeCreated', data);
       rooms.addShape(data, socket);
