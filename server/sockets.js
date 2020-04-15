@@ -172,7 +172,7 @@ module.exports = function(server) {
         if (data) {
           console.log("received data:");
           console.log(data);
-          flat_data = Object.entries(data).flat().map(JSON.stringify);
+          flat_data = Object.entries(data).flat().map(obj => if (typeof obj === 'string') return(obj) else return(JSON.stringify(obj)));
           client.hmset(socket.id, flat_data, function(err, result) {
           //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
             rooms.placeSocket(socket, function() {
