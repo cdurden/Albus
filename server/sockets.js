@@ -18,19 +18,19 @@ module.exports = function(server) {
 
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
-      console.log(result);
+      //console.log(result);
       result['socketId'] = socketId
       resolve(result);
     })); 
   }
   function getAllClientData(callback) {
     io.of('/client').clients((error, clients) => {
-      console.log(clients);
+      //console.log(clients);
       if (error) throw error;
       Promise.all(clients.map(function(clientId) {
         return getSocketData(clientId);
       })).then(function(results) {
-        console.log(results);
+        //console.log(results);
         result = results.reduce((map, obj) => (map[obj['socketId']] = obj, map), {});
         //console.log(result);
         callback(result);
@@ -40,7 +40,7 @@ module.exports = function(server) {
   function registerCommonListeners(socket) {
     socket.on('getAssignedTask', function(){
       client.get('task', function(err, result) {
-        console.log(result);
+        //console.log(result);
         try {
           data = JSON.parse(result);
           socket.emit('task', data);
@@ -52,7 +52,7 @@ module.exports = function(server) {
     socket.on('getAssignedTasks', function(){
       client.hget(socket.id, 'tasks', function(err, result) {
       //client.get('tasks', function(err, result) {
-        console.log(result);
+        //console.log(result);
         try {
           data = JSON.parse(result);
           socket.emit('tasks', data);
@@ -77,10 +77,10 @@ module.exports = function(server) {
     });
     socket.on('assignRooms', function(assignments){
       console.log("assigning sockets to rooms");
-      console.log(assignments);
+      //console.log(assignments);
       for (socketId in assignments) {
-        console.log(io.sockets.connected);
-        console.log(io.of("/client").connected);
+        //console.log(io.sockets.connected);
+        //console.log(io.of("/client").connected);
         rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
       }
     });
@@ -105,10 +105,10 @@ module.exports = function(server) {
       socket.emit('showTask', task);
     });
     socket.on('assignTask', function(data){
-      console.log(data);
+      //console.log(data);
       json = JSON.stringify(data);
       client.set('tasks', json, function(err) {
-        console.log(err);
+        //console.log(err);
         client.get('tasks', function(err, result) {
           try {
             data = JSON.parse(result);
@@ -121,7 +121,7 @@ module.exports = function(server) {
     });
     socket.on('assignTasksToSockets', function(assignments){
         console.log("assigning tasks to sockets");
-        console.log(assignments);
+        //console.log(assignments);
         var assignTasksToSocket = function(socketId) {
             var socket = io.of("/client").connected[socketId];
             api.getTasksFromSource(assignments[socketId], function(error, data) {
@@ -143,11 +143,11 @@ module.exports = function(server) {
         }
     });
     socket.on('assignTasks', function(data){
-      console.log(data);
+      //console.log(data);
       api.getTasksFromSource(data, function(error, data) {
         json = JSON.stringify(data);
         client.set('tasks', json, function(err) {
-          console.log(err);
+          //console.log(err);
           client.get('tasks', function(err, result) {
             try {
               data = JSON.parse(result);
@@ -162,7 +162,7 @@ module.exports = function(server) {
     });
     socket.on('getSubmissions', function(){
       api.getSubmissions(function(error, data) {
-        console.log(data)
+        //console.log(data)
         io.of('/admin').emit('submissions', data);
         //socket.emit('confirmSubmission', data);
       });
@@ -189,9 +189,9 @@ module.exports = function(server) {
     socket.on('heartbeat', function () {
     })
     socket.on('submit', function(data){
-      console.log(data);
+      //console.log(data);
       api.submit(socket.handshake.session, data, function(error, data) {
-        console.log(data)
+        //console.log(data)
         io.of('/admin').emit('submission', data);
         //socket.emit('confirmSubmission', data);
       });
@@ -219,7 +219,7 @@ module.exports = function(server) {
 
     socket.on('newShape', function (data) {
       console.log("new shape");
-      console.log(this);
+      //console.log(this);
       console.log(this.room);
       socket.to(this.room).emit('shapeCreated', data);
       rooms.addShape(data, socket);
