@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('compileTemplate' function compileTemplate($compile, $parse) {
+.directive('compileTemplate', function compileTemplate($compile, $parse) {
     return {
         link: function(scope, element, attr){
             scope.$watch("$parent.task", function(newValue) {
