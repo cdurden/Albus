@@ -172,7 +172,9 @@ module.exports = function(server) {
         if (data) {
           console.log("received data:");
           console.log(data);
-          client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
+          json = JSON.stringify(data);
+          client.hmset(socket.id, json, function(err, result) {
+          //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
             rooms.placeSocket(socket, function() {
               console.log("emitting client data to admin");
               getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
