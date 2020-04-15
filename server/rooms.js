@@ -29,7 +29,7 @@ function assignRoomToSocket(socket, roomId, callback) {
       getRoomData(roomId, function (room) {
         room[socket.id] = {};
         socket.emit('showExisting', room);
-        callback();
+        callback && callback();
       });
     });
   }
