@@ -128,12 +128,13 @@ module.exports = function(server) {
                 var tasks_json = JSON.stringify(data);
                 client.hmset(socketId, ['tasks', tasks_json], function(err, result) {
                     client.hget(socketId, 'tasks', function(err, result) {
-                    try {
-                      data = JSON.parse(result);
-                      socket.emit('tasks', data);
-                    } catch {
-                      return;
-                    }
+                        try {
+                          data = JSON.parse(result);
+                          socket.emit('tasks', data);
+                        } catch {
+                          return;
+                        }
+                    });
                 });
             });
         }
