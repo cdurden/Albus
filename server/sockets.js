@@ -129,7 +129,7 @@ module.exports = function(server) {
                     client.hget(socketId, 'tasks', function(err, result) {
                     try {
                       data = JSON.parse(result);
-                      socket.emit('tasks' data);
+                      socket.emit('tasks', data);
                     } catch {
                       return;
                     }
