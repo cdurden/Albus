@@ -26,7 +26,7 @@ angular.module('whiteboard-admin')
           ev.preventDefault();
           var assignments = {}
           for (socketId in scope.selectedSockets) {
-              assignments[scope.sockets[socketId]] = scope.selectedTasks;
+              assignments[socketId] = scope.selectedTasks;
           }
           Sockets.emit('assignTasksToSockets', assignments);
       });
