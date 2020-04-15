@@ -50,7 +50,8 @@ module.exports = function(server) {
       });
     });
     socket.on('getAssignedTasks', function(){
-      client.get('tasks', function(err, result) {
+      client.hget(socket.id, 'tasks', function(err, result) {
+      //client.get('tasks', function(err, result) {
         console.log(result);
         try {
           data = JSON.parse(result);
