@@ -24,7 +24,7 @@ angular.module('whiteboard-admin')
     link: function(scope, element, attrs, ctrls) {
       $(element).find("#assign-task-form").bind("submit",function(ev) {
           ev.preventDefault();
-          var assignments = {}
+          var assignments = []; 
           for (socketId of scope.selectedSockets) {
               assignments[socketId] = scope.selectedTasks;
           }
