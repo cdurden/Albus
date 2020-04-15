@@ -5,10 +5,7 @@ angular.module('whiteboard')
             scope.$watch("task", function(newValue) {
                 var task = newValue;
                 scope.task = task;
-                if (typeof scope.task.data.background_html === 'undefined' ) {
-                    scope.task.data.background_html = "";
-                }
-                element.html(scope.task.data.background_html);
+                element.html(((scope.task || {}).data || {}).background_html || "");
                 //$compile(element, null, -9999)(scope);  
              });
         }
@@ -33,7 +30,7 @@ angular.module('whiteboard')
       FeedData.getForm().bind("submit",feedCtrl.handleEvent);
       */
       scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
-        var task = newValues[0][newValues[1]];
+        var task = (newValues[0] || [])[newValues[1]];
         scope.task = task;
       });
         /*
