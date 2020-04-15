@@ -20,21 +20,19 @@ function getRoomData(roomId, callback) {
     });
 }
 function assignRoomToSocket(socket, roomId, callback) {
-  client.hgetall(socket.id, function(err, result) {
-    if (!result || typeof result.roomId === 'undefined' || socket.room != result.roomId) {
-      console.log("assigning "+socket.id+" to room "+roomId)
+  if (socket.room != roomId) {
+    console.log("assigning "+socket.id+" to room "+roomId)
+    client.hmset(socket.id, ['roomId', roomId], function(err, result) {
       socket.room = roomId;
-      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
-        socket.join(roomId);
-          //socket.emit('clearBoard');
-        getRoomData(roomId, function (room) {
-          room[socket.id] = {};
-          socket.emit('showExisting', room);
-          callback();
-        });
+      socket.join(roomId);
+        //socket.emit('clearBoard');
+      getRoomData(roomId, function (room) {
+        room[socket.id] = {};
+        socket.emit('showExisting', room);
+        callback();
       });
-    }
-  });
+    });
+  }
 }
 function placeSocket(socket, callback) {
   console.log("placing socket");
