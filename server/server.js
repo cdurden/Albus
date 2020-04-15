@@ -103,8 +103,8 @@ io.on('connection', (socket) => {
             next();
         } else {
             next(new Error('Socket not authenticated'));
-        });
-    }
+        }
+    });
 });
 
 /*
