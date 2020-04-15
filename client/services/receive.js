@@ -22,7 +22,7 @@ angular.module('whiteboard.services.receive', [])
   });
   Sockets.on('clearBoard', function (data) {
     "clearing the board";
-    //EventHandler.clearBoard();
+    EventHandler.clearBoard();
   });
 
   Sockets.on('heartbeat', function () {
