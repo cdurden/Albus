@@ -16,11 +16,10 @@
 
         <!-- product list -->
         <div class="roomList" class="list-group list-group-flush" ng-repeat="(roomId, sockets) in rooms">
-            <span style="display:none;" class="room">{{roomId}}</span>
+          <span style="display:none;" class="room">{{roomId}}</span>
           <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="socket in sockets">
-              <span>
             <span style="display:none;" id="socketId[]">{{socket.socketId}}</span>
-                  <span class="font-weight-bold">{{$index + 1}}</span>. <span id="student[]">{{socket.data.firstname}} {{socket.data.lastname}}</span></span>
+            <span class="font-weight-bold">{{$index + 1}}</span>. <span id="student[]">{{socket.data.firstname}} {{socket.data.lastname}}</span></span>
             <span class="badge badge-primary badge-pill">21</span>
           </li>
         </div>
