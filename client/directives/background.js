@@ -5,7 +5,7 @@ angular.module('whiteboard')
             scope.$watch("task", function(newValue) {
                 var task = newValue;
                 scope.task = task;
-                element.html(scope.task.background_html);
+                element.html(scope.task.data.background_html);
                 //$compile(element, null, -9999)(scope);  
              });
         }
