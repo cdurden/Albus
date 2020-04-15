@@ -23,12 +23,12 @@ function assignRoomToSocket(socket, roomId, callback) {
     if (!result || typeof result.roomId === 'undefined' || socket.room != result.roomId) {
       console.log("assigning "+socket.id+" to room "+roomId)
       socket.room = roomId;
-      //client.hmset(socket.id, ['roomId', roomId], function(err, result) {
+      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
         socket.join(roomId);
           //socket.emit('clearBoard');
         socket.emit('showExisting', getRoomData(roomId));
         callback();
-      //});
+      });
     }
   });
 }
