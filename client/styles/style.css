@@ -943,3 +943,13 @@ h1.title {
 
 }
 
+.reveal section p.sm-font, div.sm-font {
+    font-size: 18pt;
+}
+.reveal section p.md-font, div.md-font {
+    font-size: 24pt;
+}
+.reveal section p.lg-font, div.lg-font {
+    font-size: 36pt;
+}
+
