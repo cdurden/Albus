@@ -120,7 +120,7 @@ module.exports = function(server) {
       });
     });
     socket.on('assignTasksToSockets', function(assignments){
-        console.log("assigning sockets to rooms");
+        console.log("assigning tasks to sockets");
         console.log(assignments);
         var assignTasksToSocket = function(socketId) {
             var socket = io.of("/client").connected[socketId];
