@@ -17,42 +17,33 @@ function placeSocket(socket, callback) {
     if (socket.room != roomId) {
         console.log("clearing board on "+socket.id);
         socket.emit('clearBoard', rooms[roomId]);
+        socket.room = roomId;
+        socket.join(roomId);
     }
-    socket.room = roomId;
-    socket.join(roomId);
-    client.hmset(socket.id, 'roomId', roomId, function(err) {
+    client.get(roomId, function (err, reply) {
+      if (reply) {
+        storedRoom = JSON.parse(reply);
+        _.extend(rooms[roomId], storedRoom);
+      } else {
+        client.set(roomId, JSON.stringify({}));
+        rooms[roomId] = {};
+      }
+      
       if (!rooms[roomId]) {
         rooms[roomId] = {};
       }
-  
-      client.get(roomId, function (err, reply) {
-        if (reply) {
-          storedRoom = JSON.parse(reply);
-          _.extend(rooms[roomId], storedRoom);
-        } else {
-          client.set(roomId, JSON.stringify({}));
-          rooms[roomId] = {};
-        }
-        
-        if (!rooms[roomId]) {
-          rooms[roomId] = {};
-        }
-  
-        // add member to room based on socket id
-        // console.log(rooms[roomId]);
-        var socketId = socket.id;
-        rooms[roomId][socketId] = {};
-        console.log("emitting showExisting");
-        socket.emit('showExisting', rooms[roomId]);
-        callback();
-        //console.log(rooms[roomId]);
-        
-        var count = 0;
-        for (var member in rooms[roomId]) {
-          count++;
-        }
-      // console.log('Current room ' + roomId + ' has ' + count + ' members');
-      });
+
+      // add member to room based on socket id
+      // console.log(rooms[roomId]);
+      var socketId = socket.id;
+      rooms[roomId][socketId] = {};
+      socket.emit('showExisting', rooms[roomId]);
+      //console.log(rooms[roomId]);
+      
+      var count = 0;
+      for (var member in rooms[roomId]) {
+        count++;
+      }
     });
   });
 }
