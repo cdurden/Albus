@@ -27,7 +27,7 @@ function assignRoomToSocket(socket, roomId, callback) {
       client.hmset(socket.id, ['roomId', roomId], function(err, result) {
         socket.join(roomId);
           //socket.emit('clearBoard');
-        getRoomData(roomId, function () {
+        getRoomData(roomId, function (room) {
           room[socket.id] = {};
           socket.emit('showExisting', room);
           callback();
