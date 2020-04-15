@@ -41,6 +41,10 @@ h1.title {
     font-size: 18pt;
     pointer-events: none;
 }
+#background-contanier {
+    width: 100%;
+    height: 100%;
+}
 #task-space {
     height: 100%;
 }
