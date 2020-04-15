@@ -8,7 +8,7 @@ angular.module('whiteboard-admin')
     controller: function ($scope) {
       Sockets.on('allClientData', function (data) {
           $scope.sockets = data;
-      }
+      });
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;
