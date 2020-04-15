@@ -3,23 +3,7 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
-
-function placeSocket(socket, callback) {
-  console.log("placing socket");
-  client.hgetall(socket.id, function(err, result) {
-    console.log(result);
-    var roomId;
-    if (result !== null && 'roomId' in result) {
-      roomId = result['roomId'];
-    } else {
-      roomId = utils.generateRandomId(5);
-    }
-    if (socket.room != roomId) {
-        console.log("clearing board on "+socket.id);
-        socket.emit('clearBoard', rooms[roomId]);
-        socket.room = roomId;
-        socket.join(roomId);
-    }
+function getRoomData(roomId) {
     client.get(roomId, function (err, reply) {
       if (reply) {
         storedRoom = JSON.parse(reply);
@@ -32,19 +16,34 @@ function placeSocket(socket, callback) {
       if (!rooms[roomId]) {
         rooms[roomId] = {};
       }
-
-      // add member to room based on socket id
-      // console.log(rooms[roomId]);
-      var socketId = socket.id;
-      rooms[roomId][socketId] = {};
-      socket.emit('showExisting', rooms[roomId]);
-      //console.log(rooms[roomId]);
-      
-      var count = 0;
-      for (var member in rooms[roomId]) {
-        count++;
-      }
     });
+}
+function assignRoomToSocket(socket, roomId, callback) {
+  client.hgetall(socket.id, function(err, result) {
+    if (typeof result.roomId === 'undefined' || socket.room != result.roomId) {
+      console.log("assigning "+socket.id+" to room "+roomId)
+      socket.emit('clearBoard');
+      socket.room = roomId;
+      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
+          socket.join(roomId);
+          socket.emit('showExisting', getRoomData(roomId));
+          callback();
+//          placeSocket(socket);
+      });
+}
+function placeSocket(socket, callback) {
+  console.log("placing socket");
+  client.hgetall(socket.id, function(err, result) {
+    console.log(result);
+    var roomId;
+    if (result !== null && 'roomId' in result) {
+      roomId = result['roomId'];
+    } else {
+      roomId = utils.generateRandomId(5);
+    }
+    if (socket.room != roomId) {
+        assignRoomToSocket(socket, roomId, callback);
+    }
   });
 }
 var roomsManager = {
@@ -57,13 +56,6 @@ var roomsManager = {
     return rooms[roomId];
   },
   placeSocket: placeSocket,
-  assignRoomToSocket(socket, roomId) {
-      console.log("assigning "+socket.id+" to room "+roomId)
-      client.hmset(socket.id, ['roomId', roomId], function(err, result) {
- //         socket.join(roomId);
-          placeSocket(socket);
-      });
-  },
 
   
   addMember: function (socket, roomId) {
