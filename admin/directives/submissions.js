@@ -12,7 +12,7 @@ angular.module('whiteboard-admin')
         $scope.submissions.push(data);
       });
       Sockets.on('submissions', function (data) {
-        //$scope.submissions = data;
+        $scope.submissions = data;
       });
       Sockets.emit('getSubmissions');
     },

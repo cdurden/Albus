@@ -67,10 +67,6 @@ module.exports = function(server) {
   io.of('/admin').on('connection', function(socket) {
     registerCommonListeners(socket);
     socket.on('disconnect', function(){ });
-    socket.on('submissions', function(){
-      submissions = ['asdf', 'asfaga'];
-      socket.emit('submissions', submissions);
-    });
     socket.on('getAllClientData', function() {
       console.log("getting socket data");
       getAllClientData(function(results) { socket.emit("allClientData", results) });
@@ -162,7 +158,7 @@ module.exports = function(server) {
     });
     socket.on('getSubmissions', function(){
       api.getSubmissions(function(error, data) {
-        //console.log(data)
+        console.log(data)
         io.of('/admin').emit('submissions', data);
         //socket.emit('confirmSubmission', data);
       });
