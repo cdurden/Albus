@@ -97,6 +97,15 @@ var io = require('./sockets')(server);
 io.of('/client').use(sharedsession(session, {
     autoSave:true
 }));
+io.on('connection', (socket) => {
+    socket.use((packet, next) => {
+        if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
+            next();
+        } else {
+            next(new Error('Socket not authenticated'));
+        });
+    }
+});
 
 /*
 app.use('/lti/', function(req,res) {
@@ -113,7 +122,7 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
-  res.sendfile('./client/index.html');
+  res.sendFile('./client/index.html');
 });
 
 
@@ -174,7 +183,7 @@ proxy.on( 'proxyReqWs', function ( proxyReqWs, req, res ) {
 /*
 app.get('/admin', function (req, res) {
   console.log(req.user);
-  res.sendfile('./admin/index.html');
+  res.sendFile('./admin/index.html');
 });
 */
 
@@ -204,12 +213,12 @@ app.use(function ( req, res ) {
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
 app.get('/:id', function (req, res) {
   console.log(req.user);
-  res.sendfile('./client/index.html');
+  res.sendFile('./client/index.html');
 });
 
 app.get('/:id/screenShot', function (req, res) {
   webshot('localhost:3000/' + req.params.id, req.params.id + '.png', function(err) {
-    res.sendfile(req.params.id + '.png');
+    res.sendFile(req.params.id + '.png');
   });
 })
 var start = function () {

@@ -158,7 +158,7 @@ module.exports = function(server) {
     });
     socket.on('getSubmissions', function(){
       api.getSubmissions(function(error, data) {
-        console.log(data)
+        //console.log(data)
         io.of('/admin').emit('submissions', data);
         //socket.emit('confirmSubmission', data);
       });
@@ -166,17 +166,21 @@ module.exports = function(server) {
   });
   io.of('/client').on('connection', function (socket) {
     console.log("connection from socket "+socket.id);
-    if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
+    //if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
+        console.log("returning from getting Api user");
         if (data) {
-          client.hmset(socket.id, Object.entries(data).flat());
+          console.log("received data:");
+          console.log(data);
+          client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
+            rooms.placeSocket(socket, function() {
+              console.log("emitting client data to admin");
+              getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
+            });
+          });
         }
       });
-    }
-    rooms.placeSocket(socket, function() {
-      console.log("emitting client data to admin");
-      getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
-    });
+    //}
  
     setInterval(function() {
       socket.emit('heartbeat');

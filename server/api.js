@@ -62,7 +62,7 @@ function getApiUserFromSession(session, callback) {
     } else {
       if (!error) {
         console.log("Response status code: "+response.statusCode);
-        console.log(body);
+        //console.log(body);
       } else {
         console.log("Error getting API user");
         console.log(error);
