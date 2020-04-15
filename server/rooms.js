@@ -4,6 +4,11 @@ var _ = require('underscore');
 
 var rooms = {};
 
+function assignTasksToSocket(socket) {
+        callback = (socket.id) => {
+                  function() { io.of("/client").connected[socketId].emit('tasks' data); }
+        }(socketId);
+}
 function placeSocket(socket, callback) {
   console.log("placing socket");
   client.hgetall(socket.id, function(err, result) {

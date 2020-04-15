@@ -6,6 +6,9 @@ angular.module('whiteboard-admin')
     replace: true,
     templateUrl: 'templates/tasks.html',
     controller: function ($scope) {
+      Sockets.on('allClientData', function (data) {
+          $scope.sockets = data;
+      }
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;
@@ -21,7 +24,11 @@ angular.module('whiteboard-admin')
     link: function(scope, element, attrs, ctrls) {
       $(element).find("#assign-task-form").bind("submit",function(ev) {
           ev.preventDefault();
-          Sockets.emit('assignTasks', scope.selectedTasks);
+          var assignments = {}
+          for (socketId in scope.selectedSockets) {
+              assignments[scope.sockets[socketId]] = scope.selectedTasks;
+          }
+          Sockets.emit('assignTasksToSockets', assignments);
       });
       $(element).find("#task-selector").change(function(ev) {
           ev.preventDefault();

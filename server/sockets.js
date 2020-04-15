@@ -118,6 +118,28 @@ module.exports = function(server) {
         });
       });
     });
+    socket.on('assignTasksToSockets', function(assignments){
+        console.log("assigning sockets to rooms");
+        console.log(assignments);
+        var assignTasksToSocket = function(socketId) {
+            var socket = io.of("/client").connected[socketId];
+            api.getTasksFromSource(assignments[socketId], function(error, data) {
+                var tasks_json = JSON.stringify(data);
+                client.hmset(socketId, ['tasks', tasks_json], function(err, result) {
+                    client.hget(socketId, 'tasks', function(err, result) {
+                    try {
+                      data = JSON.parse(result);
+                      socket.emit('tasks' data);
+                    } catch {
+                      return;
+                    }
+                });
+            });
+        }
+        for (socketId in assignments) {
+            assignTasksToSocket(socketId);
+        }
+    });
     socket.on('assignTasks', function(data){
       console.log(data);
       api.getTasksFromSource(data, function(error, data) {
