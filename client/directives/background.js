@@ -2,7 +2,7 @@ angular.module('whiteboard')
 .directive('compileTemplate', function compileTemplate($compile, $parse) {
     return {
         link: function(scope, element, attr){
-            scope.$watch("$parent.task", function(newValue) {
+            scope.$watch("task", function(newValue) {
                 var task = newValue;
                 scope.task = task;
                 $compile(element, null, -9999)(scope);  
