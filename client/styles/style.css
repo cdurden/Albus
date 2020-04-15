@@ -953,3 +953,7 @@ h1.title {
     font-size: 36pt;
 }
 
+.reveal section img.noborder {
+    border: 0px;
+    box-shadow: none;
+}
