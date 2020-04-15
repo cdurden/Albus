@@ -3,7 +3,7 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
-function getRoomData(roomId) {
+function getRoomData(roomId, callback) {
     client.get(roomId, function (err, reply) {
       if (reply) {
         storedRoom = JSON.parse(reply);
@@ -16,6 +16,7 @@ function getRoomData(roomId) {
       if (!rooms[roomId]) {
         rooms[roomId] = {};
       }
+      callback(rooms[roomId]);
     });
 }
 function assignRoomToSocket(socket, roomId, callback) {
@@ -26,10 +27,11 @@ function assignRoomToSocket(socket, roomId, callback) {
       client.hmset(socket.id, ['roomId', roomId], function(err, result) {
         socket.join(roomId);
           //socket.emit('clearBoard');
-        room = getRoomData(roomId);
-        room[socket.id] = {};
-        socket.emit('showExisting', room);
-        callback();
+        getRoomData(roomId, function () {
+          room[socket.id] = {};
+          socket.emit('showExisting', room);
+          callback();
+        });
       });
     }
   });
