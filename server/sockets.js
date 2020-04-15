@@ -172,8 +172,8 @@ module.exports = function(server) {
         if (data) {
           console.log("received data:");
           console.log(data);
-          json = JSON.stringify(data);
-          client.hmset(socket.id, json, function(err, result) {
+          flat_data = Object.entries(data).flat().map(JSON.stringify);
+          client.hmset(socket.id, flat_data, function(err, result) {
           //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
             rooms.placeSocket(socket, function() {
               console.log("emitting client data to admin");
