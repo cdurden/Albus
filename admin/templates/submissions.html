@@ -13,7 +13,7 @@
         <th>Graded</th>
         <th>Feedback</th>
     </tr>
-<tr ng-repeat="submission in submissions | filter:query | orderBy: orderBy ">{{submission}}
+<tr ng-repeat="submission in submissions ">{{submission}}
     <td>{{ submission.user.firstname }}</td>
     <td>{{ submission.user.lastname }}</td>
     <td>{{ submission.task.title }}</td>
