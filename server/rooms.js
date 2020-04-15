@@ -57,6 +57,7 @@ var roomsManager = {
     return rooms[roomId];
   },
   placeSocket: placeSocket,
+  assignRoomToSocket: assignRoomToSocket,
 
   
   addMember: function (socket, roomId) {
