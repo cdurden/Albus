@@ -30,6 +30,8 @@ function assignRoomToSocket(socket, roomId, callback) {
           callback();
 //          placeSocket(socket);
       });
+    }
+  });
 }
 function placeSocket(socket, callback) {
   console.log("placing socket");
@@ -42,7 +44,7 @@ function placeSocket(socket, callback) {
       roomId = utils.generateRandomId(5);
     }
     if (socket.room != roomId) {
-        assignRoomToSocket(socket, roomId, callback);
+      assignRoomToSocket(socket, roomId, callback);
     }
   });
 }
