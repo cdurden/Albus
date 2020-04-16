@@ -21,11 +21,13 @@ angular.module('whiteboard')
 .directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
     function calculateViewBox(dim) {
         boardRect = BoardData.getCanvas().get(0).getBoundingClientRect();
+/*
         if (dim.width/dim.height > aspect_ratio ) {
             dim.height = dim.width/aspect_ratio; 
         } else {
             dim.width = dim.height*aspect_ratio;
         }
+*/
         return ({
             x: -dim.left / dim.width * w,
             y: -dim.top / dim.height * h,
