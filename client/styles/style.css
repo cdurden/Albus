@@ -1,5 +1,5 @@
 div.background-image {
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
   width: 100%;
@@ -47,6 +47,10 @@ h1.title {
 #board-overlay {
     font-size: 18pt;
     pointer-events: none;
+}
+#background-container {
+    width: 100%;
+    height: 100%;
 }
 #drawing-space {
     padding-left: 55px;
