@@ -1,24 +1,7 @@
-var r;
-var w, h;
-var aspect_ratio;
 angular.module('whiteboard')
 .directive('compileTemplate', function compileTemplate($compile) {
-    return {
-        link: function(scope, element, attr){
-            scope.$watch("task", function(newValue) {
-                var task = newValue;
-                scope.task = task;
-                element.html(((scope.task || {}).data || {}).background_html || "");
-                //$compile(element, null, -9999)(scope);  
-                backgroundRect = document.getElementById('background-container').getBoundingClientRect();
-                w = backgroundRect.width;
-                h = backgroundRect.height;
-                aspect_ratio = w/h;
-             });
-        }
-    }
-})
-.directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
+    var w, h;
+    var aspect_ratio;
     function calculateViewBox(dim) {
         boardRect = BoardData.getCanvas().get(0).getBoundingClientRect();
 /*
@@ -48,6 +31,23 @@ angular.module('whiteboard')
         console.log(viewBox);
         BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
     }
+    return {
+        link: function(scope, element, attr){
+            scope.$watch("task", function(newValue) {
+                var task = newValue;
+                scope.task = task;
+                element.html(((scope.task || {}).data || {}).background_html || "");
+                //$compile(element, null, -9999)(scope);  
+                backgroundRect = document.getElementById('background-image').getBoundingClientRect();
+                w = backgroundRect.width;
+                h = backgroundRect.height;
+                aspect_ratio = w/h;
+                new ResizeSensor(document.getElementById('background-image'), handleBackgroundResize);
+             });
+        }
+    }
+})
+.directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
   return {
     restrict: 'A',
     //require: ['wbFeed'],
@@ -70,7 +70,6 @@ angular.module('whiteboard')
         scope.task = task;
       });
       //new ResizeSensor(document.getElementById('drawing-space'), handleBackgroundResize);
-      new ResizeSensor(document.getElementById('background-container'), handleBackgroundResize);
       /*
       Sockets.on('feed message', function (msg) {
         FeedData.displayMessage(msg);
