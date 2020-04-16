@@ -31,8 +31,8 @@ angular.module('whiteboard')
         }
         dim = backgroundRect;
         viewBox = calculateViewBox(dim);
-        console.log(dim.w)
-        console.log(viewBox.w);
+        console.log(dim)
+        console.log(viewBox);
         BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
     }
   return {
