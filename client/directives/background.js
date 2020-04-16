@@ -1,5 +1,17 @@
 angular.module('whiteboard')
-.directive('compileTemplate','BoardData', function compileTemplate($compile, BoardData) {
+.directive('compileTemplate', function compileTemplate($compile) {
+    return {
+        link: function(scope, element, attr){
+            scope.$watch("task", function(newValue) {
+                var task = newValue;
+                scope.task = task;
+                element.html(((scope.task || {}).data || {}).background_html || "");
+                //$compile(element, null, -9999)(scope);  
+             });
+        }
+    }
+})
+.directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
     function calculateViewBox(dim) {
         boardRect = BoardData.getCanvas().getBoundingClientRect();
         return ({
@@ -15,18 +27,6 @@ angular.module('whiteboard')
         viewBox = calculateViewBox(dim);
         BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
     }
-    return {
-        link: function(scope, element, attr){
-            scope.$watch("task", function(newValue) {
-                var task = newValue;
-                scope.task = task;
-                element.html(((scope.task || {}).data || {}).background_html || "");
-                //$compile(element, null, -9999)(scope);  
-             });
-        }
-    }
-})
-.directive('wbBackground', ['Sockets', function (Sockets) {
   return {
     restrict: 'A',
     //require: ['wbFeed'],
