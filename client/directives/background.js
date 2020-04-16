@@ -13,7 +13,7 @@ angular.module('whiteboard')
 })
 .directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
     function calculateViewBox(dim) {
-        boardRect = BoardData.getCanvas().getBoundingClientRect();
+        boardRect = BoardData.getBoard().getBoundingClientRect();
         return ({
             x: -dim.left / dim.width * w,
             y: -dim.top / dim.height * h,
