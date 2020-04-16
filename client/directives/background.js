@@ -46,6 +46,8 @@ angular.module('whiteboard')
                             }
                             dim = backgroundRect;
                             viewBox = calculateViewBox(dim);
+                            //BoardData.setZoomScale();
+                            //BoardData.setCanvasMargins(background)
                             console.log(dim)
                             console.log(viewBox);
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);

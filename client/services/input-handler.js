@@ -324,13 +324,24 @@ angular.module('whiteboard.services.inputhandler', [])
   };
 
   function getMouseXY (ev) {
-    var canvasMarginXY = BoardData.getCanvasMargin();
-    var scalingFactor = BoardData.getScalingFactor();
-    var offsetXY = BoardData.getOffset();
+    //var canvasMarginXY = BoardData.getCanvasMargin();
+    //var scalingFactor = BoardData.getScalingFactor();
+    //var offsetXY = BoardData.getOffset();
+    var pt = svg.createSVGPoint();
+    pt.x = ev.clientX;
+    pt.y = ev.clientY;
+    var svg = BoardData.getCanvas();
+    var svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+    return {
+        x: svgP.x,
+        y: svgP.y
+    };
+      /*
     return {
       x: (ev.clientX - canvasMarginXY.x) * scalingFactor + offsetXY.x,
       y: (ev.clientY - canvasMarginXY.y) * scalingFactor + offsetXY.y
     };
+    */
   }
 
   var shapeTools = ['line','circle','path','rectangle','arrow'];
