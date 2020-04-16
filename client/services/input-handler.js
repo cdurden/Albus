@@ -327,7 +327,7 @@ angular.module('whiteboard.services.inputhandler', [])
     //var canvasMarginXY = BoardData.getCanvasMargin();
     //var scalingFactor = BoardData.getScalingFactor();
     //var offsetXY = BoardData.getOffset();
-    var svg = BoardData.getCanvas();
+    var svg = BoardData.getCanvas()[0];
     var pt = svg.createSVGPoint();
     pt.x = ev.clientX;
     pt.y = ev.clientY;
