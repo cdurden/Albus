@@ -1,4 +1,6 @@
 var r;
+var w, h;
+var aspect_ratio;
 angular.module('whiteboard')
 .directive('compileTemplate', function compileTemplate($compile) {
     return {
@@ -8,13 +10,15 @@ angular.module('whiteboard')
                 scope.task = task;
                 element.html(((scope.task || {}).data || {}).background_html || "");
                 //$compile(element, null, -9999)(scope);  
+                backgroundRect = document.getElementById('background-container').getBoundingClientRect();
+                w = backgroundRect.width;
+                h = backgroundRect.height;
+                aspect_ratio = w/h;
              });
         }
     }
 })
 .directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
-    var w, h;
-    var aspect_ratio;
     function calculateViewBox(dim) {
         boardRect = BoardData.getCanvas().get(0).getBoundingClientRect();
         if (dim.width/dim.height > aspect_ratio ) {
@@ -62,6 +66,12 @@ angular.module('whiteboard')
       scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
         var task = (newValues[0] || [])[newValues[1]];
         scope.task = task;
+        backgroundRect = document.getElementById('background-container').getBoundingClientRect();
+        if (typeof w === 'undefined' || typeof h === 'undefined') {
+            w = backgroundRect.width;
+            h = backgroundRect.height;
+            aspect_ratio = w/h;
+        }
       });
       new ResizeSensor(document.getElementById('drawing-space'), handleBackgroundResize);
       /*
