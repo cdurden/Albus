@@ -1,0 +1,3 @@
+[submodule "admin/js/json-templates"]
+	path = admin/js/json-templates
+	url = https://github.com/datavis-tech/json-templates.git
