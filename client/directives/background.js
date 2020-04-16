@@ -51,11 +51,14 @@ angular.module('whiteboard')
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
                         });
                     })(newValue);
-                    backgroundRect = newValue.getBoundingClientRect();
-                    w = backgroundRect.width;
-                    h = backgroundRect.height;
-                    aspect_ratio = w/h;
-                    new ResizeSensor(newValue, handleBackgroundResize);
+                    var img = element.find("img")[0];
+                    img.onload = function() {
+                        //backgroundRect = newValue.getBoundingClientRect();
+                        w = this.width;
+                        h = this.height;
+                        aspect_ratio = w/h;
+                        new ResizeSensor(newValue, handleBackgroundResize);
+                    }
                 }
             });
         }
