@@ -1,3 +1,4 @@
+var r;
 angular.module('whiteboard')
 .directive('compileTemplate', function compileTemplate($compile) {
     return {
@@ -57,7 +58,7 @@ angular.module('whiteboard')
       bg_ctnr_elmt = $("#background-container");
       bg_ctnr_elmt = document.getElementById('background-container')
 var element = document.getElementById('background-container');
-new ResizeSensor(element, function() {
+r = new ResizeSensor(element, function() {
     console.log('Changed to ' + element.clientWidth);
 });
       new ResizeSensor(bg_ctnr_elmt, handleBackgroundResize);
