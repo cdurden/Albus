@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive(['compileTemplate','BoardData',  function compileTemplate($compile, BoardData) {
+.directive('compileTemplate','BoardData',  function compileTemplate($compile, BoardData) {
     var w, h;
     var aspect_ratio;
     function calculateViewBox(dim) {
@@ -60,7 +60,7 @@ angular.module('whiteboard')
             });
         }
     }
-}])
+})
 .directive('wbBackground', ['Sockets', function (Sockets) {
   return {
     restrict: 'A',
