@@ -66,12 +66,6 @@ angular.module('whiteboard')
       scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
         var task = (newValues[0] || [])[newValues[1]];
         scope.task = task;
-        backgroundRect = document.getElementById('background-container').getBoundingClientRect();
-        if (typeof w === 'undefined' || typeof h === 'undefined') {
-            w = backgroundRect.width;
-            h = backgroundRect.height;
-            aspect_ratio = w/h;
-        }
       });
       new ResizeSensor(document.getElementById('drawing-space'), handleBackgroundResize);
       /*
