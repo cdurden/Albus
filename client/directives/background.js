@@ -53,9 +53,11 @@ angular.module('whiteboard')
                     })(newValue);
                     var img = element.find("img")[0];
                     img.onload = function() {
-                        //backgroundRect = newValue.getBoundingClientRect();
-                        w = this.width;
-                        h = this.height;
+                        backgroundRect = this.getBoundingClientRect();
+                        //w = this.width;
+                        //h = this.height;
+                        w = backgroundRect.width;
+                        h = backgroundRect.height;
                         aspect_ratio = w/h;
                         new ResizeSensor(newValue, handleBackgroundResize);
                     }
