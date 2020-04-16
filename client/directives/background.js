@@ -33,7 +33,7 @@ angular.module('whiteboard')
         viewBox = calculateViewBox(dim);
         console.log(dim)
         console.log(viewBox);
-        BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
+        BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
     }
   return {
     restrict: 'A',
