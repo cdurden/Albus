@@ -38,12 +38,16 @@ angular.module('whiteboard')
                 scope.task = task;
                 element.html(((scope.task || {}).data || {}).background_html || "");
                 //$compile(element, null, -9999)(scope);  
-                backgroundRect = document.getElementById('background-image').getBoundingClientRect();
-                w = backgroundRect.width;
-                h = backgroundRect.height;
-                aspect_ratio = w/h;
-                new ResizeSensor(document.getElementById('background-image'), handleBackgroundResize);
-             });
+            });
+            scope.$watch(function () { return element.find('#background-image')[0]; }, function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    backgroundRect = document.getElementById('background-image').getBoundingClientRect();
+                    w = backgroundRect.width;
+                    h = backgroundRect.height;
+                    aspect_ratio = w/h;
+                    new ResizeSensor(document.getElementById('background-image'), handleBackgroundResize);
+                }
+            }
         }
     }
 })
