@@ -54,14 +54,7 @@ angular.module('whiteboard')
         var task = (newValues[0] || [])[newValues[1]];
         scope.task = task;
       });
-      bg_ctnr_elmt = element.find("#background-container");
-      bg_ctnr_elmt = $("#background-container");
-      bg_ctnr_elmt = document.getElementById('background-container')
-var element = document.getElementById('drawing-space');
-r = new ResizeSensor(element, function() {
-    console.log('Changed to ' + element.clientWidth);
-});
-      new ResizeSensor(bg_ctnr_elmt, handleBackgroundResize);
+      new ResizeSensor(document.getElementById('drawing-space'), handleBackgroundResize);
       /*
       Sockets.on('feed message', function (msg) {
         FeedData.displayMessage(msg);
