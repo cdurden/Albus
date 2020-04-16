@@ -49,7 +49,7 @@ angular.module('whiteboard')
         scope.task = task;
       });
       bg_ctnr_elmt = document.getElementById('background-container')
-      ResizeSensorApi.create(bg_ctnr_elmt, handleBackgroundResize);
+      resizeSensor.create(bg_ctnr_elmt, handleBackgroundResize);
       /*
       Sockets.on('feed message', function (msg) {
         FeedData.displayMessage(msg);
