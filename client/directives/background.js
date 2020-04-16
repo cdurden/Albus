@@ -12,6 +12,7 @@ angular.module('whiteboard')
     }
 })
 .directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
+    var w, h;
     function calculateViewBox(dim) {
         boardRect = BoardData.getCanvas().get(0).getBoundingClientRect();
         return ({
@@ -23,6 +24,10 @@ angular.module('whiteboard')
     }
     function handleBackgroundResize(newSize) {
         backgroundRect = document.getElementById('background-container').getBoundingClientRect();
+        if (typeof w === 'undefined' || typeof h === 'undefined') {
+            w = backgroundRect.width;
+            w = backgroundRect.height;
+        }
         dim = backgroundRect;
         viewBox = calculateViewBox(dim);
         BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
