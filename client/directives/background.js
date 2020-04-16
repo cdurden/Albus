@@ -55,6 +55,7 @@ angular.module('whiteboard')
       });
       bg_ctnr_elmt = document.getElementById('background-container')
       bg_ctnr_elmt = element.find("#background-container");
+      bg_ctnr_elmt = $("#background-container");
       new ResizeSensor(bg_ctnr_elmt, handleBackgroundResize);
       /*
       Sockets.on('feed message', function (msg) {
