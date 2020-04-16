@@ -47,7 +47,7 @@ angular.module('whiteboard')
                     aspect_ratio = w/h;
                     new ResizeSensor(document.getElementById('background-image'), handleBackgroundResize);
                 }
-            }
+            });
         }
     }
 })
