@@ -1,5 +1,20 @@
 angular.module('whiteboard')
-.directive('compileTemplate', function compileTemplate($compile, $parse) {
+.directive('compileTemplate','BoardData', function compileTemplate($compile, BoardData) {
+    function calculateViewBox(dim) {
+        boardRect = BoardData.getCanvas().getBoundingClientRect();
+        return ({
+            x: -dim.left / dim.width * w,
+            y: -dim.top / dim.height * h,
+            w: boardRect.width / dim.width * w,
+            h: boardRect.height / dim.height * h,
+        })
+    }
+    function handleBackgroundResize(newSize) {
+        backgroundRect = document.getElementById('background-container').getBoundingClientRect();
+        dim = backgroundRect;
+        viewBox = calculateViewBox(dim);
+        BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
+    }
     return {
         link: function(scope, element, attr){
             scope.$watch("task", function(newValue) {
@@ -33,7 +48,8 @@ angular.module('whiteboard')
         var task = (newValues[0] || [])[newValues[1]];
         scope.task = task;
       });
-        /*
+      ResizeSensorApi.create(document.getElementById('background-container'), handleBackgroundResize);
+      /*
       Sockets.on('feed message', function (msg) {
         FeedData.displayMessage(msg);
       })
