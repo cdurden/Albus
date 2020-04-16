@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('compileTemplate',['BoardData', function compileTemplate($compile, BoardData) {
+.directive('compileTemplate',['BoardData', function compileTemplate(BoardData) {
     var w, h;
     var aspect_ratio;
     function calculateViewBox(dim) {
