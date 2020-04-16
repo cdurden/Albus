@@ -69,7 +69,8 @@ angular.module('whiteboard')
         var task = (newValues[0] || [])[newValues[1]];
         scope.task = task;
       });
-      new ResizeSensor(document.getElementById('drawing-space'), handleBackgroundResize);
+      //new ResizeSensor(document.getElementById('drawing-space'), handleBackgroundResize);
+      new ResizeSensor(document.getElementById('background-container'), handleBackgroundResize);
       /*
       Sockets.on('feed message', function (msg) {
         FeedData.displayMessage(msg);
