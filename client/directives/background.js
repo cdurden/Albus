@@ -14,8 +14,14 @@ angular.module('whiteboard')
 })
 .directive('wbBackground', ['Sockets','BoardData', function (Sockets,BoardData) {
     var w, h;
+    var aspect_ratio;
     function calculateViewBox(dim) {
         boardRect = BoardData.getCanvas().get(0).getBoundingClientRect();
+        if (dim.width/dim.height > aspect_ratio ) {
+            dim.height = dim.width/aspect_ratio; 
+        } else {
+            dim.width = dim.height*aspect_ratio;
+        }
         return ({
             x: -dim.left / dim.width * w,
             y: -dim.top / dim.height * h,
@@ -28,6 +34,7 @@ angular.module('whiteboard')
         if (typeof w === 'undefined' || typeof h === 'undefined') {
             w = backgroundRect.width;
             h = backgroundRect.height;
+            aspect_ratio = w/h;
         }
         dim = backgroundRect;
         viewBox = calculateViewBox(dim);
