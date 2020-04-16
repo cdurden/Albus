@@ -22,7 +22,7 @@ angular.module('whiteboard')
             h: boardRect.height / dim.height * h,
         })
     }
-    function handleBackgroundResize(newSize) {
+    function handleBackgroundResize() {
         backgroundRect = document.getElementById('background-container').getBoundingClientRect();
         if (typeof w === 'undefined' || typeof h === 'undefined') {
             w = backgroundRect.width;
@@ -53,9 +53,9 @@ angular.module('whiteboard')
         var task = (newValues[0] || [])[newValues[1]];
         scope.task = task;
       });
-      bg_ctnr_elmt = document.getElementById('background-container')
       bg_ctnr_elmt = element.find("#background-container");
       bg_ctnr_elmt = $("#background-container");
+      bg_ctnr_elmt = document.getElementById('background-container')
       new ResizeSensor(bg_ctnr_elmt, handleBackgroundResize);
       /*
       Sockets.on('feed message', function (msg) {
