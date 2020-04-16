@@ -26,7 +26,7 @@ angular.module('whiteboard')
         backgroundRect = document.getElementById('background-container').getBoundingClientRect();
         if (typeof w === 'undefined' || typeof h === 'undefined') {
             w = backgroundRect.width;
-            w = backgroundRect.height;
+            h = backgroundRect.height;
         }
         dim = backgroundRect;
         viewBox = calculateViewBox(dim);
