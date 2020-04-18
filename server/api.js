@@ -221,4 +221,5 @@ module.exports = {
     getSubmissions: getSubmissions,
     getTasksDataFromCollection: getTasksDataFromCollection,
     getTasksFromSource: getTasksFromSource,
+    saveBoard: saveBoard,
 }
