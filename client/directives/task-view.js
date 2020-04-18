@@ -20,7 +20,7 @@ angular.module('whiteboard')
     scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
       var task = (newValues[0] || [])[newValues[1]];
       scope.task = task;
-      BoardData.setTaskId(task.id);
+      BoardData.setTaskId((task || {}).id);
       console.log("updating task");
       if (typeof task === 'undefined') {
           task = {};
