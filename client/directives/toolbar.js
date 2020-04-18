@@ -348,7 +348,7 @@ angular.module('whiteboard')
           submenuItemsCtrl.setTool(attrs.wbTool);
           scope.$emit('activateMenu', 'hide');
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
-          submenuItemsCtrl.save();
+          submenuItemsCtrl.saveBoard();
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
           scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});
