@@ -289,7 +289,7 @@ angular.module('whiteboard')
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData) {
 
-      $scope.saveBoard = function () {
+      this.saveBoard = function () {
         BoardData.saveBoard(); 
       }
 
