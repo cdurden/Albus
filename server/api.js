@@ -33,6 +33,8 @@ function getLatestBoard(session, data, callback) {
 }
 function saveBoard(session, board, data, callback) {
   lti_user_id = getSessionUser(session);
+  console.log(board);
+  console.log(Object(board).keys());
   console.log(typeof(board));
   console.log("Saving board for lti_user_id: "+lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/boards/`, {
