@@ -226,7 +226,6 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function saveBoard() {
     data = {};
-    data.shapeStorage = shapeStorage;
     data.taskId = taskId;
     Broadcast.saveBoard(data);
   }
