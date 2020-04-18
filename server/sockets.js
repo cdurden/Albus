@@ -319,7 +319,8 @@ function get_all_data_by_socket(socket, callback) {
       api.getLatestBoard(socket.handshake.session, data, function(err, board) {
         rooms.loadBoard(rooms.getRoomId(socket), board['data'], function(result) {
           console.log("Sending showExisting with board data from API to "+rooms.getRoomId(socket));
-          socket.to(rooms.getRoomId(socket)).emit('showExisting', result);
+          //socket.to(rooms.getRoomId(socket)).emit('showExisting', result);
+          socket.emit('showExisting', result);
         });
       });
     });
