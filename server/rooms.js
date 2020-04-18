@@ -32,6 +32,7 @@ function assignRoomToSocket(socket, roomId, callback) {
       socket.emit('clearBoard');
       getBoard(roomId, function (room) {
         room[socket.id] = {};
+        console.log("Sending showExisting to "+roomId);
         socket.emit('showExisting', room);
         callback && callback();
       });
@@ -104,6 +105,7 @@ var roomsManager = {
       // console.log(rooms[roomId]);
       var socketId = socket.id;
       rooms[roomId][socketId] = {};
+      console.log("Sending showExisting to "+roomId);
       socket.emit('showExisting', rooms[roomId]);
       //console.log(rooms[roomId]);
       
