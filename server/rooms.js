@@ -19,9 +19,6 @@ function getBoard(roomId, callback) {
       callback(rooms[roomId]);
     });
 }
-function getRoomId(socket) {
-    return socket.room;
-}
 function assignRoomToSocket(socket, roomId, callback) {
   if (socket.room != roomId) {
     console.log("assigning "+socket.id+" to room "+roomId)
@@ -54,6 +51,9 @@ function placeSocket(socket, callback) {
 }
 var roomsManager = {
 
+  getRoomId: function (socket) {
+    return socket.room;
+  },
   getRooms: function () {
     return rooms;
   },
