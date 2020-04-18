@@ -33,16 +33,22 @@ function getLatestBoard(session, data, callback) {
 }
 function saveBoard(session, board, data, callback) {
   lti_user_id = getSessionUser(session);
-  console.log(board);
+  console.log(Object.keys(board));
   console.log("Saving board for lti_user_id: "+lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/boards/`, {
     headers : { 
         "Authorization" : "Bearer " + auth.api_auth_token,
-        "Content-Type" : "application/json",
+//        "Content-Type" : "application/json",
     },
     agent: agent,
+      /*
     json: true,
     body: { 'lti_user_id': lti_user_id, 
+            'task_id': data.taskId,
+            'data': board,
+    },
+    */
+    json: { 'lti_user_id': lti_user_id, 
             'task_id': data.taskId,
             'data': board,
     },
