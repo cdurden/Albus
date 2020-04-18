@@ -229,6 +229,11 @@ angular.module('whiteboard.services.boarddata', [])
     data.taskId = taskId;
     Broadcast.saveBoard(data);
   }
+  function loadBoard() {
+    data = {};
+    data.taskId = taskId;
+    Broadcast.loadBoard(data);
+  }
 
   return {
     getShapeStorage: getShapeStorage,
@@ -267,6 +272,7 @@ angular.module('whiteboard.services.boarddata', [])
     clearBoard: clearBoard,
     handleWindowResize: handleWindowResize,
     saveBoard: saveBoard,
+    loadBoard: loadBoard,
     setTaskId: setTaskId,
   }
 }]);

@@ -13,11 +13,10 @@ function getSocketUser(socket) {
 function getSessionUser(session) {
     return(session.passport.user);
 }
-function getTaskBoard(session, task_id, callback) {
-  data = {};
+function getLatestBoard(session, data, callback) {
   data.lti_user_id = getSessionUser(session);
   request({
-      url: `${scheme}://${host}:${port}/api/task/${task_id}/board/`,
+      url: `${scheme}://${host}:${port}/api/board/`,
     headers : { "Authorization" : "Bearer " + auth.token },
   },
     function(error, response, body) {
@@ -225,4 +224,5 @@ module.exports = {
     getTasksDataFromCollection: getTasksDataFromCollection,
     getTasksFromSource: getTasksFromSource,
     saveBoard: saveBoard,
+    getLatestBoard: getLatestBoard,
 }

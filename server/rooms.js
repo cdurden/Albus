@@ -3,6 +3,10 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
+function loadBoard(roomId, data, callback) {
+  rooms[roomId] = data;
+  callback(data);
+}
 function getBoard(roomId, callback) {
     client.get(roomId, function (err, reply) {
       if (reply) {
@@ -63,6 +67,7 @@ var roomsManager = {
   },
 
   getBoard: getBoard,
+  loadBoard: loadBoard,
 
   placeSocket: placeSocket,
   assignRoomToSocket: assignRoomToSocket,

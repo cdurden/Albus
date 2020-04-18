@@ -21,6 +21,7 @@ angular.module('whiteboard')
       var task = (newValues[0] || [])[newValues[1]];
       scope.task = task;
       BoardData.setTaskId((task || {}).id);
+      BoardData.loadBoard();
       console.log("updating task");
       if (typeof task === 'undefined') {
           task = {};

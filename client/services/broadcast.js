@@ -95,6 +95,9 @@ angular.module('whiteboard.services.broadcast', [])
   var saveBoard = function (data) {
     Sockets.emit('saveBoard', data)
   };
+  var loadBoard = function (data) {
+    Sockets.emit('loadBoard', data)
+  };
 
   return {
     getSocketId: getSocketId,
@@ -111,6 +114,7 @@ angular.module('whiteboard.services.broadcast', [])
     submit: submit,
     moveShape: moveShape,
     saveBoard: saveBoard,
+    loadBoard: loadBoard,
   };
 
 });
