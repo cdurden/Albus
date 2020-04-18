@@ -19,6 +19,7 @@ function getLatestBoard(session, data, callback) {
   request({
       url: `${scheme}://${host}:${port}/api/board/`,
     headers : { "Authorization" : "Bearer " + auth.token },
+      json: data,
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
