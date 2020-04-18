@@ -38,7 +38,7 @@ function saveBoard(session, board, data, callback) {
   data = { 
       'lti_user_id': lti_user_id, 
       'task_id': data.taskId,
-      'data': {'test': 'testing'},
+      'data': board,
   };
   request.post(`${scheme}://${host}:${port}/api/boards/`,
     {
