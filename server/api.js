@@ -46,7 +46,7 @@ function saveBoard(session, board, data, callback) {
   function(error, response, body) {
     console.log(response)
     if (!error && response.statusCode == 201) {
-      console.log(body)
+      //console.log(body)
       //data = JSON.parse(body)
       callback(null, body);
     } else {
