@@ -57,7 +57,7 @@ angular.module('whiteboard')
         ['Draw', ['Path', 'Line', 'Arrow', 'Rectangle', 'Circle', 'Text']], 
         ['Tool', ['Magnify', 'Eraser', 'Pan', 'Move', 'Copy']],
         ['Color', [['Fill', fill], ['Stroke', stroke], ['Thickness', thickness]]],
-        ['Storage', [['Save']]],
+        ['Storage', ['Save']],
       ];
 
       
@@ -347,7 +347,7 @@ angular.module('whiteboard')
           scope.$emit('setCursorClass', {tool: attrs.wbTool});
           submenuItemsCtrl.setTool(attrs.wbTool);
           scope.$emit('activateMenu', 'hide');
-        } else if (attrs.wbTool && attrs.wbTool === 'Save') {
+        } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.save();
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
