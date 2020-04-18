@@ -6,12 +6,13 @@ var rooms = {};
 function loadBoard(socket, data, callback) {
   roomId = socket.room;
   rooms[roomId] = data;
-  setupBoard(roomId, callback);
+  setupBoard(socket, callback);
 }
 function getBoard(roomId) {
     return(rooms[roomId]);
 }
-function setupBoard(roomId, callback) {
+function setupBoard(socket, callback) {
+    roomId = socket.room;
     client.get(roomId, function (err, reply) {
       if (reply) {
         storedRoom = JSON.parse(reply);
@@ -24,6 +25,7 @@ function setupBoard(roomId, callback) {
       if (!rooms[roomId]) {
         rooms[roomId] = {};
       }
+      room[socket.id] = {};
       callback(rooms[roomId]);
     });
 }
@@ -34,8 +36,7 @@ function assignRoomToSocket(socket, roomId, callback) {
       socket.room = roomId;
       socket.join(roomId);
       socket.emit('clearBoard');
-      setupBoard(roomId, function (room) {
-        room[socket.id] = {};
+      setupBoard(socket, function (room) {
         console.log("Sending showExisting to "+roomId);
         socket.emit('showExisting', room);
         callback && callback();
