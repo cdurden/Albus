@@ -36,7 +36,10 @@ function saveBoard(session, board, data, callback) {
   console.log(board);
   console.log("Saving board for lti_user_id: "+lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/boards/`, {
-    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+    headers : { 
+        "Authorization" : "Bearer " + auth.api_auth_token,
+        "Content-Type" : "application/json",
+    },
     agent: agent,
     json: true,
     body: { 'lti_user_id': lti_user_id, 
