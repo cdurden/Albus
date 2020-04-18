@@ -17,12 +17,15 @@ function setupBoard(socket, callback) {
         rooms[roomId] = {};
       }
       console.log("Setting up board for socket "+socket.id);
+      console.log("Redis board data");
       console.log(reply);
       
       if (!rooms[roomId]) {
         rooms[roomId] = {};
       }
       rooms[roomId][socket.id] = {};
+      console.log("Application board data");
+      console.log(rooms[roomId]);
       callback(rooms[roomId]);
     });
 }
