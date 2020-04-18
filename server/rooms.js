@@ -25,7 +25,7 @@ function setupBoard(socket, callback) {
       if (!rooms[roomId]) {
         rooms[roomId] = {};
       }
-      room[socket.id] = {};
+      rooms[roomId][socket.id] = {};
       callback(rooms[roomId]);
     });
 }
