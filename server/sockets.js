@@ -316,7 +316,7 @@ function get_all_data_by_socket(socket, callback) {
       });
     });
     socket.on('loadBoard', function(data){
-      api.getLatestBoard(socket.handshake.session, data, function(board) {
+      api.getLatestBoard(socket.handshake.session, data, function(err, board) {
         rooms.loadBoard(rooms.getRoomId(socket), board['data'], function(result) {
           socket.to(rooms.getRoomId(socket)).emit('showExisting', result);
         });
