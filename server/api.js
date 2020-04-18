@@ -13,6 +13,42 @@ function getSocketUser(socket) {
 function getSessionUser(session) {
     return(session.passport.user);
 }
+function getTaskBoard(session, task_id, callback) {
+  data = {};
+  data.lti_user_id = getSessionUser(session);
+  request({
+      url: `${scheme}://${host}:${port}/api/task/${task_id}/board/`,
+    headers : { "Authorization" : "Bearer " + auth.token },
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      callback(error, null);
+    }
+  });
+}
+function saveBoard(session, data, callback) {
+  data.lti_user_id = getSessionUser(session);
+  console.log("Saving board for lti_user_id: "+data.lti_user_id);
+  request.post(`${scheme}://${host}:${port}/api/boards/`, {
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+    agent: agent,
+    json: data,
+  },
+  function(error, response, body) {
+    console.log(response)
+    if (!error && response.statusCode == 201) {
+      console.log(body)
+      //data = JSON.parse(body)
+      callback(null, body);
+    } else {
+      console.log(error);
+      callback(error, null);
+    }
+  });
+}
 function submit(session, data, callback) {
   data.lti_user_id = getSessionUser(session);
   console.log("Submitting a task response for lti_user_id: "+data.lti_user_id);

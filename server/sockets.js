@@ -308,7 +308,11 @@ function get_all_data_by_socket(socket, callback) {
       io.of('/client').emit('chat message', msg);
       console.log(msg);
     });
-
+    socket.on('saveBoard', function(data){
+      api.saveBoard(socket.handshake.session, data, function(err, data) {
+          socket.emit('savedSuccess', data);
+      });
+    });
   });
 
   return io;

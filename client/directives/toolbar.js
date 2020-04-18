@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbToolbar', ['BoardData', 'Zoom', function (BoardData, Zoom) {
+.directive('wbToolbar', ['BoardData', 'Zoom', function (BoardData, Zoom, BoardData) {
   return {
     restrict: 'A',
     replace: true,
@@ -57,7 +57,7 @@ angular.module('whiteboard')
         ['Draw', ['Path', 'Line', 'Arrow', 'Rectangle', 'Circle', 'Text']], 
         ['Tool', ['Magnify', 'Eraser', 'Pan', 'Move', 'Copy']],
         ['Color', [['Fill', fill], ['Stroke', stroke], ['Thickness', thickness]]],
-        ['Save']
+        ['Storage', [['Save']]
       ];
 
       
@@ -289,6 +289,10 @@ angular.module('whiteboard')
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData) {
 
+      $scope.saveBoard = function () {
+        BoardData.saveBoard(); 
+      }
+
       $scope.setAttributeTool = function (toolName) {
         if (typeof toolName === 'string') {
           return toolName.toLowerCase();
@@ -343,6 +347,8 @@ angular.module('whiteboard')
           scope.$emit('setCursorClass', {tool: attrs.wbTool});
           submenuItemsCtrl.setTool(attrs.wbTool);
           scope.$emit('activateMenu', 'hide');
+        } else if (attrs.wbTool && attrs.wbTool === 'save') {
+          submenuItemsCtrl.save();
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
           scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});

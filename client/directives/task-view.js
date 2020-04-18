@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbTaskView', ['$compile', '$http', '$templateCache', 'TaskData', 'Sockets', "angularLoad", function($compile, $http, $templateCache, TaskData, Sockets, angularLoad) {
+.directive('wbTaskView', ['$compile', '$http', '$templateCache', 'BoardData', 'Sockets', "angularLoad", function($compile, $http, $templateCache, BoardData, Sockets, angularLoad) {
   var getTemplate = function(template) {
     var templateLoader;
     var baseUrl = './templates/';
@@ -20,6 +20,7 @@ angular.module('whiteboard')
     scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
       var task = (newValues[0] || [])[newValues[1]];
       scope.task = task;
+      BoardData.setTaskId(task.id);
       console.log("updating task");
       if (typeof task === 'undefined') {
           task = {};

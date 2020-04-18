@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.boarddata', [])
-.factory('BoardData', function () {
+.factory('BoardData', ['Broadcast', function (Broadcast) {
   //svgWidth/Height are the width and height of the DOM element
   var svgWidth = 1500; //sizeX
   var svgHeight = 1000; //sizeY
@@ -8,7 +8,7 @@ angular.module('whiteboard.services.boarddata', [])
   var offsetY = 0;
   //scalingFactor is the level of zooming relative to the start
   var scalingFactor = 1;
-
+  var taskId;
   var board;
   var $canvas;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
@@ -32,8 +32,12 @@ angular.module('whiteboard.services.boarddata', [])
       stroke: '#000000'
     }
   };
+  function setTaskId(id) {
+      taskId = id;
+  }
 
   function clearBoard() {
+    shapeStorage = {};
     getCanvas().empty();
   }
 
@@ -220,6 +224,12 @@ angular.module('whiteboard.services.boarddata', [])
   function getStrokeWidth () {
     return tool['stroke-width'];
   }
+  function saveBoard() {
+    data = {};
+    data.shapeStorage = shapeStorage;
+    data.taskId = taskId;
+    Broadcast.saveBoard(data);
+  }
 
   return {
     getShapeStorage: getShapeStorage,
@@ -257,5 +267,6 @@ angular.module('whiteboard.services.boarddata', [])
     getStrokeWidth: getStrokeWidth,
     clearBoard: clearBoard,
     handleWindowResize: handleWindowResize,
+    saveBoard: saveBoard,
   }
-});
+}]);
