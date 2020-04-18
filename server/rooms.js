@@ -3,11 +3,6 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
-function loadBoard(socket, data, callback) {
-  roomId = socket.room;
-  rooms[roomId] = data;
-  setupBoard(socket, callback);
-}
 function getBoard(roomId) {
     return(rooms[roomId]);
 }
@@ -21,6 +16,8 @@ function setupBoard(socket, callback) {
         client.set(roomId, JSON.stringify({}));
         rooms[roomId] = {};
       }
+      console.log("Setting up board for socket "+socket.id);
+      console.log(reply);
       
       if (!rooms[roomId]) {
         rooms[roomId] = {};
@@ -28,6 +25,11 @@ function setupBoard(socket, callback) {
       rooms[roomId][socket.id] = {};
       callback(rooms[roomId]);
     });
+}
+function loadBoard(socket, data, callback) {
+  roomId = socket.room;
+  rooms[roomId] = data;
+  setupBoard(socket, callback);
 }
 function assignRoomToSocket(socket, roomId, callback) {
   if (socket.room != roomId) {
