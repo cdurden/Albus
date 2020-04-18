@@ -35,12 +35,19 @@ function saveBoard(session, board, data, callback) {
   lti_user_id = getSessionUser(session);
   console.log(Object.keys(board));
   console.log("Saving board for lti_user_id: "+lti_user_id);
-  request.post(`${scheme}://${host}:${port}/api/boards/`, {
-    headers : { 
+  data = { 
+      'lti_user_id': lti_user_id, 
+      'task_id': data.taskId,
+      'data': {'test': 'testing'},
+  };
+  request.post(`${scheme}://${host}:${port}/api/boards/`,
+    {
+      headers : { 
         "Authorization" : "Bearer " + auth.api_auth_token,
 //        "Content-Type" : "application/json",
-    },
-    agent: agent,
+      },
+      agent: agent,
+      json: data,
       /*
     json: true,
     body: { 'lti_user_id': lti_user_id, 
@@ -48,22 +55,19 @@ function saveBoard(session, board, data, callback) {
             'data': board,
     },
     */
-    json: { 'lti_user_id': lti_user_id, 
-            'task_id': data.taskId,
-            'data': board,
     },
-  },
-  function(error, response, body) {
-    //console.log(response)
-    if (!error && response.statusCode == 201) {
-      //console.log(body)
-      //data = JSON.parse(body)
-      callback(null, body);
-    } else {
-      console.log(error);
-      callback(error, null);
+    function(error, response, body) {
+      //console.log(response)
+      if (!error && response.statusCode == 201) {
+        //console.log(body)
+        //data = JSON.parse(body)
+        callback(null, body);
+      } else {
+        console.log(error);
+        callback(error, null);
+      }
     }
-  });
+  );
 }
 function submit(session, data, callback) {
   data.lti_user_id = getSessionUser(session);
