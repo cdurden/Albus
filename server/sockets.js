@@ -309,9 +309,10 @@ function get_all_data_by_socket(socket, callback) {
       console.log(msg);
     });
     socket.on('saveBoard', function(data){
-      board = rooms.getBoard(rooms.getRoomId(socket));
-      api.saveBoard(socket.handshake.session, board, data, function(err, data) {
+      rooms.getBoard(rooms.getRoomId(socket), function (board) {
+        api.saveBoard(socket.handshake.session, board, data, function(err, data) {
           socket.emit('savedSuccess', data);
+        });
       });
     });
   });
