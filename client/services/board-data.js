@@ -268,5 +268,6 @@ angular.module('whiteboard.services.boarddata', [])
     clearBoard: clearBoard,
     handleWindowResize: handleWindowResize,
     saveBoard: saveBoard,
+    setTaskId: setTaskId,
   }
 }]);
