@@ -89,6 +89,9 @@ angular.module('whiteboard.services.broadcast', [])
   var raiseHand = function(msg) {
     Sockets.emit('raiseHand', msg)
   };
+  var submit = function(msg) {
+    Sockets.emit('submit', msg)
+  };
   var saveBoard = function (data) {
     Sockets.emit('saveBoard', data)
   };
@@ -105,7 +108,7 @@ angular.module('whiteboard.services.broadcast', [])
     finishMovingShape: finishMovingShape,
     chat: chat,
     raiseHand: raiseHand,
-    submitWork: submitWork,
+    submit: submit,
     moveShape: moveShape,
     saveBoard: saveBoard,
   };
