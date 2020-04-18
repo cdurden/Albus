@@ -15,6 +15,7 @@ function getSessionUser(session) {
 }
 function getLatestBoard(session, data, callback) {
   data.lti_user_id = getSessionUser(session);
+  console.log("Getting latest board for lti_user_id: "+data.lti_user_id);
   request({
       url: `${scheme}://${host}:${port}/api/board/`,
     headers : { "Authorization" : "Bearer " + auth.token },
