@@ -3,11 +3,15 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
-function loadBoard(roomId, data, callback) {
+function loadBoard(socket, data, callback) {
+  roomId = socket.room;
   rooms[roomId] = data;
-  callback(data);
+  setupBoard(roomId, callback);
 }
-function getBoard(roomId, callback) {
+function getBoard(roomId) {
+    return(rooms[roomId]);
+}
+function setupBoard(roomId, callback) {
     client.get(roomId, function (err, reply) {
       if (reply) {
         storedRoom = JSON.parse(reply);
@@ -30,7 +34,7 @@ function assignRoomToSocket(socket, roomId, callback) {
       socket.room = roomId;
       socket.join(roomId);
       socket.emit('clearBoard');
-      getBoard(roomId, function (room) {
+      setupBoard(roomId, function (room) {
         room[socket.id] = {};
         console.log("Sending showExisting to "+roomId);
         socket.emit('showExisting', room);

@@ -309,15 +309,14 @@ function get_all_data_by_socket(socket, callback) {
       console.log(msg);
     });
     socket.on('saveBoard', function(data){
-      rooms.getBoard(rooms.getRoomId(socket), function (board) {
-        api.saveBoard(socket.handshake.session, board, data, function(err, data) {
-          socket.emit('savedSuccess', data);
-        });
+      board = rooms.getBoard(rooms.getRoomId(socket))
+      api.saveBoard(socket.handshake.session, board, data, function(err, data) {
+        socket.emit('savedSuccess', data);
       });
     });
     socket.on('loadBoard', function(data){
       api.getLatestBoard(socket.handshake.session, data, function(err, board) {
-        rooms.loadBoard(rooms.getRoomId(socket), board['data'], function(result) {
+        rooms.loadBoard(socket, board['data'], function(result) {
           console.log("Sending showExisting with board data from API to "+rooms.getRoomId(socket));
           //socket.to(rooms.getRoomId(socket)).emit('showExisting', result);
           socket.emit('showExisting', result);
