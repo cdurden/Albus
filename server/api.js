@@ -23,9 +23,11 @@ function getLatestBoard(session, data, callback) {
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      data = JSON.parse(body)
-      console.log(data);
-      callback(null, data);
+      //console.log(body);
+      //console.log(typeof(body));
+      //data = JSON.parse(body)
+      //console.log(data);
+      callback(null, body);
     } else {
       callback(error, null);
     }
