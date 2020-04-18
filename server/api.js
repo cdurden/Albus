@@ -30,12 +30,15 @@ function getTaskBoard(session, task_id, callback) {
   });
 }
 function saveBoard(session, data, callback) {
-  data.lti_user_id = getSessionUser(session);
-  console.log("Saving board for lti_user_id: "+data.lti_user_id);
+  lti_user_id = getSessionUser(session);
+  console.log("Saving board for lti_user_id: "+lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/boards/`, {
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
-    json: data,
+    json: { 'lti_user_id': lti_user_id, 
+            'task_id': data.taskId,
+            'data': data.shapeStorage,
+    },
   },
   function(error, response, body) {
     console.log(response)
