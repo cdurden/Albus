@@ -61,6 +61,9 @@ var roomsManager = {
   getRoom: function (roomId) {
     return rooms[roomId];
   },
+
+  getBoard: getBoard,
+
   placeSocket: placeSocket,
   assignRoomToSocket: assignRoomToSocket,
 
