@@ -38,7 +38,7 @@ angular.module('whiteboard.services.boarddata', [])
 
   function clearBoard() {
     shapeStorage = {};
-    getCanvas().empty();
+    getCanvas() && getCanvas().empty();
   }
 
   function createBoard (element) {
