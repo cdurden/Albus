@@ -1,16 +1,24 @@
 <div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'assignments')">Assignments</button>
   <button class="tablinks" onclick="openTab(event, 'tasks')">Tasks</button>
-  <button class="tablinks" onclick="openTab(event, 'assignments')">Room assignments</button>
+  <button class="tablinks" onclick="openTab(event, 'rooms')">Rooms</button>
   <button class="tablinks" onclick="openTab(event, 'submissions')">Submissions</button>
+  <button class="tablinks" onclick="openTab(event, 'feedback')">Feedback</button>
 </div>
 <!-- <div class="room"> -->
+<div id="assignments" class="tabcontent">
+  <div wb-admin-assignments></div>
+</div>
 <div id="tasks" class="tabcontent">
   <div wb-admin-tasks></div>
 </div>
-<div id="assignments" class="tabcontent">
+<div id="rooms" class="tabcontent">
   <div wb-admin-room-assignments></div>
 </div>
 <div id="submissions" class="tabcontent">
   <div wb-admin-submissions></div>
+</div>
+<div id="feedback" class="tabcontent">
+  <div wb-admin-feedback></div>
 </div>
 <!-- </div> -->

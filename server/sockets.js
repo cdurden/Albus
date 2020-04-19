@@ -93,6 +93,9 @@ module.exports = function(server) {
         socket.emit('tasks', data);
       });
     });
+    socket.on('getAssignments', function(){
+      socket.emit('assignments', ['a1','a2']);
+    });
     socket.on('viewTask', function(task_id){
       console.log(task_id);
       tasks_json = fs.readFileSync('./data/tasks.json');
