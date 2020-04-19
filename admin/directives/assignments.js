@@ -28,6 +28,7 @@ angular.module('whiteboard-admin')
     link: function(scope, element, attrs, ctrls) {
       var scripts = [
           "//d3js.org/d3.v5.min.js",
+          "https://unpkg.com/@hpcc-js/wasm@0.3.6/dist/index.min.js",
           "https://unpkg.com/d3-graphviz@3.0.0/build/d3-graphviz.js"
       ];
       var d3Promise = (function() {
