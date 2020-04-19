@@ -1,5 +1,5 @@
 angular.module('whiteboard-admin')
-.directive('wbAdminAssignments', ['Sockets', 'angularLoad', function (Sockets, angularLoad, $http) {
+.directive('wbAdminAssignments', ['Sockets', 'angularLoad', '$http', function (Sockets, angularLoad, $http) {
   return {
     restrict: 'A',
     require: ['wbAdminAssignments'],
