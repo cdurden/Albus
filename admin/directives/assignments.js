@@ -6,7 +6,8 @@ angular.module('whiteboard-admin')
     replace: true,
     templateUrl: 'templates/assignments.html',
     controller: function ($scope) {
-      $scope.assignments = {}
+      $scope.assignments = {};
+      $scope.users = [];
       Sockets.on('users', function (data) {
         console.log(data);
         assignments = {};
