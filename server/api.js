@@ -136,10 +136,8 @@ function getApiUsers(callback) {
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      body_json = JSON.parse(body)
-      if ('data' in body_json) {
-        callback(null, body_json['data']);
-      }
+      data = JSON.parse(body);
+      callback(null, data);
     } else {
       callback(error, null);
     }
