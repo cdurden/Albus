@@ -129,11 +129,10 @@ function getApiUserFromSession(session, callback) {
     }
   });
 }
-function getApiUsers(socket, callback) {
+function getApiUsers(callback) {
   request({
     url: `${scheme}://${host}:${port}/api/users/`,
     headers : { "Authorization" : "Bearer " + auth.token },
-    qs: { 'user': getSocketUser(socket), 'auth_scheme': 'lti' },
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
