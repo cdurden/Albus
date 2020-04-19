@@ -2,14 +2,22 @@
   <div class="container">
       <div id="assignment-selector-container">
           <form action="">
-              
               <div class="row">
+              <div class="col-6">
+              <select id="user-selector" name="selectedUsers" ng-model="selectedUsers">
+                  <option ng-repeat="user in users" value="{{user.id}}">{{user.firstname}} {{user.lastname}}</option>
+              </select>
+              </div>
               <div class="col-6">
               <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment">
                   <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
               </select>
               </div>
-              <div class="col-6">
+              </div>
+              </div>
+              
+              <div class="row">
+              <div class="col-12">
                 <div id="assignment-graph" style="text-align: center;"></div>
               </div>
               </div>

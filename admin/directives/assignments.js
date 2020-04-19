@@ -9,8 +9,8 @@ angular.module('whiteboard-admin')
       $scope.assignments = {};
       $scope.assignments = {};
       $scope.sockets = {};
-      Sockets.on('allClientData', function (data) {
-          $scope.sockets = data;
+      Sockets.on('users', function (data) {
+          $scope.users = data;
       });
       /*
       Sockets.on('assignment', function (data) {
@@ -24,6 +24,7 @@ angular.module('whiteboard-admin')
           $scope.assignments = data;
       });
       Sockets.emit('getAssignments');
+      Sockets.emit('getUsers');
     },
     link: function(scope, element, attrs, ctrls) {
       var scripts = [

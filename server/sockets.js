@@ -67,6 +67,10 @@ module.exports = function(server) {
   io.of('/admin').on('connection', function(socket) {
     registerCommonListeners(socket);
     socket.on('disconnect', function(){ });
+    socket.on('getUsers', function() {
+      console.log("getting socket data");
+      api.getApiUsers(function(results) { socket.emit("users", results) });
+    });
     socket.on('getAllClientData', function() {
       console.log("getting socket data");
       getAllClientData(function(results) { socket.emit("allClientData", results) });
