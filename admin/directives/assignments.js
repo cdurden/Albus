@@ -26,8 +26,17 @@ angular.module('whiteboard-admin')
       Sockets.emit('getAssignments');
     },
     link: function(scope, element, attrs, ctrls) {
-      var script = "https://unpkg.com/d3-graphviz@3.0.0/build/d3-graphviz.js";
-      var d3Promise = angularLoad.loadScript(script);
+      var scripts = [
+          "//d3js.org/d3.v5.min.js",
+          "https://unpkg.com/d3-graphviz@3.0.0/build/d3-graphviz.js"
+      ];
+      var d3Promise = (function() {
+          return scripts.reduce( async (accumulatorPromise, nextScript) => {
+              return accumulatorPromise.then(() => {
+                  return angularLoad.loadScript(nextScript);
+              });
+          }, Promise.resolve());
+      })();
       $(element).find("#assign-assignment-form").bind("submit",function(ev) {
           ev.preventDefault();
           var assignments = {};
