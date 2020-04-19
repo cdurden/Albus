@@ -36,10 +36,10 @@ angular.module('whiteboard-admin')
           }
           Sockets.emit('assignAssignmentsToSockets', assignments);
       });
-      $(element).find("#assignment-selector").change(function(ev) {
+      scope.$watch('selectedAssignment', function(newValue) {
         $http({
           method: 'GET',
-          url: '/static/teaching_assets/assignments/'+$(this).val()+'.dot',
+          url: '/static/teaching_assets/assignments/'+newValue+'.dot',
           transformResponse: [function (data) {
             // Do whatever you want!
             return data;
