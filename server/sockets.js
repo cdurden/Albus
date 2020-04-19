@@ -68,7 +68,7 @@ module.exports = function(server) {
     registerCommonListeners(socket);
     socket.on('disconnect', function(){ });
     socket.on('getUsers', function() {
-      console.log("getting socket data");
+      console.log("getting api users");
       api.getApiUsers(function(results) { socket.emit("users", results) });
     });
     socket.on('getAllClientData', function() {
