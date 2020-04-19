@@ -16,7 +16,7 @@ angular.module('whiteboard-admin')
           if (!(user.assignment in assignments)) {
               assignments[user.assignment] = [];
           }
-          assignments[user.assignment].push(user.id);
+          assignments[user.assignment].push(user);
         }
         $scope.assignments = assignments;
         function loadSortableJS(callback) {
