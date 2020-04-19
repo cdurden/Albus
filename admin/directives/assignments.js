@@ -54,10 +54,10 @@ angular.module('whiteboard-admin')
             // Do whatever you want!
             return data;
           }]
-        }).then(function success(data) {
+        }).then(function success(response) {
           d3Promise.then(function() {
             d3.select("#assignment-graph").graphviz()
-              .renderDot(data);
+              .renderDot(response.data);
             ev.preventDefault();
           });
         });
