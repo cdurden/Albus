@@ -69,7 +69,7 @@ module.exports = function(server) {
     socket.on('disconnect', function(){ });
     socket.on('getUsers', function() {
       console.log("getting api users");
-      api.getApiUsers(function(results) { socket.emit("users", results) });
+      api.getApiUsers(function(err,results) { socket.emit("users", results) });
     });
     socket.on('getAllClientData', function() {
       console.log("getting socket data");
