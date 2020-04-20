@@ -7,12 +7,15 @@ angular.module('whiteboard')
     scope: {
         'form': '=',
     },
-    controller: function ($scope) {
+    controller: function ($scope, InputHandler) {
       $scope.taskData = TaskData.getData();
       $scope.data = {};
       Sockets.emit("getAssignedTasks");
       $scope.setTaskIndex = function(i) {
           $scope.i = i;
+      }
+      this.handleEvent = function (ev) {
+        InputHandler[ev.type](ev);
       }
       this.requestData = function (ev) {
           ev.preventDefault(); // prevents page reloading
