@@ -1,42 +1,43 @@
 angular.module('whiteboard-admin')
-.directive('wbAdminTaskBuilder', ['Sockets', 'LocalSockets', function (Sockets, LocalSockets) {
+.directive('wbAdminFeedback', ['Sockets', 'angularLoad', function (Sockets, angularLoad) {
   return {
     restrict: 'A',
-    require: ['wbAdminTaskBuilder'],
+    require: ['wbAdminFeedback'],
     replace: true,
-    templateUrl: 'templates/task-builder.html',
+    templateUrl: 'templates/feedback.html',
     controller: function ($scope) {
-      $scope.tasks = {};
       $scope.assignments = {};
-      $scope.sockets = {};
-      Sockets.on('allClientData', function (data) {
-          $scope.sockets = data;
+      $scope.users = [];
+      Sockets.on('assignments', function (data) {
+        console.log(data);
+        for (assignment of data) {
+            $scope.assignments[assignment] = $scope.assignments[assignment] || [] 
+        }
       });
-      Sockets.on('task', function (data) {
-          console.log(data);
-          $scope.task = data;
-          $scope.task_json = JSON.stringify(data);
-      });
-      Sockets.on('taskTemplates', function (data) {
-          console.log(data);
-          $scope.taskTemplates = data;
-      });
-      Sockets.emit('getAssignedTask');
-      Sockets.emit('getTasks');
-    },
-    link: function(scope, element, attrs, ctrls) {
-      $(element).find("#assign-task-form").bind("submit",function(ev) {
-          ev.preventDefault();
-          var assignments = {};
-          for (socketId of scope.selectedSockets) {
-              assignments[socketId] = scope.selectedTasks;
+      Sockets.on('users', function (data) {
+        console.log(data);
+        $scope.users = data;
+        for (const [userId, user] of Object.entries(data)) {
+          if (!(user.assignment in $scope.assignments)) {
+              $scope.assignments[user.assignment] = [];
           }
-          Sockets.emit('assignTasksToSockets', assignments);
+          $scope.assignments[user.assignment].push(user);
+        }
+        $scope.$watch("assignments", function (value) {//I change here
+          var val = value || null;            
+          var usersJSON = JSON.stringify($scope.users,null,'\t');
+          $('#printCode').html(usersJSON);
+          //let assignments = {};
+          //let users = {};
+        });
+        console.log(data);
+        console.log(assignments);
       });
-      $(element).find("#task-selector").change(function(ev) {
-          ev.preventDefault();
-          Sockets.emit('getTaskFromSource', $(this).val());
-      });
+      Sockets.emit('getUsers');
+      Sockets.emit('getAssignments');
+    },
+    link: function(scope, element, attrs) {
+      console.log("calling link function");
     },
   }
 }]);

@@ -1,24 +1,54 @@
 <div>
+    <style>
+    body {
+      padding: 20px;
+    }
+    .list-group-item {
+      cursor: move;
+      cursor: -webkit-grabbing;
+    }
+    </style>
   <div class="container">
-      <div id="task-selector-container">
-          <form action="">
-              <div class="row">
-              <div class="col-6">
-              <select id="socket-selector" name="selectedSockets" ng-model="selectedSockets" multiple>
-                  <option ng-repeat="(socketId,socket) in sockets" value="{{socketId}}">{{socket.firstname}} {{socket.lastname}}</option>
-              </select>
-              </div>
-              <div class="col-6">
-              <select id="task-selector" name="selectedTasks" ng-model="selectedTasks" multiple>
-                  <option ng-repeat="task in tasks" value="{{task.source}}">{{task.data.title}}</option>
-              </select>
-              </div>
-              </div>
-          </form>
+    <input ng-model="query" type="text"
+            placeholder="Filter by" autofocus>
+    <div class="row">
+      <div class="col-8">
+
+        <h4 class="text-center">Feedback</h4>
+
+        <!-- product list -->
+          <fieldset  ng-repeat="(assignmentId, users) in assignments">
+          <legend>{{ assignmentId }}</legend>
+        <div class="assignmentList" class="list-group list-group-flush">
+          <span style="display:none;" class="assignment">{{assignmentId}}</span>
+          <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="user in users | filter:query track by user.id">
+            <span style="display:none;" id="userId[]">{{user.id}}</span>
+            <span class="font-weight-bold">{{$index + 1}}</span><span id="student[]">{{user.firstname}} {{user.lastname}}</span></span>
+            <span class="badge badge-primary badge-pill">21</span>
+          </li>
+        </div>
+        </fieldset>
+        <br>
+        <div class="text-center">
+          <button type="button" id="generateJSON" class="btn btn-info">Assign</button>
+        </div>
       </div>
-    <form action="" id="assign-task-form" class="form-container">
-      <textarea style="width: 100%;" placeholder="Type instructions for task..." id="m" ng-model="task_json" autocomplete="off" />
-    <button type="submit" class="submit">Assign</button>
-    </form>
+      <div class="col-4">
+        <h4 class="text-center">Feedback method</h4>
+        <pre id="printCode"></pre>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <h4 class="text-center">Load preset</h4>
+      </div>
+      <div class="col-4">
+        <h4 class="text-center">JSON</h4>
+        <pre id="printCode"></pre>
+      </div>
+
+    </div>
   </div>
+
+
 </div>
