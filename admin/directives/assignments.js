@@ -37,7 +37,8 @@ angular.module('whiteboard-admin')
           $('.assignmentList').each(function(i,assignmentElmt) { 
             var assignmentId=$(assignmentElmt).find(".assignment").text();
             $(assignmentElmt).find('span[id^=userId]').each(function(j,userElmt) {
-                $scope.users[parseInt($(userElmt).text())]['assignmentId'] = assignmentId; //FIXME: use a getter/setter method that preserves type
+                var userId = parseInt($(userElmt).text());
+                $scope.users[userId]['assignment'] = assignmentId; //FIXME: use a getter/setter method that preserves type
             });
           });
         }
