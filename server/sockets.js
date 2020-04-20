@@ -87,7 +87,7 @@ module.exports = function(server) {
     });
     socket.on('updateAssignments', function(data) {
       console.log("assigning assignments to users");
-      assignments = Object.entries(data).reduce(function(p,ua) { p[ua[0]] = ua[1].id; return p;}, {});
+      assignments = Object.entries(data).reduce(function(p,ua) { p[ua[0]] = ua[1].assignment; return p;}, {});
       console.log(assignments);
       //assignments = data.map(function(user) { return({ user.id: user.assignmentId}); });
       //api.updateAssignments(assignments, function(err, results) { return; });
