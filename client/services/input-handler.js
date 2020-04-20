@@ -359,6 +359,11 @@ angular.module('whiteboard.services.inputhandler', [])
 
   function touchStart (ev) {
     console.log('touchstart');
+    if (ev.targetTouches.length > 1) {
+      BoardData.getCanvas().css({'pointer-events': 'none'});
+    } else {
+      BoardData.getCanvas().css({'pointer-events': 'all'});
+    }
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     toggle(toolName);
