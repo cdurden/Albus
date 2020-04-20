@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbTasks', ['$compile', '$http', '$templateCache', 'TaskData', 'Sockets', function($compile, $http, $templateCache, TaskData, Sockets) {
+.directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'TaskData', 'Sockets', function($compile, $http, $templateCache, BoardData, TaskData, Sockets) {
   return {
     restrict: 'A',
     //require: ['^form'],
@@ -21,6 +21,18 @@ angular.module('whiteboard')
       };
     },
     link: function(scope, element, attrs) {
+      BoardData.createBoard(element);
+      BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
+      BoardData.getCanvas().bind('click', function() {scope.$emit('activateMenu', 'hide');});
+      scope.$on('setCursorClass', function (evt, msg) {
+        // console.log('A')
+        // var oldTool = BoardData.getCurrentTool();
+        var svg = BoardData.getCanvas();
+
+        // svg.addClass('A');
+        svg.attr("class", msg.tool);
+        // console.log('> ', svg.attr("class").split(' '));
+      });
       scope.taskData = TaskData.getData();
       Split(['#interactive-space', '#task-space'], {
         sizes: [75, 25],
