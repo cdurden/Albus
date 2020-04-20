@@ -46,7 +46,7 @@ angular.module('whiteboard.services.boarddata', [])
     //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
     //ResizeSensorApi.create(container, handleWindowResize);
     var container = element.find("#drawing-space")[0];
-    ResizeSensorApi.create(container, handleWindowResize);
+    ResizeSensorApi.create(container, function() {});
 
     board = Raphael(container);
     board.setViewBox(0, 0, svgWidth, svgHeight, true);
