@@ -63,7 +63,8 @@ module.exports = function(server) {
           }, function(error, response, body) {
             console.log("assignment data");
             console.log(body);
-            api.getTasksFromSource(body.data, function(error, data) {
+            data = JSON.parse(body)
+            api.getTasksFromSource(data, function(error, data) {
                 console.log(data);
                 socket.emit('tasks', data);
             });
