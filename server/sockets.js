@@ -108,12 +108,15 @@ module.exports = function(server) {
       });
     });
     socket.on('getAssignments', function(){
-      assignmentIds = ['a1','a2']
+      assignments = ['a1','a2']
+      socket.emit('assignments', assignments);
+/*
       client.hmget(socket, assignmentIds, function(err, results) {
         var assignments = {};
         assignmentIds.forEach((id, i) => { assignments[id] = results[i]; });
         socket.emit('assignments', assignments);
       });
+*/
 /*
       client.hgetall('assignments', function(err, results) {
         socket.emit('assignments', results);
