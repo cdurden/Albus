@@ -1,6 +1,5 @@
 var socketio = require('socket.io');
 var rooms = require('./rooms');
-var http = require('http');
 var api = require('./api');
 var fs = require('fs');
 var users = require('./users');
@@ -55,13 +54,13 @@ module.exports = function(server) {
       getSocketData(socket.id).then(function(data) {
           var assignment = data.assignment;
           console.log("Getting assignment for socket "+socket.id);
-          http({
+          request({
               method: 'GET',
               url: '/static/teaching_assets/assignments/'+assignment+'.dot',
               transformResponse: [function (data) {
                 return data;
               }]
-          }).then(function success(response) {
+          }, function(error, response, body) {
             console.log(response);
             api.getTasksFromSource(response.data, function(error, data) {
                 console.log(data);
