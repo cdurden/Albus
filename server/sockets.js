@@ -53,7 +53,7 @@ module.exports = function(server) {
     socket.on('getAssignedTasks', function(){
       getSocketData(socket.id).then(function(data) {
           var assignment = data.assignment;
-          console.log("Getting assignment for socket "+socket.id);
+          console.log("Getting assignment "+assignment+" for socket "+socket.id);
           request({
               method: 'GET',
               url: '/static/teaching_assets/assignments/'+assignment+'.dot',
