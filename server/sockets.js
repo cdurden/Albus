@@ -1,5 +1,6 @@
 var socketio = require('socket.io');
 var rooms = require('./rooms');
+var http = require('http');
 var api = require('./api');
 var fs = require('fs');
 var users = require('./users');
