@@ -26,7 +26,9 @@ angular.module('whiteboard')
     link: function(scope, element, attrs, ctrl) {
       var boardCtrl = ctrl;
       BoardData.createBoard(element);
-      BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
+      var canvas = BoardData.getCanvas();
+      //BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
+      canvas.bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
       BoardData.getCanvas().bind('click', function() {scope.$emit('activateMenu', 'hide');});
       scope.$on('setCursorClass', function (evt, msg) {
         // console.log('A')
