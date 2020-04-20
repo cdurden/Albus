@@ -18,10 +18,10 @@ angular.module('whiteboard-admin')
         console.log(data);
         $scope.users = data;
         for (const [userId, user] of Object.entries(data)) {
-          if (!(user.assignmentId in $scope.assignments)) {
-              $scope.assignments[user.assignmentId] = [];
+          if (!(user.assignment in $scope.assignments)) {
+              $scope.assignments[user.assignment] = {};
           }
-          $scope.assignments[user.assignmentId].push(user);
+          $scope.assignments[user.assignment][user.id] = user;
         }
         function loadSortableJS(callback) {
           var sortableScripts = ["https://raw.githack.com/SortableJS/Sortable/master/Sortable.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"]
@@ -37,6 +37,7 @@ angular.module('whiteboard-admin')
           $('.assignmentList').each(function(i,assignmentElmt) { 
             var assignmentId=$(assignmentElmt).find(".assignment").text();
             $(assignmentElmt).find('span[id^=userId]').each(function(j,userElmt) {
+                //var userIdStr = $(userElmt).text();
                 var userId = parseInt($(userElmt).text());
                 $scope.users[userId]['assignment'] = assignmentId; //FIXME: use a getter/setter method that preserves type
             });
