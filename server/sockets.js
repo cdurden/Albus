@@ -81,11 +81,17 @@ module.exports = function(server) {
         rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
       }
     });
-    socket.on('assignAssignments', function(assignments){
+    socket.on('updateAssignments', function(data){
       console.log("assigning assignments to users");
-      client.hmset('assignments', Object.entries(assignments).flat(), function(err, result) {
-        socket.emit('assignments', assignments);
-      }
+      assignments = data.map((user) => { return {user.id: user.assignmentId}; });
+      api.updateAssignments(assignments, function(err, results) {
+          return;
+      });
+        /*
+      client.hmset('assignments', assignments, function(err, result) {
+        socket.emit('assignedAssignments', assignments);
+      });
+      */
     });
     socket.on('getTaskFromSource', function(source){
       if (source.length > 1) {

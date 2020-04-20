@@ -57,7 +57,7 @@ angular.module('whiteboard-admin')
               },
             });
             $('#generateJSON').click(function() {
-              Sockets.emit('assignAssignments', $scope.users);
+              Sockets.emit('updateAssignments', $scope.users);
             });
           });
         }

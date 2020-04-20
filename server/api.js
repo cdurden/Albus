@@ -33,6 +33,29 @@ function getLatestBoard(session, data, callback) {
     }
   });
 }
+function updateAssignments(assignments, callback) {
+  console.log("Updating assignments");
+  data = { 
+      'assignments': assignments, 
+  };
+  request.post(`${scheme}://${host}:${port}/api/assignments/`,
+    {
+      headers : { 
+        "Authorization" : "Bearer " + auth.api_auth_token,
+      },
+      agent: agent,
+      json: data,
+    },
+    function(error, response, body) {
+      if (!error && response.statusCode == 201) {
+        callback(null, body);
+      } else {
+        console.log(error);
+        callback(error, null);
+      }
+    }
+  );
+}
 function saveBoard(session, board, data, callback) {
   lti_user_id = getSessionUser(session);
   console.log(Object.keys(board));
