@@ -42,8 +42,15 @@ body {font-family: Arial;}
   border: 1px solid #ccc;
   border-top: none;
 }
+.assignmentList {
+    min-height: 50px;
+    min-width: 100px;
+    border: 1px solid;
+    padding: 2px;
+    margin: 5px;
+}
 
-.roomList,.assignmentList {
+.roomList {
     min-height: 50px;
     min-width: 100px;
     border: 1px solid;
