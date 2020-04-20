@@ -17,7 +17,7 @@ angular.module('whiteboard-admin')
       Sockets.on('users', function (data) {
         console.log(data);
         $scope.users = data;
-        for (user of data) {
+        for (const [userId, user] of Object.entries(data)) {
           if (!(user.assignmentId in $scope.assignments)) {
               $scope.assignments[user.assignmentId] = [];
           }
