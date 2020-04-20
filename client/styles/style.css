@@ -54,7 +54,7 @@ h1.title {
     pointer-events: none;
 }
 #background-container {
-    position: absolute;
+/*    position: absolute;*/
     top: 0;
     left: 0;
     z-index: -1;
