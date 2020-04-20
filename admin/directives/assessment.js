@@ -1,10 +1,10 @@
 angular.module('whiteboard-admin')
-.directive('wbAdminAssignments', ['Sockets', 'angularLoad', '$http', function (Sockets, angularLoad, $http) {
+.directive('wbAdminAssessment', ['Sockets', 'angularLoad', '$http', function (Sockets, angularLoad, $http) {
   return {
     restrict: 'A',
-    require: ['wbAdminAssignments'],
+    require: ['wbAdminAssessment'],
     replace: true,
-    templateUrl: 'templates/assignments.html',
+    templateUrl: 'templates/assessment.html',
     controller: function ($scope) {
       $scope.assignments = {};
       $scope.assignments = {};
