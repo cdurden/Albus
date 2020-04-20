@@ -371,6 +371,11 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function touchMove (ev) {
+    if (ev.originalEvent.targetTouches.length > 1) {
+      BoardData.getCanvas().css({'pointer-events': 'none'});
+    } else {
+      BoardData.getCanvas().css({'pointer-events': 'all'});
+    }
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     if (isToggled(toolName)) {
