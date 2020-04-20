@@ -11,7 +11,7 @@ angular.module('whiteboard-admin')
       Sockets.on('assignments', function (data) {
         console.log(data);
         for (assignment of data) {
-            $scope.assignments[assignment] = $scope.assignments[assignment] || {}
+            $scope.assignments[assignment] = $scope.assignments[assignment] || [] 
         }
       });
       Sockets.on('users', function (data) {
