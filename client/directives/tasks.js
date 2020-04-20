@@ -20,7 +20,8 @@ angular.module('whiteboard')
           return false;
       };
     },
-    link: function(scope, element, attrs) {
+    link: function(scope, element, attrs, ctrls) {
+      var boardCtrl = ctrls[0];
       BoardData.createBoard(element);
       BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
       BoardData.getCanvas().bind('click', function() {scope.$emit('activateMenu', 'hide');});
