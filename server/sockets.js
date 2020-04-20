@@ -83,7 +83,7 @@ module.exports = function(server) {
     });
     socket.on('updateAssignments', function(data){
       console.log("assigning assignments to users");
-      assignments = data.map((user) => { return { user['id']: user.assignmentId}; });
+      assignments = data.map((user) => { return({ user.id: user.assignmentId}); });
       api.updateAssignments(assignments, function(err, results) {
           return;
       });
