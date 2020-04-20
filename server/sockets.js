@@ -51,9 +51,25 @@ module.exports = function(server) {
       });
     });
     socket.on('getAssignedTasks', function(){
+      getSocketData(socket.id).then(function(data) {
+          var assignment = data.assignment;
+          console.log("Getting assignment for socket "+socket.id);
+          http({
+              method: 'GET',
+              url: '/static/teaching_assets/assignments/'+assignment+'.dot',
+              transformResponse: [function (data) {
+                return data;
+              }]
+          }).then(function success(response) {
+            console.log(response);
+            api.getTasksFromSource(response.data, function(error, data) {
+                console.log(data);
+                socket.emit('tasks', data);
+            });
+          })  
+      });
+      /*
       client.hget(socket.id, 'tasks', function(err, result) {
-      //client.get('tasks', function(err, result) {
-        //console.log(result);
         try {
           data = JSON.parse(result);
           socket.emit('tasks', data);
@@ -61,6 +77,7 @@ module.exports = function(server) {
           return;
         }
       });
+      */
     });
   }
 
