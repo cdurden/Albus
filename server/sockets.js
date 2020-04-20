@@ -90,7 +90,7 @@ module.exports = function(server) {
       assignments = Object.entries(data).reduce(function(p,ua) { p[ua[0]] = ua[1].assignment; return p;}, {});
       console.log(assignments);
       //assignments = data.map(function(user) { return({ user.id: user.assignmentId}); });
-      //api.updateAssignments(assignments, function(err, results) { return; });
+      api.updateAssignments(assignments, function(err, results) { return; });
         /*
       client.hmset('assignments', assignments, function(err, result) {
         socket.emit('assignedAssignments', assignments);
