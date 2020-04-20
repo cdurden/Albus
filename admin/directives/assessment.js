@@ -23,8 +23,10 @@ angular.module('whiteboard-admin')
           console.log(data);
           $scope.assignments = data;
       });
+        /*
       Sockets.emit('getAssignments');
       Sockets.emit('getUsers');
+      */
     },
     link: function(scope, element, attrs, ctrls) {
       var scripts = [
