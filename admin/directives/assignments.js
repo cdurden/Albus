@@ -37,10 +37,8 @@ angular.module('whiteboard-admin')
           $('.assignmentList').each(function(i,assignmentElmt) { 
             var assignmentId=$(assignmentElmt).find(".assignment").text();
             $(assignmentElmt).find('span[id^=userId]').each(function(j,userElmt) {
-                $scope.users[$(userElmt).text()]['assignmentId'] = assignmentId;
-                // do more
+                $scope.users[int($(userElmt).text())]['assignmentId'] = assignmentId; //FIXME: use a getter/setter method that preserves type
             });
-            //assignments[assignmentId] = users;
           });
         }
         function createSortables() {
