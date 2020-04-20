@@ -77,11 +77,14 @@ module.exports = function(server) {
     });
     socket.on('assignRooms', function(assignments){
       console.log("assigning sockets to rooms");
-      //console.log(assignments);
       for (socketId in assignments) {
-        //console.log(io.sockets.connected);
-        //console.log(io.of("/client").connected);
         rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
+      }
+    });
+    socket.on('assignAssignments', function(assignments){
+      console.log("assigning assignments to users");
+      client.hmset('assignments', Object.entries(assignments).flat(), function(err, result) {
+        socket.emit('assignments', assignments);
       }
     });
     socket.on('getTaskFromSource', function(source){
@@ -98,7 +101,17 @@ module.exports = function(server) {
       });
     });
     socket.on('getAssignments', function(){
-      socket.emit('assignments', ['a1','a2']);
+      assignmentIds = ['a1','a2']
+      client.hmget(socket, assignmentIds, function(err, results) {
+        var assignments = {};
+        assignmentIds.forEach((id, i) => { assignments[id] = results[i]; });
+        socket.emit('assignments', assignments);
+      });
+/*
+      client.hgetall('assignments', function(err, results) {
+        socket.emit('assignments', results);
+      }
+*/
     });
     socket.on('viewTask', function(task_id){
       console.log(task_id);
