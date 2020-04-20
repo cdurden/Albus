@@ -42,14 +42,6 @@ angular.module('whiteboard-admin')
               });
           }, Promise.resolve());
       })();
-      $(element).find("#assign-assignment-form").bind("submit",function(ev) {
-          ev.preventDefault();
-          var assignments = {};
-          for (socketId of scope.selectedSockets) {
-              assignments[socketId] = scope.selectedAssignments;
-          }
-          Sockets.emit('assignAssignmentsToSockets', assignments);
-      });
       scope.$watch('selectedAssignment', function(newValue) {
         $http({
           method: 'GET',

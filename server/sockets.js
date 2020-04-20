@@ -215,6 +215,13 @@ module.exports = function(server) {
         //socket.emit('confirmSubmission', data);
       });
     });
+    socket.on('createFeedback', function(data){
+      api.createFeedback(data,function(error, result) {
+        //console.log(data)
+        io.of('/admin').emit('feedbackRedirect', result);
+        //socket.emit('confirmSubmission', data);
+      });
+    });
   });
   io.of('/client').on('connection', function (socket) {
     console.log("connection from socket "+socket.id);
