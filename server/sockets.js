@@ -81,12 +81,12 @@ module.exports = function(server) {
         rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
       }
     });
-    socket.on('updateAssignments', function(data){
+    socket.on('updateAssignments', function(data) {
       console.log("assigning assignments to users");
-      assignments = data.map(function(user) { return({ user.id: user.assignmentId}); });
-      api.updateAssignments(assignments, function(err, results) {
-          return;
-      });
+      assignments = Object.entries(data).reduce(function(p,ua) { p[ua[0]] = ua[1].id; return p;}, {});
+      console.log(assignments);
+      //assignments = data.map(function(user) { return({ user.id: user.assignmentId}); });
+      //api.updateAssignments(assignments, function(err, results) { return; });
         /*
       client.hmset('assignments', assignments, function(err, result) {
         socket.emit('assignedAssignments', assignments);
