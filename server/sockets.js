@@ -25,7 +25,8 @@ module.exports = function(server) {
   }
   function getAllClientData(callback) {
     io.of('/client').clients((error, clients) => {
-      //console.log(clients);
+      console.log("Here are our clients:");
+      console.log(clients);
       if (error) throw error;
       Promise.all(clients.map(function(clientId) {
         return getSocketData(clientId);
