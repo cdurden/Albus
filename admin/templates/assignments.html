@@ -9,6 +9,8 @@
     }
     </style>
   <div class="container">
+    <input ng-model="query" type="text"
+            placeholder="Filter by" autofocus>
     <div class="row">
       <div class="col-8">
 
@@ -19,7 +21,7 @@
           <legend>{{ assignmentId }}</legend>
         <div class="assignmentList" class="list-group list-group-flush">
           <span style="display:none;" class="assignment">{{assignmentId}}</span>
-          <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="(userId, user) in users track by userId">
+          <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="(userId, user) in users | filter:query track by userId">
             <span style="display:none;" id="userId[]">{{userId}}</span>
             <span class="font-weight-bold">{{$index + 1}}</span><span id="student[]">{{user.firstname}} {{user.lastname}}</span></span>
             <span class="badge badge-primary badge-pill">21</span>
