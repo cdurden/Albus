@@ -43,7 +43,7 @@ body {font-family: Arial;}
   border-top: none;
 }
 
-.roomList {
+.roomList,.assignmentList {
     min-height: 50px;
     min-width: 100px;
     border: 1px solid;
