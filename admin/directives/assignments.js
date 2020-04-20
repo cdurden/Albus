@@ -19,9 +19,9 @@ angular.module('whiteboard-admin')
         $scope.users = data;
         for (const [userId, user] of Object.entries(data)) {
           if (!(user.assignment in $scope.assignments)) {
-              $scope.assignments[user.assignment] = {};
+              $scope.assignments[user.assignment] = [];
           }
-          $scope.assignments[user.assignment][user.id] = user;
+          $scope.assignments[user.assignment].push(user);
         }
         function loadSortableJS(callback) {
           var sortableScripts = ["https://raw.githack.com/SortableJS/Sortable/master/Sortable.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"]
