@@ -21,6 +21,9 @@ angular.module('whiteboard-admin')
           console.log(data);
           $scope.tasks = data;
       });
+      Sockets.on('feedbackRedirect', function (data) {
+          console.log(data);
+      });
       /*
       Sockets.emit('getAssignments');
       Sockets.emit('getUsers');
