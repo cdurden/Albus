@@ -4,6 +4,7 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminAssessment'],
     replace: true,
+    scope: {},
     templateUrl: 'templates/assessment.html',
     controller: function ($scope) {
       $scope.assignments = {};

@@ -4,6 +4,7 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminFeedback'],
     replace: true,
+    scope: {},
     templateUrl: 'templates/feedback.html',
     controller: function ($scope) {
       $scope.assignments = {};
@@ -33,8 +34,10 @@ angular.module('whiteboard-admin')
         console.log(data);
         console.log(assignments);
       });
+        /*
       Sockets.emit('getUsers');
       Sockets.emit('getAssignments');
+      */
     },
     link: function(scope, element, attrs) {
       console.log("calling link function");
