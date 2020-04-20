@@ -265,4 +265,5 @@ module.exports = {
     getTasksFromSource: getTasksFromSource,
     saveBoard: saveBoard,
     getLatestBoard: getLatestBoard,
+    updateAssignments: updateAssignments,
 }
