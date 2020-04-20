@@ -56,7 +56,7 @@ module.exports = function(server) {
           console.log("Getting assignment "+assignment+" for socket "+socket.id);
           request({
               method: 'GET',
-              url: 'https://localhost:444/static/teaching_assets/assignments/'+assignment+'.dot',
+              url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.dot',
               transformResponse: [function (data) {
                 return data;
               }]
