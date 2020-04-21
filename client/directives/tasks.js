@@ -13,8 +13,7 @@ angular.module('whiteboard')
     */
     controller: function ($scope, InputHandler) {
       $scope.taskData = TaskData.getData();
-      $scope.object = {};
-      $scope.object.boards = [1,2,3,4];
+      $scope.boards = [];
       $scope.data = {};
       Sockets.emit("getAssignedTasks");
       $scope.setBoardIndex = function(i) {
@@ -85,7 +84,7 @@ angular.module('whiteboard')
           BoardData.updateBoards(taskBoards);
           boards = BoardData.getBoards('index');
           for (var board in boards) {
-              scope.object.boards.push(board);
+              scope.boards.push(board);
           }
       }, objectEquality=true);
     }
