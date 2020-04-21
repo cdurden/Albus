@@ -22,7 +22,7 @@ angular.module('whiteboard')
       var board = (newValues[0] || [])[newValues[1]];
       scope.board = board;
       if (typeof board !== 'undefined') {
-          BoardData.setBoardId(board.id);
+          BoardData.setBoardById(board.id);
           if (board.id) {
               BoardData.loadBoard(board.id);
           } else {

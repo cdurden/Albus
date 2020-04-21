@@ -270,7 +270,7 @@ angular.module('whiteboard.services.boarddata', [])
       boards[board.id] = board;
     }
   }
-  function setBoardId(newBoardId) {
+  function setBoardById(newBoardId) {
       if (typeof boards[boardId] !== 'undefined') {
           boards[boardId].shapeStorage = shapeStorage;
       }
@@ -297,7 +297,7 @@ angular.module('whiteboard.services.boarddata', [])
     if (typeof board[id] === 'undefined') {
       Broadcast.loadBoardFromApi(id);
     } else {
-      setBoardId(id);
+      setBoardById(id);
     }
   }
 
@@ -341,7 +341,7 @@ angular.module('whiteboard.services.boarddata', [])
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
     getLatestBoardFromApi: getLatestBoardFromApi,
-    setBoardId: setBoardId,
+    setBoardById: setBoardById,
     getBoardObj: getBoardObj,
     getBoards: getBoards,
     addBoard: addBoard,
