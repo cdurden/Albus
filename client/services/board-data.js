@@ -9,6 +9,7 @@ angular.module('whiteboard.services.boarddata', [])
   //scalingFactor is the level of zooming relative to the start
   var scalingFactor = 1;
   var taskId;
+  var boardId;
   var board;
   var $canvas;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
@@ -34,6 +35,9 @@ angular.module('whiteboard.services.boarddata', [])
   };
   function setTaskId(id) {
       taskId = id;
+  }
+  function setBoardId(id) {
+      boardId = id;
   }
 
   function clearBoard() {
@@ -229,11 +233,13 @@ angular.module('whiteboard.services.boarddata', [])
   function saveBoard() {
     data = {};
     data.taskId = taskId;
+    data.boardId = boardId;
     Broadcast.saveBoard(data);
   }
   function loadBoard() {
     data = {};
     data.taskId = taskId;
+    data.boardId = boardId;
     Broadcast.loadBoard(data);
   }
 
@@ -276,5 +282,6 @@ angular.module('whiteboard.services.boarddata', [])
     saveBoard: saveBoard,
     loadBoard: loadBoard,
     setTaskId: setTaskId,
+    setBoardId: setBoardId,
   }
 }]);
