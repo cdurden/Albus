@@ -97,6 +97,9 @@ var io = require('./sockets')(server);
 io.of('/client').use(sharedsession(session, {
     autoSave:true
 }));
+io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the session established by a client
+    autoSave:true
+}));
 io.on('connection', (socket) => {
     socket.use((packet, next) => {
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
