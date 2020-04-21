@@ -274,9 +274,8 @@ angular.module('whiteboard.services.boarddata', [])
       if (typeof boards[boardId] !== 'undefined') {
           boards[boardId].shapeStorage = shapeStorage;
       }
-      board = boards[newBoardId];
       boardId = newBoardId;
-      shapeStorage = board.shapeStorage;
+      shapeStorage = boards[newBoardId].shapeStorage;
   }
   function getBoardObj(id) {
       return(boards[id]);
