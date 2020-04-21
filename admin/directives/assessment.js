@@ -11,7 +11,7 @@ angular.module('whiteboard-admin')
       $scope.assignments = {};
       $scope.sockets = {};
       Sockets.on('users', function (data) {
-          $scope.users = data;
+          $scope.users = Object.values(data);
       });
       /*
       Sockets.on('assignment', function (data) {
