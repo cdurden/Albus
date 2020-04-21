@@ -333,7 +333,6 @@ angular.module('whiteboard.services.boarddata', [])
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
     getLatestBoardFromApi: getLatestBoardFromApi,
-    setTaskId: setTaskId,
     setBoardId: setBoardId,
     getBoardObj: getBoardObj,
     setBoards: setBoards,
