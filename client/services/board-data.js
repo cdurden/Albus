@@ -261,10 +261,11 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function addBoard(board) {
       boards[board.id] = board;
+      return board;
   }
   function newBoard() {
       var boardId = generateRandomId(5);
-      addBoard({'id': boardId, 'shapeStorage': {}})
+      return addBoard({'id': boardId, 'shapeStorage': {}});
   }
   function updateBoards(boards) {
     for (board of boards) {

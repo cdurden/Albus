@@ -69,7 +69,10 @@ angular.module('whiteboard')
       scope.$watch("taskData.tasks", function(tasks) {
           scope.tasks = tasks;
           taskBoards = tasks.map((task, i) => { 
-              board = task.boards[task.boards.length-1];
+              var board = task.boards[task.boards.length-1];
+              if (typeof board === 'undefined') {
+                  board = BoardData.newBoard();
+              }
               board.index = i;
               return(board);
           });
