@@ -60,12 +60,12 @@ angular.module('whiteboard', [
           }
         }
       })
-      .when('/board/:id', {
+      .when('/:id', {
         templateUrl: 'views/board.html',
         //templateUrl: 'views/board+chat.html',
         resolve: {
           'somethingElse': function (Sockets, BoardData, $location) {
-            BoardData.setBoardId($location.path().slice(2));
+            BoardData.setBoardId($location.path().slice(1));
             //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
           }
         },
