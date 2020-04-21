@@ -125,7 +125,7 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
-  res.sendFile('../client/index.html', { root: __dirname });
+  res.sendFile(path.resolve(__dirname+'../client/index.html'));
 });
 
 
@@ -216,7 +216,7 @@ app.use(function ( req, res ) {
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
 app.get('/board/:id', function (req, res) {
   console.log(req.user);
-  res.sendFile('../client/index.html', { root: __dirname });
+  res.sendFile(path.resolve(__dirname+'../client/index.html'));
 });
 
 app.get('/:id/screenShot', function (req, res) {
