@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.boarddata', [])
-.factory('BoardData', ['Broadcast', function (Broadcast) {
+factory('BoardData', ['Broadcast', function (Broadcast) {
   //svgWidth/Height are the width and height of the DOM element
   var svgWidth = 1500; //sizeX
   var svgHeight = 1000; //sizeY
@@ -333,7 +333,7 @@ angular.module('whiteboard.services.boarddata', [])
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
     getLatestBoardFromApi: getLatestBoardFromApi,
-    setBoardId: setBoardId,
+    setBoard: setBoard,
     getBoardObj: getBoardObj,
     setBoards: setBoards,
     getBoards: getBoards,
