@@ -83,7 +83,7 @@ angular.module('whiteboard')
           });
           BoardData.updateBoards(taskBoards);
           boards = BoardData.getBoards('index');
-          for (var board in boards) {
+          for (var board of boards) {
               scope.boards.push(board);
           }
       }, objectEquality=true);
