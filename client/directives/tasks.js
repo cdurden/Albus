@@ -79,7 +79,10 @@ angular.module('whiteboard')
               return(board);
           });
           BoardData.updateBoards(taskBoards);
-          scope.object.boards = BoardData.getBoards('index');
+          boards = BoardData.getBoards('index');
+          for (var board in boards) {
+              scope.object.boards.push(board);
+          }
       }, objectEquality=true);
     }
   }
