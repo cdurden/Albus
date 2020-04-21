@@ -17,7 +17,7 @@
               </div>
               <div class="col-4">
               <select id="task-selector" name="selectedTasks" ng-model="selectedTasks" multiple>
-                  <option ng-repeat="task in tasks" value="{{task}}">{{task}}</option>
+                  <option ng-repeat="task in tasks" value="{{task.source}}">{{task.data.title}}</option>
               </select>
               </div>
               </div>
