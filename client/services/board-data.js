@@ -338,6 +338,7 @@ angular.module('whiteboard.services.boarddata', [])
     setBoards: setBoards,
     getBoards: getBoards,
     addBoard: addBoard,
+    newBoard: newBoard,
     updateBoards: updateBoards,
   }
 }]);
