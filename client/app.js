@@ -61,7 +61,7 @@ angular.module('whiteboard', [
         }
       })
       .when('/:id', {
-        templateUrl: './views/board.html',
+        templateUrl: '/views/board.html',
         //templateUrl: 'views/board+chat.html',
         resolve: {
           'somethingElse': function (Sockets, BoardData, $location) {
