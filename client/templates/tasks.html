@@ -17,7 +17,7 @@
       <div wb-task-view></div>
     </div>
     <div id="board-selector-container" class="split split-horizontal">
-        <a ng-repeat="board in object.boards track by $index" ng-click="$parent.setsfBoardIndex($index)"> {{ $index }}</a>
+        <a ng-repeat="board in object.boards track by $index" ng-click="console.log('clicked'); console.log($parent); $parent.setBoardIndex($index);"> {{ $index }}</a>
     </div>
   </div>
 </div>
