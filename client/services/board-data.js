@@ -11,7 +11,7 @@ angular.module('whiteboard.services.boarddata', [])
   var taskId;
   var boardId;
   var board;
-  var boards;
+  var boards = [];
   var $canvas;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
   var canvasMarginX; //canvasX
