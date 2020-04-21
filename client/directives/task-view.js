@@ -21,7 +21,7 @@ angular.module('whiteboard')
     scope.$watchGroup(["$parent.boards", "$parent.i"], function(newValues) {
       var board = (newValues[0] || [])[newValues[1]];
       scope.board = board;
-      if (typeof board !== 'undefined) {
+      if (typeof board !== 'undefined') {
           BoardData.setBoard(board);
       }
       BoardData.loadBoard();
