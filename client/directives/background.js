@@ -61,10 +61,10 @@ angular.module('whiteboard')
                             backgroundRect = this.getBoundingClientRect();
                             //w = this.width;
                             //h = this.height;
-                            w0 = img.width;
-                            h0 = img.height;
-                            w = backgroundRect.width/w0;
-                            h = backgroundRect.height/h0;
+                            //w0 = img.width;
+                            //h0 = img.height;
+                            w = backgroundRect.width;
+                            h = backgroundRect.height;
                             aspect_ratio = w/h;
                             new ResizeSensor(newValue, handleBackgroundResize);
                         }
