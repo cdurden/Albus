@@ -5,7 +5,7 @@
               <div class="row">
               <div class="col-6">
               <select id="user-selector" name="selectedUsers" ng-model="selectedUsers" multiple>
-                  <option ng-repeat="user in users" value="{{user.id}}">{{user.firstname}} {{user.lastname}}</option>
+                  <option ng-repeat="user in users | filter:query track by user.id" value="{{user.id}}">{{user.firstname}} {{user.lastname}}</option>
               </select>
               </div>
               <div class="col-6">
