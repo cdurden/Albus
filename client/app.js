@@ -47,7 +47,7 @@ angular.module('whiteboard', [
         //templateUrl: 'views/board+chat.html',
         //templateUrl: 'views/slides.html',
         resolve: {
-          'something': function (Sockets, Auth, $location) {
+          'something': function (Sockets, $location) {
             /*
             var roomId = Auth.generateRandomId(5);
             Sockets.emit('roomId', {roomId: roomId});
@@ -64,7 +64,7 @@ angular.module('whiteboard', [
         templateUrl: '/views/board.html',
         //templateUrl: 'views/board+chat.html',
         resolve: {
-          'somethingElse': function (Sockets, Auth, $location) {
+          'somethingElse': function (Sockets, $location) {
             //BoardData.setBoardId($location.path().slice(1));
             //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
           }
