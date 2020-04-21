@@ -210,6 +210,9 @@ h1.title {
 .icon-tool .menu-text {
   right: 11px;
 }
+.icon-color {
+    background-position: 50% 30%;
+}
 .icon-color .menu-text {
   right: 8px;
 }
@@ -217,7 +220,7 @@ h1.title {
 .show .menu-text {
   width: 96%;
   left: 8px;
-  height: 66%;
+  height: 65%;
   /*margin-top: 110%;*/
 }
 
