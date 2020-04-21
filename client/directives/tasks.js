@@ -77,6 +77,7 @@ angular.module('whiteboard')
               var board = task.boards[task.boards.length-1];
               if (typeof board === 'undefined') {
                   board = BoardData.newBoard();
+                  board.taskId = task.id;
               }
               board.index = i;
               return(board);

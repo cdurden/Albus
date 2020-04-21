@@ -23,8 +23,15 @@ angular.module('whiteboard')
       scope.board = board;
       if (typeof board !== 'undefined') {
           BoardData.setBoard(board);
-          BoardData.loadBoardFromApi();
-      } else {
+          if (board.id) {
+              BoardData.loadBoard(board.id);
+          } else {
+              if (board.taskId) {
+                  BoardData.getLatestBoardFromApi(board.taskId);
+              }
+          }
+      }
+      if (typeof board === 'undefined') {
           BoardData.newBoard();
       }
       var task = (board || {}).task;

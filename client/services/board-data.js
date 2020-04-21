@@ -291,6 +291,13 @@ angular.module('whiteboard.services.boarddata', [])
   function getLatestBoardFromApi(taskId) {
     Broadcast.getLatestBoardFromApi(taskId);
   }
+  function loadBoard(id) {
+    if (typeof board[id] === 'undefined') {
+      Broadcast.loadBoardFromApi(id);
+    } else {
+      setBoard(id);
+    }
+  }
 
 
   return {
