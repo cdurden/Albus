@@ -24,7 +24,6 @@ angular.module('whiteboard.services.receive', [])
     console.log("got board");
     console.log(data);
     EventHandler.addBoard(data);
-    }
   });
   Sockets.on('clearBoard', function (data) {
     "clearing the board";
