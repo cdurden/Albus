@@ -10,6 +10,7 @@ angular.module('whiteboard')
     controller: function ($scope, InputHandler) {
       $scope.taskData = TaskData.getData();
       $scope.object = {};
+      $scope.object.boards = [1,2,3,4];
       $scope.data = {};
       Sockets.emit("getAssignedTasks");
       $scope.setBoardIndex = function(i) {
