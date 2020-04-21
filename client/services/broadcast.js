@@ -92,11 +92,14 @@ angular.module('whiteboard.services.broadcast', [])
   var submit = function(msg) {
     Sockets.emit('submit', msg)
   };
-  var saveBoard = function (data) {
-    Sockets.emit('saveBoard', data)
+  var saveBoardToApi = function (data) {
+    Sockets.emit('saveBoardToApi', data)
   };
-  var loadBoard = function (data) {
-    Sockets.emit('loadBoard', data)
+  var loadBoardFromApi = function (data) {
+    Sockets.emit('loadBoardFromApi', data)
+  };
+  var getLatestBoardFromApi = function (data) {
+    Sockets.emit('getLatestBoardFromApi', data)
   };
 
   return {
@@ -113,8 +116,9 @@ angular.module('whiteboard.services.broadcast', [])
     raiseHand: raiseHand,
     submit: submit,
     moveShape: moveShape,
-    saveBoard: saveBoard,
-    loadBoard: loadBoard,
+    saveBoardToApi: saveBoardToApi,
+    loadBoardFromApi: loadBoardFromApi,
+    getLatestBoardFromApi: getLatestBoardFromApi,
   };
 
 });

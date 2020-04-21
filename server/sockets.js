@@ -367,24 +367,24 @@ function get_all_data_by_socket(socket, callback) {
       io.of('/client').emit('chat message', msg);
       console.log(msg);
     });
-    socket.on('saveBoard', function(data){
+    socket.on('saveBoardToApi', function(data){
       board = rooms.getBoard(rooms.getRoomId(socket))
       api.saveBoard(socket.handshake.session, board, data, function(err, data) {
         socket.emit('savedSuccess', data);
       });
     });
-    socket.on('loadBoard', function(data){
-      callback = function(err, board) {
+    socket.on('loadBoardFromApi', function(boardId){
+      api.getBoard(boardId, function(err, board) {
         rooms.loadBoard(socket, board['data'], function(result) {
-          console.log("Sending showExisting with board data from API to "+rooms.getRoomId(socket));
-          //socket.to(rooms.getRoomId(socket)).emit('showExisting', result);
-          socket.emit('showExisting', result);
+          socket.emit('board', board);
         });
       }
-      if (data.boardId) {
-        api.getBoard(data.boardId, callback);
-      } else {
-        api.getLatestBoard(socket.handshake.session, data, callback)
+    });
+    socket.on('getLatestBoardFromApi', function(taskId){
+      api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
+        rooms.loadBoard(socket, board['data'], function(result) {
+          socket.emit('board', board);
+        });
       }
     });
   });

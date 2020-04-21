@@ -16,8 +16,8 @@
       -->
       <div wb-task-view></div>
     </div>
-    <div id="task-selector-container" class="split split-horizontal">
-        <a ng-repeat="task in tasks" ng-click="setTaskIndex($index)"> {{ $index }} </a>
+    <div id="board-selector-container" class="split split-horizontal">
+        <a ng-repeat="board in boards" ng-click="setBoardIndex($index)"> {{ board.title }} </a>
     </div>
   </div>
 </div>

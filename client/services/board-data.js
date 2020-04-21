@@ -11,6 +11,7 @@ angular.module('whiteboard.services.boarddata', [])
   var taskId;
   var boardId;
   var board;
+  var boards;
   var $canvas;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
   var canvasMarginX; //canvasX
@@ -33,18 +34,16 @@ angular.module('whiteboard.services.boarddata', [])
       stroke: '#000000'
     }
   };
-  function setTaskId(id) {
-      taskId = id;
-  }
-  function setBoardId(id) {
-      boardId = id;
-  }
+  function generateRandomId(length) {
+    var id = "";
+    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  function clearBoard() {
-    shapeStorage = {};
-    getCanvas() && getCanvas().empty();
-  }
+    for (var i = 0; i < length; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
 
+    return id;
+  }
   function createBoard (element) {
     //var container = element[0];
     //ResizeSensorApi.create(document.getElementsByClassName('app-container')[0], handleWindowResize);
@@ -230,18 +229,71 @@ angular.module('whiteboard.services.boarddata', [])
   function getStrokeWidth () {
     return tool['stroke-width'];
   }
-  function saveBoard() {
+  function clearBoard() {
+    shapeStorage = {};
+    getCanvas() && getCanvas().empty();
+  }
+  function drawBoard() {
+    clearBoard();
+    data = getBoardObj(boardId).data;
+    for (socketId in data) {
+      if (Object.keys(data[socketId]).length) {
+        for (id in data[socketId]) {
+          var thisShape = data[socketId][id];
+          if (thisShape.tool.name === 'path') {
+            EventHandler.drawExistingPath(thisShape);
+          } else if (thisShape.initX && thisShape.initY) {
+            EventHandler.createShape(id, socketId, thisShape.tool, thisShape.initX, thisShape.initY);
+            if (thisShape.tool.name !== 'text') {
+              EventHandler.editShape(id, socketId, thisShape.tool, thisShape.mouseX, thisShape.mouseY);
+            }
+            EventHandler.finishShape(thisShape.myid, thisShape.socketId, thisShape.tool);
+          }
+        }
+      }
+    }
+  }
+  function setBoards(data) {
+      boards = data;
+  }
+  function getBoards(sortKey = 'index') {
+      return(boards.sort(function(a,b) { return a[sortKey]-b[sortKey] }));
+  }
+  function addBoard(board) {
+      boards[board.id] = board;
+  }
+  function newBoard() {
+      var boardId = generateRandomId(5);
+      addBoard({'id': boardId, 'shapeStorage': {}})
+  }
+  function updateBoards(boards) {
+    for (board of boards) {
+        boards[board.id] = board;
+      }
+    }
+  }
+  function setBoard(newBoardId) {
+      boards[boardId].shapeStorage = shapeStorage;
+      board = boards[newBoardId];
+      boardId = newBoardId;
+      shapeStorage = board.shapeStorage;
+  }
+  function getBoardObj(id) {
+      return(boards[id]);
+  }
+  function saveBoardToApi() {
     data = {};
     data.taskId = taskId;
     data.boardId = boardId;
-    Broadcast.saveBoard(data);
+    Broadcast.saveBoardToApi(boards[boardId]);
   }
-  function loadBoard() {
-    data = {};
-    data.taskId = taskId;
-    data.boardId = boardId;
-    Broadcast.loadBoard(data);
+  function loadBoardFromApi(id) {
+    Broadcast.loadBoardFromApi(id);
   }
+  function getLatestBoardFromApi(taskId) {
+    Broadcast.getLatestBoardFromApi(taskId);
+  }
+
 
   return {
     getShapeStorage: getShapeStorage,
@@ -279,9 +331,15 @@ angular.module('whiteboard.services.boarddata', [])
     getStrokeWidth: getStrokeWidth,
     clearBoard: clearBoard,
     handleWindowResize: handleWindowResize,
-    saveBoard: saveBoard,
-    loadBoard: loadBoard,
+    saveBoardToApi: saveBoardToApi,
+    loadBoardFromApi: loadBoardFromApi,
+    getLatestBoardFromApi: getLatestBoardFromApi,
     setTaskId: setTaskId,
     setBoardId: setBoardId,
+    getBoardObj: getBoardObj,
+    setBoards: setBoards,
+    getBoards: getBoards,
+    addBoard: addBoard,
+    setBoardData: setBoardData,
   }
 }]);

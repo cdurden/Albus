@@ -20,6 +20,12 @@ angular.module('whiteboard.services.receive', [])
       }
     }
   });
+  Sockets.on('board', function (data) {
+    console.log("got board");
+    console.log(data);
+    EventHandler.addBoard(data);
+    }
+  });
   Sockets.on('clearBoard', function (data) {
     "clearing the board";
     EventHandler.clearBoard();

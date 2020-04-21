@@ -13,9 +13,9 @@ function getSocketUser(socket) {
 function getSessionUser(session) {
     return(session.passport.user);
 }
-function getBoard(board_id, callback) {
+function getBoard(boardId, callback) {
   request({
-      url: `${scheme}://${host}:${port}/api/board/${board_id}`,
+      url: `${scheme}://${host}:${port}/api/board/${boardId}`,
     headers : { "Authorization" : "Bearer " + auth.token },
       json: data,
   },
@@ -28,9 +28,9 @@ function getBoard(board_id, callback) {
     }
   });
 }
-function getLatestBoard(session, data, callback) {
+function getLatestBoard(session, taskId, callback) {
   data = { 
-      'task_id': data.taskId,
+      'task_id': taskId,
   };
   data.lti_user_id = getSessionUser(session);
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id);

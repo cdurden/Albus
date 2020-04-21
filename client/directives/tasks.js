@@ -11,7 +11,7 @@ angular.module('whiteboard')
       $scope.taskData = TaskData.getData();
       $scope.data = {};
       Sockets.emit("getAssignedTasks");
-      $scope.setTaskIndex = function(i) {
+      $scope.setBoardIndex = function(i) {
           $scope.i = i;
       }
       this.handleEvent = function (ev) {
@@ -68,6 +68,13 @@ angular.module('whiteboard')
       */
       scope.$watch("taskData.tasks", function(tasks) {
           scope.tasks = tasks;
+          taskBoards = tasks.map((task, i) => { 
+              board = task.board;
+              board.index = i;
+              return(board);
+          });
+          BoardData.updateBoards(taskBoards);
+          scope.boards = BoardData.getBoards('index');
       }, objectEquality=true);
     }
   }
