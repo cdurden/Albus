@@ -13,8 +13,7 @@ function getSocketUser(socket) {
 function getSessionUser(session) {
     return(session.passport.user);
 }
-function getBoard(session, board_id, callback) {
-  console.log("Getting latest board for lti_user_id: "+data.lti_user_id);
+function getBoard(board_id, callback) {
   request({
       url: `${scheme}://${host}:${port}/api/board/${board_id}`,
     headers : { "Authorization" : "Bearer " + auth.token },

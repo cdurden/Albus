@@ -382,7 +382,7 @@ function get_all_data_by_socket(socket, callback) {
         });
       }
       if (data.boardId) {
-        api.getBoard(board_id, callback);
+        api.getBoard(data.boardId, callback);
       } else {
         api.getLatestBoard(socket.handshake.session, data, callback)
       }
