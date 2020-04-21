@@ -113,7 +113,8 @@ function getFeedback(callback) {
     }
   );
 }
-function createFeedback(data, callback) {
+function createFeedback(session, data, callback) {
+  data.lti_user_id = getSessionUser(session);
   request.post(`${scheme}://${host}:${port}/api/feedback/`,
     {
       headers : { 

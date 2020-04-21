@@ -216,7 +216,7 @@ module.exports = function(server) {
       });
     });
     socket.on('createFeedback', function(data){
-      api.createFeedback(data,function(error, result) {
+      api.createFeedback(socket.handshake.session, data, function(error, result) {
         //console.log(data)
         io.of('/admin').emit('feedbackRedirect', result);
         //socket.emit('confirmSubmission', data);
