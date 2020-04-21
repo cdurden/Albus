@@ -60,6 +60,24 @@ angular.module('whiteboard', [
           }
         }
       })
+      .when('/slides', {
+        //templateUrl: './views/board.html',
+        //templateUrl: 'views/board+chat.html',
+        templateUrl: 'views/slides.html',
+        resolve: {
+          'something': function (Sockets, $location) {
+            /*
+            var roomId = Auth.generateRandomId(5);
+            Sockets.emit('roomId', {roomId: roomId});
+            $location.path('/' + roomId);
+            Sockets.on('assignment', function(data) {
+              $location.path('/' + data);
+            });
+            Sockets.emit('get_assignment');
+            */
+          }
+        }
+      })
       .when('/:id', {
         templateUrl: '/views/board.html',
         //templateUrl: 'views/board+chat.html',
