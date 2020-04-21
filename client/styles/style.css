@@ -533,7 +533,7 @@ h1.title {
 
 .icon-color {
   background-image: url('../assets/images/color.png');
-  background-position: 50% 30%;
+  background-position: 50% 30% !important;
 }
 
 /* Icons level two/one */
