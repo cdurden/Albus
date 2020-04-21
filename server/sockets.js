@@ -374,13 +374,18 @@ function get_all_data_by_socket(socket, callback) {
       });
     });
     socket.on('loadBoard', function(data){
-      api.getLatestBoard(socket.handshake.session, data, function(err, board) {
+      callback = function(err, board) {
         rooms.loadBoard(socket, board['data'], function(result) {
           console.log("Sending showExisting with board data from API to "+rooms.getRoomId(socket));
           //socket.to(rooms.getRoomId(socket)).emit('showExisting', result);
           socket.emit('showExisting', result);
         });
-      });
+      }
+      if (data.boardId) {
+        api.getBoard(board_id, callback);
+      } else {
+        api.getLatestBoard(socket.handshake.session, data, callback)
+      }
     });
   });
 

@@ -13,10 +13,25 @@ function getSocketUser(socket) {
 function getSessionUser(session) {
     return(session.passport.user);
 }
+function getBoard(session, board_id, callback) {
+  console.log("Getting latest board for lti_user_id: "+data.lti_user_id);
+  request({
+      url: `${scheme}://${host}:${port}/api/board/${board_id}`,
+    headers : { "Authorization" : "Bearer " + auth.token },
+      json: data,
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+      callback(null, body);
+    } else {
+      callback(error, null);
+    }
+  });
+}
 function getLatestBoard(session, data, callback) {
   data = { 
       'task_id': data.taskId,
-      'id': data.boardId,
   };
   data.lti_user_id = getSessionUser(session);
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id);
