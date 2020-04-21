@@ -53,7 +53,7 @@ angular.module('whiteboard')
         expandToMin: false,
         direction: 'horizontal',
       })
-      Split(['#task-container', '#task-selector-container'], {
+      Split(['#task-container', '#board-selector-container'], {
         sizes: [75,25],
         minSize: [0, 0],
         snapOffset: 0,
