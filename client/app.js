@@ -59,7 +59,7 @@ angular.module('whiteboard', [
             */
           }
         }
-      });
+      })
       .when('/board/:id', {
         templateUrl: 'views/board.html',
         //templateUrl: 'views/board+chat.html',
