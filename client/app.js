@@ -64,8 +64,8 @@ angular.module('whiteboard', [
         templateUrl: '/views/board.html',
         //templateUrl: 'views/board+chat.html',
         resolve: {
-          'somethingElse': function (Sockets, BoardData, $location) {
-            BoardData.setBoardId($location.path().slice(1));
+          'somethingElse': function (Sockets, Auth, $location) {
+            //BoardData.setBoardId($location.path().slice(1));
             //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
           }
         },
