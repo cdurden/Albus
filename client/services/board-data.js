@@ -253,11 +253,9 @@ angular.module('whiteboard.services.boarddata', [])
       }
     }
   }
-  function setBoards(data) {
-      boards = data;
-  }
   function getBoards(sortKey = 'index') {
-      return(boards.sort(function(a,b) { return a[sortKey]-b[sortKey] }));
+      boards.sort(function(a,b) { return a[sortKey]-b[sortKey] })
+      return(boards);
   }
   function addBoard(board) {
       boards[board.id] = board;
@@ -267,8 +265,8 @@ angular.module('whiteboard.services.boarddata', [])
       var boardId = generateRandomId(5);
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
-  function updateBoards(boards) {
-    for (board of boards) {
+  function updateBoards(_boards) {
+    for (board of _boards) {
       boards[board.id] = board;
     }
   }
@@ -336,7 +334,6 @@ angular.module('whiteboard.services.boarddata', [])
     getLatestBoardFromApi: getLatestBoardFromApi,
     setBoard: setBoard,
     getBoardObj: getBoardObj,
-    setBoards: setBoards,
     getBoards: getBoards,
     addBoard: addBoard,
     newBoard: newBoard,
