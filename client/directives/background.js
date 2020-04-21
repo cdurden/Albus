@@ -39,11 +39,13 @@ angular.module('whiteboard')
                     var handleBackgroundResize = (function(element) {
                         return(function () {
                             backgroundRect = element.getBoundingClientRect();
+                            /*
                             if (typeof w === 'undefined' || typeof h === 'undefined') {
                                 w = backgroundRect.width;
                                 h = backgroundRect.height;
                                 aspect_ratio = w/h;
                             }
+                            */
                             dim = backgroundRect;
                             viewBox = calculateViewBox(dim);
                             //BoardData.setZoomScale();
@@ -58,8 +60,10 @@ angular.module('whiteboard')
                         backgroundRect = this.getBoundingClientRect();
                         //w = this.width;
                         //h = this.height;
-                        w = backgroundRect.width;
-                        h = backgroundRect.height;
+                        //w = backgroundRect.width;
+                        //h = backgroundRect.height;
+                        w = img.width;
+                        h = img.height;
                         aspect_ratio = w/h;
                         new ResizeSensor(newValue, handleBackgroundResize);
                     }
