@@ -14,6 +14,11 @@ function getSessionUser(session) {
     return(session.passport.user);
 }
 function getLatestBoard(session, data, callback) {
+  data = { 
+      'task_id': data.taskId,
+      'id': data.boardId,
+      'data': board,
+  };
   data.lti_user_id = getSessionUser(session);
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id);
   request({
@@ -63,6 +68,7 @@ function saveBoard(session, board, data, callback) {
   data = { 
       'lti_user_id': lti_user_id, 
       'task_id': data.taskId,
+      'id': data.boardId,
       'data': board,
   };
   request.post(`${scheme}://${host}:${port}/api/boards/`,
