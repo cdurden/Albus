@@ -4,9 +4,13 @@ angular.module('whiteboard')
     restrict: 'A',
     //require: ['^form'],
     templateUrl: './templates/tasks.html',
+      /*
     scope: {
         'form': '=',
+        'boards': '=',
+        'setBoardIndex': '@',
     },
+    */
     controller: function ($scope, InputHandler) {
       $scope.taskData = TaskData.getData();
       $scope.object = {};
