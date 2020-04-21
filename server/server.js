@@ -214,7 +214,7 @@ app.use(function ( req, res ) {
 
 // ======================== main routes ===============================//
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
-app.get('/:id', function (req, res) {
+app.get('/board/:id', function (req, res) {
   console.log(req.user);
   res.sendFile('./client/index.html');
 });
