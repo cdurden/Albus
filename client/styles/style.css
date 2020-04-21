@@ -210,9 +210,6 @@ h1.title {
 .icon-tool .menu-text {
   right: 11px;
 }
-.icon-color {
-    background-position: 50% 30%;
-}
 .icon-color .menu-text {
   right: 8px;
 }
@@ -536,6 +533,7 @@ h1.title {
 
 .icon-color {
   background-image: url('../assets/images/color.png');
+  background-position: 50% 30%;
 }
 
 /* Icons level two/one */
