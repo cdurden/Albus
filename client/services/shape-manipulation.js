@@ -9,7 +9,7 @@ angular.module('whiteboard.services.shapemanipulation', [])
 
     var newPath = path.reduce(function (newPathString, currentPoint, index, path) {
       //if (!(index % interval) || index === (path.length - 1)) {
-      if (!(index % interval) || index === (path.length - 1) || (index === (path.length - 1) && newPathString === 'Z')) {
+      if (!(index % interval) || index === (path.length - 1) || (index === (path.length - 1) && currentPoint === 'Z')) {
         return newPathString += currentPoint[1] + ',' + currentPoint[2] + ' ';
       } else {
         return newPathString;
