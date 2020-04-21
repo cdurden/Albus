@@ -340,6 +340,7 @@ angular.module('whiteboard.services.boarddata', [])
     handleWindowResize: handleWindowResize,
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
+    loadBoard: loadBoard,
     getLatestBoardFromApi: getLatestBoardFromApi,
     setBoardById: setBoardById,
     getBoardObj: getBoardObj,
