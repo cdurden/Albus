@@ -337,4 +337,5 @@ module.exports = {
     updateAssignments: updateAssignments,
     createFeedback: createFeedback,
     getFeedback: getFeedback,
+    getBoard: getBoard,
 }
