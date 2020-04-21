@@ -26,8 +26,8 @@ angular.module('whiteboard')
           if (board.id) {
               BoardData.loadBoard(board.id);
           } else {
-              if (board.taskId) {
-                  BoardData.getLatestBoardFromApi(board.taskId);
+              if (board.task && board.task.id) {
+                  BoardData.getLatestBoardFromApi(board.task.id);
               }
           }
       }
