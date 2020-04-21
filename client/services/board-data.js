@@ -268,8 +268,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function updateBoards(boards) {
     for (board of boards) {
-        boards[board.id] = board;
-      }
+      boards[board.id] = board;
     }
   }
   function setBoard(newBoardId) {
