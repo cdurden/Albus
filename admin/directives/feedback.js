@@ -32,10 +32,11 @@ angular.module('whiteboard-admin')
     link: function(scope, element, attrs, ctrls) {
       $(element).find("#create-feedback-form").bind("submit",function(ev) {
           ev.preventDefault();
-          var users = $scope.selectedUsers;
-          var assignments = $scope.selectedAssignments;
-          var tasks = $scope.selectedTasks;
+          var users = scope.selectedUsers;
+          var assignments = scope.selectedAssignments;
+          var tasks = scope.selectedTasks;
           Sockets.emit('createFeedback', { 'users': users, 'tasks': tasks, 'assignments': assignments });
+          return false;
       });
       scope.$watch('selectedAssignment', function(newValue) {
         $http({
