@@ -257,17 +257,17 @@ angular.module('whiteboard.services.boarddata', [])
       boards.sort(function(a,b) { return a[sortKey]-b[sortKey] })
       return(boards);
   }
-  function addBoard(board) {
-      boards[board.id] = board;
-      return board;
+  function addBoard(newBoard) {
+      boards[newBoard.id] = newBoard;
+      return newBoard;
   }
   function newBoard() {
       var boardId = generateRandomId(5);
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
   function updateBoards(_boards) {
-    for (board of _boards) {
-      boards[board.id] = board;
+    for (_board of _boards) {
+      boards[_board.id] = _board;
     }
   }
   function setBoardById(newBoardId) {
@@ -278,6 +278,9 @@ angular.module('whiteboard.services.boarddata', [])
       shapeStorage = boards[newBoardId].shapeStorage;
   }
   function getBoardObj(id) {
+      if (typeof id === 'undefined') {
+          id = boardId;
+      }
       return(boards[id]);
   }
   function saveBoardToApi() {
@@ -293,7 +296,7 @@ angular.module('whiteboard.services.boarddata', [])
     Broadcast.getLatestBoardFromApi(taskId);
   }
   function loadBoard(id) {
-    if (typeof board[id] === 'undefined') {
+    if (typeof boards[id] === 'undefined') {
       Broadcast.loadBoardFromApi(id);
     } else {
       setBoardById(id);
