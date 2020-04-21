@@ -17,7 +17,6 @@ function getLatestBoard(session, data, callback) {
   data = { 
       'task_id': data.taskId,
       'id': data.boardId,
-      'data': board,
   };
   data.lti_user_id = getSessionUser(session);
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id);
