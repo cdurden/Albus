@@ -17,20 +17,20 @@ function generateRandomId(length) {
 
 function assignRoomToSocketId(socketId, roomId, callback) {
   console.log("Setting room of "+socketId+" to "+roomId)
-  client.hmset(socketId, ['roomId', roomId], function(err, result) {
-      console.log("hmset returns the following result");
-      console.log(result);
+  client.hmset(socketId, ['roomId', roomId], function(err, res) {
+    client.hgetall(socket.id, function(err, result) {
       callback && callback(null, result);
+    });
   });
 }
 function assignRoomToSocket(socket, roomId, callback) {
   console.log("Assigning "+socket.id+" to room "+roomId)
-  client.hmset(socket.id, ['roomId', roomId], function(err, result) {
+  client.hmset(socket.id, ['roomId', roomId], function(err, res) {
     socket.room = roomId;
     socket.join(roomId);
-    console.log("hmset returns the following result");
-    console.log(result);
-    callback && callback(null, result);
+    client.hgetall(socket.id, function(err, result) {
+      callback && callback(null, result);
+    });
   });
 }
 function placeSocket(socket, callback) {
