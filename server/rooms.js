@@ -15,6 +15,15 @@ function generateRandomId(length) {
   return id;
 }
 
+function assignRoomToSocketId(socketId, roomId, callback) {
+  console.log("assigning "+socketId+" to room "+roomId)
+  client.hmset(socketId, ['roomId', roomId], function(err, result) {
+    setupBoards(socket, function (boards) {
+      console.log("Sending boards to "+socketId);
+      callback && callback();
+    });
+  });
+}
 function assignRoomToSocket(socket, roomId, callback) {
   if (socket.room != roomId) {
     console.log("assigning "+socket.id+" to room "+roomId)
@@ -31,9 +40,10 @@ function assignRoomToSocket(socket, roomId, callback) {
     });
   }
 }
-function placeSocket(socket, callback) {
+//function placeSocket(socket, callback) {
+function placeSocket(socketId, callback) {
   console.log("placing socket");
-  client.hgetall(socket.id, function(err, result) {
+  client.hgetall(socketId, function(err, result) {
     console.log(result);
     var roomId;
     if (result !== null && 'roomId' in result) {
@@ -41,9 +51,10 @@ function placeSocket(socket, callback) {
     } else {
       roomId = utils.generateRandomId(5);
     }
-    if (socket.room != roomId) {
-      assignRoomToSocket(socket, roomId, callback);
-    }
+//    if (socket.room != roomId) {
+//    assignRoomToSocket(socket, roomId, callback);
+    assignRoomToSocketId(socketId, roomId, callback);
+//    }
   });
 }
 function getBoard(roomId, boardId) {
