@@ -395,7 +395,7 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('getOrCreateTaskBoard', function(taskId) {
       api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
-        if (board.id) {
+        if (board) {
           console.log("Loading task board from API");
           console.log(board);
           rooms.loadBoard(socket, board, function(result) {
