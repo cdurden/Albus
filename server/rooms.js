@@ -35,7 +35,7 @@ function assignRoomToSocket(socket, roomId, callback) {
 }
 function placeSocket(socket, callback) {
   placeSocketId(socket.id, callback);
-  client.hgetall(socketId, function(err, result) {
+  client.hgetall(socket.id, function(err, result) {
     if (socket.room != roomId) {
       assignRoomToSocket(socket, roomId, callback);
     }
