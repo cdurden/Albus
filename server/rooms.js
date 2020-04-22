@@ -119,6 +119,9 @@ function loadBoard(socket, board, callback) {
 }
 function createTaskBoard(socket, taskId, callback) {
   roomId = socket.room;
+  if (typeof rooms[roomId] === 'undefined') {
+      setupRoom(socket);
+  }
   boardId = generateRandomId(5);
   rooms[roomId][boardId] = {};
   if (typeof taskBoards[roomId] === 'undefined') {
