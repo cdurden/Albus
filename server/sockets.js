@@ -238,7 +238,7 @@ module.exports = function(server) {
           flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
           //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
-            rooms.placeSocketId(socket.id, function() {
+            rooms.placeSocket(socket, function() {
               rooms.setupBoards(socket, function (boards) {
                 console.log("Sending boards to "+socket.id);
                 socket.emit('boards', boards);
