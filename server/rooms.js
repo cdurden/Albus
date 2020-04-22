@@ -83,6 +83,9 @@ function setupBoard(socket, boardId, callback) {
 }
 function setupBoards(socket, callback) {
   var boards = [];
+  if (typeof rooms[socket.room] === 'undefined') {
+      setupRoom(socket);
+  }
   for (boardId in rooms[socket.room]) {
     setupBoards(socket, boardId, function(board) {
       boards.push(board);
@@ -92,6 +95,9 @@ function setupBoards(socket, callback) {
 }
 function loadBoard(socket, board, callback) {
   roomId = socket.room;
+  if (typeof rooms[roomId] === 'undefined') {
+      setupRoom(socket);
+  }
   rooms[roomId][board.id] = board['data'];
   if (board.task_id) {
       if (typeof taskBoards[roomId] === 'undefined') {
