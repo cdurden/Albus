@@ -268,6 +268,9 @@ angular.module('whiteboard.services.boarddata', [])
   function setTaskBoard(boardId, taskId) {
       taskBoards[taskId] = boardId;
   }
+  function getTaskBoards() {
+      return taskBoards;
+  }
   function newBoard() {
       var boardId = generateRandomId(5);
       return addBoard({'id': boardId, 'shapeStorage': {}});
@@ -367,5 +370,6 @@ angular.module('whiteboard.services.boarddata', [])
     newBoard: newBoard,
     updateBoards: updateBoards,
     getOrCreateTaskBoard: getOrCreateTaskBoard,
+    getTaskBoards: getTaskBoards,
   }
 }]);

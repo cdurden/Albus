@@ -14,6 +14,7 @@ angular.module('whiteboard')
     controller: function ($scope, InputHandler) {
       $scope.taskData = TaskData.getData();
       $scope.boards = BoardData.getBoards();
+      $scope.taskBoards = BoardData.getTaskBoards();
       //$scope.boards = [];
       $scope.data = {};
       Sockets.emit("getAssignedTasks");
@@ -48,7 +49,7 @@ angular.module('whiteboard')
         svg.attr("class", msg.tool);
         // console.log('> ', svg.attr("class").split(' '));
       });
-      scope.taskData = TaskData.getData();
+      //scope.taskData = TaskData.getData();
       Split(['#interactive-space', '#task-space'], {
         sizes: [75, 25],
         minSize: [0, 0],
@@ -69,28 +70,16 @@ angular.module('whiteboard')
         expandToMin: false,
         direction: 'horizontal',
       })
-      scope.i = 0;
         /*
+      scope.i = 0;
       scope.$watch("taskData.tasks[i]", function(task) {
           scope.task = task;
       }, objectEquality=true);
       */
       scope.$watch("taskData.tasks", function(tasks) {
-          scope.tasks = tasks;
-          taskBoards = tasks.map((task, i) => { 
-              var board = task.boards[task.boards.length-1];
-              if (typeof board === 'undefined') {
-                  board = BoardData.getOrCreateTaskBoard(task.id);
-                  //board.task = task;
-              }
-              board.index = i;
-              return(board);
+          tasks.forEach((task, i) => { 
+            board = BoardData.getOrCreateTaskBoard(task.id);
           });
-          //BoardData.updateBoards(taskBoards);
-          //boards = BoardData.getBoards('index');
-          //for (boardId in boards) {
-          //    scope.boards.push(boards[boardId]);
-          //}
       }, objectEquality=true);
     }
   }
