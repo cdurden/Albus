@@ -13,9 +13,13 @@ angular.module('whiteboard')
     */
     controller: function ($scope, InputHandler) {
       $scope.taskData = TaskData.getData();
-      $scope.boards = [];
+      $scope.boards = BoardData.getBoards();
+      //$scope.boards = [];
       $scope.data = {};
       Sockets.emit("getAssignedTasks");
+      $scope.setBoardId = function(id) {
+          $scope.boardId = id;
+      }
       $scope.setBoardIndex = function(i) {
           $scope.i = i;
       }
@@ -76,17 +80,17 @@ angular.module('whiteboard')
           taskBoards = tasks.map((task, i) => { 
               var board = task.boards[task.boards.length-1];
               if (typeof board === 'undefined') {
-                  board = BoardData.newBoard();
-                  board.task = task;
+                  board = BoardData.getOrCreateTaskBoard(task.id);
+                  //board.task = task;
               }
               board.index = i;
               return(board);
           });
-          BoardData.updateBoards(taskBoards);
-          boards = BoardData.getBoards('index');
-          for (boardId in boards) {
-              scope.boards.push(boards[boardId]);
-          }
+          //BoardData.updateBoards(taskBoards);
+          //boards = BoardData.getBoards('index');
+          //for (boardId in boards) {
+          //    scope.boards.push(boards[boardId]);
+          //}
       }, objectEquality=true);
     }
   }

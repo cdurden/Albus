@@ -82,6 +82,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function addBoard(data) {
     BoardData.addBoard(data);
   };
+  function setTaskBoard(boardId, taskId) {
+    BoardData.setTaskBoard(boardId, taskId);
+  };
 
   return {
     cursor: cursor,

@@ -13,25 +13,25 @@ angular.module('whiteboard')
       console.log("submitting answers");
       data = {
           //'task_id': scope.task.data.id,
-          'task_id': BoardData.getBoard().task.id,
+          'task_id': BoardData.getBoardObj().task.id,
           'data': scope.data,
       }
       Sockets.emit("submit", data);
     };
-    scope.$watchGroup(["$parent.boards", "$parent.i"], function(newValues) {
+    scope.$watchGroup(["$parent.boards", "$parent.boardId"], function(newValues) {
       var board = (newValues[0] || [])[newValues[1]];
       scope.board = board;
       if (typeof board !== 'undefined') {
-          BoardData.setBoardById(board.id);
           if (board.id) {
               BoardData.loadBoard(board.id);
           } else {
               if (board.task && board.task.id) {
-                  BoardData.getLatestBoardFromApi(board.task.id);
+                  //BoardData.getLatestBoardFromApi(board.task.id);
+                  BoardData.getOrCreateTaskBoard(board.task.id);
               }
           }
       }
-      if (typeof board === 'undefined') {
+      if (typeof board === 'undefined') { // FIXME: does this mean it is not a task board?
           BoardData.newBoard();
       }
       var task = (board || {}).task;

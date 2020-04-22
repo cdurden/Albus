@@ -383,6 +383,19 @@ function get_all_data_by_socket(socket, callback) {
         });
       });
     });
+    socket.on('getOrCreateTaskBoard', function(taskId) {
+      api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
+        if (board) {
+          rooms.loadBoard(socket, board, function(result) {
+            socket.emit('board', board);
+          });
+        } else {
+          rooms.createTaskBoard(socket, taskId, function(result) {
+            socket.emit('board', result);
+          }
+        }
+      });
+    });
     socket.on('getLatestBoardFromApi', function(taskId) {
       api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
         rooms.loadBoard(socket, board['data'], function(result) {

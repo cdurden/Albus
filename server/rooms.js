@@ -3,6 +3,18 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
+var taskBoards = {};
+function generateRandomId(length) {
+  var id = "";
+  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < length; i++) {
+    id += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  return id;
+}
+
 function assignRoomToSocket(socket, roomId, callback) {
   if (socket.room != roomId) {
     console.log("assigning "+socket.id+" to room "+roomId)
@@ -10,9 +22,10 @@ function assignRoomToSocket(socket, roomId, callback) {
       socket.room = roomId;
       socket.join(roomId);
       socket.emit('clearBoard');
-      setupBoard(socket, function (room) {
-        console.log("Sending showExisting to "+roomId);
-        socket.emit('showExisting', room);
+      setupBoards(socket, function (boards) {
+        console.log("Sending boards to "+socket.id);
+        socket.emit('boards', boards);
+        socket.emit('taskBoards', taskBoards);
         callback && callback();
       });
     });
@@ -33,14 +46,19 @@ function placeSocket(socket, callback) {
     }
   });
 }
-function getBoard(roomId) {
-    return(rooms[roomId]);
+function getBoard(roomId, boardId) {
+    return(rooms[roomId][boardId]);
 }
-function setupBoard(socket, callback, boardId) {
+function setupRoom(socket, callback) {
     roomId = socket.room;
+    rooms[roomId] = {};
+    callback && callback(rooms[roomId]);
+}
+function setupBoard(socket, boardId, callback) {
+    setupRoom(socket, callback);
     client.hget(roomId, boardId, function (err, reply) {
       if (typeof rooms[roomId] === 'undefined') {
-          rooms[roomId] = {};
+          setupRoom(socket)
       }
       if (reply) {
         storedBoard = JSON.parse(reply);
@@ -54,22 +72,43 @@ function setupBoard(socket, callback, boardId) {
       console.log("Redis board data");
       console.log(reply);
       
-      if (!rooms[roomId]) {
-        rooms[roomId] = {};
-      }
       if (!rooms[roomId][boardId]) {
         rooms[roomId][boardId] = {};
       }
-      rooms[roomId][socket.id] = {};
+      rooms[roomId][boardId][socket.id] = {};
       console.log("Application board data");
-      console.log(rooms[roomId]);
-      callback(rooms[roomId]);
+      console.log(rooms[roomId][boardId]);
+      callback(rooms[roomId][boardId]);
     });
 }
-function loadBoard(socket, data, callback) {
+function setupBoards(socket, callback) {
+  var boards = [];
+  for (boardId in rooms[socket.room]) {
+    setupBoards(socket, boardId, function(board) {
+      boards.push(board);
+    })
+  }
+  callback && callback(boards)
+}
+function loadBoard(socket, board, callback) {
   roomId = socket.room;
-  rooms[roomId] = data;
-  setupBoard(socket, callback);
+  rooms[roomId][board.id] = board['data'];
+  if (board.task_id) {
+      if (typeof taskBoards[roomId] === 'undefined') {
+          taskBoards[roomId] = {};
+      }
+      taskBoards[roomId][board.task_id] = board.id
+  }
+  setupBoard(socket, board.id, callback);
+}
+function createTaskBoard(socket, taskId, callback) {
+  roomId = socket.room;
+  boardId = generateRandomId(5);
+  rooms[roomId][boardId] = {};
+  if (typeof taskBoards[roomId] === 'undefined') {
+    taskBoards[roomId] = {};
+  }
+  setupBoard(socket, boardId, callback);
 }
 var roomsManager = {
 

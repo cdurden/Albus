@@ -25,6 +25,16 @@ angular.module('whiteboard.services.receive', [])
     console.log(data);
     EventHandler.addBoard(data);
   });
+  Sockets.on('boards', function (boards) {
+    for (board in boards) {
+      EventHandler.addBoard(boards[board]);
+    }
+  });
+  Sockets.on('taskBoards', function (taskBoards) {
+    for (taskId in taskBoards) {
+      EventHandler.setTaskBoard(taskBoards[taskId], taskId);
+    }
+  });
   Sockets.on('clearBoard', function (data) {
     "clearing the board";
     EventHandler.clearBoard();

@@ -11,7 +11,8 @@ angular.module('whiteboard.services.boarddata', [])
   var taskId;
   var boardId;
   var board;
-  var boards = [];
+  var boards = {};
+  var taskBoards = {};
   var $canvas;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
   var canvasMarginX; //canvasX
@@ -254,12 +255,15 @@ angular.module('whiteboard.services.boarddata', [])
     }
   }
   function getBoards(sortKey = 'index') {
-      boards.sort(function(a,b) { return a[sortKey]-b[sortKey] })
+      //boards.sort(function(a,b) { return a[sortKey]-b[sortKey] })
       return(boards);
   }
   function addBoard(newBoard) {
       boards[newBoard.id] = newBoard;
       return newBoard;
+  }
+  function setTaskBoard(boardId, taskId) {
+      taskBoards[taskId] = boardId;
   }
   function newBoard() {
       var boardId = generateRandomId(5);
@@ -291,6 +295,11 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function loadBoardFromApi(id) {
     Broadcast.loadBoardFromApi(id);
+  }
+  function getOrCreateTaskBoard(taskId) {
+    if (typeof taskBoards[taskId] === 'undefined') {
+      Broadcast.getOrCreateTaskBoard(taskId);
+    }
   }
   function getLatestBoardFromApi(taskId) {
     Broadcast.getLatestBoardFromApi(taskId);
@@ -351,5 +360,6 @@ angular.module('whiteboard.services.boarddata', [])
     addBoard: addBoard,
     newBoard: newBoard,
     updateBoards: updateBoards,
+    getOrCreateTaskBoard: getOrCreateTaskBoard,
   }
 }]);

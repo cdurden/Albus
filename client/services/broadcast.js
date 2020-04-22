@@ -101,6 +101,9 @@ angular.module('whiteboard.services.broadcast', [])
   var getLatestBoardFromApi = function (data) {
     Sockets.emit('getLatestBoardFromApi', data)
   };
+  var getOrCreateTaskBoard = function(taskId) {
+    Sockets.emit('getOrCreateTaskBoard', taskId);
+  }
 
   return {
     getSocketId: getSocketId,
@@ -119,6 +122,7 @@ angular.module('whiteboard.services.broadcast', [])
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
     getLatestBoardFromApi: getLatestBoardFromApi,
+    getOrCreateTaskBoard: getOrCreateTaskBoard,
   };
 
 });
