@@ -29,6 +29,21 @@ function getBoard(boardId, callback) {
     }
   });
 }
+function getTaskBoard(session, taskId, callback) {
+  console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
+  request({
+      url: `${scheme}://${host}:${port}/api/task/${taskId}/board/`,
+    headers : { "Authorization" : "Bearer " + auth.token },
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+      callback(null, body);
+    } else {
+      callback(error, null);
+    }
+  });
+}
 function getLatestBoard(session, taskId, callback) {
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
   data = { 
@@ -335,6 +350,7 @@ module.exports = {
     getTasksFromSource: getTasksFromSource,
     saveBoard: saveBoard,
     getLatestBoard: getLatestBoard,
+    getTaskBoard: getTaskBoard,
     updateAssignments: updateAssignments,
     createFeedback: createFeedback,
     getFeedback: getFeedback,
