@@ -396,11 +396,13 @@ function get_all_data_by_socket(socket, callback) {
     socket.on('getOrCreateTaskBoard', function(taskId) {
       api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
         if (board) {
+          console.log("Loading task board from API");
           rooms.loadBoard(socket, board, function(result) {
             socket.emit('board', board);
           });
         } else {
-          rooms.createTaskBoard(socket, taskId, function(result) {
+          console.log("Creating new task board");
+          rooms.createTaskBoard(socket, taskId, function(err, result) {
             socket.emit('board', result);
           });
         }
