@@ -20,7 +20,7 @@ module.exports = function(server) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       if (result === null) {
         console.log("The following socket id was not found in Redis store:");
-        placeSocketId(socketId, function() {
+        rooms.placeSocketId(socketId, function() {
           console.log(socketId);
           result['socketId'] = socketId;
           resolve(result);
