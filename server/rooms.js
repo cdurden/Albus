@@ -20,7 +20,7 @@ function assignRoomToSocketId(socketId, roomId, callback) {
   client.hmset(socketId, ['roomId', roomId], function(err, result) {
       console.log("hmset returns the following result");
       console.log(result);
-      callback && callback(result);
+      callback && callback(null, result);
   });
 }
 function assignRoomToSocket(socket, roomId, callback) {
@@ -30,16 +30,14 @@ function assignRoomToSocket(socket, roomId, callback) {
     socket.join(roomId);
     console.log("hmset returns the following result");
     console.log(result);
-    callback && callback(result);
+    callback && callback(null, result);
   });
 }
 function placeSocket(socket, callback) {
-  placeSocketId(socket.id, callback);
-  client.hgetall(socket.id, function(err, result) {
-    if (socket.room != roomId) {
-      assignRoomToSocket(socket, roomId, callback);
-    }
-  });
+  placeSocketId(socket.id, function(err, result) {
+    roomId = result.roomId;
+    assignRoomToSocket(socket, roomId, callback);
+  })
 }
 //function placeSocket(socket, callback) {
 function placeSocketId(socketId, callback) {
