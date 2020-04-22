@@ -18,7 +18,7 @@ function generateRandomId(length) {
 function assignRoomToSocketId(socketId, roomId, callback) {
   console.log("Setting room of "+socketId+" to "+roomId)
   client.hmset(socketId, ['roomId', roomId], function(err, res) {
-    client.hgetall(socket.id, function(err, result) {
+    client.hgetall(socketId, function(err, result) {
       callback && callback(null, result);
     });
   });
