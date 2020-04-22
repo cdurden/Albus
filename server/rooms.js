@@ -3,6 +3,36 @@ var client = require('./db/config');
 var _ = require('underscore');
 
 var rooms = {};
+function assignRoomToSocket(socket, roomId, callback) {
+  if (socket.room != roomId) {
+    console.log("assigning "+socket.id+" to room "+roomId)
+    client.hmset(socket.id, ['roomId', roomId], function(err, result) {
+      socket.room = roomId;
+      socket.join(roomId);
+      socket.emit('clearBoard');
+      setupBoard(socket, function (room) {
+        console.log("Sending showExisting to "+roomId);
+        socket.emit('showExisting', room);
+        callback && callback();
+      });
+    });
+  }
+}
+function placeSocket(socket, callback) {
+  console.log("placing socket");
+  client.hgetall(socket.id, function(err, result) {
+    console.log(result);
+    var roomId;
+    if (result !== null && 'roomId' in result) {
+      roomId = result['roomId'];
+    } else {
+      roomId = utils.generateRandomId(5);
+    }
+    if (socket.room != roomId) {
+      assignRoomToSocket(socket, roomId, callback);
+    }
+  });
+}
 function getBoard(roomId) {
     return(rooms[roomId]);
 }
@@ -33,36 +63,6 @@ function loadBoard(socket, data, callback) {
   roomId = socket.room;
   rooms[roomId] = data;
   setupBoard(socket, callback);
-}
-function assignRoomToSocket(socket, roomId, callback) {
-  if (socket.room != roomId) {
-    console.log("assigning "+socket.id+" to room "+roomId)
-    client.hmset(socket.id, ['roomId', roomId], function(err, result) {
-      socket.room = roomId;
-      socket.join(roomId);
-      socket.emit('clearBoard');
-      setupBoard(socket, function (room) {
-        console.log("Sending showExisting to "+roomId);
-        socket.emit('showExisting', room);
-        callback && callback();
-      });
-    });
-  }
-}
-function placeSocket(socket, callback) {
-  console.log("placing socket");
-  client.hgetall(socket.id, function(err, result) {
-    console.log(result);
-    var roomId;
-    if (result !== null && 'roomId' in result) {
-      roomId = result['roomId'];
-    } else {
-      roomId = utils.generateRandomId(5);
-    }
-    if (socket.room != roomId) {
-      assignRoomToSocket(socket, roomId, callback);
-    }
-  });
 }
 var roomsManager = {
 
