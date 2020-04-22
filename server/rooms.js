@@ -182,10 +182,10 @@ var roomsManager = {
 
   addShape: function (shape, socket, boardId) {
     //console.log(socket);
-    console.log(rooms);
+    console.log("Adding shape to room, socket, board:");
     console.log(socket.room);
     console.log(shape.socketId);
-    console.log(shape.myid);
+    console.log(boardId);
     //it seems that the client was setting the socketId of the shape
     //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
     //here the line has been modified to use the id of the current socket.
