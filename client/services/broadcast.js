@@ -13,18 +13,20 @@ angular.module('whiteboard.services.broadcast', [])
 
   Sockets.emit('idRequest');
 
-  var newShape = function (myid, socketId, boardId,tool, initX, initY) {
+  var newShape = function (myid, socketId, boardId, tool, initX, initY) {
     Sockets.emit('newShape', {
       myid: myid,
       socketId: socketId,
+      boardId: boardId,
       tool: tool,
       initX: initX,
       initY: initY
     });
   };
 
-  var editShape = function (myid, socketId, boardId,currentTool, mouseX, mouseY) {
+  var editShape = function (myid, socketId, boardId, currentTool, mouseX, mouseY) {
     var data = {};
+    data.boardId = boardId;
     data.mouseX = mouseX;
     data.mouseY = mouseY;
     data.myid = myid;
@@ -37,6 +39,7 @@ angular.module('whiteboard.services.broadcast', [])
     Sockets.emit('pathCompleted', {
       myid: myid,
       tool: currentTool,
+      boardId: boardId,
       pathDProps: pathDProps
     });
   };
@@ -45,6 +48,7 @@ angular.module('whiteboard.services.broadcast', [])
     Sockets.emit('copiedPathCompleted', {
       myid: myid,
       tool: currentTool,
+      boardId: boardId,
       pathDProps: pathDProps
     });
   };
@@ -52,6 +56,7 @@ angular.module('whiteboard.services.broadcast', [])
   var finishShape = function (myid, boardId, currentTool) {
     Sockets.emit('shapeCompleted', {
       myid: myid,
+      boardId: boardId,
       tool: currentTool
     });
   };
@@ -59,15 +64,17 @@ angular.module('whiteboard.services.broadcast', [])
   var deleteShape = function (myid, socketId, boardId) {
     Sockets.emit('deleteShape', {
       myid: myid,
+      boardId: boardId,
       socketId: socketId
     })
   };
 
-  var moveShape = function (shape, x, y) {
+  var moveShape = function (shape, boardId, x, y) {
     var type = shape.type;
     Sockets.emit('moveShape', {
       myid: shape.myid,
       socketId: shape.socketId,
+      boardId: boardId,
       x: x,
       y: y,
       attr: shape.attr(),
@@ -75,10 +82,11 @@ angular.module('whiteboard.services.broadcast', [])
     });
   };
 
-  var finishMovingShape = function (shape) {
+  var finishMovingShape = function (shape, boardId) {
     Sockets.emit('finishMovingShape', {
       myid: shape.myid,
       socketId: shape.socketId,
+      boardId: boardId,
       attr: shape.attr()
     })
   };
