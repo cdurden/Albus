@@ -18,7 +18,9 @@ function generateRandomId(length) {
 function assignRoomToSocketId(socketId, roomId, callback) {
   console.log("Setting room of "+socketId+" to "+roomId)
   client.hmset(socketId, ['roomId', roomId], function(err, result) {
-      callback && callback();
+      console.log("hmset returns the following result");
+      console.log(result);
+      callback && callback(result);
   });
 }
 function assignRoomToSocket(socket, roomId, callback) {
@@ -26,7 +28,9 @@ function assignRoomToSocket(socket, roomId, callback) {
   client.hmset(socket.id, ['roomId', roomId], function(err, result) {
     socket.room = roomId;
     socket.join(roomId);
-    callback && callback();
+    console.log("hmset returns the following result");
+    console.log(result);
+    callback && callback(result);
   });
 }
 function placeSocket(socket, callback) {
