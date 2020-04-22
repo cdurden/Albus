@@ -24,6 +24,10 @@ function assignRoomToSocketId(socketId, roomId, callback) {
   });
 }
 function assignRoomToSocket(socket, roomId, callback) {
+  if (typeof socket === 'undefined') {
+      console.log("Received undefined socket, cannot assign to roomt");
+      return;
+  }
   console.log("Assigning "+socket.id+" to room "+roomId)
   client.hmset(socket.id, ['roomId', roomId], function(err, res) {
     socket.room = roomId;
