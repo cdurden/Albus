@@ -39,6 +39,9 @@ function getBoard(roomId) {
 function setupBoard(socket, callback, boardId) {
     roomId = socket.room;
     client.hget(roomId, boardId, function (err, reply) {
+      if (typeof rooms[roomId] === 'undefined') {
+          rooms[roomId] = {};
+      }
       if (reply) {
         storedBoard = JSON.parse(reply);
         _.extend(rooms[roomId][boardId], storedBoard);
