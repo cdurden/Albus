@@ -94,7 +94,7 @@ function setupBoards(socket, callback) {
       setupRoom(socket);
   }
   for (boardId in rooms[socket.room]) {
-    setupBoards(socket, boardId, function(board) {
+    setupBoard(socket, boardId, function(board) {
       boards.push(board);
     })
   }
