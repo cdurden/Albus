@@ -44,6 +44,7 @@ angular.module('whiteboard.services.inputhandler', [])
 
   var actions = {};
 
+  var boardId = BoardData.getBoardId();
   var lastEv;
   actions.eraser = {
     mouseDown: function (ev) {
@@ -54,7 +55,7 @@ angular.module('whiteboard.services.inputhandler', [])
         BoardData.getBoard().forEach(function (shape) {
           if (shape.type === 'path') {
             if (Raphael.pathIntersection(mousePathString, shape.attr('path')).length) {
-              Broadcast.deleteShape(shape.myid, shape.socketId);
+              Broadcast.deleteShape(shape.myid, shape.socketId, boardId);
               EventHandler.deleteShape(shape.myid, shape.socketId);
             }
           }
@@ -62,7 +63,7 @@ angular.module('whiteboard.services.inputhandler', [])
       }
       var shape = BoardData.getBoard().getElementByPoint(ev.clientX, ev.clientY);
       if (shape) {
-        Broadcast.deleteShape(shape.myid, shape.socketId);
+        Broadcast.deleteShape(shape.myid, shape.socketId, boardId);
         EventHandler.deleteShape(shape.myid, shape.socketId);
       }
       lastEv = ev;
@@ -126,6 +127,7 @@ angular.module('whiteboard.services.inputhandler', [])
       Visualizer.clearSelection();
       var shape = getClosestElementByArea(ev);
       var socketId = BoardData.getSocketId();
+      var boardId = BoardData.getBoardId();
       
       var newId = BoardData.generateShapeId();
 
@@ -135,7 +137,7 @@ angular.module('whiteboard.services.inputhandler', [])
       var newMouseY = shape.mouseY + 10 || newInitY;
 
       EventHandler.createShape(newId, socketId, shape.tool, newInitX, newInitY);
-      Broadcast.newShape(newId, socketId, shape.tool, newInitX, newInitY);
+      Broadcast.newShape(newId, socketId, boardId,shape.tool, newInitX, newInitY);
       if (shape.tool.name === 'path') {
         BoardData.setCurrentShape(newId);
 
@@ -161,7 +163,7 @@ angular.module('whiteboard.services.inputhandler', [])
         EventHandler.editShape(newId, socketId, shape.tool, newMouseX, newMouseY);
       }
 
-      Broadcast.editShape(newId, socketId, shape.tool, newMouseX, newMouseY);
+      Broadcast.editShape(newId, socketId, boardId, shape.tool, newMouseX, newMouseY);
 
       EventHandler.finishShape(newId, socketId, shape.tool);
       shape.tool.name === 'path' ? Broadcast.finishCopiedPath(newId, shape.tool, currentShape.pathDProps) : Broadcast.finishShape(newId, shape.tool);
@@ -179,12 +181,13 @@ angular.module('whiteboard.services.inputhandler', [])
       var id = BoardData.generateShapeId();
       var mouseXY = getMouseXY(ev);
       var socketId = BoardData.getSocketId();
+      var boardId = BoardData.getBoardId();
       var currentTool = BoardData.getCurrentTool();
       currentTool.text = defaultText;
 
       EventHandler.createShape(id, socketId, currentTool, mouseXY.x, mouseXY.y);
       BoardData.setCurrentShape(id);
-      Broadcast.newShape(id, socketId, currentTool, mouseXY.x, mouseXY.y);
+      Broadcast.newShape(id, socketId, boardId, currentTool, mouseXY.x, mouseXY.y);
       var currentShape = BoardData.getCurrentShape();
 
       document.onkeypress = function (ev) {
@@ -205,7 +208,7 @@ angular.module('whiteboard.services.inputhandler', [])
             'stroke': editorShape.trueColors.stroke
           })
           EventHandler.finishShape(id, socketId, editorShape.tool);
-          Broadcast.finishShape(id, editorShape.tool);
+          Broadcast.finishShape(id, boardId, editorShape.tool);
           editorShape = null;
           document.onkeydown = document.onkeypress = function () {};
         } else {
@@ -213,7 +216,7 @@ angular.module('whiteboard.services.inputhandler', [])
           editorShape.attr('text', editorShape.attr('text') + String.fromCharCode(ev.keyCode));
           currentTool.text = editorShape.attr('text');
           EventHandler.editShape(id, socketId, currentTool, editorShape.initX, editorShape.initY);
-          Broadcast.editShape(id, socketId, currentTool, editorShape.initX, editorShape.initY);
+          Broadcast.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
         }
       }
 
@@ -226,7 +229,7 @@ angular.module('whiteboard.services.inputhandler', [])
             editorShape.attr('text', editorShape.attr('text').slice(0, editorShape.attr('text').length - 1));
             currentTool.text = editorShape.attr('text');
             EventHandler.editShape(id, socketId, currentTool, editorShape.initX, editorShape.initY);
-            Broadcast.editShape(id, socketId, currentTool, editorShape.initX, editorShape.initY);
+            Broadcast.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
           }
         }
       }
@@ -243,6 +246,7 @@ angular.module('whiteboard.services.inputhandler', [])
   actions.shape = {
     mouseDown: function (ev) {
       var socketId = BoardData.getSocketId();
+      var boardId = BoardData.getBoardId();
       var currentTool = BoardData.getCurrentTool();
       var mouseXY = getMouseXY(ev);
       var coords = Snap.snapToPoints(mouseXY.x, mouseXY.y);
@@ -254,21 +258,23 @@ angular.module('whiteboard.services.inputhandler', [])
 
       EventHandler.createShape(id, socketId, currentTool, coords[0], coords[1]);
       BoardData.setCurrentShape(id);
-      Broadcast.newShape(id, socketId, currentTool, coords[0], coords[1]);
+      Broadcast.newShape(id, socketId, boardId, currentTool, coords[0], coords[1]);
     },
     mouseHold: function (ev) {
       var id = BoardData.getCurrentShapeId();
       var socketId = BoardData.getSocketId();
+      var boardId = BoardData.getBoardId();
       var currentTool = BoardData.getCurrentTool();
       var mouseXY = getMouseXY(ev);
       var coords = Snap.snapToPoints(mouseXY.x, mouseXY.y);
 
-      Broadcast.editShape(id, socketId, currentTool, coords[0], coords[1]);
+      Broadcast.editShape(id, socketId, boardId, currentTool, coords[0], coords[1]);
       EventHandler.editShape(id, socketId, currentTool, coords[0], coords[1]);
     },
     mouseUp: function (ev) {
       var id = BoardData.getCurrentShapeId();
       var socketId = BoardData.getSocketId();
+      var boardId = BoardData.getBoardId();
       var currentTool = BoardData.getCurrentTool();
       var shape = BoardData.getCurrentShape();
 
@@ -286,9 +292,9 @@ angular.module('whiteboard.services.inputhandler', [])
       Visualizer.clearSnaps();
 
       if (currentTool.name === 'path') {
-        Broadcast.finishPath(id, currentTool, shape.pathDProps);
+        Broadcast.finishPath(id, boardId, currentTool, shape.pathDProps);
       } else {
-        Broadcast.finishShape(id, currentTool);
+        Broadcast.finishShape(id, boardId, currentTool);
       }
     },
     mouseOver: function (ev) {

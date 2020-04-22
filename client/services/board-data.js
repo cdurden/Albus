@@ -80,6 +80,9 @@ angular.module('whiteboard.services.boarddata', [])
   function getBoard () {
     return board;
   }
+  function getBoardId () {
+    return boardId;
+  }
 
   function getCursor () {
     return cursor;
@@ -357,6 +360,7 @@ angular.module('whiteboard.services.boarddata', [])
     setBoardById: setBoardById,
     getBoardObj: getBoardObj,
     getBoards: getBoards,
+    getBoardId: getBoardId,
     addBoard: addBoard,
     newBoard: newBoard,
     updateBoards: updateBoards,

@@ -13,7 +13,7 @@ angular.module('whiteboard.services.broadcast', [])
 
   Sockets.emit('idRequest');
 
-  var newShape = function (myid, socketId, tool, initX, initY) {
+  var newShape = function (myid, socketId, boardId,tool, initX, initY) {
     Sockets.emit('newShape', {
       myid: myid,
       socketId: socketId,
@@ -23,7 +23,7 @@ angular.module('whiteboard.services.broadcast', [])
     });
   };
 
-  var editShape = function (myid, socketId, currentTool, mouseX, mouseY) {
+  var editShape = function (myid, socketId, boardId,currentTool, mouseX, mouseY) {
     var data = {};
     data.mouseX = mouseX;
     data.mouseY = mouseY;
@@ -33,7 +33,7 @@ angular.module('whiteboard.services.broadcast', [])
     Sockets.emit('editShape', data);
   };
 
-  var finishPath = function (myid, currentTool, pathDProps) {
+  var finishPath = function (myid, boardId, currentTool, pathDProps) {
     Sockets.emit('pathCompleted', {
       myid: myid,
       tool: currentTool,
@@ -41,7 +41,7 @@ angular.module('whiteboard.services.broadcast', [])
     });
   };
 
-  var finishCopiedPath = function (myid, currentTool, pathDProps) {
+  var finishCopiedPath = function (myid, boardId, currentTool, pathDProps) {
     Sockets.emit('copiedPathCompleted', {
       myid: myid,
       tool: currentTool,
@@ -49,14 +49,14 @@ angular.module('whiteboard.services.broadcast', [])
     });
   };
 
-  var finishShape = function (myid, currentTool) {
+  var finishShape = function (myid, boardId, currentTool) {
     Sockets.emit('shapeCompleted', {
       myid: myid,
       tool: currentTool
     });
   };
 
-  var deleteShape = function (myid, socketId) {
+  var deleteShape = function (myid, socketId, boardId) {
     Sockets.emit('deleteShape', {
       myid: myid,
       socketId: socketId
