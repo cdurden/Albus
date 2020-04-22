@@ -141,7 +141,7 @@ var roomsManager = {
   getBoard: getBoard,
   loadBoard: loadBoard,
 
-  placeSocket: placeSocket,
+  placeSocketId: placeSocketId,
   assignRoomToSocket: assignRoomToSocket,
 
   
