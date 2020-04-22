@@ -129,7 +129,7 @@ function createTaskBoard(socket, taskId, callback) {
       callback({
           'task': { 'id': taskId },
           'id': boardId,
-          'data' result
+          'data': result,
       });
   });
 }
