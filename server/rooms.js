@@ -36,15 +36,16 @@ function placeSocket(socket, callback) {
 function getBoard(roomId) {
     return(rooms[roomId]);
 }
-function setupBoard(socket, callback) {
+function setupBoard(socket, callback, boardId) {
     roomId = socket.room;
-    client.get(roomId, function (err, reply) {
+    client.hget(roomId, boardId, function (err, reply) {
       if (reply) {
-        storedRoom = JSON.parse(reply);
-        _.extend(rooms[roomId], storedRoom);
+        storedBoard = JSON.parse(reply);
+        _.extend(rooms[roomId][boardId], storedBoard);
       } else {
-        client.set(roomId, JSON.stringify({}));
-        rooms[roomId] = {};
+        //client.set(roomId, JSON.stringify({}));
+        client.hmset(roomId, boardId, JSON.stringify({})); 
+        rooms[roomId][boardId] = {};
       }
       console.log("Setting up board for socket "+socket.id);
       console.log("Redis board data");
@@ -52,6 +53,9 @@ function setupBoard(socket, callback) {
       
       if (!rooms[roomId]) {
         rooms[roomId] = {};
+      }
+      if (!rooms[roomId][boardId]) {
+        rooms[roomId][boardId] = {};
       }
       rooms[roomId][socket.id] = {};
       console.log("Application board data");
@@ -98,12 +102,13 @@ var roomsManager = {
       rooms[roomId] = {};
     }
 
-    client.get(roomId, function (err, reply) {
+    client.hget(roomId, function (err, reply) {
       if (reply) {
         storedRoom = JSON.parse(reply);
         _.extend(rooms[roomId], storedRoom);
       } else {
-        client.set(roomId, JSON.stringify({}));
+        //client.set(roomId, JSON.stringify({}));
+        //client.hmset(roomId, boardId, JSON.stringify({}));
         rooms[roomId] = {};
       }
       
@@ -127,33 +132,33 @@ var roomsManager = {
     });
   },
 
-  addShape: function (shape, socket) {
+  addShape: function (shape, socket, boardId) {
     //console.log(socket);
     console.log(rooms);
     console.log(socket.room);
     console.log(shape.socketId);
     console.log(shape.myid);
     //it seems that the client was setting the socketId of the shape
-    //rooms[socket.room][shape.socketId][shape.myid] = shape;
+    //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
     //here the line has been modified to use the id of the current socket.
-    rooms[socket.room][socket.id][shape.myid] = shape;
+    rooms[socket.room][boardId][socket.id][shape.myid] = shape;
   },
 
-  editShape: function (shape, socket) {
+  editShape: function (shape, socket, boardId) {
     console.log(rooms);
     console.log(socket.room);
     console.log(shape.socketId);
     console.log(shape.myid);
     //it seems that the client was setting the socketId of the shape
-    //rooms[socket.room][shape.socketId][shape.myid]['mouseX'] = shape.mouseX;
-    //rooms[socket.room][shape.socketId][shape.myid]['mouseY'] = shape.mouseY;   
+    //rooms[socket.room][boardId][shape.socketId][shape.myid]['mouseX'] = shape.mouseX;
+    //rooms[socket.room][boardId][shape.socketId][shape.myid]['mouseY'] = shape.mouseY;   
     //here the line has been modified to use the id of the current socket.
-    rooms[socket.room][socket.id][shape.myid]['mouseX'] = shape.mouseX;
-    rooms[socket.room][socket.id][shape.myid]['mouseY'] = shape.mouseY;   
+    rooms[socket.room][boardId][socket.id][shape.myid]['mouseX'] = shape.mouseX;
+    rooms[socket.room][boardId][socket.id][shape.myid]['mouseY'] = shape.mouseY;   
   },
 
-  moveShape: function (shape, socket) {
-    var storedShape = rooms[socket.room][shape.socketId][shape.myid];
+  moveShape: function (shape, socket, boardId) {
+    var storedShape = rooms[socket.room][boardId][shape.socketId][shape.myid];
     if (shape.attr.r) {
       storedShape.initX = shape.attr.cx;
       storedShape.initY = shape.attr.cy;
@@ -180,26 +185,29 @@ var roomsManager = {
     }
   },
 
-  completePath: function (shape, socket) {
-    rooms[socket.room][socket.id][shape.myid]['pathDProps'] = shape.pathDProps;
-    client.set(socket.room, JSON.stringify(rooms[socket.room]));
+  completePath: function (shape, socket, boardId) {
+    rooms[socket.room][boardId][socket.id][shape.myid]['pathDProps'] = shape.pathDProps;
+    //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
+    client.hmset(socket.room, boardId, JSON.stringify(rooms[socket.room][boardId]));
   },
 
-  completeShape: function (shape, socket) {
+  completeShape: function (shape, socket, boardId) {
     if (shape.tool && shape.tool.text) {
-      rooms[socket.room][socket.id][shape.myid]['tool'] = shape.tool;
+      rooms[socket.room][boardId][socket.id][shape.myid]['tool'] = shape.tool;
     }
-    client.set(socket.room, JSON.stringify(rooms[socket.room]));
+    //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
+    client.hmset(socket.room, boardId, JSON.stringify(rooms[socket.room][boardId]));
   },
 
-  deleteShape: function (shape, socket) {
+  deleteShape: function (shape, socket, boardId) {
     console.log("deleting shape "+shape.myid);
     console.log("roomId: "+socket.room);
     console.log("socketId: "+shape.socketId);
     console.log(rooms);
-    console.log(rooms[socket.room][shape.socketId]);
-    delete rooms[socket.room][shape.socketId][shape.myid];
-    client.set(socket.room, JSON.stringify(rooms[socket.room])); 
+    console.log(rooms[socket.room][boardId][shape.socketId]);
+    delete rooms[socket.room][boardId][shape.socketId][shape.myid];
+    //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId])); 
+    client.hmset(socket.room, boardId, JSON.stringify(rooms[socket.room][boardId])); 
   }
 
 }
