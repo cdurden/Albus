@@ -392,7 +392,7 @@ function get_all_data_by_socket(socket, callback) {
         } else {
           rooms.createTaskBoard(socket, taskId, function(result) {
             socket.emit('board', result);
-          }
+          });
         }
       });
     });
