@@ -301,7 +301,9 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function getOrCreateTaskBoard(taskId) {
     if (typeof taskBoards[taskId] === 'undefined') {
-      Broadcast.getOrCreateTaskBoard(taskId);
+      Broadcast.getOrCreateTaskBoard(taskId); // FIXME: need to set the boardId based on the response
+    } else {
+      setBoardById(taskBoards[taskId]);
     }
   }
   function getLatestBoardFromApi(taskId) {
