@@ -48,10 +48,10 @@ angular.module('whiteboard-admin')
               onChange: function() {
                 updateRooms();
                 var socketsJSON = JSON.stringify($scope.sockets,null,'\t');
-                $('#printCode').html(socketsJSON);
+                $('#roomsJSON').html(socketsJSON);
               },
             });
-            $('#generateJSON').click(function() {
+            $('#assignRoomsButton').click(function() {
               Sockets.emit('assignRooms', $scope.sockets);
             });
           });
