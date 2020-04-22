@@ -398,7 +398,7 @@ function get_all_data_by_socket(socket, callback) {
         if (board) {
           console.log("Loading task board from API");
           console.log(board);
-          rooms.loadBoard(socket, board, function(result) {
+          rooms.loadBoard(socket, board, function(err, result) {
             socket.emit('board', board);
           });
         } else {

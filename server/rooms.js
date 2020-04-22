@@ -115,7 +115,7 @@ function loadBoard(socket, board, callback) {
       }
       taskBoards[roomId][board.task_id] = board.id
   }
-  setupBoard(socket, board.id, callback);
+  callback(null, board);
 }
 function createTaskBoard(socket, taskId, callback) {
   roomId = socket.room;
@@ -129,7 +129,7 @@ function createTaskBoard(socket, taskId, callback) {
   }
   taskBoards[taskId] = boardId;
   setupBoard(socket, boardId, function(result) {
-      callback({
+      callback(null, {
           'task': { 'id': taskId },
           'id': boardId,
           'data': result,
