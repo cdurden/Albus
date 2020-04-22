@@ -66,7 +66,9 @@ function setupRoom(socket, callback) {
     callback && callback(rooms[roomId]);
 }
 function setupBoard(socket, boardId, callback) {
-    setupRoom(socket, callback);
+    if (typeof rooms[socket.room] === 'undefined') {
+      setupRoom(socket);
+    }
     client.hget(roomId, boardId, function (err, reply) {
       if (typeof rooms[roomId] === 'undefined') {
           setupRoom(socket)
@@ -94,9 +96,6 @@ function setupBoard(socket, boardId, callback) {
 }
 function setupBoards(socket, callback) {
   var boards = [];
-  if (typeof rooms[socket.room] === 'undefined') {
-      setupRoom(socket);
-  }
   for (boardId in rooms[socket.room]) {
     setupBoard(socket, boardId, function(board) {
       boards.push(board);
@@ -125,7 +124,14 @@ function createTaskBoard(socket, taskId, callback) {
   if (typeof taskBoards[roomId] === 'undefined') {
     taskBoards[roomId] = {};
   }
-  setupBoard(socket, boardId, callback);
+  taskBoards[taskId] = boardId;
+  setupBoard(socket, boardId, function(result) {
+      callback({
+          'task': { 'id': taskId },
+          'id': boardId,
+          'data' result
+      });
+  });
 }
 var roomsManager = {
 
