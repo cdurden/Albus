@@ -20,7 +20,7 @@ module.exports = function(server) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       if (result === null) {
           console.log("The following socket id was not found in Redis store:");
-          placeSocket(socketId);
+          placeSocketId(socketId);
       }
       console.log(socketId);
       result['socketId'] = socketId;
@@ -238,7 +238,11 @@ module.exports = function(server) {
           flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
           //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
-            rooms.placeSocket(socket, function() {
+            rooms.placeSocketId(socketId, function() {
+              rooms.setupBoards(socket, function (boards) {
+                console.log("Sending boards to "+socketId);
+                socket.emit('boards', boards);
+              });
               console.log("emitting client data to admin");
               getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
             });

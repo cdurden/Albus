@@ -18,10 +18,7 @@ function generateRandomId(length) {
 function assignRoomToSocketId(socketId, roomId, callback) {
   console.log("assigning "+socketId+" to room "+roomId)
   client.hmset(socketId, ['roomId', roomId], function(err, result) {
-    setupBoards(socket, function (boards) {
-      console.log("Sending boards to "+socketId);
       callback && callback();
-    });
   });
 }
 function assignRoomToSocket(socket, roomId, callback) {
@@ -41,7 +38,7 @@ function assignRoomToSocket(socket, roomId, callback) {
   }
 }
 //function placeSocket(socket, callback) {
-function placeSocket(socketId, callback) {
+function placeSocketId(socketId, callback) {
   console.log("placing socket");
   client.hgetall(socketId, function(err, result) {
     console.log(result);
@@ -139,6 +136,7 @@ var roomsManager = {
   getRoom: function (roomId) {
     return rooms[roomId];
   },
+  setupBoards: setupBoards,
 
   getBoard: getBoard,
   loadBoard: loadBoard,
