@@ -151,7 +151,7 @@ angular.module('whiteboard.services.reveal', [])
   }
   function replaceWindowResizeEventListener() {
       window.removeEventListener("resize", Reveal.onWindowResize);
-      window.addEventListener("resize", onWindowResize);
+      //window.addEventListener("resize", onWindowResize);
   }
   return {
       initialize: initialize,
