@@ -149,6 +149,7 @@ var roomsManager = {
 
   getBoard: getBoard,
   loadBoard: loadBoard,
+  createTaskBoard: createTaskBoard,
 
   placeSocketId: placeSocketId,
   placeSocket: placeSocket,
