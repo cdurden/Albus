@@ -262,6 +262,9 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function setBoardById(newBoardId) {
       if (typeof boards[boardId] !== 'undefined') {
+          if (typeof boards[boardId].shapeStorage === 'undefined') {
+              boards[boardId].shapeStorage = {};
+          }
           boards[boardId].shapeStorage = Object.assign(boards[boardId].shapeStorage, shapeStorage);
       }
       boardId = newBoardId;
