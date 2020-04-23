@@ -117,17 +117,21 @@ function loadBoard(socket, board, callback) {
   }
   callback(null, board);
 }
-function createTaskBoard(socket, taskId, callback) {
+function getOrCreateTaskBoard(socket, taskId, callback) {
   roomId = socket.room;
-  if (typeof rooms[roomId] === 'undefined') {
-      setupRoom(socket);
-  }
-  boardId = generateRandomId(5);
-  rooms[roomId][boardId] = {};
   if (typeof taskBoards[roomId] === 'undefined') {
     taskBoards[roomId] = {};
   }
-  taskBoards[taskId] = boardId;
+  if (typeof taskBoards[roomId][taskId] === 'undefined') {
+    if (typeof rooms[roomId] === 'undefined') {
+        setupRoom(socket);
+    }
+    boardId = generateRandomId(5);
+    rooms[roomId][boardId] = {};
+    taskBoards[taskId] = boardId;
+  } else {
+    boardId = taskBoards[taskId];
+  }
   setupBoard(socket, boardId, function(result) {
       callback(null, {
           'task': { 'id': taskId },
@@ -152,7 +156,7 @@ var roomsManager = {
 
   getBoard: getBoard,
   loadBoard: loadBoard,
-  createTaskBoard: createTaskBoard,
+  getOrCreateTaskBoard: getOrCreateTaskBoard,
 
   placeSocketId: placeSocketId,
   placeSocket: placeSocket,
