@@ -70,7 +70,7 @@ angular.module('whiteboard-admin')
     },
     link: function(scope, element, attrs) {
       element.find('#assignRoomsButton').click(function() {
-         Sockets.emit('assignRooms', $scope.sockets);
+         Sockets.emit('assignRooms', scope.sockets);
       });
       console.log("calling link function");
         /*
