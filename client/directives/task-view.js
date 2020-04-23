@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbTaskView', ['$compile', '$http', '$templateCache', 'BoardData', 'Sockets', "angularLoad", function($compile, $http, $templateCache, BoardData, Sockets, angularLoad) {
+.directive('wbTaskView', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', "angularLoad", function($compile, $http, $templateCache, BoardData, EventHandler, Sockets, angularLoad) {
   var getTemplate = function(template) {
     var templateLoader;
     var baseUrl = './templates/';
@@ -24,6 +24,7 @@ angular.module('whiteboard')
       if (typeof board !== 'undefined') {
           if (board.id) {
               BoardData.loadBoard(board.id);
+              EventHandler.drawBoard();
           } else {
               if (board.task && board.task.id) {
                   //BoardData.getLatestBoardFromApi(board.task.id);

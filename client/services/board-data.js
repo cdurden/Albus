@@ -298,7 +298,7 @@ angular.module('whiteboard.services.boarddata', [])
     } else {
       setBoardById(id);
     }
-    drawBoard()
+    //drawBoard()
   }
 
 
