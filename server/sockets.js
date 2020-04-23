@@ -111,7 +111,8 @@ module.exports = function(server) {
       console.log("assigning sockets to rooms");
       for (socketId in assignments) {
         rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
-        getSocketData(socket.id).then(function(data) {
+        getSocketData(socketId).then(function(data) {
+            var socketId = data.socketId;
             var assignment = data.assignment;
             console.log("Getting assignment "+assignment+" for socket "+socket.id);
             request({
@@ -126,7 +127,7 @@ module.exports = function(server) {
               data = JSON.parse(body)
               api.getTasksFromSource(data, function(error, data) {
                   console.log(data);
-                  socket.emit('tasks', data);
+                  io.of("/client").connected[socketId].emit('tasks', data);
               });
             })  
         });
