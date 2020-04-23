@@ -130,7 +130,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
     }
     boardId = generateRandomId(5);
     rooms[roomId][boardId] = {};
-    taskBoards[taskId] = boardId;
+    taskBoards[roomId][taskId] = boardId;
   } else {
     boardId = taskBoards[taskId];
     console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
