@@ -9,9 +9,6 @@ angular.module('whiteboard-admin')
       $scope.tasks = {};
       $scope.assignments = {};
       $scope.sockets = {};
-      Sockets.on('allClientData', function (data) {
-          $scope.sockets = data;
-      });
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;
