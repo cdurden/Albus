@@ -264,6 +264,7 @@ module.exports = function(server) {
           client.hmset(socket.id, flat_data, function(err, result) {
           //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
             rooms.placeSocket(socket, function() {
+              console.log("Setting up boards for socket "+socket.id);
               rooms.setupBoards(socket, function (boards) {
                 console.log("Sending boards to "+socket.id);
                 socket.emit('boards', boards);
