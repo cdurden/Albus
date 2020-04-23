@@ -69,7 +69,7 @@ angular.module('whiteboard')
           tasks.forEach((task, i) => { 
             board = BoardData.getOrCreateTaskBoard(task.id);
           });
-      }, objectEquality=true);
+      });
     }
   }
 }]);
