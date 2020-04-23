@@ -88,6 +88,26 @@ angular.module('whiteboard.services.eventhandler', [])
   function resetBoards() {
     BoardData.resetBoards();
   };
+  function drawBoard() {
+    BoardData.clearBoard();
+    data = BoardData.getBoardObj().data;
+    for (socketId in data) {
+      if (Object.keys(data[socketId]).length) {
+        for (id in data[socketId]) {
+          var thisShape = data[socketId][id];
+          if (thisShape.tool.name === 'path') {
+            EventHandler.drawExistingPath(thisShape);
+          } else if (thisShape.initX && thisShape.initY) {
+            EventHandler.createShape(id, socketId, thisShape.tool, thisShape.initX, thisShape.initY);
+            if (thisShape.tool.name !== 'text') {
+              EventHandler.editShape(id, socketId, thisShape.tool, thisShape.mouseX, thisShape.mouseY);
+            }
+            EventHandler.finishShape(thisShape.myid, thisShape.socketId, thisShape.tool);
+          }
+        }
+      }
+    }
+  };
 
   return {
     cursor: cursor,
@@ -106,6 +126,6 @@ angular.module('whiteboard.services.eventhandler', [])
     setTasks: setTasks,
     clearBoard: clearBoard,
     addBoard: addBoard,
-    resetBoards: resetBoards,
+    drawBoard: drawBoard,
   };
 }]);

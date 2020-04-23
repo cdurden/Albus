@@ -237,26 +237,6 @@ angular.module('whiteboard.services.boarddata', [])
     shapeStorage = {};
     getCanvas() && getCanvas().empty();
   }
-  function drawBoard() {
-    clearBoard();
-    data = getBoardObj(boardId).data;
-    for (socketId in data) {
-      if (Object.keys(data[socketId]).length) {
-        for (id in data[socketId]) {
-          var thisShape = data[socketId][id];
-          if (thisShape.tool.name === 'path') {
-            EventHandler.drawExistingPath(thisShape);
-          } else if (thisShape.initX && thisShape.initY) {
-            EventHandler.createShape(id, socketId, thisShape.tool, thisShape.initX, thisShape.initY);
-            if (thisShape.tool.name !== 'text') {
-              EventHandler.editShape(id, socketId, thisShape.tool, thisShape.mouseX, thisShape.mouseY);
-            }
-            EventHandler.finishShape(thisShape.myid, thisShape.socketId, thisShape.tool);
-          }
-        }
-      }
-    }
-  }
   function getBoards(sortKey = 'index') {
       //boards.sort(function(a,b) { return a[sortKey]-b[sortKey] })
       return(boards);
