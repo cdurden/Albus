@@ -132,7 +132,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
     rooms[roomId][boardId] = {};
     taskBoards[roomId][taskId] = boardId;
   } else {
-    boardId = taskBoards[taskId];
+    boardId = taskBoards[roomId][taskId];
     console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
   }
   setupBoard(socket, boardId, function(result) {
