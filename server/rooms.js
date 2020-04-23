@@ -120,6 +120,7 @@ function loadBoard(socket, board, callback) {
 function getOrCreateTaskBoard(socket, taskId, callback) {
   roomId = socket.room;
   if (typeof taskBoards[roomId] === 'undefined') {
+    console.log("Task boards for roomId "+roomId+" do not exist. Creating this collection.");
     taskBoards[roomId] = {};
   }
   if (typeof taskBoards[roomId][taskId] === 'undefined') {
