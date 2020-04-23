@@ -123,6 +123,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
     taskBoards[roomId] = {};
   }
   if (typeof taskBoards[roomId][taskId] === 'undefined') {
+    console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
     if (typeof rooms[roomId] === 'undefined') {
         setupRoom(socket);
     }
@@ -131,6 +132,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
     taskBoards[taskId] = boardId;
   } else {
     boardId = taskBoards[taskId];
+    console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
   }
   setupBoard(socket, boardId, function(result) {
       callback(null, {
