@@ -85,6 +85,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function setTaskBoard(boardId, taskId) {
     BoardData.setTaskBoard(boardId, taskId);
   };
+  function resetBoards() {
+    BoardData.resetBoards();
+  };
 
   return {
     cursor: cursor,
@@ -103,5 +106,6 @@ angular.module('whiteboard.services.eventhandler', [])
     setTasks: setTasks,
     clearBoard: clearBoard,
     addBoard: addBoard,
+    resetBoards: resetBoards,
   };
 }]);

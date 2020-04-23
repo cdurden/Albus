@@ -111,6 +111,25 @@ module.exports = function(server) {
       console.log("assigning sockets to rooms");
       for (socketId in assignments) {
         rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
+        getSocketData(socket.id).then(function(data) {
+            var assignment = data.assignment;
+            console.log("Getting assignment "+assignment+" for socket "+socket.id);
+            request({
+                method: 'GET',
+                url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
+                transformResponse: [function (data) {
+                  return data;
+                }]
+            }, function(error, response, body) {
+              console.log("assignment data");
+              console.log(body);
+              data = JSON.parse(body)
+              api.getTasksFromSource(data, function(error, data) {
+                  console.log(data);
+                  socket.emit('tasks', data);
+              });
+            })  
+        });
       }
     });
     socket.on('updateAssignments', function(data) {
