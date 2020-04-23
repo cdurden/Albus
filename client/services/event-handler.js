@@ -9,37 +9,37 @@ angular.module('whiteboard.services.eventhandler', [])
     BoardData.setSocketId(socketId);
   };
 
-  function createShape (id, socketId, tool, x, y) {
-    ShapeBuilder.newShape(id, socketId, tool, x, y);
+  function createShape (id, socketId, boardId, tool, x, y) {
+    ShapeBuilder.newShape(id, socketId, boardId, tool, x, y);
   }
 
-  function editShape (id, socketId, tool, x, y) {
-    ShapeEditor.editShape(id, socketId, tool, x, y);
+  function editShape (id, socketId, boardId, tool, x, y) {
+    ShapeEditor.editShape(id, socketId, boardId, tool, x, y);
   }
 
-  function finishShape (id, socketId, tool) {
-    ShapeEditor.finishShape(id, socketId, tool);
+  function finishShape (id, socketId, boardId, tool) {
+    ShapeEditor.finishShape(id, socketId, boardId, tool);
   }
 
-  function finishCopiedPath (id, socketId, tool, pathDProps) {
-    ShapeEditor.finishCopiedPath(id, socketId, tool, pathDProps);
+  function finishCopiedPath (id, socketId, boardId, tool, pathDProps) {
+    ShapeEditor.finishCopiedPath(id, socketId, boardId, tool, pathDProps);
   }
 
-  function deleteShape (id, socketId) {
-    ShapeEditor.deleteShape(id, socketId);
+  function deleteShape (id, socketId, boardId) {
+    ShapeEditor.deleteShape(id, socketId, boardId);
   }
 
   function moveShape (shape, x, y) {
-    ShapeManipulation.moveShape(shape.myid, shape.socketId, x, y);
+    ShapeManipulation.moveShape(shape.myid, shape.socketId, shape.boardId, x, y);
   }
 
-  function finishMovingShape (id, socketId) {
-    ShapeManipulation.finishMovingShape(id, socketId);
+  function finishMovingShape (id, socketId, boardId) {
+    ShapeManipulation.finishMovingShape(id, socketId, boardId);
   }
 
   function drawExistingPath (shape) {
     ShapeBuilder.drawExistingPath(shape);
-    var currentShape = BoardData.getShapeById(shape.myid, shape.socketId);
+    var currentShape = BoardData.getShapeById(shape.myid, shape.socketId, shape.boardId);
     ShapeManipulation.pathSmoother(currentShape);
   }
 

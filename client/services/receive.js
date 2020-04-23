@@ -49,19 +49,19 @@ angular.module('whiteboard.services.receive', [])
   });
 
   Sockets.on('shapeEdited', function (data) {
-    EventHandler.editShape(data.myid, data.socketId, data.tool, data.mouseX, data.mouseY);
+    EventHandler.editShape(data.myid, data.socketId, data.boardId, data.tool, data.mouseX, data.mouseY);
   });
 
   Sockets.on('shapeCompleted', function (data) {
-    EventHandler.finishShape(data.myid, data.socketId, data.tool);
+    EventHandler.finishShape(data.myid, data.socketId, data.boardId, data.tool);
   });
 
   Sockets.on('copiedPathCompleted', function (data) {
-    EventHandler.finishCopiedPath(data.myid, data.socketId, data.tool, data.pathDProps);
+    EventHandler.finishCopiedPath(data.myid, data.socketId, data.boardId, data.tool, data.pathDProps);
   });
 
   Sockets.on('shapeCreated', function (data) {
-    EventHandler.createShape(data.myid, data.socketId, data.tool, data.initX, data.initY);
+    EventHandler.createShape(data.myid, data.socketId, data.boardId, data.tool, data.initX, data.initY);
   });
 
   Sockets.on('shapeMoved', function (data) {
@@ -69,11 +69,11 @@ angular.module('whiteboard.services.receive', [])
   });
 
   Sockets.on('shapeFinishedMoving', function (data) {
-    EventHandler.finishMovingShape(data.myid, data.socketId);
+    EventHandler.finishMovingShape(data.myid, data.socketId, data.boardId);
   });
 
   Sockets.on('shapeDeleted', function (data) {
-    EventHandler.deleteShape(data.myid, data.socketId);
+    EventHandler.deleteShape(data.myid, data.socketId, data.boardId);
   });
 
     /*
