@@ -27,11 +27,6 @@ angular.module('whiteboard')
       this.handleEvent = function (ev) {
         InputHandler[ev.type](ev);
       }
-      this.requestData = function (ev) {
-          ev.preventDefault(); // prevents page reloading
-          Sockets.emit("getAssignedTasks");
-          return false;
-      };
     },
     link: function(scope, element, attrs, ctrl) {
       var boardCtrl = ctrl;

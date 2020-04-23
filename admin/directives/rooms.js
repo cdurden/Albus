@@ -51,9 +51,6 @@ angular.module('whiteboard-admin')
                 $('#roomsJSON').html(socketsJSON);
               },
             });
-            $('#assignRoomsButton').click(function() {
-              Sockets.emit('assignRooms', $scope.sockets);
-            });
           });
         }
         $scope.$watch("rooms", function (value) {//I change here
@@ -72,6 +69,9 @@ angular.module('whiteboard-admin')
       Sockets.emit('getAllClientData');
     },
     link: function(scope, element, attrs) {
+      element.find('#assignRoomsButton').click(function() {
+         Sockets.emit('assignRooms', $scope.sockets);
+      });
       console.log("calling link function");
         /*
       function injectLibsFromStack(callback){
