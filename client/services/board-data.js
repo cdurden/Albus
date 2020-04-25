@@ -177,7 +177,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function getShapeById (id, socketId) {
-    return shapeStorage[socketId][id];
+    return boards[boardId].shapeStorage[socketId][id];
   }
 
   function getCurrentShape () {
@@ -185,7 +185,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function setCurrentShape (id) {
-    currentShape = shapeStorage[socketId][id];
+    currentShape = boards[boardId].shapeStorage[socketId][id];
   }
 
   function unsetCurrentShape () {
@@ -226,7 +226,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function getShapeStorage () {
-    return shapeStorage;
+    return boards[boardId].shapeStorage;
   }
 
   function setStrokeWidth (width) {
@@ -237,7 +237,7 @@ angular.module('whiteboard.services.boarddata', [])
     return tool['stroke-width'];
   }
   function clearBoard() {
-    shapeStorage = {};
+    //shapeStorage = {};
     getCanvas() && getCanvas().empty();
   }
   function getBoards(sortKey = 'index') {
@@ -268,10 +268,10 @@ angular.module('whiteboard.services.boarddata', [])
           if (typeof boards[boardId].shapeStorage === 'undefined') {
               boards[boardId].shapeStorage = {};
           }
-          boards[boardId].shapeStorage = Object.assign(boards[boardId].shapeStorage, shapeStorage);
+          //boards[boardId].shapeStorage = Object.assign(boards[boardId].shapeStorage, shapeStorage);
       }
       boardId = newBoardId;
-      shapeStorage = boards[newBoardId].shapeStorage;
+      //shapeStorage = boards[newBoardId].shapeStorage;
   }
   function getBoardObj(id) {
       if (typeof id === 'undefined') {
