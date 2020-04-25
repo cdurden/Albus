@@ -317,13 +317,14 @@ module.exports = function(server) {
       //console.log(this);
       console.log(this.room);
       socket.to(this.room).emit('shapeCreated', data);
-      rooms.addShape(data, socket, 'boardId');
+      console.log(data);
+      rooms.addShape(data, socket);
     });
 
     socket.on('editShape', function (data) {
       socket.to(this.room).emit('shapeEdited', data);
       if (data.tool.name !== 'text') {
-        rooms.editShape(data, socket, 'boardId');
+        rooms.editShape(data, socket);
       }
     });
 
@@ -333,7 +334,7 @@ module.exports = function(server) {
         myid: data.myid,
         tool: data.tool
       });
-      rooms.completeShape(data, socket, 'boardId');
+      rooms.completeShape(data, socket);
     });
 
     socket.on('pathCompleted', function (data) {
@@ -342,7 +343,7 @@ module.exports = function(server) {
         myid: data.myid,
         tool: data.tool
       });
-      rooms.completePath(data, socket, 'boardId');
+      rooms.completePath(data, socket);
     });
 
     socket.on('copiedPathCompleted', function (data) {
@@ -352,21 +353,21 @@ module.exports = function(server) {
         tool: data.tool,
         pathDProps: data.pathDProps
       });
-      rooms.completePath(data, socket, 'boardId');
+      rooms.completePath(data, socket);
     })
 
     socket.on('moveShape', function (data) {
       rooms.moveShape(data, socket);
-      socket.to(this.room).emit('shapeMoved', data, 'boardId');
+      socket.to(this.room).emit('shapeMoved', data);
     });
 
     socket.on('finishMovingShape', function (data) {
-      rooms.completeShape(data, socket, 'boardId');
+      rooms.completeShape(data, socket);
       socket.to(this.room).emit('shapeFinishedMoving', data);
     });
 
     socket.on('deleteShape', function (data) {
-      rooms.deleteShape(data, socket, 'boardId');
+      rooms.deleteShape(data, socket);
       socket.to(this.room).emit('shapeDeleted', {myid: data.myid, socketId: data.socketId});
     });
 
