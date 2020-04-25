@@ -20,7 +20,7 @@ angular.module('whiteboard')
       Sockets.emit("getAssignedTasks");
       $scope.setBoardId = function(id) {
           $scope.boardId = id;
-          BoardDate.setBoardById(id);
+          //BoardData.setBoardById(id);
       }
       $scope.setBoardIndex = function(i) {
           $scope.i = i;

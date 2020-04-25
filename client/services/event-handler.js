@@ -96,13 +96,13 @@ angular.module('whiteboard.services.eventhandler', [])
         for (id in shapeStorage[socketId]) {
           var thisShape = shapeStorage[socketId][id];
           if (thisShape.tool.name === 'path') {
-            EventHandler.drawExistingPath(thisShape);
+            drawExistingPath(thisShape);
           } else if (thisShape.initX && thisShape.initY) {
-            EventHandler.createShape(id, socketId, thisShape.tool, thisShape.initX, thisShape.initY);
+            createShape(id, socketId, thisShape.tool, thisShape.initX, thisShape.initY);
             if (thisShape.tool.name !== 'text') {
-              EventHandler.editShape(id, socketId, thisShape.tool, thisShape.mouseX, thisShape.mouseY);
+              editShape(id, socketId, thisShape.tool, thisShape.mouseX, thisShape.mouseY);
             }
-            EventHandler.finishShape(thisShape.myid, thisShape.socketId, thisShape.tool);
+            finishShape(thisShape.myid, thisShape.socketId, thisShape.tool);
           }
         }
       }
