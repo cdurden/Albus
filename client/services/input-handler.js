@@ -56,7 +56,7 @@ angular.module('whiteboard.services.inputhandler', [])
           if (shape.type === 'path') {
             if (Raphael.pathIntersection(mousePathString, shape.attr('path')).length) {
               Broadcast.deleteShape(shape.myid, shape.socketId, boardId);
-              EventHandler.deleteShape(shape.myid, shape.socketId);
+              EventHandler.deleteShape(shape.myid, shape.socketId, boardId); //FIXME: is boardId a shape attribute?
             }
           }
         });
@@ -64,7 +64,7 @@ angular.module('whiteboard.services.inputhandler', [])
       var shape = BoardData.getBoard().getElementByPoint(ev.clientX, ev.clientY);
       if (shape) {
         Broadcast.deleteShape(shape.myid, shape.socketId, boardId);
-        EventHandler.deleteShape(shape.myid, shape.socketId);
+        EventHandler.deleteShape(shape.myid, shape.socketId, boardId);
       }
       lastEv = ev;
     },
@@ -105,7 +105,7 @@ angular.module('whiteboard.services.inputhandler', [])
       var boardId = BoardData.getBoardId();
 
       Visualizer.clearSelection();
-      EventHandler.moveShape(currentEditorShape, mouseXY.x, mouseXY.y);
+      EventHandler.moveShape(currentEditorShape, boardId, mouseXY.x, mouseXY.y); //FIXME: is boardId a shape attribute?
       Broadcast.moveShape(currentEditorShape, boardId, mouseXY.x, mouseXY.y);
     },
     mouseUp: function (ev) {
@@ -114,7 +114,7 @@ angular.module('whiteboard.services.inputhandler', [])
       var boardId = BoardData.getBoardId();
 
       Broadcast.finishMovingShape(editorShape, boardId);
-      EventHandler.finishMovingShape(editorShape.myid, editorShape.socketId);
+      EventHandler.finishMovingShape(editorShape.myid, editorShape.socketId, boardId);
       BoardData.unsetEditorShape();
     },
     mouseOver: function (ev) {
@@ -138,7 +138,7 @@ angular.module('whiteboard.services.inputhandler', [])
       var newMouseX = shape.mouseX + 10 || newInitX;
       var newMouseY = shape.mouseY + 10 || newInitY;
 
-      EventHandler.createShape(newId, socketId, shape.tool, newInitX, newInitY);
+      EventHandler.createShape(newId, socketId, boardId, shape.tool, newInitX, newInitY);
       Broadcast.newShape(newId, socketId, boardId, shape.tool, newInitX, newInitY);
       if (shape.tool.name === 'path') {
         BoardData.setCurrentShape(newId);
@@ -160,14 +160,14 @@ angular.module('whiteboard.services.inputhandler', [])
       }
 
       if (!!shape.tool.text) {
-        EventHandler.editShape(newId, socketId, shape.tool, newInitX, newInitY);
+        EventHandler.editShape(newId, socketId, boardId, shape.tool, newInitX, newInitY);
       } else {
-        EventHandler.editShape(newId, socketId, shape.tool, newMouseX, newMouseY);
+        EventHandler.editShape(newId, socketId, boardId, shape.tool, newMouseX, newMouseY);
       }
 
       Broadcast.editShape(newId, socketId, boardId, shape.tool, newMouseX, newMouseY);
 
-      EventHandler.finishShape(newId, socketId, shape.tool);
+      EventHandler.finishShape(newId, socketId, boardId, shape.tool);
       shape.tool.name === 'path' ? Broadcast.finishCopiedPath(newId, shape.tool, currentShape.pathDProps) : Broadcast.finishShape(newId, shape.tool);
     },
     mouseOver: function (ev) {
@@ -187,7 +187,7 @@ angular.module('whiteboard.services.inputhandler', [])
       var currentTool = BoardData.getCurrentTool();
       currentTool.text = defaultText;
 
-      EventHandler.createShape(id, socketId, currentTool, mouseXY.x, mouseXY.y);
+      EventHandler.createShape(id, socketId, boardId, currentTool, mouseXY.x, mouseXY.y);
       BoardData.setCurrentShape(id);
       Broadcast.newShape(id, socketId, boardId, currentTool, mouseXY.x, mouseXY.y);
       var currentShape = BoardData.getCurrentShape();
@@ -209,7 +209,7 @@ angular.module('whiteboard.services.inputhandler', [])
             'fill': editorShape.trueColors.fill,
             'stroke': editorShape.trueColors.stroke
           })
-          EventHandler.finishShape(id, socketId, editorShape.tool);
+          EventHandler.finishShape(id, socketId, boardId, editorShape.tool);
           Broadcast.finishShape(id, boardId, editorShape.tool);
           editorShape = null;
           document.onkeydown = document.onkeypress = function () {};
@@ -217,7 +217,7 @@ angular.module('whiteboard.services.inputhandler', [])
           // typing text
           editorShape.attr('text', editorShape.attr('text') + String.fromCharCode(ev.keyCode));
           currentTool.text = editorShape.attr('text');
-          EventHandler.editShape(id, socketId, currentTool, editorShape.initX, editorShape.initY);
+          EventHandler.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
           Broadcast.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
         }
       }
@@ -230,7 +230,7 @@ angular.module('whiteboard.services.inputhandler', [])
           if (editorShape) {
             editorShape.attr('text', editorShape.attr('text').slice(0, editorShape.attr('text').length - 1));
             currentTool.text = editorShape.attr('text');
-            EventHandler.editShape(id, socketId, currentTool, editorShape.initX, editorShape.initY);
+            EventHandler.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
             Broadcast.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
           }
         }
@@ -258,7 +258,7 @@ angular.module('whiteboard.services.inputhandler', [])
         delete currentTool.text;
       }
 
-      EventHandler.createShape(id, socketId, currentTool, coords[0], coords[1]);
+      EventHandler.createShape(id, socketId, boardId, currentTool, coords[0], coords[1]);
       BoardData.setCurrentShape(id);
       Broadcast.newShape(id, socketId, boardId, currentTool, coords[0], coords[1]);
     },
@@ -271,7 +271,7 @@ angular.module('whiteboard.services.inputhandler', [])
       var coords = Snap.snapToPoints(mouseXY.x, mouseXY.y);
 
       Broadcast.editShape(id, socketId, boardId, currentTool, coords[0], coords[1]);
-      EventHandler.editShape(id, socketId, currentTool, coords[0], coords[1]);
+      EventHandler.editShape(id, socketId, boardId, currentTool, coords[0], coords[1]);
     },
     mouseUp: function (ev) {
       var id = BoardData.getCurrentShapeId();
@@ -289,7 +289,7 @@ angular.module('whiteboard.services.inputhandler', [])
 
       shape.tool = currentToolCopy;
 
-      EventHandler.finishShape(id, socketId, currentToolCopy);
+      EventHandler.finishShape(id, socketId, boardId, currentToolCopy);
       BoardData.unsetCurrentShape();
       Visualizer.clearSnaps();
 
