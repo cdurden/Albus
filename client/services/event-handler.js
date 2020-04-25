@@ -90,8 +90,8 @@ angular.module('whiteboard.services.eventhandler', [])
   };
   function drawBoard() {
     BoardData.clearBoard();
-    data = BoardData.getBoardObj().data;
-    for (socketId in data) {
+    shapeStorage = BoardData.getBoardObj().shapeStorage;
+    for (socketId in shapeStorage) {
       if (Object.keys(data[socketId]).length) {
         for (id in data[socketId]) {
           var thisShape = data[socketId][id];
