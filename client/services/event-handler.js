@@ -92,9 +92,9 @@ angular.module('whiteboard.services.eventhandler', [])
     BoardData.clearBoard();
     shapeStorage = BoardData.getBoardObj().shapeStorage;
     for (socketId in shapeStorage) {
-      if (Object.keys(data[socketId]).length) {
-        for (id in data[socketId]) {
-          var thisShape = data[socketId][id];
+      if (Object.keys(shapeStorage[socketId]).length) {
+        for (id in shapeStorage[socketId]) {
+          var thisShape = shapeStorage[socketId][id];
           if (thisShape.tool.name === 'path') {
             EventHandler.drawExistingPath(thisShape);
           } else if (thisShape.initX && thisShape.initY) {
