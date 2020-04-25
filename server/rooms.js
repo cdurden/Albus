@@ -81,7 +81,7 @@ function setupBoard(socket, boardId, callback) {
         client.hmset(roomId, boardId, JSON.stringify({})); 
         rooms[roomId][boardId] = {};
       }
-      console.log("Setting up board for socket "+socket.id);
+      console.log("Setting up board "+boardId+" for socket "+socket.id);
       console.log("Redis board data");
       console.log(reply);
       
