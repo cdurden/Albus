@@ -76,7 +76,7 @@ angular.module('whiteboard.services.shapeeditor', [])
     });
   };
 
-  function editShape (id, socketId, tool, x, y) {
+  function editShape (id, socketId, boardId, tool, x, y) {
     var shapeHandlers = {
       'circle': changeCircle,
       'path': changePath,
@@ -85,7 +85,7 @@ angular.module('whiteboard.services.shapeeditor', [])
       'rectangle': changeRectangle,
       'text': changeText
     };
-    var shape = BoardData.getShapeById(id, socketId);
+    var shape = BoardData.getShapeById(id, socketId, boardId);
     
     if (tool.name !== 'text') {
       shape.mouseX = x;
@@ -96,8 +96,8 @@ angular.module('whiteboard.services.shapeeditor', [])
     !!tool.text ? shapeHandlers['text'](shape, x, y, tool) : shapeHandlers[tool.name](shape, x, y);
   };
 
-  function finishShape (id, socketId, tool) {
-    var shape = BoardData.getShapeById(id, socketId);
+  function finishShape (id, socketId, boardId, tool) {
+    var shape = BoardData.getShapeById(id, socketId, boardId);
 
     if (shape.type === 'text') {
       if (shape.attr('text') === 'Start Typing...') {
@@ -123,8 +123,8 @@ angular.module('whiteboard.services.shapeeditor', [])
     Snap.createSnaps(shape);
   };
 
-  function finishCopiedPath (id, socketId, tool, pathDProps) {
-    var shape = BoardData.getShapeById(id, socketId);
+  function finishCopiedPath (id, socketId, boardId, tool, pathDProps) {
+    var shape = BoardData.getShapeById(id, socketId, boardId);
     shape.pathDProps = pathDProps;
     shape.attr('path', shape.pathDProps);
     if ((shape.myid || shape.myid === 0) && tool.name === 'path') {
@@ -132,8 +132,8 @@ angular.module('whiteboard.services.shapeeditor', [])
     }
   }
 
-  function deleteShape (id, socketId) {
-    var shape = BoardData.getShapeById(id, socketId);
+  function deleteShape (id, socketId, boardId) {
+    var shape = BoardData.getShapeById(id, socketId, boardId);
 
     Snap.deleteSnaps(shape);
     shape.remove();

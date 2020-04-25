@@ -176,7 +176,7 @@ angular.module('whiteboard.services.boarddata', [])
     boards[boardId].shapeStorage[socketId][id] = shape;
   }
 
-  function getShapeById (id, socketId) {
+  function getShapeById (id, socketId, boardId) {
     return boards[boardId].shapeStorage[socketId][id];
   }
 
