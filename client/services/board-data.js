@@ -167,6 +167,9 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function pushToStorage (id, socketId, boardId, shape) {
+    if (!boards[boardId].shapeStorage) {
+      boards[boardId].shapeStorage = {};
+    }
     if (!boards[boardId].shapeStorage[socketId]) {
       boards[boardId].shapeStorage[socketId] = {};
     }
