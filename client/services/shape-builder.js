@@ -27,10 +27,10 @@ angular.module('whiteboard.services.shapebuilder', [])
     existingPath.customSetPathD(shape.pathDProps);
     existingPath.pathDProps = shape.pathDProps;
     existingPath.attr('fill', existingPath.tool.colors.fill);
-    BoardData.pushToStorage(shape.myid, shape.socketId, existingPath);
+    //BoardData.pushToStorage(shape.myid, shape.socketId, shape.boardId, existingPath);
   }
 
-  function newShape (id, socketId, tool, x, y) {
+  function newShape (id, socketId, boardId, tool, x, y) {
     var shapeConstructors = {
       'circle': function (x, y) {
         return BoardData.getBoard().circle(x, y, 0);
@@ -74,7 +74,7 @@ angular.module('whiteboard.services.shapebuilder', [])
     shape.socketId = socketId;
     if (tool.name === 'path') Snap.createSnaps(shape);
     if (tool.name !== 'text') setWidth(shape, tool['stroke-width']);
-    BoardData.pushToStorage(id, socketId, shape);
+    BoardData.pushToStorage(id, socketId, boardId, shape);
   };
 
   return {

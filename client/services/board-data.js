@@ -166,11 +166,11 @@ angular.module('whiteboard.services.boarddata', [])
     return socketId;
   }
 
-  function pushToStorage (id, socketId, shape) {
-    if (!shapeStorage[socketId]) {
-      shapeStorage[socketId] = {};
+  function pushToStorage (id, socketId, boardId, shape) {
+    if (!boards[boardId].shapeStorage[socketId]) {
+      boards[boardId].shapeStorage[socketId] = {};
     }
-    shapeStorage[socketId][id] = shape;
+    boards[boardId].shapeStorage[socketId][id] = shape;
   }
 
   function getShapeById (id, socketId) {
