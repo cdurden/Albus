@@ -23,7 +23,7 @@ angular.module('whiteboard.services.shapebuilder', [])
 
   function drawExistingPath (shape) {
     newShape(shape.myid, shape.socketId, shape.tool, shape.initX, shape.initY);
-    var existingPath = BoardData.getShapeById(shape.myid, shape.socketId);
+    var existingPath = BoardData.getShapeById(shape.myid, shape.socketId, shape.boardId);
     existingPath.customSetPathD(shape.pathDProps);
     existingPath.pathDProps = shape.pathDProps;
     existingPath.attr('fill', existingPath.tool.colors.fill);
