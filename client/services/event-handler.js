@@ -21,8 +21,8 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeEditor.editShape(id, socketId, boardId, tool, x, y);
     } else {
-      BoardData.getBoardById(boardId).shapeStorage[socketId][id]['mouseX'] = x;
-      BoardData.getBoardById(boardId).shapeStorage[socketId][id]['mouseY'] = y;
+      BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseX'] = x;
+      BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseY'] = y;
     }
   }
 
@@ -30,7 +30,7 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeEditor.finishShape(id, socketId, boardId, tool);
     } else {
-      BoardData.getBoardById(boardId).shapeStorage[socketId][id]['tool'] = tool;
+      BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['tool'] = tool;
     }
   }
 
