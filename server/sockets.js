@@ -332,7 +332,8 @@ module.exports = function(server) {
       socket.to(this.room).emit('shapeCompleted', {
         socketId: socket.id,
         myid: data.myid,
-        tool: data.tool
+        tool: data.tool,
+        boardId: data.boardId,
       });
       rooms.completeShape(data, socket);
     });
@@ -340,6 +341,7 @@ module.exports = function(server) {
     socket.on('pathCompleted', function (data) {
       socket.to(this.room).emit('shapeCompleted', {
         socketId: socket.id,
+        boardId: data.boardId,
         myid: data.myid,
         tool: data.tool
       });
@@ -351,6 +353,7 @@ module.exports = function(server) {
         socketId: socket.id,
         myid: data.myid,
         tool: data.tool,
+        boardId: data.boardId,
         pathDProps: data.pathDProps
       });
       rooms.completePath(data, socket);
@@ -368,7 +371,7 @@ module.exports = function(server) {
 
     socket.on('deleteShape', function (data) {
       rooms.deleteShape(data, socket);
-      socket.to(this.room).emit('shapeDeleted', {myid: data.myid, socketId: data.socketId});
+      socket.to(this.room).emit('shapeDeleted', {myid: data.myid, socketId: data.socketId, boardId: data.boardId});
     });
 
     socket.on('disconnect', function () {
