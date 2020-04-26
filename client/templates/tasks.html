@@ -1,10 +1,10 @@
 <div id="board-overlay">
   <div id="interactive-space" class="split">
     <div id="drawing-space" class="split split-horizontal">
-        <!--    <pinch-zoom>-->
+      <!--<pinch-zoom>-->
         <div wb-background>
         </div>
-        <!--</pinch-zoom>-->
+      <!--</pinch-zoom>-->
     </div>
     <div id="feed-space" wb-feed class="split split-horizontal"></div>
   </div>
@@ -17,7 +17,7 @@
       <div wb-task-view></div>
     </div>
     <div id="board-selector-container" class="split split-horizontal">
-        <a ng-repeat="board in boards track by $index" ng-click="console.log('clicked'); console.log($parent); $parent.setBoardId(board.id);"> {{ board.id }}</a>
+      <a ng-repeat="board in boards track by $index" ng-click="console.log('clicked'); console.log($parent); $parent.setBoardId(board.id);"> {{ board.id }}</a>
     </div>
   </div>
 </div>

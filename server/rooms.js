@@ -165,7 +165,7 @@ var roomsManager = {
 
   addShape: function (shape, socket) {
     if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, boardId);
+      setupBoard(socket, shape.boardId);
     }
     console.log("Adding shape to room, socket, board:");
     console.log(socket.room);
@@ -179,7 +179,7 @@ var roomsManager = {
 
   editShape: function (shape, socket) {
     if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, boardId);
+      setupBoard(socket, shape.boardId);
     }
     console.log(rooms);
     console.log(socket.room);
@@ -195,7 +195,7 @@ var roomsManager = {
 
   moveShape: function (shape, socket) {
     if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, boardId);
+      setupBoard(socket, shape.boardId);
     }
     var storedShape = rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
     if (shape.attr.r) {
@@ -226,7 +226,7 @@ var roomsManager = {
 
   completePath: function (shape, socket) {
     if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, boardId);
+      setupBoard(socket, shape.boardId);
     }
     rooms[socket.room][shape.boardId][socket.id][shape.myid]['pathDProps'] = shape.pathDProps;
     //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
@@ -235,7 +235,7 @@ var roomsManager = {
 
   completeShape: function (shape, socket) {
     if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, boardId);
+      setupBoard(socket, shape.boardId);
     }
     if (shape.tool && shape.tool.text) {
       rooms[socket.room][shape.boardId][socket.id][shape.myid]['tool'] = shape.tool;
@@ -246,7 +246,7 @@ var roomsManager = {
 
   deleteShape: function (shape, socket) {
     if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, boardId);
+      setupBoard(socket, shape.boardId);
     }
     console.log("deleting shape "+shape.myid);
     console.log("roomId: "+socket.room);

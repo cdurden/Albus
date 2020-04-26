@@ -5,4 +5,5 @@
 4. Render tasks.
 5. Fix drawing errors.
 6. Fix save function.
-7. 
+7. Set initial viewport so that it maps to image identically across devices
+8. Set the viewport for boards without backgrounds
