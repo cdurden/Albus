@@ -10,15 +10,28 @@ angular.module('whiteboard.services.eventhandler', [])
   };
 
   function createShape (id, socketId, boardId, tool, x, y) {
-    ShapeBuilder.newShape(id, socketId, boardId, tool, x, y);
+    if (BoardData.getBoardId() === boardId) {
+      ShapeBuilder.newShape(id, socketId, boardId, tool, x, y);
+    } else {
+      BoardData.pushToStorage(id, socketId, boardId, { 'myid': id, 'socketId': socketId, 'boardId': boardId, 'tool': tool, 'initX': x, 'initY': y });
+    }
   }
 
   function editShape (id, socketId, boardId, tool, x, y) {
-    ShapeEditor.editShape(id, socketId, boardId, tool, x, y);
+    if (BoardData.getBoardId() === boardId) {
+      ShapeEditor.editShape(id, socketId, boardId, tool, x, y);
+    } else {
+      BoardData.getBoardById(boardId).shapeStorage[socketId][id]['mouseX'] = x;
+      BoardData.getBoardById(boardId).shapeStorage[socketId][id]['mouseY'] = y;
+    }
   }
 
   function finishShape (id, socketId, boardId, tool) {
-    ShapeEditor.finishShape(id, socketId, boardId, tool);
+    if (BoardData.getBoardId() === boardId) {
+      ShapeEditor.finishShape(id, socketId, boardId, tool);
+    } else {
+      BoardData.getBoardById(boardId).shapeStorage[socketId][id]['tool'] = tool;
+    }
   }
 
   function finishCopiedPath (id, socketId, boardId, tool, pathDProps) {
