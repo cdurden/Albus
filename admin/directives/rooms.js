@@ -62,7 +62,7 @@ angular.module('whiteboard-admin')
           $('#printCode').html(socketsJSON);
           //let rooms = {};
           //let sockets = {};
-        });
+        }, true);
         console.log(data);
         console.log(rooms);
       });
