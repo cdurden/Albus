@@ -20,6 +20,7 @@ angular.module('whiteboard')
     };
     scope.$watchGroup(["$parent.boards", "$parent.boardId"], function(newValues) {
       var board = (newValues[0] || [])[newValues[1]];
+        /*
       scope.board = board;
       if (typeof board !== 'undefined') {
           if (board.id) {
@@ -35,6 +36,7 @@ angular.module('whiteboard')
       if (typeof board === 'undefined') { // FIXME: does this mean it is not a task board?
           BoardData.newBoard();
       }
+      */
       var task = (board || {}).task;
       if (typeof task !== 'undefined') {
           if (typeof task.data ==='undefined') {

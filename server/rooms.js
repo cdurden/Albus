@@ -59,6 +59,9 @@ function placeSocketId(socketId, callback) {
 function getBoard(roomId, boardId) {
     return(rooms[roomId][boardId]);
 }
+function getBoardStorage(roomId, boardId) {
+    return(rooms[roomId][boardId]);
+}
 function setupRoom(socket, callback) {
     roomId = socket.room;
     rooms[roomId] = {};
@@ -156,6 +159,7 @@ var roomsManager = {
   setupBoards: setupBoards,
 
   getBoard: getBoard,
+  getBoardStorage: getBoardStorage,
   loadBoard: loadBoard,
   getOrCreateTaskBoard: getOrCreateTaskBoard,
 

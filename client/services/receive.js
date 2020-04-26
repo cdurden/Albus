@@ -20,6 +20,11 @@ angular.module('whiteboard.services.receive', [])
       }
     }
   });
+  Sockets.on('boardStorage', function (data) {
+    console.log("got board storage");
+    console.log(data);
+    EventHandler.updateBoardStorage(data.boardId, data.shapeStorage);
+  });
   Sockets.on('board', function (data) {
     console.log("got board");
     console.log(data);

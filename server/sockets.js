@@ -405,7 +405,7 @@ function get_all_data_by_socket(socket, callback) {
       console.log(msg);
     });
     socket.on('saveBoardToApi', function(data) {
-      board = rooms.getBoard(rooms.getRoomId(socket))
+      board = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId)
       api.saveBoard(socket.handshake.session, board, data, function(err, data) {
         socket.emit('savedSuccess', data);
       });
@@ -416,6 +416,10 @@ function get_all_data_by_socket(socket, callback) {
           socket.emit('board', board);
         });
       });
+    });
+    socket.on('getBoardStorage', function(boardId) {
+      var boardStorage = rooms.getBoardStorage(socket, boardId);
+      socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
     });
     socket.on('getOrCreateTaskBoard', function(taskId) {
       api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {

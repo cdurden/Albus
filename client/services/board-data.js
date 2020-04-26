@@ -263,6 +263,9 @@ angular.module('whiteboard.services.boarddata', [])
       boards[_board.id] = _board;
     }
   }
+  function updateBoardStorage(_boardId, shapeStorage) {
+      boards[_boardId].shapeStorage = shapeStorage;
+  }
   function setBoardById(newBoardId) {
       if (typeof boards[boardId] !== 'undefined') {
           if (typeof boards[boardId].shapeStorage === 'undefined') {
@@ -299,12 +302,10 @@ angular.module('whiteboard.services.boarddata', [])
     Broadcast.getLatestBoardFromApi(taskId);
   }
   function loadBoard(id) {
-    if (typeof boards[id] === 'undefined') {
-      Broadcast.loadBoardFromApi(id);
-    } else {
-      setBoardById(id);
+    setBoardById(id);
+    if (boards[id].needsUpdate) {
+        Broadcast.getBoardStorage(id);
     }
-    //drawBoard()
   }
 
 
@@ -357,5 +358,6 @@ angular.module('whiteboard.services.boarddata', [])
     updateBoards: updateBoards,
     getOrCreateTaskBoard: getOrCreateTaskBoard,
     getTaskBoards: getTaskBoards,
+    updateBoardStorage: updateBoardStorage,
   }
 }]);

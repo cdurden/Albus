@@ -20,6 +20,7 @@ angular.module('whiteboard')
       Sockets.emit("getAssignedTasks");
       $scope.setBoardId = function(id) {
           $scope.boardId = id;
+          BoardData.loadBoard(id);
           //BoardData.setBoardById(id);
       }
       $scope.setBoardIndex = function(i) {
@@ -68,7 +69,7 @@ angular.module('whiteboard')
       })
       scope.$watch("taskData.tasks", function(tasks) {
           tasks.forEach((task, i) => { 
-            board = BoardData.getOrCreateTaskBoard(task.id);
+            BoardData.getOrCreateTaskBoard(task.id);
           });
       });
     }

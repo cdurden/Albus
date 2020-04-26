@@ -13,7 +13,7 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeBuilder.newShape(id, socketId, boardId, tool, x, y);
     } else {
-      BoardData.pushToStorage(id, socketId, boardId, { 'myid': id, 'socketId': socketId, 'boardId': boardId, 'tool': tool, 'initX': x, 'initY': y });
+      //BoardData.pushToStorage(id, socketId, boardId, { 'myid': id, 'socketId': socketId, 'boardId': boardId, 'tool': tool, 'initX': x, 'initY': y });
     }
   }
 
@@ -21,8 +21,8 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeEditor.editShape(id, socketId, boardId, tool, x, y);
     } else {
-      BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseX'] = x;
-      BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseY'] = y;
+      //BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseX'] = x;
+      //BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseY'] = y;
     }
   }
 
@@ -30,7 +30,7 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeEditor.finishShape(id, socketId, boardId, tool);
     } else {
-      BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['tool'] = tool;
+      //BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['tool'] = tool;
     }
   }
 
@@ -100,6 +100,12 @@ angular.module('whiteboard.services.eventhandler', [])
   };
   function resetBoards() {
     BoardData.resetBoards();
+  };
+  function updateBoardStorage(boardId, shapeStorage) {
+    BoardData.updateBoardStorage(boardId, shapeStorage);
+    if (BoardData.getBoardId() == boardId) {
+        drawBoard();
+    }
   };
   function drawBoard() {
     BoardData.clearBoard();
