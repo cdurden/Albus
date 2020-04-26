@@ -13,6 +13,7 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeBuilder.newShape(id, socketId, boardId, tool, x, y);
     } else {
+      BoardData.getBoardObj(boardId).needsUpdate = true;
       //BoardData.pushToStorage(id, socketId, boardId, { 'myid': id, 'socketId': socketId, 'boardId': boardId, 'tool': tool, 'initX': x, 'initY': y });
     }
   }
@@ -21,6 +22,7 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeEditor.editShape(id, socketId, boardId, tool, x, y);
     } else {
+      BoardData.getBoardObj(boardId).needsUpdate = true;
       //BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseX'] = x;
       //BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['mouseY'] = y;
     }
@@ -30,24 +32,41 @@ angular.module('whiteboard.services.eventhandler', [])
     if (BoardData.getBoardId() === boardId) {
       ShapeEditor.finishShape(id, socketId, boardId, tool);
     } else {
+      BoardData.getBoardObj(boardId).needsUpdate = true;
       //BoardData.getBoardObj(boardId).shapeStorage[socketId][id]['tool'] = tool;
     }
   }
 
   function finishCopiedPath (id, socketId, boardId, tool, pathDProps) {
-    ShapeEditor.finishCopiedPath(id, socketId, boardId, tool, pathDProps);
+    if (BoardData.getBoardId() === boardId) {
+      ShapeEditor.finishCopiedPath(id, socketId, boardId, tool, pathDProps);
+    } else {
+      BoardData.getBoardObj(boardId).needsUpdate = true;
+    }
   }
 
   function deleteShape (id, socketId, boardId) {
-    ShapeEditor.deleteShape(id, socketId, boardId);
+    if (BoardData.getBoardId() === boardId) {
+      ShapeEditor.deleteShape(id, socketId, boardId);
+    } else {
+      BoardData.getBoardObj(boardId).needsUpdate = true;
+    }
   }
 
   function moveShape (shape, x, y) {
-    ShapeManipulation.moveShape(shape.myid, shape.socketId, shape.boardId, x, y);
+    if (BoardData.getBoardId() === boardId) {
+      ShapeManipulation.moveShape(shape.myid, shape.socketId, shape.boardId, x, y);
+    } else {
+      BoardData.getBoardObj(boardId).needsUpdate = true;
+    }
   }
 
   function finishMovingShape (id, socketId, boardId) {
-    ShapeManipulation.finishMovingShape(id, socketId, boardId);
+    if (BoardData.getBoardId() === boardId) {
+      ShapeManipulation.finishMovingShape(id, socketId, boardId);
+    } else {
+      BoardData.getBoardObj(boardId).needsUpdate = true;
+    }
   }
 
   function drawExistingPath (shape) {

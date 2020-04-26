@@ -302,6 +302,9 @@ angular.module('whiteboard.services.boarddata', [])
     Broadcast.getLatestBoardFromApi(taskId);
   }
   function loadBoard(id) {
+    if (id !== boardId) {
+        clearBoard();
+    }
     setBoardById(id);
     if (boards[id].needsUpdate) {
         Broadcast.getBoardStorage(id);
