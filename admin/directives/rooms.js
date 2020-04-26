@@ -35,7 +35,7 @@ angular.module('whiteboard-admin')
         $('.roomList').each(function(i,roomElmt) { 
           var roomId=$(roomElmt).find(".room").text();
           $(roomElmt).find('span[id^=socketId]').each(function(j,socketElmt) {
-              $scope.sockets[$(socketElmt).text()]['roomId'] = roomId;
+              scope.sockets[$(socketElmt).text()]['roomId'] = roomId;
           });
         });
       }
@@ -47,7 +47,7 @@ angular.module('whiteboard-admin')
             group: 'rooms',
             onChange: function() {
               updateRooms();
-              var socketsJSON = JSON.stringify($scope.sockets,null,'\t');
+              var socketsJSON = JSON.stringify(scope.sockets,null,'\t');
               $('#roomsJSON').html(socketsJSON);
             },
           });
@@ -62,7 +62,7 @@ angular.module('whiteboard-admin')
         if (val)
           loadSortableJS(createSortables);
         updateRooms();
-        var socketsJSON = JSON.stringify($scope.sockets,null,'\t');
+        var socketsJSON = JSON.stringify(scope.sockets,null,'\t');
         element.find('#printCode').html(socketsJSON);
       }, true);
     },
