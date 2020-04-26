@@ -22,12 +22,14 @@ angular.module('whiteboard.services.shapebuilder', [])
   }
 
   function drawExistingPath (shape) {
-    newShape(shape.myid, shape.socketId, shape.boardId, shape.tool, shape.initX, shape.initY);
+    if (shape.boardId === BoardData.getBoardId()) {
+      newShape(shape.myid, shape.socketId, shape.boardId, shape.tool, shape.initX, shape.initY);
+    }
     var existingPath = BoardData.getShapeById(shape.myid, shape.socketId, shape.boardId);
     existingPath.customSetPathD(shape.pathDProps);
     existingPath.pathDProps = shape.pathDProps;
     existingPath.attr('fill', existingPath.tool.colors.fill);
-    //BoardData.pushToStorage(shape.myid, shape.socketId, shape.boardId, existingPath);
+    BoardData.pushToStorage(shape.myid, shape.socketId, shape.boardId, existingPath);
   }
 
   function newShape (id, socketId, boardId, tool, x, y) {
