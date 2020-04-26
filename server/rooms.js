@@ -43,7 +43,6 @@ function placeSocket(socket, callback) {
     assignRoomToSocket(socket, roomId, callback);
   })
 }
-//function placeSocket(socket, callback) {
 function placeSocketId(socketId, callback) {
   console.log("placing socket");
   client.hgetall(socketId, function(err, result) {
@@ -77,7 +76,6 @@ function setupBoard(socket, boardId, callback) {
         storedBoard = JSON.parse(reply);
         _.extend(rooms[roomId][boardId], storedBoard);
       } else {
-        //client.set(roomId, JSON.stringify({}));
         client.hmset(roomId, boardId, JSON.stringify({})); 
         rooms[roomId][boardId] = {};
       }
@@ -165,53 +163,10 @@ var roomsManager = {
   placeSocket: placeSocket,
   assignRoomToSocket: assignRoomToSocket,
 
-  
-  addMember: function (socket, roomId) {
-
-    // ensure there isn't double counting of roomIds in client side ('/roomId' and 'roomId' emit separately)
-    if (roomId[0] === '/') {
-      roomId = roomId.slice(1);
-    }
-
-    socket.room = roomId;
-    socket.join(roomId);
-
-    if (!rooms[roomId]) {
-      rooms[roomId] = {};
-    }
-
-    client.hget(roomId, function (err, reply) {
-      if (reply) {
-        storedRoom = JSON.parse(reply);
-        _.extend(rooms[roomId], storedRoom);
-      } else {
-        //client.set(roomId, JSON.stringify({}));
-        //client.hmset(roomId, boardId, JSON.stringify({}));
-        rooms[roomId] = {};
-      }
-      
-      if (!rooms[roomId]) {
-        rooms[roomId] = {};
-      }
-
-      // add member to room based on socket id
-      // console.log(rooms[roomId]);
-      var socketId = socket.id;
-      rooms[roomId][socketId] = {};
-      console.log("Sending showExisting to "+roomId);
-      socket.emit('showExisting', rooms[roomId]);
-      //console.log(rooms[roomId]);
-      
-      var count = 0;
-      for (var member in rooms[roomId]) {
-        count++;
-      }
-      // console.log('Current room ' + roomId + ' has ' + count + ' members');
-    });
-  },
-
   addShape: function (shape, socket) {
-    //console.log(socket);
+    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      setupBoard(socket, boardId);
+    }
     console.log("Adding shape to room, socket, board:");
     console.log(socket.room);
     console.log(shape.socketId);
@@ -223,6 +178,9 @@ var roomsManager = {
   },
 
   editShape: function (shape, socket) {
+    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      setupBoard(socket, boardId);
+    }
     console.log(rooms);
     console.log(socket.room);
     console.log(shape.socketId);
@@ -236,6 +194,9 @@ var roomsManager = {
   },
 
   moveShape: function (shape, socket) {
+    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      setupBoard(socket, boardId);
+    }
     var storedShape = rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
     if (shape.attr.r) {
       storedShape.initX = shape.attr.cx;
@@ -264,12 +225,18 @@ var roomsManager = {
   },
 
   completePath: function (shape, socket) {
+    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      setupBoard(socket, boardId);
+    }
     rooms[socket.room][shape.boardId][socket.id][shape.myid]['pathDProps'] = shape.pathDProps;
     //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
     client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
   },
 
   completeShape: function (shape, socket) {
+    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      setupBoard(socket, boardId);
+    }
     if (shape.tool && shape.tool.text) {
       rooms[socket.room][shape.boardId][socket.id][shape.myid]['tool'] = shape.tool;
     }
@@ -278,6 +245,9 @@ var roomsManager = {
   },
 
   deleteShape: function (shape, socket) {
+    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      setupBoard(socket, boardId);
+    }
     console.log("deleting shape "+shape.myid);
     console.log("roomId: "+socket.room);
     console.log("socketId: "+shape.socketId);
