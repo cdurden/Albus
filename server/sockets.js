@@ -450,8 +450,12 @@ function get_all_data_by_socket(socket, callback) {
                             if (typeof roomBoard !== 'undefined') {
                                 board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
                             }
+                            resolve(board);
+                        } else {
+                            rooms.getOrCreateTaskBoard(socket, task.id, function(err, result) {
+                                resolve(result);
+                            });
                         }
-                        resolve(board);
                     });
                 })).then(function(results) {
                     console.log("Got boards from tasks");
