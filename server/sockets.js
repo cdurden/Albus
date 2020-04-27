@@ -459,7 +459,7 @@ function get_all_data_by_socket(socket, callback) {
                     new Promise(resolve => {
                         rooms.getBoards(rooms.getRoomId(socket), function(roomBoards) {
                             resolve(roomBoards);
-                        }
+                        });
                     }).then(function(roomBoards) {
                         console.log("Got board from room");
                         console.log(roomBoards);
