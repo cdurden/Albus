@@ -62,6 +62,9 @@ function getBoard(roomId, boardId) {
 function getBoardStorage(roomId, boardId) {
     return((rooms[roomId] || {})[boardId]);
 }
+function getBoards(roomId) {
+    return(rooms[roomId]);
+}
 function setupRoom(socket, callback) {
     roomId = socket.room;
     rooms[roomId] = {};
