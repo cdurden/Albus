@@ -13,7 +13,7 @@ angular.module('whiteboard.services.eventhandler', [])
         'boardId': board.id,
     };
     */
-    Broadcast.saveBoardToApi(getBoardObj(boardId));
+    Broadcast.saveBoardToApi(BoardData.getBoardObj(boardId));
   }
   function loadBoard(id) {
     if (id !== BoardData.getBoardId()) {
