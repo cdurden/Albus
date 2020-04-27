@@ -418,7 +418,7 @@ function get_all_data_by_socket(socket, callback) {
       });
     });
     socket.on('getBoardStorage', function(boardId) {
-      var boardStorage = rooms.getBoardStorage(socket, boardId);
+      var boardStorage = rooms.getBoardStorage(socket.room, boardId);
       socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
     });
     socket.on('getOrCreateTaskBoard', function(taskId) {
