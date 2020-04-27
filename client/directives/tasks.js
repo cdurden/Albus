@@ -35,7 +35,7 @@ angular.module('whiteboard')
     },
     link: function(scope, element, attrs, ctrl) {
       var boardCtrl = ctrl;
-      BoardData.createBoard(element.find('#board-container').get(0));
+      BoardData.createBoard(element.find('#board-container'));
       var canvas = BoardData.getCanvas();
       //BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
       canvas.bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
