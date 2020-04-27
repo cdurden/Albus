@@ -462,6 +462,7 @@ function get_all_data_by_socket(socket, callback) {
                 })).then(function(results) {
                     console.log("Got boards from tasks");
                     console.log(results);
+                    var ids = results.map(board => { return board.id });
                     new Promise(resolve => {
                         roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
                         resolve(roomBoards);
@@ -469,8 +470,12 @@ function get_all_data_by_socket(socket, callback) {
                         console.log("Got board from room");
                         console.log(roomBoards);
                         for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
-                            results.push({ 'id': boardId,
-                                           'data': boardStorage});
+                            if (!ids.includes(boardId)) {
+                                results.push({
+                                    'id': boardId,
+                                    'data': boardStorage
+                                });
+                            }
                         }
                         socket.emit('boards', results);
                     });
