@@ -165,8 +165,7 @@ angular.module('whiteboard.services.boarddata', [])
   function getSocketId () {
     return socketId;
   }
-
-  function pushToStorage (id, socketId, boardId, shape) {
+  function getShapeStorage(id, boardId) {
     var _shapeStorage;
     if (typeof boards[boardId] === 'undefined') {
         _shapeStorage = shapeStorage;
@@ -176,6 +175,12 @@ angular.module('whiteboard.services.boarddata', [])
       }
       _shapeStorage = boards[boardId].shapeStorage
     }
+    return(_shapeStorage);
+  }
+
+
+  function pushToStorage (id, socketId, boardId, shape) {
+    var _shapeStorage = getShapeStorage(id, boardId);
     if (typeof _shapeStorage[socketId] === 'undefined') {
       _shapeStorage[socketId] = {};
     }
@@ -183,7 +188,8 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function getShapeById (id, socketId, boardId) {
-    return boards[boardId].shapeStorage[socketId][id];
+    var _shapeStorage = getShapeStorage(id, boardId);
+    return _shapeStorage[socketId][id];
   }
 
   function getCurrentShape () {
@@ -191,7 +197,8 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function setCurrentShape (id) {
-    currentShape = boards[boardId].shapeStorage[socketId][id];
+    var _shapeStorage = getShapeStorage(id, boardId);
+    currentShape = _shapeStorage[socketId][id];
   }
 
   function unsetCurrentShape () {
@@ -231,9 +238,11 @@ angular.module('whiteboard.services.boarddata', [])
     return scalingFactor;
   }
 
+    /*
   function getShapeStorage () {
     return boards[boardId].shapeStorage;
   }
+  */
 
   function setStrokeWidth (width) {
     tool['stroke-width'] = width;
