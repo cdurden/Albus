@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbToolbar', ['BoardData', 'Zoom', function (BoardData, Zoom, BoardData) {
+.directive('wbToolbar', ['BoardData', 'Zoom', 'EventHandler', function (BoardData, Zoom, EventHandler) {
   return {
     restrict: 'A',
     replace: true,
@@ -290,7 +290,7 @@ angular.module('whiteboard')
     controller: function ($scope, BoardData) {
 
       this.saveBoard = function () {
-        BoardData.saveBoard(); 
+        EventHandler.saveBoardToApi(BoardData.getBoardId()); 
       }
 
       $scope.setAttributeTool = function (toolName) {

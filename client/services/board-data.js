@@ -307,12 +307,6 @@ angular.module('whiteboard.services.boarddata', [])
       }
       return(boards[id]);
   }
-  function saveBoardToApi() {
-    data = {};
-    data.taskId = taskId;
-    data.boardId = boardId;
-    Broadcast.saveBoardToApi(boards[boardId]);
-  }
   function loadBoardFromApi(id) {
     Broadcast.loadBoardFromApi(id);
   }

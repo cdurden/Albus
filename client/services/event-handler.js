@@ -5,6 +5,16 @@ angular.module('whiteboard.services.eventhandler', [])
     //shapeStorage = {};
     BoardData.getCanvas() && BoardData.getCanvas().empty();
   }
+  function saveBoardToApi(boardId) {
+    /*
+    var board = BoardData.getBoardObj(boardId);
+    data = {
+        'taskId': board.task.id,
+        'boardId': board.id,
+    };
+    */
+    Broadcast.saveBoardToApi(getBoardObj(boardId));
+  }
   function loadBoard(id) {
     if (id !== BoardData.getBoardId()) {
         clearBoard();
@@ -189,5 +199,6 @@ angular.module('whiteboard.services.eventhandler', [])
     updateBoards: updateBoards,
     loadBoard: loadBoard,
     loadBoards: loadBoards,
+    saveBoardToApi: saveBoardToApi,
   };
 }]);
