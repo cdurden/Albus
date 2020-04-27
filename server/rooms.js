@@ -227,7 +227,7 @@ var roomsManager = {
         storedShape.mouseY = path[1][2];
       }
     }
-      }
+      });
     }
   },
 
@@ -237,7 +237,7 @@ var roomsManager = {
     rooms[socket.room][shape.boardId][socket.id][shape.myid]['pathDProps'] = shape.pathDProps;
     //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
     client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
-      }
+      });
     }
   },
 
@@ -249,7 +249,7 @@ var roomsManager = {
     }
     //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
     client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
-      }
+      });
     }
   },
 
@@ -264,7 +264,7 @@ var roomsManager = {
     delete rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
     //client.set(socket.room, JSON.stringify(rooms[socket.room][shape.boardId])); 
     client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId])); 
-      }
+      });
     }
   }
 
