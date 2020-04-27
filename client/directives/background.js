@@ -39,6 +39,7 @@ angular.module('whiteboard')
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
                         });
                     })(newValue);
+                    ((rs1 || {}).detach || (() =>{}))(oldValue);
                     var img = element.find("img")[0];
                     if (typeof img !== 'undefined') {
                         img.onload = function() {
@@ -52,7 +53,6 @@ angular.module('whiteboard')
                             //backgroundRect = this.getBoundingClientRect();
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
-                            ((rs1 || {}).detach || (() =>{}))(oldValue);
                             //((rs2 || {}).detach || (() =>{}))();
                             rs1 = new ResizeSensor(newValue, handleBackgroundResize);
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
