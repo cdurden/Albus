@@ -167,13 +167,19 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function pushToStorage (id, socketId, boardId, shape) {
-    if (!boards[boardId].shapeStorage) {
-      boards[boardId].shapeStorage = {};
+    var _shapeStorage;
+    if (typeof boards[boardId] === 'undefined') {
+        _shapeStorage = shapeStorage;
+    } else {
+      if (!boards[boardId].shapeStorage) {
+        boards[boardId].shapeStorage = {};
+      }
+      _shapeStorage = boards[boardId].shapeStorage
+      if (!boards[boardId].shapeStorage[socketId]) {
+        _shapeStorage[socketId] = {};
+      }
     }
-    if (!boards[boardId].shapeStorage[socketId]) {
-      boards[boardId].shapeStorage[socketId] = {};
-    }
-    boards[boardId].shapeStorage[socketId][id] = shape;
+    _shapeStorage[socketId][id] = shape;
   }
 
   function getShapeById (id, socketId, boardId) {
