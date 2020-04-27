@@ -341,6 +341,7 @@ angular.module('whiteboard.services.boarddata', [])
         Broadcast.getBoardStorage(id);
     } else {
         boardData.boardId = id;
+        EventHandler.drawBoard();
     }
   }
   function loadBoards() {
