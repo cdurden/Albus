@@ -2,10 +2,6 @@ angular.module('whiteboard.services.eventhandler', [])
 .factory('EventHandler', ['BoardData', 'FeedData', 'TaskData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', 'Broadcast', function (BoardData, FeedData, TaskData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap, Broadcast) {
 
   function clearBoard() {
-    BoardData.clearBoard();
-  };
-
-  function clearBoard() {
     //shapeStorage = {};
     BoardData.getCanvas() && BoardData.getCanvas().empty();
   }
@@ -151,7 +147,7 @@ angular.module('whiteboard.services.eventhandler', [])
     }
   };
   function drawBoard() {
-    BoardData.clearBoard();
+    clearBoard();
     shapeStorage = BoardData.getBoardObj().shapeStorage;
     for (socketId in shapeStorage) {
       if (Object.keys(shapeStorage[socketId]).length) {
