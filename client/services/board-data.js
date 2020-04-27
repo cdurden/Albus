@@ -306,6 +306,7 @@ angular.module('whiteboard.services.boarddata', [])
   function loadBoardFromApi(id) {
     Broadcast.loadBoardFromApi(id);
   }
+    /*
   function getOrCreateTaskBoard(taskId) {
     if (typeof taskBoards[taskId] === 'undefined') {
       Broadcast.getOrCreateTaskBoard(taskId); // FIXME: need to set the boardId based on the response
@@ -316,6 +317,7 @@ angular.module('whiteboard.services.boarddata', [])
   function getLatestBoardFromApi(taskId) {
     Broadcast.getLatestBoardFromApi(taskId);
   }
+  */
   function loadBoard(id) {
     if (id !== boardId) {
         clearBoard();
@@ -324,6 +326,9 @@ angular.module('whiteboard.services.boarddata', [])
     if (boards[id].needsUpdate) {
         Broadcast.getBoardStorage(id);
     }
+  }
+  function loadBoards() {
+    Broadcast.loadBoards();
   }
 
 

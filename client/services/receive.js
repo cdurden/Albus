@@ -32,7 +32,8 @@ angular.module('whiteboard.services.receive', [])
   });
   Sockets.on('boards', function (boards) {
     for (board in boards) {
-      EventHandler.addBoard(boards[board]);
+      //EventHandler.addBoard(boards[board]);
+      EventHandler.addBoard(board);
     }
   });
   Sockets.on('taskBoards', function (taskBoards) {

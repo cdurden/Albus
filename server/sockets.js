@@ -423,6 +423,57 @@ function get_all_data_by_socket(socket, callback) {
       var boardStorage = rooms.getBoardStorage(socket.room, boardId);
       socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
     });
+    socket.on('loadBoards', function() {
+      // load assignment
+      getSocketData(socket.id).then(function(data) {
+          var assignment = data.assignment;
+          console.log("Getting assignment "+assignment+" for socket "+socket.id);
+          request({
+              method: 'GET',
+              url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
+              transformResponse: [function (data) {
+                return data;
+              }]
+          }, function(error, response, body) {
+            console.log("assignment data");
+            console.log(body);
+            data = JSON.parse(body);
+            api.getTasksFromSource(data, function(error, data) {
+                console.log("Got tasks");
+                console.log(data);
+                Promise.all(data.forEach(task => {
+                    new Promise(resolve => {
+                        var board = null;
+                        if (task.boards.length > 0) {
+                            board = task.boards[task.boards.length-1];
+                            roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
+                            if (typeof roomBoard !== 'undefined') {
+                                board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                            }
+                        }
+                        resolve(board);
+                    });
+                })).then(function(results) {
+                    console.log("Got boards from tasks");
+                    console.log(results);
+                    new Promise(resolve => {
+                        rooms.getBoards(rooms.getRoomId(socket), function(roomBoards) {
+                            resolve(roomBoards);
+                        }
+                    }).then(function(roomBoards) {
+                        console.log("Got board from room");
+                        console.log(roomBoards);
+                        for ((boardId, boardStorage) in Object(roomBoards).entries()) {
+                            results.push({ 'id': boardId,
+                                           'data': boardStorage});
+                        }
+                    });
+                    socket.emit('boards', results);
+                });
+            });
+          });  
+      });
+    });
     socket.on('getOrCreateTaskBoard', function(taskId) {
       api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
         if (board) {

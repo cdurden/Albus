@@ -110,6 +110,9 @@ angular.module('whiteboard.services.broadcast', [])
   var loadBoardFromApi = function (data) {
     Sockets.emit('loadBoardFromApi', data)
   };
+  var loadBoards = function () {
+    Sockets.emit('loadBoards')
+  };
   var getLatestBoardFromApi = function (data) {
     Sockets.emit('getLatestBoardFromApi', data)
   };
@@ -133,6 +136,7 @@ angular.module('whiteboard.services.broadcast', [])
     moveShape: moveShape,
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
+    loadBoards: loadBoards,
     getLatestBoardFromApi: getLatestBoardFromApi,
     getOrCreateTaskBoard: getOrCreateTaskBoard,
     getBoardStorage: getBoardStorage,
