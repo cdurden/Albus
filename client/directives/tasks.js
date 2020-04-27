@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'TaskData', 'Sockets', function($compile, $http, $templateCache, BoardData, TaskData, Sockets) {
+.directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', function($compile, $http, $templateCache, BoardData, EventHandler, Sockets) {
   return {
     restrict: 'A',
     //require: ['^form'],
@@ -23,7 +23,7 @@ angular.module('whiteboard')
       BoardData.loadBoards();
       $scope.setBoardId = function(id) {
           $scope.boardId = id;
-          BoardData.loadBoard(id);
+          EventHandler.loadBoard(id);
           //BoardData.setBoardById(id);
       }
       $scope.setBoardIndex = function(i) {

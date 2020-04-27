@@ -5,6 +5,27 @@ angular.module('whiteboard.services.eventhandler', [])
     BoardData.clearBoard();
   };
 
+  function clearBoard() {
+    //shapeStorage = {};
+    BoardData.getCanvas() && BoardData.getCanvas().empty();
+  }
+  function loadBoard(id) {
+    if (id !== boardId) {
+        clearBoard();
+    }
+    BoardData.setBoardById(id);
+    if (boards[id].needsUpdate) {
+        Broadcast.getBoardStorage(id);
+    } else {
+        BoardData.getBoardData().boardId = id;
+        drawBoard();
+    }
+  }
+
+  function loadBoards() {
+    Broadcast.loadBoards();
+  }
+
   function setSocketId (socketId) {
     BoardData.setSocketId(socketId);
   };
