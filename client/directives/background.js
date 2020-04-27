@@ -52,10 +52,10 @@ angular.module('whiteboard')
                             //backgroundRect = this.getBoundingClientRect();
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
-                            ((rs1 || {}).detach || (() =>{}))();
-                            ((rs2 || {}).detach || (() =>{}))();
+                            ((rs1 || {}).detach || (() =>{}))(oldValue);
+                            //((rs2 || {}).detach || (() =>{}))();
                             rs1 = new ResizeSensor(newValue, handleBackgroundResize);
-                            rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
+                            //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                     }
                 }
