@@ -57,7 +57,7 @@ h1.title {
 #background-container {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 55px;
     z-index: -1;
     /*
     width: 100%;
@@ -79,7 +79,7 @@ h1.title {
     left: 55px;
 }
 #board-container {
-  position: fixed;
+  position: absolute;
   height: 100%;
   width: 100%;
   z-index: 30; /* TODO: figure out how to reliably set on top */
