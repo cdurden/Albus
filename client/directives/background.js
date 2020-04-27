@@ -11,34 +11,11 @@ angular.module('whiteboard')
             h: boardRect.height / dim.height * h,
         })
     }
-    /*
-    function handleBackgroundResize() {
-        backgroundRect = document.getElementsByClass('background-image')[0].getBoundingClientRect();
-        if (typeof w === 'undefined' || typeof h === 'undefined') {
-            w = backgroundRect.width;
-            h = backgroundRect.height;
-            aspect_ratio = w/h;
-        }
-        dim = backgroundRect;
-        viewBox = calculateViewBox(dim);
-        console.log(dim)
-        console.log(viewBox);
-        BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
-    }
-    */
     return {
         link: function(scope, element, attr){
             scope.$watch("$parent.board", function(board) {
                 element.html((((board || {}).task || {}).data || {}).background_html || "");
             });
-            /*
-            scope.$watch("boardData", function(boardData) {
-                var board = boardData.boards[boardData.boardId];
-                //var board = BoardData.getBoardObj(newBoardId);
-                element.html((((board || {}).task || {}).data || {}).background_html || "");
-                //$compile(element, null, -9999)(scope);  
-            }, true);
-            */
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     var handleBackgroundResize = (function(element) {
@@ -53,8 +30,6 @@ angular.module('whiteboard')
                             */
                             dim = backgroundRect;
                             viewBox = calculateViewBox(dim);
-                            //BoardData.setZoomScale();
-                            //BoardData.setCanvasMargins(background)
                             console.log(dim)
                             console.log(viewBox);
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
@@ -63,14 +38,15 @@ angular.module('whiteboard')
                     var img = element.find("img")[0];
                     if (typeof img !== 'undefined') {
                         img.onload = function() {
-                            backgroundRect = this.getBoundingClientRect();
-                            //w = this.width;
-                            //h = this.height;
-                            //w0 = img.width;
-                            //h0 = img.height;
-                            w = backgroundRect.width;
-                            h = backgroundRect.height;
+                            w = img.naturalWidth;
+                            h = img.naturalHeight;
                             aspect_ratio = w/h;
+                            boardRect = BoardData.getCanvas().get(0).getBoundingClientRect();
+                            viewBox = calculateViewBox(boardRect);
+                            BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
+                            //backgroundRect = this.getBoundingClientRect();
+                            //w = backgroundRect.width;
+                            //h = backgroundRect.height;
                             new ResizeSensor(newValue, handleBackgroundResize);
                         }
                     }
@@ -82,7 +58,6 @@ angular.module('whiteboard')
 .directive('wbBackground', ['Sockets', function (Sockets) {
   return {
     restrict: 'A',
-    //require: ['wbFeed'],
     replace: true,
     templateUrl: './templates/background.html',
     controller: function (MessageHandler) {
@@ -91,9 +66,5 @@ angular.module('whiteboard')
       }
     },
     scope: {},
-      /*
-    link: function (scope, element, attrs, ctrls) {
-    }
-    */
   }
 }]);

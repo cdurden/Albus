@@ -71,6 +71,7 @@ angular.module('whiteboard.services.boarddata', [])
     canvasMarginY = y;
   }
 
+    /*
   function handleWindowResize (newPageSize) {
     svgWidth = newPageSize.width;
     svgHeight = newPageSize.height;
@@ -80,6 +81,7 @@ angular.module('whiteboard.services.boarddata', [])
     var offset = getOffset();
     board.setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight, true);
   }
+  */
 
   function getBoard() {
     return board;
@@ -381,7 +383,7 @@ angular.module('whiteboard.services.boarddata', [])
     setStrokeWidth: setStrokeWidth,
     getStrokeWidth: getStrokeWidth,
     clearBoard: clearBoard,
-    handleWindowResize: handleWindowResize,
+    //handleWindowResize: handleWindowResize,
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
     loadBoard: loadBoard,
