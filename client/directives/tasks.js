@@ -15,10 +15,11 @@ angular.module('whiteboard')
       $scope.taskData = TaskData.getData();
       $scope.boards = BoardData.getBoards();
       //BoardData.loadBoard(Object.keys($scope.boards)[0]);
-      $scope.taskBoards = BoardData.getTaskBoards();
+      //$scope.taskBoards = BoardData.getTaskBoards();
       //$scope.boards = [];
       $scope.data = {};
-      Sockets.emit("getAssignedTasks");
+      //Sockets.emit("getAssignedTasks");
+      BoardData.loadBoards();
       $scope.setBoardId = function(id) {
           $scope.boardId = id;
           BoardData.loadBoard(id);
@@ -68,11 +69,13 @@ angular.module('whiteboard')
         expandToMin: false,
         direction: 'horizontal',
       })
+        /*
       scope.$watch("taskData.tasks", function(tasks) {
           tasks.forEach((task, i) => { 
             BoardData.getOrCreateTaskBoard(task.id);
           });
       });
+      */
     }
   }
 }]);
