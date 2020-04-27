@@ -20,7 +20,7 @@ angular.module('whiteboard')
       //$scope.boards = [];
       //$scope.data = {};
       //Sockets.emit("getAssignedTasks");
-      BoardData.loadBoards();
+      EventHandler.loadBoards();
       $scope.setBoardId = function(id) {
           $scope.boardId = id;
           EventHandler.loadBoard(id);
