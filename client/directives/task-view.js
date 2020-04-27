@@ -84,7 +84,7 @@ angular.module('whiteboard')
            .then(function(response) {
                element.html($compile(response.pop().data)(scope));// TODO: figure out if this is correct
                postLoader().then(function(result) {
-                   eval(task.data.onload);
+                   eval(task.data.onload || '');
                });
            });
       }
