@@ -28,12 +28,17 @@ angular.module('whiteboard')
     */
     return {
         link: function(scope, element, attr){
+            scope.$watch("board", function(board) {
+                element.html((((board || {}).task || {}).data || {}).background_html || "");
+            });
+            /*
             scope.$watch("boardData", function(boardData) {
                 var board = boardData.boards[boardData.boardId];
                 //var board = BoardData.getBoardObj(newBoardId);
                 element.html((((board || {}).task || {}).data || {}).background_html || "");
                 //$compile(element, null, -9999)(scope);  
             }, true);
+            */
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     var handleBackgroundResize = (function(element) {
@@ -87,21 +92,9 @@ angular.module('whiteboard')
     },
     scope: {},
     link: function (scope, element, attrs, ctrls) {
-        /*
-      var feedCtrl = ctrls[0];
-      FeedData.createFeed(element);
-      FeedData.getForm().bind("submit",feedCtrl.handleEvent);
-      */
-      scope.$watchGroup(["$parent.tasks", "$parent.i"], function(newValues) {
-        var task = (newValues[0] || [])[newValues[1]];
-        scope.task = task;
-      });
-      //new ResizeSensor(document.getElementById('drawing-space'), handleBackgroundResize);
-      /*
-      Sockets.on('feed message', function (msg) {
-        FeedData.displayMessage(msg);
-      })
-      */
+      scope.$watchGroup(["$parent.boardData"], function(boardData) {
+        scope.board = boardData.boards[boardData.boardId];
+      }, true);
     }
   }
 }]);
