@@ -169,7 +169,7 @@ var roomsManager = {
 
   addShape: function (shape, socket) {
     new Promise(resolve => {
-      if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
         setupBoard(socket, shape.boardId, function() {
     //it seems that the client was setting the socketId of the shape
     //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
@@ -190,7 +190,7 @@ var roomsManager = {
 
   editShape: function (shape, socket) {
     new Promise(resolve => {
-      if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
         setupBoard(socket, shape.boardId, function() {
     //it seems that the client was setting the socketId of the shape
     //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
@@ -211,44 +211,47 @@ var roomsManager = {
   },
 
   moveShape: function (shape, socket) {
-    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, shape.boardId, function() {
-    var storedShape = rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
-    if (shape.attr.r) {
-      storedShape.initX = shape.attr.cx;
-      storedShape.initY = shape.attr.cy;
-      storedShape.mouseX = shape.attr.cx + shape.attr.r;
-      storedShape.mouseY = shape.attr.cy;
-    } else if (shape.attr.width) {
-      storedShape.initX = shape.attr.x;
-      storedShape.initY = shape.attr.y;
-      storedShape.mouseX = shape.attr.x + shape.attr.width;
-      storedShape.mouseY = shape.attr.y + shape.attr.height;
-    } else if (shape.attr.text) {
-      storedShape.initX = shape.attr.x;
-      storedShape.initY = shape.attr.y;
-    } else {
-      if (shape.pathDProps) {
-        storedShape.pathDProps = shape.pathDProps;
+    new Promise(resolve => {
+      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
+        setupBoard(socket, shape.boardId, function() {
+          resolve();
+        })
       } else {
-        var path = shape.attr.path;
-        storedShape.initX = path[0][1];
-        storedShape.initY = path[0][2];
-        storedShape.mouseX = path[1][1];
-        storedShape.mouseY = path[1][2];
+        resolve();
       }
-    }
-      });
-    }
+    }).then(function() {
+      var storedShape = rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
+      if (shape.attr.r) {
+        storedShape.initX = shape.attr.cx;
+        storedShape.initY = shape.attr.cy;
+        storedShape.mouseX = shape.attr.cx + shape.attr.r;
+        storedShape.mouseY = shape.attr.cy;
+      } else if (shape.attr.width) {
+        storedShape.initX = shape.attr.x;
+        storedShape.initY = shape.attr.y;
+        storedShape.mouseX = shape.attr.x + shape.attr.width;
+        storedShape.mouseY = shape.attr.y + shape.attr.height;
+      } else if (shape.attr.text) {
+        storedShape.initX = shape.attr.x;
+        storedShape.initY = shape.attr.y;
+      } else {
+        if (shape.pathDProps) {
+          storedShape.pathDProps = shape.pathDProps;
+        } else {
+          var path = shape.attr.path;
+          storedShape.initX = path[0][1];
+          storedShape.initY = path[0][2];
+          storedShape.mouseX = path[1][1];
+          storedShape.mouseY = path[1][2];
+        }
+      }
+    });
   },
 
   completePath: function (shape, socket) {
     new Promise(resolve => {
-      if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
+      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
         setupBoard(socket, shape.boardId, function() {
-    //it seems that the client was setting the socketId of the shape
-    //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
-    //here the line has been modified to use the id of the current socket.
           resolve();
         })
       } else {
@@ -262,30 +265,42 @@ var roomsManager = {
   },
 
   completeShape: function (shape, socket) {
-    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, shape.boardId, function() {
-    if (shape.tool && shape.tool.text) {
-      rooms[socket.room][shape.boardId][socket.id][shape.myid]['tool'] = shape.tool;
-    }
-    //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
-    client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
-      });
-    }
+    new Promise(resolve => {
+      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
+        setupBoard(socket, shape.boardId, function() {
+          resolve();
+        })
+      } else {
+        resolve();
+      }
+    }).then(function() {
+      if (shape.tool && shape.tool.text) {
+        rooms[socket.room][shape.boardId][socket.id][shape.myid]['tool'] = shape.tool;
+      }
+      //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
+      client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
+    });
   },
 
   deleteShape: function (shape, socket) {
-    if (typeof (rooms[socket.room] || {})[shape.boardId] === 'undefined') {
-      setupBoard(socket, shape.boardId, function() {
-    console.log("deleting shape "+shape.myid);
-    console.log("roomId: "+socket.room);
-    console.log("socketId: "+shape.socketId);
-    console.log(rooms);
-    console.log(rooms[socket.room][shape.boardId][shape.socketId]);
-    delete rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
-    //client.set(socket.room, JSON.stringify(rooms[socket.room][shape.boardId])); 
-    client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId])); 
-      });
-    }
+    new Promise(resolve => {
+      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
+        setupBoard(socket, shape.boardId, function() {
+          resolve();
+        })
+      } else {
+        resolve();
+      }
+    }).then(function() {
+      console.log("deleting shape "+shape.myid);
+      console.log("roomId: "+socket.room);
+      console.log("socketId: "+shape.socketId);
+      console.log(rooms);
+      console.log(rooms[socket.room][shape.boardId][shape.socketId]);
+      delete rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
+      //client.set(socket.room, JSON.stringify(rooms[socket.room][shape.boardId])); 
+      client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId])); 
+    });
   }
 
 }
