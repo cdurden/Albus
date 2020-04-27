@@ -18,8 +18,8 @@ angular.module('whiteboard')
       Sockets.emit("submit", data);
     };
     scope.$watch("$parent.board", function(board) {
-      var task = (board || {}).task;
-      scope.task = angular.copy(task);
+      var task = angular.copy((board || {}).task);
+      scope.task = task;
       if (typeof task !== 'undefined') {
           if (typeof task.data ==='undefined') {
               task.data = {};
