@@ -1,5 +1,7 @@
 angular.module('whiteboard')
 .directive('compileTemplate',['BoardData', function compileTemplate(BoardData) {
+    var rs1 = null;
+    var rs2 = null;
     var w, h;
     var aspect_ratio;
     function calculateViewBox(dim) {
@@ -50,8 +52,10 @@ angular.module('whiteboard')
                             //backgroundRect = this.getBoundingClientRect();
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
-                            new ResizeSensor(newValue, handleBackgroundResize);
-                            new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
+                            ((rs1 || {}).detach || (() =>{}))();
+                            ((rs2 || {}).detach || (() =>{}))();
+                            rs1 = new ResizeSensor(newValue, handleBackgroundResize);
+                            rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                     }
                 }
