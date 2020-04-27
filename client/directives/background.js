@@ -50,7 +50,7 @@ angular.module('whiteboard')
                             //backgroundRect = this.getBoundingClientRect();
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
-                            //new ResizeSensor(newValue, handleBackgroundResize);
+                            new ResizeSensor(newValue, handleBackgroundResize);
                             new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                     }
