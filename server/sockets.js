@@ -127,7 +127,9 @@ module.exports = function(server) {
               data = JSON.parse(body)
               api.getTasksFromSource(data, function(error, data) {
                   console.log(data);
-                  io.of("/client").connected[socketId].emit('tasks', data);
+                  if (typeof io.of("/client").connected[socketId] !== 'undefined') {
+                    io.of("/client").connected[socketId].emit('tasks', data);
+                  }
               });
             })  
         });
