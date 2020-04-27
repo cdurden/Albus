@@ -115,7 +115,7 @@ angular.module('whiteboard.services.eventhandler', [])
     BoardData.addBoard(data);
   };
   function updateBoards(boards) {
-    BoardData.updateBoard(boards);
+    BoardData.updateBoards(boards);
   };
   function setTaskBoard(boardId, taskId) {
     BoardData.setTaskBoard(boardId, taskId);

@@ -59,6 +59,66 @@ module.exports = function(server) {
         }
       });
     });
+    function loadBoards(socket) {
+      getSocketData(socket.id).then(function(data) {
+          var assignment = data.assignment;
+          console.log("Getting assignment "+assignment+" for socket "+socket.id);
+          request({
+              method: 'GET',
+              url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
+              transformResponse: [function (data) {
+                return data;
+              }]
+          }, function(error, response, body) {
+            console.log("assignment data");
+            console.log(body);
+            data = JSON.parse(body);
+            api.getTasksFromSource(data, function(error, data) {
+                console.log("Got tasks");
+                console.log(data);
+                Promise.all(data.map(task => {
+                    return new Promise(resolve => {
+                        var board = null;
+                        if (task.boards.length > 0) {
+                            board = task.boards[task.boards.length-1];
+                            board.task = task;
+                            roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
+                            if (typeof roomBoard !== 'undefined') {
+                                board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                            }
+                            resolve(board);
+                        } else {
+                            rooms.getOrCreateTaskBoard(socket, task.id, function(err, result) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                                result.task = task;
+                                resolve(result);
+                            });
+                        }
+                    });
+                })).then(function(results) {
+                    console.log("Got boards from tasks");
+                    console.log(results);
+                    var ids = results.map(board => { return board.id });
+                    new Promise(resolve => {
+                        roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
+                        resolve(roomBoards);
+                    }).then(function(roomBoards) {
+                        console.log("Got board from room");
+                        console.log(roomBoards);
+                        for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
+                            if (!ids.includes(boardId)) {
+                                results.push({
+                                    'id': boardId,
+                                    'data': boardStorage
+                                });
+                            }
+                        }
+                        socket.emit('boards', results);
+                    });
+                });
+            });
+          });  
+      });
+    }
     socket.on('getAssignedTasks', function(){
       getSocketData(socket.id).then(function(data) {
           var assignment = data.assignment;
@@ -128,7 +188,8 @@ module.exports = function(server) {
               api.getTasksFromSource(data, function(error, data) {
                   console.log(data);
                   if (typeof io.of("/client").connected[socketId] !== 'undefined') {
-                    io.of("/client").connected[socketId].emit('tasks', data);
+                    loadBoards(io.of("/client").connected[socketId]);
+                    //io.of("/client").connected[socketId].emit('tasks', data);
                   }
               });
             })  
@@ -424,65 +485,8 @@ function get_all_data_by_socket(socket, callback) {
       socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
     });
     socket.on('loadBoards', function() {
+      loadBoards(socket);
       // load assignment
-      getSocketData(socket.id).then(function(data) {
-          var assignment = data.assignment;
-          console.log("Getting assignment "+assignment+" for socket "+socket.id);
-          request({
-              method: 'GET',
-              url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
-              transformResponse: [function (data) {
-                return data;
-              }]
-          }, function(error, response, body) {
-            console.log("assignment data");
-            console.log(body);
-            data = JSON.parse(body);
-            api.getTasksFromSource(data, function(error, data) {
-                console.log("Got tasks");
-                console.log(data);
-                Promise.all(data.map(task => {
-                    return new Promise(resolve => {
-                        var board = null;
-                        if (task.boards.length > 0) {
-                            board = task.boards[task.boards.length-1];
-                            board.task = task;
-                            roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
-                            if (typeof roomBoard !== 'undefined') {
-                                board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
-                            }
-                            resolve(board);
-                        } else {
-                            rooms.getOrCreateTaskBoard(socket, task.id, function(err, result) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
-                                result.task = task;
-                                resolve(result);
-                            });
-                        }
-                    });
-                })).then(function(results) {
-                    console.log("Got boards from tasks");
-                    console.log(results);
-                    var ids = results.map(board => { return board.id });
-                    new Promise(resolve => {
-                        roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
-                        resolve(roomBoards);
-                    }).then(function(roomBoards) {
-                        console.log("Got board from room");
-                        console.log(roomBoards);
-                        for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
-                            if (!ids.includes(boardId)) {
-                                results.push({
-                                    'id': boardId,
-                                    'data': boardStorage
-                                });
-                            }
-                        }
-                        socket.emit('boards', results);
-                    });
-                });
-            });
-          });  
-      });
     });
     socket.on('getOrCreateTaskBoard', function(taskId) {
       api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
