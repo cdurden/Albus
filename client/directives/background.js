@@ -30,7 +30,7 @@ angular.module('whiteboard')
         link: function(scope, element, attr){
             scope.$watch("board", function(board) {
                 //var board = BoardData.getBoardObj(newBoardId);
-                element.html(((board.task || {}).data || {}).background_html || "");
+                element.html((((board || {}).task || {}).data || {}).background_html || "");
                 //$compile(element, null, -9999)(scope);  
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
