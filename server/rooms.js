@@ -57,10 +57,10 @@ function placeSocketId(socketId, callback) {
   });
 }
 function getBoard(roomId, boardId) {
-    return(rooms[roomId][boardId]);
+    return((rooms[roomId] || {})[boardId]);
 }
 function getBoardStorage(roomId, boardId) {
-    return(rooms[roomId][boardId]);
+    return((rooms[roomId] || {})[boardId]);
 }
 function setupRoom(socket, callback) {
     roomId = socket.room;
