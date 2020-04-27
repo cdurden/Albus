@@ -28,7 +28,7 @@ angular.module('whiteboard')
     */
     return {
         link: function(scope, element, attr){
-            scope.$watch("board", function(board) {
+            scope.$watch("$parent.board", function(board) {
                 element.html((((board || {}).task || {}).data || {}).background_html || "");
             });
             /*
@@ -91,10 +91,9 @@ angular.module('whiteboard')
       }
     },
     scope: {},
+      /*
     link: function (scope, element, attrs, ctrls) {
-      scope.$watch("$parent.boardData", function(boardData) {
-        scope.board = (boardData.boards || {})[boardData.boardId];
-      }, true);
     }
+    */
   }
 }]);

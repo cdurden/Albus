@@ -70,6 +70,9 @@ angular.module('whiteboard')
         expandToMin: false,
         direction: 'horizontal',
       })
+      scope.$watch("boardData", function(boardData) {
+        scope.board = (boardData.boards || {})[boardData.boardId];
+      }, true);
         /*
       scope.$watch("taskData.tasks", function(tasks) {
           tasks.forEach((task, i) => { 
