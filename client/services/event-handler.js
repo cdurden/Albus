@@ -165,5 +165,6 @@ angular.module('whiteboard.services.eventhandler', [])
     clearBoard: clearBoard,
     addBoard: addBoard,
     drawBoard: drawBoard,
+    updateBoardStorage: updateBoardStorage,
   };
 }]);
