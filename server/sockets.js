@@ -223,7 +223,7 @@ module.exports = function(server) {
       });
     });
     socket.on('getAssignments', function(){
-      assignments = ['a1','a2']
+      assignments = ['a1','a2','NegativeExponents']
       socket.emit('assignments', assignments);
 /*
       client.hmget(socket, assignmentIds, function(err, results) {
