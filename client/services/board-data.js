@@ -360,7 +360,7 @@ angular.module('whiteboard.services.boarddata', [])
     getStrokeWidth: getStrokeWidth,
     //clearBoard: clearBoard,
     //handleWindowResize: handleWindowResize,
-    saveBoardToApi: saveBoardToApi,
+    //saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
     //loadBoard: loadBoard,
     //getLatestBoardFromApi: getLatestBoardFromApi,
