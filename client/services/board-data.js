@@ -371,7 +371,7 @@ angular.module('whiteboard.services.boarddata', [])
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
     loadBoard: loadBoard,
-    getLatestBoardFromApi: getLatestBoardFromApi,
+    //getLatestBoardFromApi: getLatestBoardFromApi,
     setBoardById: setBoardById,
     getBoardObj: getBoardObj,
     getBoards: getBoards,
@@ -379,7 +379,7 @@ angular.module('whiteboard.services.boarddata', [])
     addBoard: addBoard,
     newBoard: newBoard,
     updateBoards: updateBoards,
-    getOrCreateTaskBoard: getOrCreateTaskBoard,
+    //getOrCreateTaskBoard: getOrCreateTaskBoard,
     getTaskBoards: getTaskBoards,
     updateBoardStorage: updateBoardStorage,
   }
