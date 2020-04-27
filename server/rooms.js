@@ -215,6 +215,9 @@ var roomsManager = {
         resolve();
       }
     }).then(function() {
+      if ( typeof rooms[socket.room][shape.boardId][socket.id][shape.myid] === 'undefined' ) {
+          return;
+      }
       rooms[socket.room][shape.boardId][socket.id][shape.myid]['mouseX'] = shape.mouseX;
       rooms[socket.room][shape.boardId][socket.id][shape.myid]['mouseY'] = shape.mouseY;   
     });
