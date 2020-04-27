@@ -43,13 +43,15 @@ angular.module('whiteboard')
                             w = img.naturalWidth;
                             h = img.naturalHeight;
                             aspect_ratio = w/h;
-                            boardRect = BoardData.getCanvas().get(0).getBoundingClientRect();
+                            canvas = BoardData.getCanvas().get(0)
+                            boardRect = canvas.getBoundingClientRect();
                             viewBox = calculateViewBox(boardRect);
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
                             //backgroundRect = this.getBoundingClientRect();
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
                             new ResizeSensor(newValue, handleBackgroundResize);
+                            new ResizeSensor(canvas, handleBackgroundResize);
                         }
                     }
                 }
