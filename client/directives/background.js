@@ -92,7 +92,7 @@ angular.module('whiteboard')
     },
     scope: {},
     link: function (scope, element, attrs, ctrls) {
-      scope.$watchGroup(["$parent.boardData"], function(boardData) {
+      scope.$watch("$parent.boardData", function(boardData) {
         scope.board = (boardData.boards || {})[boardData.boardId];
       }, true);
     }
