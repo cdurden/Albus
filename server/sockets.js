@@ -463,7 +463,7 @@ function get_all_data_by_socket(socket, callback) {
                     }).then(function(roomBoards) {
                         console.log("Got board from room");
                         console.log(roomBoards);
-                        for ((boardId, boardStorage) in Object(roomBoards).entries()) {
+                        for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
                             results.push({ 'id': boardId,
                                            'data': boardStorage});
                         }
