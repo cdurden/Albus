@@ -96,7 +96,8 @@ module.exports = function(server) {
                           if (!ids.includes(boardId)) {
                               results.push({
                                   'id': boardId,
-                                  'data': boardStorage
+                                  'data': boardStorage,
+                                  'shapeStorage': boardStorage,
                               });
                           }
                       }
