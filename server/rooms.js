@@ -141,7 +141,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
     //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
   }
   console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-  if (typeof rooms[roomsId][boardId] !== 'undefined') {
+  if (typeof rooms[roomId][boardId] !== 'undefined') {
       callback(null, {
           'task': { 'id': taskId },
           'id': boardId,
