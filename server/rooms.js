@@ -159,6 +159,7 @@ var roomsManager = {
   getRoom: function (roomId) {
     return rooms[roomId];
   },
+  getBoards: getBoards,
   setupBoards: setupBoards,
 
   getBoard: getBoard,
