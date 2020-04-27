@@ -18,7 +18,7 @@ angular.module('whiteboard')
             scope.$watch("$parent.task", function(task) {
                 element.html(((task || {}).data || {}).background_html || "");
             });
-            scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
+            scope.$watch(function () { return element.find('#background-container')[0]; }, function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     var handleBackgroundResize = (function(element) {
                         return(function () {
@@ -50,7 +50,7 @@ angular.module('whiteboard')
                             //backgroundRect = this.getBoundingClientRect();
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
-                            new ResizeSensor(newValue, handleBackgroundResize);
+                            //new ResizeSensor(newValue, handleBackgroundResize);
                             new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                     }
