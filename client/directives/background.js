@@ -28,11 +28,12 @@ angular.module('whiteboard')
     */
     return {
         link: function(scope, element, attr){
-            scope.$watch("board", function(board) {
+            scope.$watch("boardData", function(boardData) {
+                var board = boardData.boards[boardData.boardId];
                 //var board = BoardData.getBoardObj(newBoardId);
                 element.html((((board || {}).task || {}).data || {}).background_html || "");
                 //$compile(element, null, -9999)(scope);  
-            });
+            }, true);
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     var handleBackgroundResize = (function(element) {
