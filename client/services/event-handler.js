@@ -191,5 +191,7 @@ angular.module('whiteboard.services.eventhandler', [])
     drawBoard: drawBoard,
     updateBoardStorage: updateBoardStorage,
     updateBoards: updateBoards,
+    loadBoard: loadBoard,
+    loadBoards: loadBoards,
   };
 }]);

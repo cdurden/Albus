@@ -257,10 +257,6 @@ angular.module('whiteboard.services.boarddata', [])
   function getStrokeWidth () {
     return tool['stroke-width'];
   }
-  function clearBoard() {
-    //shapeStorage = {};
-    getCanvas() && getCanvas().empty();
-  }
   function getBoards(sortKey = 'index') {
       //boards.sort(function(a,b) { return a[sortKey]-b[sortKey] })
       return(boards);
@@ -332,21 +328,6 @@ angular.module('whiteboard.services.boarddata', [])
     Broadcast.getLatestBoardFromApi(taskId);
   }
   */
-  function loadBoard(id) {
-    if (id !== boardId) {
-        clearBoard();
-    }
-    setBoardById(id);
-    if (boards[id].needsUpdate) {
-        Broadcast.getBoardStorage(id);
-    } else {
-        boardData.boardId = id;
-        EventHandler.drawBoard();
-    }
-  }
-  function loadBoards() {
-    Broadcast.loadBoards();
-  }
 
 
   return {
@@ -383,11 +364,11 @@ angular.module('whiteboard.services.boarddata', [])
     getEditorShape: getEditorShape,
     setStrokeWidth: setStrokeWidth,
     getStrokeWidth: getStrokeWidth,
-    clearBoard: clearBoard,
+    //clearBoard: clearBoard,
     //handleWindowResize: handleWindowResize,
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
-    loadBoard: loadBoard,
+    //loadBoard: loadBoard,
     //getLatestBoardFromApi: getLatestBoardFromApi,
     setBoardById: setBoardById,
     getBoardObj: getBoardObj,
