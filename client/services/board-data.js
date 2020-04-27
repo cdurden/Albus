@@ -176,7 +176,7 @@ angular.module('whiteboard.services.boarddata', [])
       }
       _shapeStorage = boards[boardId].shapeStorage
     }
-    if (!boards[boardId].shapeStorage[socketId]) {
+    if (typeof _shapeStorage[socketId] === 'undefined') {
       _shapeStorage[socketId] = {};
     }
     _shapeStorage[socketId][id] = shape;
