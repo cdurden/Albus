@@ -66,6 +66,7 @@ h1.title {
 #drawing-space {
     padding-left: 55px;
     pointer-events: all;
+    position: relative;
 }
 #task-space {
     height: 100%;
