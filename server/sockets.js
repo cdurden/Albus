@@ -441,8 +441,8 @@ function get_all_data_by_socket(socket, callback) {
             api.getTasksFromSource(data, function(error, data) {
                 console.log("Got tasks");
                 console.log(data);
-                Promise.all(data.forEach(task => {
-                    new Promise(resolve => {
+                Promise.all(data.map(task => {
+                    return new Promise(resolve => {
                         var board = null;
                         if (task.boards.length > 0) {
                             board = task.boards[task.boards.length-1];
@@ -467,8 +467,8 @@ function get_all_data_by_socket(socket, callback) {
                             results.push({ 'id': boardId,
                                            'data': boardStorage});
                         }
+                        socket.emit('boards', results);
                     });
-                    socket.emit('boards', results);
                 });
             });
           });  
