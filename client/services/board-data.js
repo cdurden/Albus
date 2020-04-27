@@ -77,14 +77,14 @@ angular.module('whiteboard.services.boarddata', [])
     board.setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight, true);
   }
 
-  function getBoard () {
+  function getBoard() {
     return board;
   }
   function getBoardId () {
     return boardId;
   }
 
-  function getCursor () {
+  function getCursor() {
     return cursor;
   }
 

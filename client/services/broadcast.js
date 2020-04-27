@@ -13,6 +13,10 @@ angular.module('whiteboard.services.broadcast', [])
 
   Sockets.emit('idRequest');
 
+  var getBoardStorage = function (boardId) {
+    Sockets.emit('getBoardStorage', boardId);
+  };
+
   var newShape = function (myid, socketId, boardId, tool, initX, initY) {
     Sockets.emit('newShape', {
       myid: myid,
@@ -131,6 +135,7 @@ angular.module('whiteboard.services.broadcast', [])
     loadBoardFromApi: loadBoardFromApi,
     getLatestBoardFromApi: getLatestBoardFromApi,
     getOrCreateTaskBoard: getOrCreateTaskBoard,
+    getBoardStorage: getBoardStorage,
   };
 
 });
