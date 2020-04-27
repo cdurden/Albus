@@ -10,7 +10,7 @@ angular.module('whiteboard.services.eventhandler', [])
     BoardData.getCanvas() && BoardData.getCanvas().empty();
   }
   function loadBoard(id) {
-    if (id !== boardId) {
+    if (id !== BoardData.getBoardId()) {
         clearBoard();
     }
     BoardData.setBoardById(id);
