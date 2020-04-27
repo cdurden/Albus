@@ -31,10 +31,13 @@ angular.module('whiteboard.services.receive', [])
     EventHandler.addBoard(data);
   });
   Sockets.on('boards', function (boards) {
+    EventHandler.updateBoards(boards);
+      /*
     for (board of boards) {
       //EventHandler.addBoard(boards[board]);
       EventHandler.addBoard(board);
     }
+    */
   });
   Sockets.on('taskBoards', function (taskBoards) {
     for (taskId in taskBoards) {

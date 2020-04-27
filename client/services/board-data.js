@@ -274,6 +274,11 @@ angular.module('whiteboard.services.boarddata', [])
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
   function updateBoards(_boards) {
+    for (id in boards) {
+        if (!Object.keys(_boards).includes(id)) {
+            delete boards[id]; //FIXME: prompt user to save changes
+        }
+    }
     for (_board of _boards) {
       boards[_board.id] = _board;
     }

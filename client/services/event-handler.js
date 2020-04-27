@@ -114,6 +114,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function addBoard(data) {
     BoardData.addBoard(data);
   };
+  function updateBoards(boards) {
+    BoardData.updateBoard(boards);
+  };
   function setTaskBoard(boardId, taskId) {
     BoardData.setTaskBoard(boardId, taskId);
   };
@@ -166,5 +169,6 @@ angular.module('whiteboard.services.eventhandler', [])
     addBoard: addBoard,
     drawBoard: drawBoard,
     updateBoardStorage: updateBoardStorage,
+    updateBoards: updateBoards,
   };
 }]);
