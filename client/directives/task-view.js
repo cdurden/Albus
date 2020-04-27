@@ -17,7 +17,7 @@ angular.module('whiteboard')
       }
       Sockets.emit("submit", data);
     };
-    scope.$watch("board", function(board) {
+    scope.$watch("$parent.board", function(board) {
       var task = (board || {}).task;
       scope.task = task;
       if (typeof task !== 'undefined') {
@@ -75,9 +75,9 @@ angular.module('whiteboard')
   return {
     restrict: 'A',
     //require: ['^form'],
-    //scope: {
-    //    'form': '=',
-    //},
+    scope: {
+        'form': '=',
+    },
     //replace: true,
     controller: function ($scope) {
       this.submit = function (ev) {
