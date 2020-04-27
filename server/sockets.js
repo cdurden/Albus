@@ -457,9 +457,8 @@ function get_all_data_by_socket(socket, callback) {
                     console.log("Got boards from tasks");
                     console.log(results);
                     new Promise(resolve => {
-                        rooms.getBoards(rooms.getRoomId(socket), function(roomBoards) {
-                            resolve(roomBoards);
-                        });
+                        roomBoards = rooms.getBoards(rooms.getRoomId(socket));
+                        resolve(roomBoards);
                     }).then(function(roomBoards) {
                         console.log("Got board from room");
                         console.log(roomBoards);
