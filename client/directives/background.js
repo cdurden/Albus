@@ -51,7 +51,7 @@ angular.module('whiteboard')
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
                             new ResizeSensor(newValue, handleBackgroundResize);
-                            new ResizeSensor(canvas, handleBackgroundResize);
+                            new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                     }
                 }
