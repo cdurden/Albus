@@ -382,5 +382,6 @@ angular.module('whiteboard.services.boarddata', [])
     //getOrCreateTaskBoard: getOrCreateTaskBoard,
     getTaskBoards: getTaskBoards,
     updateBoardStorage: updateBoardStorage,
+    loadBoards: loadBoards,
   }
 }]);
