@@ -14,7 +14,7 @@ angular.module('whiteboard.services.eventhandler', [])
         clearBoard();
     }
     BoardData.setBoardById(id);
-    if (boards[id].needsUpdate) {
+    if (BoardData.getBoardObj(id).needsUpdate) {
         Broadcast.getBoardStorage(id);
     } else {
         BoardData.getBoardData().boardId = id;
