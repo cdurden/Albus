@@ -38,6 +38,7 @@ angular.module('whiteboard')
       }
       */
       var task = (board || {}).task;
+      scope.task = task;
       if (typeof task !== 'undefined') {
           if (typeof task.data ==='undefined') {
               task.data = {};
