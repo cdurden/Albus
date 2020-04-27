@@ -34,7 +34,7 @@ angular.module('whiteboard')
                             viewBox = calculateViewBox(dim);
                             console.log(dim)
                             console.log(viewBox);
-                            BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
+                            BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, "none");
                         });
                     })(newValue);
                     var img = element.find("img")[0];
