@@ -145,7 +145,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
       callback(null, {
           'task': { 'id': taskId },
           'id': boardId,
-          'data': rooms[roomsId][boardId],
+          'data': rooms[roomId][boardId],
       });
   } else {
       setupBoard(socket, boardId, function(result) {
