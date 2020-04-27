@@ -287,7 +287,7 @@ angular.module('whiteboard')
     restrict: 'C',
     replace: false,
     require: 'wbSubmenuItems',
-    controller: function ($scope, BoardData) {
+    controller: function ($scope, BoardData, EventHandler) {
 
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
