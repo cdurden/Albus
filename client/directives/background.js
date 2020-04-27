@@ -28,10 +28,9 @@ angular.module('whiteboard')
     */
     return {
         link: function(scope, element, attr){
-            scope.$watch("task", function(newValue) {
-                var task = newValue;
-                scope.task = task;
-                element.html(((scope.task || {}).data || {}).background_html || "");
+            scope.$watch("board", function(board) {
+                //var board = BoardData.getBoardObj(newBoardId);
+                element.html(((board.task || {}).data || {}).background_html || "");
                 //$compile(element, null, -9999)(scope);  
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {

@@ -12,12 +12,13 @@ angular.module('whiteboard')
     },
     */
     controller: function ($scope, InputHandler) {
-      $scope.taskData = TaskData.getData();
-      $scope.boards = BoardData.getBoards();
+      //$scope.taskData = TaskData.getData();
+      //$scope.boards = BoardData.getBoards();
+      $scope.boardData = BoardData.getBoardData();
       //BoardData.loadBoard(Object.keys($scope.boards)[0]);
       //$scope.taskBoards = BoardData.getTaskBoards();
       //$scope.boards = [];
-      $scope.data = {};
+      //$scope.data = {};
       //Sockets.emit("getAssignedTasks");
       BoardData.loadBoards();
       $scope.setBoardId = function(id) {
