@@ -12,31 +12,12 @@ angular.module('whiteboard')
     scope.submit = function() {
       console.log("submitting answers");
       data = {
-          //'task_id': scope.task.data.id,
           'task_id': BoardData.getBoardObj().task.id,
           'data': scope.data,
       }
       Sockets.emit("submit", data);
     };
-    scope.$watchGroup(["$parent.boards", "$parent.boardId"], function(newValues) {
-      var board = (newValues[0] || [])[newValues[1]];
-        /*
-      scope.board = board;
-      if (typeof board !== 'undefined') {
-          if (board.id) {
-              BoardData.loadBoard(board.id);
-              EventHandler.drawBoard();
-          } else {
-              if (board.task && board.task.id) {
-                  //BoardData.getLatestBoardFromApi(board.task.id);
-                  BoardData.getOrCreateTaskBoard(board.task.id);
-              }
-          }
-      }
-      if (typeof board === 'undefined') { // FIXME: does this mean it is not a task board?
-          BoardData.newBoard();
-      }
-      */
+    scope.$watch("board", function(board) {
       var task = (board || {}).task;
       scope.task = task;
       if (typeof task !== 'undefined') {
@@ -94,9 +75,9 @@ angular.module('whiteboard')
   return {
     restrict: 'A',
     //require: ['^form'],
-    scope: {
-        'form': '=',
-    },
+    //scope: {
+    //    'form': '=',
+    //},
     //replace: true,
     controller: function ($scope) {
       this.submit = function (ev) {
