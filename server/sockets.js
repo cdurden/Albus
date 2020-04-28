@@ -51,6 +51,8 @@ module.exports = function(server) {
     return new Promise(resolve => {
       board = rooms.getBoardStorage(rooms.getRoomId(socket), boardId);
       api.saveBoard(socket.handshake.session, board, data, function(err, data) {
+          console.log("Board saved");
+          console.log(data);
           resolve(data);
       });
     });
