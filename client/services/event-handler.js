@@ -138,12 +138,14 @@ angular.module('whiteboard.services.eventhandler', [])
   }
   function setTasks(data) {
       TaskData.setTasks(data);
+      BoardData.joinTasksToBoards(data)
   }
   function addBoard(data) {
     BoardData.addBoard(data);
   };
   function updateBoards(boards) {
     BoardData.updateBoards(boards);
+    BoardData.joinTasksToBoards(TaskData.getTasks());
   };
   function setTaskBoard(boardId, taskId) {
     BoardData.setTaskBoard(boardId, taskId);

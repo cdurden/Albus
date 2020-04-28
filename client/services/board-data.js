@@ -311,6 +311,11 @@ angular.module('whiteboard.services.boarddata', [])
   function loadBoardFromApi(id) {
     Broadcast.loadBoardFromApi(id);
   }
+  function joinTasksToBoards(tasks) {
+      for(let [boardId, boardObj] of Object.entries(boards)) {
+          boardObj.task = tasks[boardObj.task_id];
+      }
+  }
     /*
   function getOrCreateTaskBoard(taskId) {
     if (typeof taskBoards[taskId] === 'undefined') {
@@ -377,5 +382,6 @@ angular.module('whiteboard.services.boarddata', [])
     updateBoardStorage: updateBoardStorage,
     //loadBoards: loadBoards,
     getBoardData: getBoardData,
+    joinTasksToBoards: joinTasksToBoards,
   }
 }]);

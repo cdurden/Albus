@@ -61,15 +61,15 @@ module.exports = function(server) {
           console.log("assignment data");
           console.log(body);
           data = JSON.parse(body);
-          api.getTasksFromSource(data, function(error, data) {
+          api.getTasksFromSource(data, function(error, tasks) {
               console.log("Got tasks");
-              console.log(data);
-              Promise.all(data.map(task => {
+              console.log(tasks);
+              Promise.all(tasks.map(task => {
                   return new Promise(resolve => {
                       var board = null;
                       if (task.boards.length > 0) {
                           board = task.boards[task.boards.length-1];
-                          board.task = task;
+                          board.task_id = task.id;
                           roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
                           if (typeof roomBoard !== 'undefined') {
                               board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
@@ -82,19 +82,19 @@ module.exports = function(server) {
                           });
                       }
                   });
-              })).then(function(results) {
+              })).then(function(boards) {
                   console.log("Got boards from tasks");
-                  console.log(results);
+                  console.log(boards);
                   new Promise(resolve => {
                       roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
                       resolve(roomBoards);
                   }).then(function(roomBoards) {
-                      var ids = results.map(board => { return board.id });
+                      var ids = boards.map(board => { return board.id });
                       console.log("Got board from room");
                       console.log(roomBoards);
                       for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
                           if (!ids.includes(boardId)) {
-                              results.push({
+                              boards.push({
                                   'id': boardId,
                                   'data': boardStorage,
                                   'shapeStorage': boardStorage,
@@ -102,8 +102,9 @@ module.exports = function(server) {
                           }
                       }
                       console.log("emitting boards");
-                      console.log(results);
-                      socket.emit('boards', results);
+                      console.log(boards);
+                      socket.emit('boards', boards);
+                      socket.emit('tasks', tasks);
                   });
               });
           });
