@@ -1,3 +1,6 @@
+b {
+    font-weight: bold;
+}
 .controls button {
     position: absolute;
     padding: 0;
@@ -139,7 +142,7 @@ html{
   touch-action: none;
   height:100%;
   width:100%;
-  font-family: San Francisco;
+/*  font-family: San Francisco;*/
   font-weight: 200;
 }
 

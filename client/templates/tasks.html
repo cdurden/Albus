@@ -21,9 +21,7 @@
       </div>
       <div style="float: right;">
           <div style="text-align: center;">
-              <p>
               <b>Task selector</b>
-              </p>
           </div>
           <div>
               <a ng-repeat="board in boardData.boards track by board.i" ng-click="$parent.setBoardIndex(board.i);"> {{ board.i+1 }}</a>
