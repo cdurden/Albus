@@ -102,6 +102,11 @@ b {
     opacity: 1; }
 
 
+.float-s {
+    position: absolute;
+    bottom: 10px;
+    margin: auto;
+}
 .float-se {
     position: absolute;
     bottom: 10px;
