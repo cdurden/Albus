@@ -15,6 +15,7 @@ angular.module('whiteboard')
       //$scope.taskData = TaskData.getData();
       //$scope.boards = BoardData.getBoards();
       $scope.boardData = BoardData.getBoardData();
+      $scope.i = 0;
       //BoardData.loadBoard(Object.keys($scope.boards)[0]);
       //$scope.taskBoards = BoardData.getTaskBoards();
       //$scope.boards = [];
