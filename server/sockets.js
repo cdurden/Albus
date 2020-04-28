@@ -85,11 +85,11 @@ module.exports = function(server) {
               })).then(function(results) {
                   console.log("Got boards from tasks");
                   console.log(results);
-                  var ids = results.map(board => { return board.id });
                   new Promise(resolve => {
                       roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
                       resolve(roomBoards);
                   }).then(function(roomBoards) {
+                      var ids = results.map(board => { return board.id });
                       console.log("Got board from room");
                       console.log(roomBoards);
                       for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
