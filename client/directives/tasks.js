@@ -120,13 +120,8 @@ angular.module('whiteboard')
         direction: 'horizontal',
       })
       */
-      scope.$watch("boardData.boards[boardId].task", function(task) {
+      scope.$watch("boardData.boards[boardData.boardId].task", function(task) {
         scope.task = task;
-      }, true);
-      scope.$watch("boardData", function(boardData) {
-        if(typeof scope.boardId === 'undefined') {
-          scope.setBoardIndex(0);
-        }
       }, true);
         /*
       scope.$watch("taskData.tasks", function(tasks) {

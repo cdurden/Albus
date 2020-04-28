@@ -280,6 +280,11 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function updateBoards(_boards) {
     for (id in boards) {
+        if (typeof boardId === 'undefined') {
+            if (boards[id].i == 0) {
+                boardId = id;
+            }
+        }
         if (!Object.keys(_boards).includes(id)) {
             delete boards[id]; //FIXME: prompt user to save changes
         }
@@ -290,7 +295,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function updateBoardStorage(_boardId, shapeStorage) {
       boards[_boardId].shapeStorage = shapeStorage;
-      //boardData.boardId = _boardId;
+      boardData.boardId = _boardId;
   }
   function setBoardById(newBoardId) {
       if (typeof boards[boardId] !== 'undefined') {
