@@ -16,6 +16,7 @@
     <div id="feed-space" wb-feed class="split split-horizontal"></div>
     -->
     <div id="board-selector-container" class="float-se">
+      <button type="button" id="task-submit-button">Submit</button>
       <a ng-repeat="board in boardData.boards track by $index" ng-click="console.log('clicked'); console.log($parent); $parent.setBoardId(board.id);"> {{ $index }}</a>
     </div>
   </div>
