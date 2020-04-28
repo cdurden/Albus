@@ -16,7 +16,7 @@
 <tr ng-repeat="submission in submissions | filter:query | orderBy: orderBy ">{{submission}}
     <td>{{ submission.user.firstname }}</td>
     <td>{{ submission.user.lastname }}</td>
-    <td>{{ submission.task.title }}</td>
+    <td>{{ submission.task.data.title }}</td>
     <td>{{ submission.datetime }}</td>
     <td>{{ submission.graded }}</td>
     <td>{{ submission.feedback.length }}</td>
