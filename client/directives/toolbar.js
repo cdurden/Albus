@@ -229,7 +229,8 @@ angular.module('whiteboard')
             var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
             if(levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
-              submenuOpenerCtrl.submenuCloser('hide');
+              submenuOpenerCtrl.submenuCloser({action: 'hide', level: '2'});
+              scope.$emit('toggleAllSubmenu', {action: 'hide', level: '2'});
             //} else {
             //  scope.$emit('activateMenu', 'show');
             //  submenuOpenerCtrl.submenuCloser('hide');
