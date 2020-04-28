@@ -64,8 +64,8 @@ angular.module('whiteboard')
 		//}
 
 		pointerEvents.forEach( function( eventName ) {
-			angular.forEach(controlsPrev, function( el ) { angular.element(el).on( eventName, onNavigatePrevClicked, false ); } );
-			angular.forEach(controlsNext, function( el ) { angular.element(el).on( eventName, onNavigateNextClicked, false ); } );
+			angular.forEach(controlsPrev, function( el ) { angular.element(el).on( eventName, onNavigatePrevClicked ); } );
+			angular.forEach(controlsNext, function( el ) { angular.element(el).on( eventName, onNavigateNextClicked ); } );
 		} );
 
 	}
