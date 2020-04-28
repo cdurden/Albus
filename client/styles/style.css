@@ -84,6 +84,7 @@ h1.title {
 }
 #task-container, #feed-container, #board-selector-container, #task-view-container, .gutter {
     pointer-events: all;
+    z-index: 50;
 }
 #task-view-container {
     position: absolute;
