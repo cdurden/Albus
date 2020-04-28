@@ -176,7 +176,7 @@ angular.module('whiteboard')
     }
   };
 })
-.directive('wbSubmenuOpener', function () {
+.directive('wbSubmenuOpener', function (BoardData) {
   return {
     restrict: 'C',
     replace: false,
@@ -199,6 +199,10 @@ angular.module('whiteboard')
     link: function (scope, element, attrs, submenuOpenerCtrl) {
 
       var bindMouseEv = function () {
+          BoardData.getBoard().bind('touchend.toolbar', function(ev) {
+              scope.$emit('activateMenu', 'hide');
+          });
+
 	    /*
         element.bind('mouseover mouseleave', function (ev) {
           // console.log(ev, attrs.wbLevel)
@@ -256,6 +260,7 @@ angular.module('whiteboard')
       var unbindMouseEv = function () {
         // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
         element.unbind('mouseover mouseleave');
+        BoardData.getBoard().unbind('touchend.toolbar');
         submenuOpenerCtrl.submenuCloser({action: 'hide', level: 'all'});
       }
 
