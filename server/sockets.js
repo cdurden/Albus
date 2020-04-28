@@ -104,7 +104,8 @@ module.exports = function(server) {
                       console.log("emitting boards");
                       console.log(boards);
                       socket.emit('boards', boards);
-                      socket.emit('tasks', tasks);
+                      tasksObj = tasks.reduce(function(obj, task) { obj[task.id] = task; return obj; }, {});
+                      socket.emit('tasks', tasksObj);
                   });
               });
           });
