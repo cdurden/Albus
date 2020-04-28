@@ -71,6 +71,9 @@ h1.title {
     height: 100%;
     */
 }
+#interactive-space {
+    height: 100%;
+}
 #drawing-space {
     height: 100%;
     pointer-events: all;
