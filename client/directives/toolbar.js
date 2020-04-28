@@ -226,7 +226,7 @@ angular.module('whiteboard')
 
         element.bind('touchend mouseup', function (ev) {
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
-          if(levelTwoChildren.hasClass('show')) {
+          if(ev.type === 'touchend' && levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
               //submenuOpenerCtrl.submenuCloser({action: 'hide', level: '2'});
               //scope.$emit('toggleAllSubmenu', {action: 'hide', level: '2'});
