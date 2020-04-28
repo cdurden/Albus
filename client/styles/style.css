@@ -1,3 +1,42 @@
+.controls .controls-arrow {
+    position: relative;
+    width: 3.6em;
+    height: 3.6em; }
+.controls .controls-arrow:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(45deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(45deg); }
+.controls .controls-arrow:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-45deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-45deg); }
+.controls .controls-arrow:hover:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(40deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(40deg); }
+.controls .controls-arrow:hover:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-40deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-40deg); }
+.controls .controls-arrow:active:before {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(36deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(36deg); }
+.controls .controls-arrow:active:after {
+      -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(-36deg);
+              transform: translateX(0.5em) translateY(1.55em) rotate(-36deg); }
+.controls .navigate-left {
+    right: 6.4em;
+    bottom: 3.2em;
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px); }
+
+.controls .navigate-right {
+    right: 0;
+    bottom: 3.2em;
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px); }
+
+.controls .navigate-right .controls-arrow {
+      -webkit-transform: rotate(180deg);
+              transform: rotate(180deg); }
+
+
 .float-se {
     position: absolute;
     bottom: 10px;
