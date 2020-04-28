@@ -112,7 +112,7 @@ function loadBoard(socket, board, callback) {
   if (typeof rooms[roomId] === 'undefined') {
       setupRoom(socket);
   }
-  rooms[roomId][board.id] = board['data'];
+  rooms[roomId][board.id] = board['shapeStorage'];
   if (board.task_id) {
       if (typeof taskBoards[roomId] === 'undefined') {
           taskBoards[roomId] = {};
