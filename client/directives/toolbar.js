@@ -151,16 +151,16 @@ angular.module('whiteboard')
           //TODO: if 
           if (ev.type === 'touchend') {
             //if(element.hasClass('show')) {
-            if(ev.currentTarget.hasClass('show')) {
+            if(angular.element(ev.currentTarget).hasClass('show')) {
               ctrl.menuHandler('hide');
               //element.removeClass('show');
-              ev.currentTarget.removeClass('show');
+              angular.element(ev.currentTarget).removeClass('show');
               //scope.$emit('activateMenu', 'hide');
             } else {
               ctrl.menuHandler('show');
               //element.addClass('show');
               element.find('.wb-submenu-opener').removeClass('show');
-              ev.currentTarget.addClass('show');
+              angular.element(ev.currentTarget).addClass('show');
               //scope.$emit('activateMenu', 'show');
             }
           } else {
