@@ -151,8 +151,8 @@ angular.module('whiteboard')
           //TODO: if 
           if (ev.type === 'touchend') {
             //if(element.hasClass('show')) {
-            //if(angular.element(ev.currentTarget).parent().find('level-two').hasClass('show')) {
-            if(angular.element(ev.currentTarget).find('level-two').hasClass('show')) {
+            //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
+            if(angular.element(ev.currentTarget).find('.level-two').hasClass('show')) {
               ctrl.menuHandler('hide');
               //element.removeClass('show');
               //scope.$emit('activateMenu', 'hide');
