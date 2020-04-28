@@ -75,7 +75,7 @@ module.exports = function(server) {
                           if (typeof roomBoard !== 'undefined') {
                               board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
                           }
-                          rooms.loadBoard(socket, board['data'], function() {
+                          rooms.loadBoard(socket, board, function() {
                               resolve(board);
                           });
                       } else {
