@@ -89,7 +89,7 @@ module.exports = function(server) {
                   new Promise(resolve => {
                       roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
                       resolve(roomBoards);
-                  }).then(function(roomBoards) {
+                  }).then(function(results) {
                       console.log("Got board from room");
                       console.log(roomBoards);
                       for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
