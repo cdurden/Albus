@@ -350,10 +350,13 @@ module.exports = function(server) {
           //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
             rooms.placeSocket(socket, function() {
               console.log("Setting up boards for socket "+socket.id);
+              loadBoards(socket);
+                /*
               rooms.setupBoards(socket, function (boards) {
                 console.log("Sending boards to "+socket.id);
                 socket.emit('boards', boards);
               });
+              */
               console.log("emitting client data to admin");
               getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
             });
