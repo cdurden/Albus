@@ -26,6 +26,14 @@ angular.module('whiteboard')
           EventHandler.loadBoard(id);
           //BoardData.setBoardById(id);
       }
+      $scope.submit = function() { //FIXME: this should not be here
+          data = {
+              'boardId': BoardData.getBoardId(),
+              'task_id': BoardData.getBoardObj().task.id,
+              'data': {},
+          }
+          Sockets.emit("submit", data);
+      }
       $scope.setBoardIndex = function(i) {
           $scope.i = i;
       }
