@@ -17,7 +17,7 @@
     -->
     <div id="board-selector-container" class="float-se">
       <button type="button" ng-click="submit()" id="task-submit-button">Submit task</button>
-      <a ng-repeat="board in boardData.boards track by $index" ng-click="$parent.setBoardId(board.id);"> {{ $index+1 }}</a>
+      <a ng-repeat="board in boardData.boards track by board.i" ng-click="$parent.setBoardIndex(board.i);"> {{ board.i }}</a>
 <aside class="controls" data-controls-layout="bottom-right" data-controls-back-arrows="faded" style="display: block;"><button class="navigate-left" aria-label="previous task"><div class="controls-arrow"></div></button><button class="navigate-right" aria-label="next task"><div class="controls-arrow"></div></button></aside>
     </div>
   </div>
