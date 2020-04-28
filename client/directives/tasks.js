@@ -121,10 +121,12 @@ angular.module('whiteboard')
       scope.$watch("boardData.boards[boardData.boardId].task", function(task) {
         scope.task = task;
       }, true);
-        /*
       scope.$watch("boardData", function(boardData) {
-        scope.board = (boardData.boards || {})[boardData.boardId];
+        if(typeof scope.boardId === 'undefined') {
+          scope.setBoardIndex(0);
+        }
       }, true);
+        /*
       scope.$watch("taskData.tasks", function(tasks) {
           tasks.forEach((task, i) => { 
             BoardData.getOrCreateTaskBoard(task.id);
