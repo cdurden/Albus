@@ -79,8 +79,8 @@ angular.module('whiteboard')
             $scope.setBoardIndex($scope.i-1);
         }
     }
-	function onNavigatePrevClicked( event ) { event.preventDefault(); onUserInput(); navigatePrev(); }
-	function onNavigateNextClicked( event ) { event.preventDefault(); onUserInput(); navigateNext(); }
+	function onNavigatePrevClicked( event ) { event.preventDefault(); navigatePrev(); }
+	function onNavigateNextClicked( event ) { event.preventDefault(); navigateNext(); }
     addEventListeners();
 
       var boardCtrl = ctrl;
