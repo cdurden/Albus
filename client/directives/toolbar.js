@@ -225,14 +225,12 @@ angular.module('whiteboard')
       };
 
         element.bind('touchend mouseup', function (ev) {
-          if (ev.type === 'touchend') {
-            var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
-            if(levelTwoChildren.hasClass('show')) {
+          var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
+          if(levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
               //submenuOpenerCtrl.submenuCloser({action: 'hide', level: '2'});
               //scope.$emit('toggleAllSubmenu', {action: 'hide', level: '2'});
-            }
-          }
+          } else {
           // console.log(ev, attrs.wbLevel)
           if ((ev.type === 'touchend' || ev.type === 'mouseup') && attrs.wbLevel === '2') {
             // console.log('Should open submenu', ev);
@@ -251,6 +249,7 @@ angular.module('whiteboard')
             // console.log('Here is where i broke D:');
             // console.log(ev)
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
+          }
           }
         });
 
