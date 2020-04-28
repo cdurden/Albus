@@ -368,7 +368,7 @@ module.exports = function(server) {
       //console.log(data);
       saveBoardToApi(socket, data).then(function(board) {
           console.log(board);
-          data.board_id = board.id;
+          data.board_id = board[0].id; //FIXME: why is board an array?
           api.submit(socket.handshake.session, data, function(error, data) {
             console.log(data)
             io.of('/admin').emit('submission', data);
