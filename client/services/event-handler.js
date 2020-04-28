@@ -159,6 +159,7 @@ angular.module('whiteboard.services.eventhandler', [])
         drawBoard();
     }
   };
+    /*
   function drawBoard() {
     clearBoard();
     data = BoardData.getBoardObj().data;
@@ -179,7 +180,7 @@ angular.module('whiteboard.services.eventhandler', [])
       }
     }
   };
-  /*
+  */
   function drawBoard() {
     clearBoard();
     shapeStorage = BoardData.getBoardObj().shapeStorage;
@@ -200,7 +201,6 @@ angular.module('whiteboard.services.eventhandler', [])
       }
     }
   };
-  */
 
   return {
     cursor: cursor,
