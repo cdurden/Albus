@@ -283,6 +283,7 @@ angular.module('whiteboard.services.boarddata', [])
         if (typeof boardId === 'undefined') {
             if (boards[id].i == 0) {
                 boardId = id;
+                boardData.boardId = id;
             }
         }
         if (!Object.keys(_boards).includes(id)) {
