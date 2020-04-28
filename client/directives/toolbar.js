@@ -148,7 +148,14 @@ angular.module('whiteboard')
           // console.log(angular.element(ev.relatedTarget).is('svg'))
           // console.log('add class show');
           // console.log(ev.buttons)
-          ctrl.menuHandler('show');
+          //TODO: if 
+          if(element.hasClass('show')) {
+            ctrl.menuHandler('hide');
+            //scope.$emit('activateMenu', 'hide');
+          } else {
+            ctrl.menuHandler('show');
+            //scope.$emit('activateMenu', 'show');
+          }
           // element.addClass('show');
         } else {
           // console.log('remove class show');
