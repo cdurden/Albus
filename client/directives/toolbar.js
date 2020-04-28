@@ -222,6 +222,7 @@ angular.module('whiteboard')
           }
         });
 	*/
+      };
 
         element.bind('touchend mouseup', function (ev) {
           if (ev.type === 'touchend') {
@@ -252,7 +253,6 @@ angular.module('whiteboard')
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
           }
         });
-      };
 
       var unbindMouseEv = function () {
         // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
