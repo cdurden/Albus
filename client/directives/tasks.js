@@ -34,12 +34,12 @@ angular.module('whiteboard')
               }
           }
       }
-      $scope.navigateNext function() {
+      $scope.navigateNext = function() {
           if (scope.i<Object.keys(scope.boardData.boards).length) {
               scope.setBoardIndex(scope.i+1);
           }
       }
-      $scope.navigatePrev function() {
+      $scope.navigatePrev = function() {
           if (scope.i>0) {
               scope.setBoardIndex(scope.i-1);
           }
