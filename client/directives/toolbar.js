@@ -199,8 +199,9 @@ angular.module('whiteboard')
     link: function (scope, element, attrs, submenuOpenerCtrl) {
 
       var bindMouseEv = function () {
-          BoardData.getCanvas().bind('touchend.toolbar', function(ev) {
+          BoardData.getCanvas().bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
               scope.$emit('activateMenu', 'hide');
+              ev.preventDefault();
           });
 
 	    /*
@@ -260,7 +261,7 @@ angular.module('whiteboard')
       var unbindMouseEv = function () {
         // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
         element.unbind('mouseover mouseleave');
-        BoardData.getCanvas().unbind('touchend.toolbar');
+        BoardData.getCanvas().unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
         submenuOpenerCtrl.submenuCloser({action: 'hide', level: 'all'});
       }
 
