@@ -47,6 +47,8 @@ angular.module('whiteboard')
       }
     },
     link: function(scope, element, attrs, ctrl) {
+        var controlsNext = element.find('.navigate-right');
+        var controlsPrev = element.find('.navigate-left');
 	function addEventListeners() {
 
 		eventsAreBound = true;
@@ -62,8 +64,8 @@ angular.module('whiteboard')
 		//}
 
 		pointerEvents.forEach( function( eventName ) {
-			dom.controlsPrev.forEach( function( el ) { el.addEventListener( eventName, onNavigatePrevClicked, false ); } );
-			dom.controlsNext.forEach( function( el ) { el.addEventListener( eventName, onNavigateNextClicked, false ); } );
+			controlsPrev.forEach( function( el ) { el.addEventListener( eventName, onNavigatePrevClicked, false ); } );
+			controlsNext.forEach( function( el ) { el.addEventListener( eventName, onNavigateNextClicked, false ); } );
 		} );
 
 	}
