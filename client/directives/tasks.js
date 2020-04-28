@@ -81,6 +81,7 @@ angular.module('whiteboard')
     }
 	function onNavigatePrevClicked( event ) { event.preventDefault(); onUserInput(); navigatePrev(); }
 	function onNavigateNextClicked( event ) { event.preventDefault(); onUserInput(); navigateNext(); }
+    addEventListeners();
 
       var boardCtrl = ctrl;
       BoardData.createBoard(element.find('#board-container'));
