@@ -103,8 +103,10 @@ b {
 
 
 .float-s {
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
+    margin-left: -4em;
+    width: 8em;
+    text-align: center;
+    left: 50%;
     position: absolute;
     bottom: 10px;
 }
