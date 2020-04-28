@@ -75,7 +75,9 @@ module.exports = function(server) {
                           if (typeof roomBoard !== 'undefined') {
                               board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
                           }
-                          resolve(board);
+                          rooms.loadBoard(socket, board['data'], function() {
+                              resolve(board);
+                          }
                       } else {
                           rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
                               board.task_id = task.id;
