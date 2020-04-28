@@ -290,7 +290,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function updateBoardStorage(_boardId, shapeStorage) {
       boards[_boardId].shapeStorage = shapeStorage;
-      boardData.boardId = _boardId;
+      //boardData.boardId = _boardId;
   }
   function setBoardById(newBoardId) {
       if (typeof boards[boardId] !== 'undefined') {
