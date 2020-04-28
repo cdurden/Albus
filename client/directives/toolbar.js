@@ -57,7 +57,7 @@ angular.module('whiteboard')
         ['Draw', ['Path', 'Line', 'Arrow', 'Rectangle', 'Circle', 'Text']], 
         ['Tool', ['Magnify', 'Eraser', 'Pan', 'Move', 'Copy']],
         ['Color', [['Fill', fill], ['Stroke', stroke], ['Thickness', thickness]]],
-        ['Board', ['Submit', 'Save','Background']],
+        //['Board', ['Submit', 'Save','Background']],
       ];
 
       
