@@ -50,13 +50,13 @@ angular.module('whiteboard')
         // console.log('> ', svg.attr("class").split(' '));
       });
       //scope.taskData = TaskData.getData();
+        /*
       Split(['#interactive-space', '#task-space'], {
         sizes: [75, 25],
         minSize: [0, 0],
         snapOffset: 0,
         direction: 'vertical',
       })
-        /*
       Split(['#drawing-space', '#feed-space'], {
         sizes: [100,0],
         minSize: [0, 0],
