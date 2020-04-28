@@ -53,7 +53,7 @@ module.exports = function(server) {
       api.saveBoard(socket.handshake.session, board, data, function(err, data) {
           resolve(data);
       });
-    }
+    });
   }
   function loadBoards(socket) {
     getSocketData(socket.id).then(function(data) {
