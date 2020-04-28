@@ -69,6 +69,7 @@ module.exports = function(server) {
                       var board = null;
                       if (task.boards.length > 0) {
                           board = task.boards[task.boards.length-1];
+                          board.id = board.boardId;
                           board.task_id = task.id;
                           roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
                           if (typeof roomBoard !== 'undefined') {
