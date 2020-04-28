@@ -150,6 +150,7 @@ angular.module('whiteboard')
           // console.log(ev.buttons)
           //TODO: if 
           if (ev.type === 'touchend') {
+          /*
             //if(element.hasClass('show')) {
             //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
             var levelTwoChildren = angular.element(ev.currentTarget).find('.level-two');
@@ -160,6 +161,7 @@ angular.module('whiteboard')
               //ctrl.menuHandler('show');
               scope.$emit('activateMenu', 'show');
             }
+            */
           } else {
             ctrl.menuHandler('show');
           }
