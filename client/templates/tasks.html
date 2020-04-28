@@ -1,6 +1,7 @@
 <div id="board-overlay">
   <div id="interactive-space" class="split">
-    <div id="drawing-space" class="split split-horizontal">
+      <!--<div id="drawing-space" class="split split-horizontal">-->
+    <div id="drawing-space">
       <div id="board-container">
       </div>
       <!--<pinch-zoom>-->
@@ -8,17 +9,21 @@
         </div>
       <!--</pinch-zoom>-->
     </div>
+    <!--
     <div id="feed-space" wb-feed class="split split-horizontal"></div>
+    -->
   </div>
   <div id="task-space" class="split">
-    <div id="task-container" class="split split-horizontal">
+      <!--<div id="task-container" class="split split-horizontal">-->
+    <div id="task-container">
       <!--
       <button type="button" id="task-toggle-button" onclick="toggleTaskForm()">Hide task</button>
       <button type="button" id="task-submit-button">Submit</button>
       -->
       <div wb-task-view></div>
     </div>
-    <div id="board-selector-container" class="split split-horizontal">
+    <!--<div id="board-selector-container" class="split split-horizontal">-->
+    <div id="board-selector-container">
       <a ng-repeat="board in boardData.boards track by $index" ng-click="console.log('clicked'); console.log($parent); $parent.setBoardId(board.id);"> {{ board.id }}</a>
     </div>
   </div>

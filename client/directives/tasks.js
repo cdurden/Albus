@@ -56,6 +56,7 @@ angular.module('whiteboard')
         snapOffset: 0,
         direction: 'vertical',
       })
+        /*
       Split(['#drawing-space', '#feed-space'], {
         sizes: [100,0],
         minSize: [0, 0],
@@ -70,6 +71,7 @@ angular.module('whiteboard')
         expandToMin: false,
         direction: 'horizontal',
       })
+      */
       scope.$watch("boardData.boards[boardData.boardId].task", function(task) {
         scope.task = task;
       }, true);
