@@ -6,14 +6,15 @@ angular.module('whiteboard.services.eventhandler', [])
     BoardData.getCanvas() && BoardData.getCanvas().empty();
   }
   function saveBoardToApi(boardId) {
-    /*
     var board = BoardData.getBoardObj(boardId);
     data = {
         'taskId': board.task.id,
         'boardId': board.id,
     };
-    */
+    Broadcast.saveBoardToApi(data);
+    /*
     Broadcast.saveBoardToApi(BoardData.getBoardObj(boardId));
+    */
   }
   function loadBoard(id) {
     if (id !== BoardData.getBoardId()) {
@@ -158,6 +159,27 @@ angular.module('whiteboard.services.eventhandler', [])
   };
   function drawBoard() {
     clearBoard();
+    data = BoardData.getBoardObj().data;
+    for (socketId in data) {
+      if (Object.keys(data[socketId]).length) {
+        for (id in data[socketId]) {
+          var thisShape = data[socketId][id];
+          if (thisShape.tool.name === 'path') {
+            drawExistingPath(thisShape);
+          } else if (thisShape.initX && thisShape.initY) {
+            createShape(id, socketId, thisShape.boardId, thisShape.tool, thisShape.initX, thisShape.initY);
+            if (thisShape.tool.name !== 'text') {
+              editShape(id, socketId, thisShape.boardId, thisShape.tool, thisShape.mouseX, thisShape.mouseY);
+            }
+            finishShape(thisShape.myid, thisShape.socketId, thisShape.boardId, thisShape.tool);
+          }
+        }
+      }
+    }
+  };
+  /*
+  function drawBoard() {
+    clearBoard();
     shapeStorage = BoardData.getBoardObj().shapeStorage;
     for (socketId in shapeStorage) {
       if (Object.keys(shapeStorage[socketId]).length) {
@@ -176,6 +198,7 @@ angular.module('whiteboard.services.eventhandler', [])
       }
     }
   };
+  */
 
   return {
     cursor: cursor,
