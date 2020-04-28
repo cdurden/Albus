@@ -101,6 +101,8 @@ module.exports = function(server) {
                               });
                           }
                       }
+                      console.log("emitting boards");
+                      console.log(results);
                       socket.emit('boards', results);
                   });
               });
