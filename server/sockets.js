@@ -77,7 +77,7 @@ module.exports = function(server) {
                           }
                           rooms.loadBoard(socket, board['data'], function() {
                               resolve(board);
-                          }
+                          });
                       } else {
                           rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
                               board.task_id = task.id;
