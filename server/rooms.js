@@ -113,6 +113,7 @@ function loadBoard(socket, board, callback) {
       setupRoom(socket);
   }
   rooms[roomId][board.id] = board['shapeStorage'];
+  client.hmset(roomId, board.id, JSON.stringify(board['shapeStorage'])); 
   if (board.task_id) {
       if (typeof taskBoards[roomId] === 'undefined') {
           taskBoards[roomId] = {};
