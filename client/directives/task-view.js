@@ -12,6 +12,7 @@ angular.module('whiteboard')
     scope.submit = function() {
       console.log("submitting answers");
       data = {
+          'boardId': BoardData.getBoardId(),
           'task_id': BoardData.getBoardObj().task.id,
           'data': scope.data,
       }

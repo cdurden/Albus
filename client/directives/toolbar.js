@@ -57,7 +57,7 @@ angular.module('whiteboard')
         ['Draw', ['Path', 'Line', 'Arrow', 'Rectangle', 'Circle', 'Text']], 
         ['Tool', ['Magnify', 'Eraser', 'Pan', 'Move', 'Copy']],
         ['Color', [['Fill', fill], ['Stroke', stroke], ['Thickness', thickness]]],
-        ['Board', ['Save','Background']],
+        ['Board', ['Submit', 'Save','Background']],
       ];
 
       
@@ -291,6 +291,14 @@ angular.module('whiteboard')
 
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
+      }
+      this.submit = function () {
+        data = {
+          'boardId': BoardData.getBoardId(),
+          'task_id': BoardData.getBoardObj().task.id,
+          'data': scope.data, //FIXME: build interface to form data
+        }
+        Sockets.emit("submit", data);
       }
 
       $scope.setAttributeTool = function (toolName) {

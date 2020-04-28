@@ -56,6 +56,7 @@ angular.module('whiteboard')
         snapOffset: 0,
         direction: 'vertical',
       })
+        /*
       Split(['#drawing-space', '#feed-space'], {
         sizes: [75,25],
         minSize: [0, 0],
@@ -63,6 +64,7 @@ angular.module('whiteboard')
         expandToMin: false,
         direction: 'horizontal',
       })
+      */
       Split(['#task-container', '#board-selector-container'], {
         sizes: [75,25],
         minSize: [0, 0],
