@@ -149,14 +149,18 @@ angular.module('whiteboard')
           // console.log('add class show');
           // console.log(ev.buttons)
           //TODO: if 
-          if(element.hasClass('show')) {
-            ctrl.menuHandler('hide');
-            element.removeClass('show');
-            //scope.$emit('activateMenu', 'hide');
+          if (ev.type === 'touchend') {
+            if(element.hasClass('show')) {
+              ctrl.menuHandler('hide');
+              element.removeClass('show');
+              //scope.$emit('activateMenu', 'hide');
+            } else {
+              ctrl.menuHandler('show');
+              element.addClass('show');
+              //scope.$emit('activateMenu', 'show');
+            }
           } else {
             ctrl.menuHandler('show');
-            element.addClass('show');
-            //scope.$emit('activateMenu', 'show');
           }
         } else {
           // console.log('remove class show');
