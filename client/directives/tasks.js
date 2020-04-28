@@ -29,7 +29,7 @@ angular.module('whiteboard')
       $scope.submit = function() { //FIXME: this should not be here
           data = {
               'boardId': BoardData.getBoardId(),
-              'task_id': BoardData.getBoardObj().task.id,
+              'taskId': BoardData.getBoardObj().task.id,
               'data': {},
           }
           Sockets.emit("submit", data);

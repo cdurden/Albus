@@ -47,7 +47,7 @@ module.exports = function(server) {
       });
     });
   }
-  function saveBoardToApi(socket, boardId) {
+  function saveBoardToApi(socket, boardId, taskId) {
     return new Promise(resolve => {
       board = rooms.getBoardStorage(rooms.getRoomId(socket), boardId);
       api.saveBoard(socket.handshake.session, board, data, function(err, data) {
@@ -366,7 +366,8 @@ module.exports = function(server) {
     })
     socket.on('submit', function(data){
       //console.log(data);
-      saveBoardToApi(socket, data.boardId).then(function(board) {
+      saveBoardToApi(socket, data.boardId, data.taskId).then(function(board) {
+          console.log(board);
           data.board_id = board.id;
           api.submit(socket.handshake.session, data, function(error, data) {
             console.log(data)
