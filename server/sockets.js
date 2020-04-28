@@ -49,7 +49,7 @@ module.exports = function(server) {
   }
   function saveBoardToApi(socket, data) {
     return new Promise(resolve => {
-      shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), boardId);
+      shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
       api.saveBoard(socket.handshake.session, shapeStorage, data, function(err, data) {
           console.log("Board saved");
           console.log(data);
