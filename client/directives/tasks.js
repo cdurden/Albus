@@ -56,15 +56,13 @@ angular.module('whiteboard')
         snapOffset: 0,
         direction: 'vertical',
       })
-        /*
       Split(['#drawing-space', '#feed-space'], {
-        sizes: [75,25],
+        sizes: [100,0],
         minSize: [0, 0],
         snapOffset: 0,
         expandToMin: false,
         direction: 'horizontal',
       })
-      */
       Split(['#task-container', '#board-selector-container'], {
         sizes: [75,25],
         minSize: [0, 0],
