@@ -312,6 +312,7 @@ var roomsManager = {
     }).then(function() {
       console.log("deleting shape "+shape.myid);
       console.log("roomId: "+socket.room);
+      console.log("boardId: "+shape.boardId);
       console.log("socketId: "+shape.socketId);
       console.log(rooms);
       console.log(rooms[socket.room][shape.boardId][shape.socketId]);
