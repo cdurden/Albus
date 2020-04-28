@@ -180,14 +180,8 @@ function createFeedback(session, data, callback) {
   );
 }
 function submit(session, data, callback) {
-  lti_user_id = getSessionUser(session);
-  data = { 
-      'lti_user_id': lti_user_id, 
-      'task_id': data.taskId,
-      'boardId': data.boardId,
-      'board_id': data.board_id,
-      'data': board,
-  };
+  data.task_id = data.taskId;
+  data.lti_user_id = getSessionUser(session);
   console.log("Submitting a task response for lti_user_id: "+data.lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/task/${data.task_id}/submissions/`, {
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
