@@ -154,13 +154,11 @@ angular.module('whiteboard')
             //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
             var levelTwoChildren = angular.element(ev.currentTarget).find('.level-two');
             if(levelTwoChildren.hasClass('show')) {
-              ctrl.menuHandler('hide');
-              //element.removeClass('show');
-              //scope.$emit('activateMenu', 'hide');
+              //ctrl.menuHandler('hide');
+              scope.$emit('activateMenu', 'hide');
             } else {
-              ctrl.menuHandler('show');
-              //element.addClass('show');
-              //scope.$emit('activateMenu', 'show');
+              //ctrl.menuHandler('show');
+              scope.$emit('activateMenu', 'show');
             }
           } else {
             ctrl.menuHandler('show');
@@ -224,6 +222,14 @@ angular.module('whiteboard')
 	*/
 
         element.bind('touchend mouseup', function (ev) {
+          if (ev.type === 'touchend') {
+            var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
+            if(levelTwoChildren.hasClass('show')) {
+              scope.$emit('activateMenu', 'hide');
+            } else {
+              scope.$emit('activateMenu', 'show');
+            }
+          }
           // console.log(ev, attrs.wbLevel)
           if ((ev.type === 'touchend' || ev.type === 'mouseup') && attrs.wbLevel === '2') {
             // console.log('Should open submenu', ev);
