@@ -26,6 +26,14 @@ angular.module('whiteboard')
           EventHandler.loadBoard(id);
           //BoardData.setBoardById(id);
       }
+      $scope.setBoardIndex = function(i) {
+          $scope.i = i;
+          for (let [boardId, board] of Object.entries($scope.boardData.boards)) {
+              if (board.i === i) {
+                  $scope.setBoardId(boardId);
+              }
+          }
+      }
       $scope.submit = function() { //FIXME: this should not be here
           data = {
               'boardId': BoardData.getBoardId(),
@@ -34,14 +42,44 @@ angular.module('whiteboard')
           }
           Sockets.emit("submit", data);
       }
-      $scope.setBoardIndex = function(i) {
-          $scope.i = i;
-      }
       this.handleEvent = function (ev) {
         InputHandler[ev.type](ev);
       }
     },
     link: function(scope, element, attrs, ctrl) {
+	function addEventListeners() {
+
+		eventsAreBound = true;
+
+		// Listen to both touch and click events, in case the device
+		// supports both
+		var pointerEvents = [ 'touchstart', 'click' ];
+
+		// Only support touch for Android, fixes double navigations in
+		// stock browser
+		//if( UA.match( /android/gi ) ) {
+		//	pointerEvents = [ 'touchstart' ];
+		//}
+
+		pointerEvents.forEach( function( eventName ) {
+			dom.controlsPrev.forEach( function( el ) { el.addEventListener( eventName, onNavigatePrevClicked, false ); } );
+			dom.controlsNext.forEach( function( el ) { el.addEventListener( eventName, onNavigateNextClicked, false ); } );
+		} );
+
+	}
+	function navigateNext() {
+        if (i<Object.keys($scope.boardData.boards).length) {
+            $scope.setBoardIndex($scope.i+1);
+        }
+    }
+	function navigatePrev() {
+        if (i>0) {
+            $scope.setBoardIndex($scope.i-1);
+        }
+    }
+	function onNavigatePrevClicked( event ) { event.preventDefault(); onUserInput(); navigatePrev(); }
+	function onNavigateNextClicked( event ) { event.preventDefault(); onUserInput(); navigateNext(); }
+
       var boardCtrl = ctrl;
       BoardData.createBoard(element.find('#board-container'));
       var canvas = BoardData.getCanvas();

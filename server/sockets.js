@@ -72,13 +72,15 @@ module.exports = function(server) {
           console.log(body);
           data = JSON.parse(body);
           api.getTasksFromSource(data, function(error, tasks) {
-              console.log("Got tasks");
-              console.log(tasks);
-              Promise.all(tasks.map(task => {
+            console.log("Got tasks");
+            console.log(tasks);
+            if (tasks) {
+              Promise.all(tasks.map((task, i) => {
                   return new Promise(resolve => {
                       var board = null;
                       if (task.boards.length > 0) {
                           board = task.boards[task.boards.length-1];
+                          board.i = i;
                           board.id = board.boardId;
                           board.task_id = task.id;
                           roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
@@ -91,6 +93,7 @@ module.exports = function(server) {
                       } else {
                           rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
                               board.task_id = task.id;
+                              board.i = i;
                               resolve(board);
                           });
                       }
@@ -121,6 +124,7 @@ module.exports = function(server) {
                       socket.emit('tasks', tasksObj);
                   });
               });
+            }
           });
         });  
     });
