@@ -34,6 +34,16 @@ angular.module('whiteboard')
               }
           }
       }
+      $scope.navigateNext function() {
+          if (scope.i<Object.keys(scope.boardData.boards).length) {
+              scope.setBoardIndex(scope.i+1);
+          }
+      }
+      $scope.navigatePrev function() {
+          if (scope.i>0) {
+              scope.setBoardIndex(scope.i-1);
+          }
+      }
       $scope.submit = function() { //FIXME: this should not be here
           data = {
               'boardId': BoardData.getBoardId(),
@@ -69,19 +79,8 @@ angular.module('whiteboard')
 		} );
 
 	}
-	function navigateNext() {
-        if (scope.i<Object.keys(scope.boardData.boards).length) {
-            scope.setBoardIndex(scope.i+1);
-        }
-    }
-	function navigatePrev() {
-        if (scope.i>0) {
-            scope.setBoardIndex(scope.i-1);
-        }
-    }
 	function onNavigatePrevClicked( event ) { event.preventDefault(); navigatePrev(); }
 	function onNavigateNextClicked( event ) { event.preventDefault(); navigateNext(); }
-    addEventListeners();
 
       var boardCtrl = ctrl;
       BoardData.createBoard(element.find('#board-container'));
