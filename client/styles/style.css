@@ -1,7 +1,15 @@
-.controls .controls-arrow {
+.controls-arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
     position: relative;
     width: 3.6em;
-    height: 3.6em; }
+    height: 3.6em;
+}
+.controls button {
+  border: 0;
+}
 .controls .controls-arrow:before {
       -webkit-transform: translateX(0.5em) translateY(1.55em) rotate(45deg);
               transform: translateX(0.5em) translateY(1.55em) rotate(45deg); }
