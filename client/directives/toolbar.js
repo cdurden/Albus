@@ -151,12 +151,13 @@ angular.module('whiteboard')
           //TODO: if 
           if(element.hasClass('show')) {
             ctrl.menuHandler('hide');
+            element.removeClass('show');
             //scope.$emit('activateMenu', 'hide');
           } else {
             ctrl.menuHandler('show');
+            element.addClass('show');
             //scope.$emit('activateMenu', 'show');
           }
-          // element.addClass('show');
         } else {
           // console.log('remove class show');
 
