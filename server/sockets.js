@@ -76,9 +76,9 @@ module.exports = function(server) {
                           }
                           resolve(board);
                       } else {
-                          rooms.getOrCreateTaskBoard(socket, task.id, function(err, result) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
-                              result.task = task;
-                              resolve(result);
+                          rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                              board.task_id = task.id;
+                              resolve(board);
                           });
                       }
                   });
