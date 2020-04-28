@@ -44,7 +44,7 @@ angular.module('whiteboard.services.inputhandler', [])
 
   var actions = {};
 
-  var boardId = BoardData.getBoardId();
+  //var boardId = BoardData.getBoardId();
   var lastEv;
   actions.eraser = {
     mouseDown: function (ev) {
@@ -55,16 +55,16 @@ angular.module('whiteboard.services.inputhandler', [])
         BoardData.getBoard().forEach(function (shape) {
           if (shape.type === 'path') {
             if (Raphael.pathIntersection(mousePathString, shape.attr('path')).length) {
-              Broadcast.deleteShape(shape.myid, shape.socketId, boardId);
-              EventHandler.deleteShape(shape.myid, shape.socketId, boardId); //FIXME: is boardId a shape attribute?
+              Broadcast.deleteShape(shape.myid, shape.socketId, shape.boardId);
+              EventHandler.deleteShape(shape.myid, shape.socketId, shape.boardId); //FIXME: is boardId a shape attribute?
             }
           }
         });
       }
       var shape = BoardData.getBoard().getElementByPoint(ev.clientX, ev.clientY);
       if (shape) {
-        Broadcast.deleteShape(shape.myid, shape.socketId, boardId);
-        EventHandler.deleteShape(shape.myid, shape.socketId, boardId);
+        Broadcast.deleteShape(shape.myid, shape.socketId, shape.boardId);
+        EventHandler.deleteShape(shape.myid, shape.socketId, shape.boardId);
       }
       lastEv = ev;
     },
