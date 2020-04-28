@@ -70,12 +70,12 @@ angular.module('whiteboard')
 
 	}
 	function navigateNext() {
-        if (i<Object.keys($scope.boardData.boards).length) {
+        if ($scope.i<Object.keys($scope.boardData.boards).length) {
             $scope.setBoardIndex($scope.i+1);
         }
     }
 	function navigatePrev() {
-        if (i>0) {
+        if ($scope.i>0) {
             $scope.setBoardIndex($scope.i-1);
         }
     }
