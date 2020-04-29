@@ -244,7 +244,7 @@ module.exports = function(server) {
       });
     });
     socket.on('getAssignments', function(){
-      assignments = ['a1','a2','NegativeExponents']
+      assignments = ['NegativeExponents','CorrectProductRule','CorrectQuotientRule','CorrectNegativeExponents','CorrectExponentRuleMistakesAdvanced']
       socket.emit('assignments', assignments);
 /*
       client.hmget(socket, assignmentIds, function(err, results) {
