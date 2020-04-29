@@ -12,12 +12,25 @@
     <input ng-model="query" type="text"
             placeholder="Filter by" autofocus>
     <div class="row">
-      <div class="col-6">
+      <div class="col-4">
+          <fieldset>
+          <legend>Unassigned</legend>
+        <div class="assignmentList" class="list-group list-group-flush">
+            <span style="display:none;" class="assignment">{{null}}</span>
+          <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="user in assignments[null] | filter:query track by user.id">
+            <span style="display:none;" id="userId[]">{{user.id}}</span>
+            <span class="font-weight-bold">{{$index + 1}}</span><span id="student[]">{{user.firstname}} {{user.lastname}}</span></span>
+            <span class="badge badge-primary badge-pill">21</span>
+          </li>
+        </div>
+        </fieldset>
 
+      </div>
+      <div class="col-4">
         <h4 class="text-center">Assignments</h4>
 
         <!-- product list -->
-          <fieldset  ng-repeat="(assignmentId, users) in assignments">
+          <fieldset  ng-repeat="(assignmentId, users) in assignments" ng-if="assignmentId!=null">
           <legend>{{ assignmentId }}</legend>
         <div class="assignmentList" class="list-group list-group-flush">
           <span style="display:none;" class="assignment">{{assignmentId}}</span>
@@ -33,7 +46,7 @@
           <button type="button" id="generateJSON" class="btn btn-info">Assign</button>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
         <h4 class="text-center" ng-click="downloadAssignmentsJson('assignments.json');">JSON</h4>
         <pre id="printCode" style="overflow-y: scroll; height: 50em;"></pre>
       </div>
