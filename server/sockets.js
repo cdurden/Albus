@@ -70,7 +70,7 @@ module.exports = function(server) {
         }, function(error, response, body) {
           console.log("assignment data");
           console.log(body);
-          if(!error) {
+          if(!error && response.statusCode == 200) {
             data = JSON.parse(body);
           } else {
             data = [];
