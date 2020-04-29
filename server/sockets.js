@@ -70,7 +70,11 @@ module.exports = function(server) {
         }, function(error, response, body) {
           console.log("assignment data");
           console.log(body);
-          data = JSON.parse(body);
+          if(!error) {
+            data = JSON.parse(body);
+          } else {
+            data = [];
+          }
           api.getTasksFromSource(data, function(error, tasks) {
             console.log("Got tasks");
             console.log(tasks);
