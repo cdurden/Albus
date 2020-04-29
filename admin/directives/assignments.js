@@ -9,7 +9,7 @@ angular.module('whiteboard-admin')
     controller: function ($scope) {
       $scope.assignments = {};
       $scope.users = [];
-      $scope.downloadAssignmentsJson(filename) {
+      $scope.downloadAssignmentsJson = function(filename) {
         var element = document.createElement('a');
         var text = JSON.stringify($scope.users,null,'\t');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
