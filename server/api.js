@@ -17,7 +17,7 @@ function getBoard(boardId, callback) {
   console.log("Getting board with id "+boardId);
   request({
       url: `${scheme}://${host}:${port}/api/board/${boardId}`,
-    headers : { "Authorization" : "Bearer " + auth.token },
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
       json: data,
   },
     function(error, response, body) {
@@ -33,7 +33,7 @@ function getTaskBoard(session, taskId, callback) {
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
   request({
       url: `${scheme}://${host}:${port}/api/task/${taskId}/board/`,
-    headers : { "Authorization" : "Bearer " + auth.token },
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -52,7 +52,7 @@ function getLatestBoard(session, taskId, callback) {
   data.lti_user_id = getSessionUser(session);
   request({
       url: `${scheme}://${host}:${port}/api/board/`,
-    headers : { "Authorization" : "Bearer " + auth.token },
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
       json: data,
   },
     function(error, response, body) {
@@ -203,7 +203,7 @@ function submit(session, data, callback) {
 function getSubmissions(callback) {
   request({
       url: `${scheme}://${host}:${port}/api/submissions/`,
-    headers : { "Authorization" : "Bearer " + auth.token },
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -241,7 +241,7 @@ function getApiUserFromSession(session, callback) {
 function getApiUsers(callback) {
   request({
     url: `${scheme}://${host}:${port}/api/users/`,
-    headers : { "Authorization" : "Bearer " + auth.token },
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -255,7 +255,7 @@ function getApiUsers(callback) {
 function getTasksDataFromCollection(collection, callback) {
   request({
       url: `${scheme}://${host}:${port}/api/tasks/data/snow-qm:${collection}:.*/`,
-    headers : { "Authorization" : "Bearer " + auth.token },
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
