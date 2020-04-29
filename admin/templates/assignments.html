@@ -16,7 +16,7 @@
           <fieldset>
           <legend>Unassigned</legend>
         <div class="assignmentList" class="list-group list-group-flush">
-            <span style="display:none;" class="assignment">{{null}}</span>
+            <span style="display:none;" class="assignment"></span>
           <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="user in assignments[null] | filter:query track by user.id">
             <span style="display:none;" id="userId[]">{{user.id}}</span>
             <span class="font-weight-bold">{{$index + 1}}</span><span id="student[]">{{user.firstname}} {{user.lastname}}</span></span>
@@ -30,7 +30,7 @@
         <h4 class="text-center">Assignments</h4>
 
         <!-- product list -->
-          <fieldset  ng-repeat="(assignmentId, users) in assignments" ng-if="assignmentId!='null'">
+          <fieldset  ng-repeat="(assignmentId, users) in assignments" ng-if="assignmentId">
           <legend>{{ assignmentId }}</legend>
         <div class="assignmentList" class="list-group list-group-flush">
           <span style="display:none;" class="assignment">{{assignmentId}}</span>
