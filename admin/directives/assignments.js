@@ -48,14 +48,20 @@ angular.module('whiteboard-admin')
           });
         }
         function updateAssignments() {
+          var assignments = {};
           $('.assignmentList').each(function(i,assignmentElmt) { 
             var assignmentId=$(assignmentElmt).find(".assignment").text();
+            assignments[assignmentId] = [];
             $(assignmentElmt).find('span[id^=userId]').each(function(j,userElmt) {
                 //var userIdStr = $(userElmt).text();
                 var userId = parseInt($(userElmt).text());
                 $scope.users[userId]['assignment'] = assignmentId; //FIXME: use a getter/setter method that preserves type
             });
           });
+          for (let [id, user] of Object.entries($scope.users)) {
+              assignments[user.assignment].push(user);
+          }
+          $scope.assignments = assignments;
         }
         function createSortables() {
           //var assignments = {};
