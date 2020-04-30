@@ -133,12 +133,12 @@ angular.module('whiteboard')
         $scope.$emit('activateMenu', attr);
       }
       this.activateNav = function() {
-        var $canvas = BoardData.getCanvas();
-        $canvas.css("pointer-events", "none");
+        var board = BoardData.getBoard();
+        $(board).css("pointer-events", "none");
       },
       this.deactivateNav = function() {
-        var $canvas = BoardData.getCanvas();
-        $canvas.css("pointer-events", "all");
+        var board = BoardData.getBoard();
+        $(board).css("pointer-events", "all");
       }
     },
     link: function (scope, element, attrs, ctrl) {
