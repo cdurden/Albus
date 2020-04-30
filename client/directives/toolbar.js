@@ -125,11 +125,10 @@ angular.module('whiteboard')
 
       this.menuHandler = function (attr) {
         $scope.$emit('activateMenu', attr);
-      },
+      }
       this.navHandler = function() {
         var board = BoardData.getBoard();
-      },
-
+      }
     },
     link: function (scope, element, attrs, ctrl) {
       
