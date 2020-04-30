@@ -13,6 +13,15 @@ angular.module('whiteboard')
             h: boardRect.height / dim.height * h,
         })
     }
+    function isImageReady(img) {
+        if (!img.complete) {
+            return false;
+        }
+        if (img.naturalWidth === 0) {
+            return false;
+        }
+        return true;
+    }
     return {
         link: function(scope, element, attr){
             //scope.$watch("$parent.board", function(board) {
@@ -57,6 +66,9 @@ angular.module('whiteboard')
                             //((rs2 || {}).detach || (() =>{}))();
                             rs1 = new ResizeSensor(newValue, handleBackgroundResize);
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
+                        }
+                        if (isImageReady(img)} {
+                            img.onload();
                         }
                     }
                 }
