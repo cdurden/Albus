@@ -56,8 +56,8 @@ angular.module('whiteboard')
                     $pinchZoom.dblclick(function(ev) {
                         ev.currentTarget.scaleTo(2, {
                           // Transform origin. Can be a number, or string percent, eg "50%"
-                          originX: ev.clientX,
-                          originY: ev.clientY,
+                          originX: 0,
+                          originY: 0,
                           // Should the transform origin be relative to the container, or content?
                           relativeTo: 'content',
                           // Fire a 'change' event if values are different to current values
