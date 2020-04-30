@@ -200,14 +200,14 @@ angular.module('whiteboard')
 
       });
       var bindMouseEv = function () {
-        BoardData.getCanvas().bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
+        BoardData.getCanvas().parent().bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
             scope.$emit('activateMenu', 'hide');
             ev.preventDefault();
         });
       }
       var unbindMouseEv = function () {
         // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
-        BoardData.getCanvas().unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
+        BoardData.getCanvas().parent().unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
       }
       scope.$on('toggleMouseEv', function (event, action) {
         // console.log('ACTION: ', action)
