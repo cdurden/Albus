@@ -153,6 +153,10 @@ angular.module('whiteboard')
           // console.log('add class show');
           // console.log(ev.buttons)
           //TODO: if 
+          if (attrs.wbTool && attrs.wbTool === 'nav') {
+            ctrl.navHandler();
+          }
+
           if (ev.type === 'touchend') {
           /*
             //if(element.hasClass('show')) {
