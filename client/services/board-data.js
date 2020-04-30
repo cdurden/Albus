@@ -198,6 +198,10 @@ angular.module('whiteboard.services.boarddata', [])
     var _shapeStorage = getShapeStorage(id, boardId);
     return _shapeStorage[socketId][id];
   }
+  function deleteShape (id, socketId, boardId) {
+    var _shapeStorage = getShapeStorage(id, boardId);
+    delete _shapeStorage[socketId][id];
+  }
 
   function getCurrentShape () {
     return currentShape;
@@ -389,5 +393,6 @@ angular.module('whiteboard.services.boarddata', [])
     //loadBoards: loadBoards,
     getBoardData: getBoardData,
     joinTasksToBoards: joinTasksToBoards,
+    deleteShape: deleteShape,
   }
 }]);

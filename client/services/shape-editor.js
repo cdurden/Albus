@@ -137,6 +137,7 @@ angular.module('whiteboard.services.shapeeditor', [])
 
     Snap.deleteSnaps(shape);
     shape.remove();
+    BoardData.deleteShape(shape);
   };
 
   return {
