@@ -1,9 +1,10 @@
 <div class="toolbar">
   <div class="menu level-one wb-menu-opener" wb-menu-over-handler ng-repeat="menu in menuStructure" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%">
-    <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%">
+      <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%" ng-if="menu[0].length>1" wb-tool="{{setAttributeTool(menu[0])}}">
+      <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%" ng-if="menu[0].length==1">
       <p class="menu-text lvl1 valign-text">{{menu[0]}}</p>
     </div>
-    <div ng-if="menu.length==1" class="icon icon-path valign-text" wb-tool={{menu[0]}} wb-level="2"></div>
+    <!--<div ng-if="menu.length==1" class="icon icon-path valign-text" wb-tool={{menu[0]}} wb-level="2"></div>-->
     <div ng-if="menu.length>1" class="menu wb-submenu-opener" wb-level="2"></div>
     <div ng-if="menu.length>1" class="menu level-two wb-submenu {{menu[0].toLowerCase()}}" wb-level="2">
       <div class="level-two-items wb-submenu-items valign-text " wb-menu-over-handler wb-tool="{{setAttributeTool(subMenu)}}" ng-repeat="subMenu in menu[1]" style="height: {{100/menu[1].length}}%">
