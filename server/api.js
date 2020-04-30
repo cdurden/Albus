@@ -11,7 +11,7 @@ function getSocketUser(socket) {
     return(socket.handshake.session.passport.user);
 }
 function getSessionUser(session) {
-    return(session.passport.user);
+    return(((session || {}).passport || {}).user);
 }
 function getBoard(boardId, callback) {
   console.log("Getting board with id "+boardId);
