@@ -1,9 +1,6 @@
 <div class="toolbar">
-  <div class="menu level-one wb-menu-opener" wb-menu-over-handler ng-repeat="menu in menuStructure" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%">
-    <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%" ng-if="menu.length==1" wb-tool="{{setAttributeTool(menu[0])}}">
-      <p class="menu-text lvl1 valign-text">{{menu[0]}}</p>
-    </div>
-    <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%" ng-if="menu.length>1">
+  <div class="menu level-one wb-menu-opener" wb-menu-over-handler ng-repeat="menu in menuStructure" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%" wb-tool="{{setAttributeTool(menu[0])}}">
+    <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%">
       <p class="menu-text lvl1 valign-text">{{menu[0]}}</p>
     </div>
     <!--<div ng-if="menu.length==1" class="icon icon-path valign-text" wb-tool={{menu[0]}} wb-level="2"></div>-->

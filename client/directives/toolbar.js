@@ -123,6 +123,12 @@ angular.module('whiteboard')
     scope: false,
     controller: function ($scope) {
 
+      $scope.setAttributeTool = function (toolName) {
+        if (typeof toolName === 'string') {
+          return toolName.toLowerCase();
+        }
+        return toolName[0];
+      }
       this.menuHandler = function (attr) {
         $scope.$emit('activateMenu', attr);
       }
