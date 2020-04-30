@@ -55,7 +55,7 @@ angular.module('whiteboard')
 
       $scope.menuStructure = [
         //['Draw', ['Path', 'Line', 'Arrow', 'Rectangle', 'Circle', 'Text']], 
-        ['Nav'],
+        ['Pan'],
         ['Draw', ['Path', 'Eraser', 'Line', 'Rectangle', 'Text']], 
         //['Tool', ['Magnify', 'Eraser', 'Pan', 'Move', 'Copy']],
         ['Color', [['Fill', fill], ['Stroke', stroke], ['Thickness', thickness]]],
@@ -163,39 +163,44 @@ angular.module('whiteboard')
 
       });
       element.bind('touchend mouseup', function (ev) {
-        if (ev.type === 'touchend' || ev.type === 'mouseup') {
-          // console.log(angular.element(ev.relatedTarget).is('svg'))
-          // console.log('add class show');
-          // console.log(ev.buttons)
-          //TODO: if 
-          if (attrs.wbTool && attrs.wbTool === 'nav') {
-            ctrl.activateNav();
-          }
-          if (attrs.wbTool && attrs.wbTool === 'draw') {
-            ctrl.activateDraw();
-          }
-
-          if (ev.type === 'touchend') {
-          /*
-            //if(element.hasClass('show')) {
-            //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
-            var levelTwoChildren = angular.element(ev.currentTarget).find('.level-two');
-            if(levelTwoChildren.hasClass('show')) {
-              //ctrl.menuHandler('hide');
-              scope.$emit('activateMenu', 'hide');
-            } else {
-              //ctrl.menuHandler('show');
-              scope.$emit('activateMenu', 'show');
-            }
-            */
-          } else {
-            ctrl.menuHandler('show');
-          }
+        var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
+        if(ev.type === 'touchend' && levelTwoChildren.hasClass('show')) {
+            scope.$emit('activateMenu', 'hide');
         } else {
-          // console.log('remove class show');
-
-          // ctrl.menuHandler('hide');
-          
+          if (ev.type === 'touchend' || ev.type === 'mouseup') {
+            // console.log(angular.element(ev.relatedTarget).is('svg'))
+            // console.log('add class show');
+            // console.log(ev.buttons)
+            //TODO: if 
+            if (attrs.wbTool && attrs.wbTool === 'pan') {
+              ctrl.activateNav();
+            }
+            if (attrs.wbTool && attrs.wbTool === 'draw') {
+              ctrl.activateDraw();
+            }
+  
+            if (ev.type === 'touchend') {
+            /*
+              //if(element.hasClass('show')) {
+              //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
+              var levelTwoChildren = angular.element(ev.currentTarget).find('.level-two');
+              if(levelTwoChildren.hasClass('show')) {
+                //ctrl.menuHandler('hide');
+                scope.$emit('activateMenu', 'hide');
+              } else {
+                //ctrl.menuHandler('show');
+                scope.$emit('activateMenu', 'show');
+              }
+              */
+            } else {
+              ctrl.menuHandler('show');
+            }
+          } else {
+            // console.log('remove class show');
+  
+            // ctrl.menuHandler('hide');
+            
+          }
         }
 
       });
@@ -276,12 +281,13 @@ angular.module('whiteboard')
       };
 
         element.bind('touchend mouseup', function (ev) {
+/*
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
           if(ev.type === 'touchend' && levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
-              //submenuOpenerCtrl.submenuCloser({action: 'hide', level: '2'});
-              //scope.$emit('toggleAllSubmenu', {action: 'hide', level: '2'});
           } else {
+*/
+
           // console.log(ev, attrs.wbLevel)
           if ((ev.type === 'touchend' || ev.type === 'mouseup') && attrs.wbLevel === '2') {
             // console.log('Should open submenu', ev);
@@ -301,7 +307,7 @@ angular.module('whiteboard')
             // console.log(ev)
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
           }
-          }
+ //         }
         });
 
       var unbindMouseEv = function () {
