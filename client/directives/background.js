@@ -51,7 +51,7 @@ angular.module('whiteboard')
                     })(newValue);
                     //((rs1 || {}).detach || (() =>{}))(oldValue); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
-                    newValue.parents('pinch-zoom').change(handleBackgroundResize);
+                    element.parents('pinch-zoom').change(handleBackgroundResize);
                     if (typeof img !== 'undefined') {
                         img.onload = function() {
                             w = img.naturalWidth;
