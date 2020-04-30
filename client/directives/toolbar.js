@@ -208,7 +208,6 @@ angular.module('whiteboard')
       var unbindMouseEv = function () {
         // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
         BoardData.getCanvas().unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
-        submenuOpenerCtrl.submenuCloser({action: 'hide', level: 'all'});
       }
       scope.$on('toggleMouseEv', function (event, action) {
         // console.log('ACTION: ', action)
