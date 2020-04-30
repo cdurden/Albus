@@ -191,7 +191,7 @@ h1.title {
 }
 #drawing-space {
     height: 100%;
-    pointer-events: all;
+    pointer-events: none;
     position: relative;
 }
 #task-space {
