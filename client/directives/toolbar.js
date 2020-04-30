@@ -199,6 +199,27 @@ angular.module('whiteboard')
         }
 
       });
+      var bindMouseEv = function () {
+        BoardData.getCanvas().bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
+            scope.$emit('activateMenu', 'hide');
+            ev.preventDefault();
+        });
+      }
+      var unbindMouseEv = function () {
+        // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
+        BoardData.getCanvas().unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
+        submenuOpenerCtrl.submenuCloser({action: 'hide', level: 'all'});
+      }
+      scope.$on('toggleMouseEv', function (event, action) {
+        // console.log('ACTION: ', action)
+        if (action === 'show') {
+          element.addClass('show');
+          bindMouseEv();
+        } else {
+          element.removeClass('show');
+          unbindMouseEv();
+        }
+      })
     }
   };
 })
@@ -301,7 +322,6 @@ angular.module('whiteboard')
           unbindMouseEv();
         }
       })
-
     }
   };
 })
