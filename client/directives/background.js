@@ -40,7 +40,7 @@ angular.module('whiteboard')
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
                         });
                     })(newValue);
-                    ((rs1 || {}).detach || (() =>{}))(oldValue);
+                    //((rs1 || {}).detach || (() =>{}))(oldValue); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
                     if (typeof img !== 'undefined') {
                         img.onload = function() {
