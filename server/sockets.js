@@ -210,7 +210,11 @@ module.exports = function(server) {
             }, function(error, response, body) {
               console.log("assignment data");
               console.log(body);
-              data = JSON.parse(body)
+              try {
+                data = JSON.parse(body);
+              } catch (e) {
+                data = [];
+              }
               api.getTasksFromSource(data, function(error, data) {
                   console.log(data);
                   if (typeof io.of("/client").connected[socketId] !== 'undefined') {
