@@ -64,11 +64,13 @@ angular.module('whiteboard')
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
-                            rs1 = new ResizeSensor(newValue, handleBackgroundResize);
+                            ResizeSensorApi.create(newValue, handleBackgroundResize);
+                            //rs1 = new ResizeSensor(newValue, handleBackgroundResize);
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                         if (isImageReady(img)) {
                             img.onload();
+                            handleBackgroundResize(); //FIXME: for some reason this is not called when the img is readded to the DOM a second time.
                         }
                     }
                 }
