@@ -171,7 +171,7 @@ h1.title {
     font-size: 18pt;
     pointer-events: none;
 }
-#background-container {
+#background-frame {
     position: relative;
 }
 #background-container {
