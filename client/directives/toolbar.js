@@ -134,11 +134,15 @@ angular.module('whiteboard')
       }
       this.activateNav = function() {
         var $canvas = BoardData.getCanvas();
-        $canvas.parent().css("pointer-events", "none");
+        var $container = $canvas.parent();
+        $container.css("pointer-events", "none");
+        $container.children().css("pointer-events", "none");
       },
-      this.deactivateNav = function() {
+      this.activateDraw = function() {
         var $canvas = BoardData.getCanvas();
-        $canvas.parent().css("pointer-events", "all");
+        var $container = $canvas.parent();
+        $container.css("pointer-events", "all");
+        $container.children().css("pointer-events", "all");
       }
     },
     link: function (scope, element, attrs, ctrl) {
@@ -168,7 +172,7 @@ angular.module('whiteboard')
             ctrl.activateNav();
           }
           if (attrs.wbTool && attrs.wbTool === 'draw') {
-            ctrl.deactivateNav();
+            ctrl.activateDraw();
           }
 
           if (ev.type === 'touchend') {
