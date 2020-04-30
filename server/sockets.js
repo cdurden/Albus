@@ -348,6 +348,9 @@ module.exports = function(server) {
   io.of('/client').on('connection', function (socket) {
     console.log("connection from socket "+socket.id);
     //if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
+      if (typeof socket.handshake.session === 'undefined') {
+          return;
+      }
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log("returning from getting Api user");
         if (data) {
