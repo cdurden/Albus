@@ -67,7 +67,7 @@ angular.module('whiteboard')
                             rs1 = new ResizeSensor(newValue, handleBackgroundResize);
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
-                        if (isImageReady(img)} {
+                        if (isImageReady(img)) {
                             img.onload();
                         }
                     }
