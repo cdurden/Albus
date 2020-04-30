@@ -51,7 +51,19 @@ angular.module('whiteboard')
                     })(newValue);
                     //((rs1 || {}).detach || (() =>{}))(oldValue); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
-                    element.parents('pinch-zoom').change(handleBackgroundResize);
+                    $pinchZoom = element.parents('pinch-zoom');
+                    $pinchZoom.change(handleBackgroundResize);
+                    $pinchZoom.dblclick(function(ev) {
+                        $pinchZoom.scaleTo(2, {
+                          // Transform origin. Can be a number, or string percent, eg "50%"
+                          originX: ev.clientX,
+                          originY: ev.clientY,
+                          // Should the transform origin be relative to the container, or content?
+                          relativeTo: 'content',
+                          // Fire a 'change' event if values are different to current values
+                          allowChangeEvent: true,
+                        });
+                    });
                     if (typeof img !== 'undefined') {
                         img.onload = function() {
                             w = img.naturalWidth;
