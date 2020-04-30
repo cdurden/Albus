@@ -224,8 +224,6 @@ h1.title {
 }
 
 #board-container svg {
-  height: 100%;
-  width: 100%;
   position: absolute;
   cursor: url('../assets/images/cursors/path.png'), auto;
 }
