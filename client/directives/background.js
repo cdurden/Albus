@@ -54,7 +54,7 @@ angular.module('whiteboard')
                     $pinchZoom = element.parents('pinch-zoom');
                     $pinchZoom.change(handleBackgroundResize);
                     $pinchZoom.dblclick(function(ev) {
-                        $pinchZoom.scaleTo(2, {
+                        this.scaleTo(2, {
                           // Transform origin. Can be a number, or string percent, eg "50%"
                           originX: ev.clientX,
                           originY: ev.clientY,
