@@ -115,7 +115,7 @@ angular.module('whiteboard')
     }
   };
 }])
-.directive('wbMenuOpener', function () {
+.directive('wbMenuOpener', function (BoardData) {
   return {
     restrict: 'C',
     replace: false,
@@ -132,8 +132,13 @@ angular.module('whiteboard')
       this.menuHandler = function (attr) {
         $scope.$emit('activateMenu', attr);
       }
-      this.navHandler = function() {
-        var board = BoardData.getBoard();
+      this.activateNav = function() {
+        var $canvas = BoardData.getCanvas();
+        $canvas.css("pointer-events", "none");
+      },
+      this.deactivateNav = function() {
+        var $canvas = BoardData.getCanvas();
+        $canvas.css("pointer-events", "all");
       }
     },
     link: function (scope, element, attrs, ctrl) {
@@ -160,7 +165,10 @@ angular.module('whiteboard')
           // console.log(ev.buttons)
           //TODO: if 
           if (attrs.wbTool && attrs.wbTool === 'nav') {
-            ctrl.navHandler();
+            ctrl.activateNav();
+          }
+          if (attrs.wbTool && attrs.wbTool === 'draw') {
+            ctrl.deactivateNav();
           }
 
           if (ev.type === 'touchend') {
