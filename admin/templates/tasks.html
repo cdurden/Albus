@@ -21,7 +21,7 @@
     <button type="submit" class="submit">Assign</button>
     </form>
     -->
-          <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [['test'],['asdf'],[5],['idk']]}"/><br/>
+    <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: {a: 1, b:[['test'],['asdf'],[5],['idk']]} }"/><br/>
         <ul>
             <div class="file-drop-area" nv-file-over uploader="uploader">Drag file here</div>
             <li ng-repeat="item in uploader.queue">
