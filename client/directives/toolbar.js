@@ -280,7 +280,7 @@ angular.module('whiteboard')
               scope.$emit('activateMenu', 'hide');
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
-          if(ev.type === 'touchend' && levelTwoChildren.hasClass('show')) {
+          if(levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
           } else {
 
