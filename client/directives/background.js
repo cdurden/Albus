@@ -31,7 +31,7 @@ angular.module('whiteboard')
                 eval(((task || {}).data || {}).onload);
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
-                    function handleBackgroundResize() {
+                var handleBackgroundResize = ((elmt) => { function () {
                             backgroundRect = newValue.getBoundingClientRect();
                             /*
                             if (typeof w === 'undefined' || typeof h === 'undefined') {
@@ -45,7 +45,7 @@ angular.module('whiteboard')
                             //console.log(dim)
                             //console.log(viewBox);
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
-                    };
+                    })(newValue);
                     //((rs1 || {}).detach || (() =>{}))(oldValue); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
                     $pinchZoom = element.parents('pinch-zoom');
