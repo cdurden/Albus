@@ -221,7 +221,8 @@ h1.title {
     width: 100%;
     left: 0;
     top: 0;
-    z-index: 29;
+    z-index: 50;
+    touch-action: none;
 }
 
 #board-container svg {
