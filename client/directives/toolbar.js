@@ -203,7 +203,7 @@ angular.module('whiteboard')
         angular.element("#drawing-space").bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
             scope.$emit('activateMenu', 'hide');
             ev.preventDefault();
-            ev.stopPropogation();
+            ev.stopPropagation();
         });
       }
       var unbindMouseEv = function () {
@@ -280,13 +280,13 @@ angular.module('whiteboard')
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
-              ev.stopPropogation();
+              ev.stopPropagation();
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
           if(levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
-              ev.stopPropogation();
+              ev.stopPropagation();
           } else {
 
           // console.log(ev, attrs.wbLevel)
