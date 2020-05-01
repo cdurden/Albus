@@ -163,10 +163,6 @@ angular.module('whiteboard')
 
       });
       element.bind('touchend mouseup', function (ev) {
-        var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
-        if(ev.type === 'touchend' && levelTwoChildren.hasClass('show')) {
-            scope.$emit('activateMenu', 'hide');
-        } else {
           if (ev.type === 'touchend' || ev.type === 'mouseup') {
             // console.log(angular.element(ev.relatedTarget).is('svg'))
             // console.log('add class show');
@@ -201,7 +197,6 @@ angular.module('whiteboard')
             // ctrl.menuHandler('hide');
             
           }
-        }
 
       });
       var bindMouseEv = function () {
@@ -281,12 +276,13 @@ angular.module('whiteboard')
       };
 
         element.bind('touchend mouseup', function (ev) {
-/*
+          if(attrs.wbLevel === '2' && element.children().length == 0) {
+              scope.$emit('activateMenu', 'hide');
+          }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
           if(ev.type === 'touchend' && levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
           } else {
-*/
 
           // console.log(ev, attrs.wbLevel)
           if ((ev.type === 'touchend' || ev.type === 'mouseup') && attrs.wbLevel === '2') {
@@ -307,7 +303,7 @@ angular.module('whiteboard')
             // console.log(ev)
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
           }
- //         }
+          }
         });
 
       var unbindMouseEv = function () {
