@@ -18,6 +18,8 @@
       </div>
     <form action="" id="assign-task-form" class="form-container">
       <textarea style="width: 100%;" placeholder="Type instructions for task..." id="m" ng-model="task_json" autocomplete="off" />
+    <button type="submit" class="submit">Assign</button>
+    </form>
           <input type="file" nv-file-select uploader="uploader"/><br/>
         <ul>
             <div class="file-drop-area" nv-file-over uploader="uploader">Drag file here</div>
@@ -26,7 +28,5 @@
                 <button ng-click="item.upload()">upload</button>
             </li>
         </ul>
-    <button type="submit" class="submit">Assign</button>
-    </form>
   </div>
 </div>
