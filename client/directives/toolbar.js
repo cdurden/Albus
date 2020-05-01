@@ -155,6 +155,7 @@ angular.module('whiteboard')
           // console.log('add class show');
           // console.log(ev.buttons)
           ctrl.menuHandler('show');
+          $scope.$broadcast('toggleSubmenu', {action: 'show', level: '2'});
           // element.addClass('show');
         } else {
           // console.log('remove class show');
