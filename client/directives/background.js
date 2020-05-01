@@ -31,7 +31,7 @@ angular.module('whiteboard')
                 eval(((task || {}).data || {}).onload);
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
-                    var handleBackgroundResize = function () {
+                    function handleBackgroundResize() {
                             backgroundRect = newValue.getBoundingClientRect();
                             /*
                             if (typeof w === 'undefined' || typeof h === 'undefined') {
