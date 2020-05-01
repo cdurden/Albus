@@ -30,7 +30,7 @@ angular.module('whiteboard-admin', [
 .controller('wbAdminController', function($scope, FileUploader) {
     $scope.uploader = new FileUploader();
 })
-    .run([
+.run([
   '$rootScope',
   function($rootScope) {
     // see what's going on when the route tries to change
