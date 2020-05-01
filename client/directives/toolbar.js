@@ -190,7 +190,7 @@ angular.module('whiteboard')
               */
             //} else {
             //  ctrl.menuHandler('show');
-            //}
+            }
           } else {
             // console.log('remove class show');
   
