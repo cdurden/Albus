@@ -276,7 +276,7 @@ angular.module('whiteboard')
       };
 
         element.bind('touchend mouseup', function (ev) {
-          if(attrs.wbLevel === '2' && element.children().length == 0) {
+          if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
