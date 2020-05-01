@@ -177,7 +177,7 @@ angular.module('whiteboard')
                 ctrl.activateDraw();
               }
               ctrl.menuHandler('show');
-              $scope.$broadcast('toggleSubmenu', {action: 'show', level: '2'});
+              scope.$broadcast('toggleSubmenu', {action: 'show', level: '2'});
             }
           } else {
             // console.log('remove class show');
