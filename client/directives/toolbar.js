@@ -172,32 +172,31 @@ angular.module('whiteboard')
             //TODO: if 
             if (attrs.wbTool && attrs.wbTool === 'pan') {
               ctrl.activateNav();
-            }
-            if (attrs.wbTool && attrs.wbTool === 'draw') {
-              ctrl.activateDraw();
-            }
-  
-            if (ev.type === 'touchend') {
-            /*
-              //if(element.hasClass('show')) {
-              //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
-              var levelTwoChildren = angular.element(ev.currentTarget).find('.level-two');
-              if(levelTwoChildren.hasClass('show')) {
-                //ctrl.menuHandler('hide');
-                scope.$emit('activateMenu', 'hide');
-              } else {
-                //ctrl.menuHandler('show');
-                scope.$emit('activateMenu', 'show');
-              }
-              */
             } else {
-              ctrl.menuHandler('show');
+              if (attrs.wbTool && attrs.wbTool === 'draw') {
+                ctrl.activateDraw();
+              }
+    
+              if (ev.type === 'touchend') {
+              /*
+                //if(element.hasClass('show')) {
+                //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
+                var levelTwoChildren = angular.element(ev.currentTarget).find('.level-two');
+                if(levelTwoChildren.hasClass('show')) {
+                  //ctrl.menuHandler('hide');
+                  scope.$emit('activateMenu', 'hide');
+                } else {
+                  //ctrl.menuHandler('show');
+                  scope.$emit('activateMenu', 'show');
+                }
+                */
+              } else {
+                ctrl.menuHandler('show');
+              }
+            } else {
+              // console.log('remove class show');
+              // ctrl.menuHandler('hide');
             }
-          } else {
-            // console.log('remove class show');
-  
-            // ctrl.menuHandler('hide');
-            
           }
 
       });
@@ -285,6 +284,10 @@ angular.module('whiteboard')
               scope.$emit('activateMenu', 'hide');
               score.$emit('activeteNav');
               ev.preventDefault();
+              //ev.stopPropagation();
+          }
+          if(attrs.wbTool === 'draw') {
+              score.$emit('activeteDraw');
               //ev.stopPropagation();
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
