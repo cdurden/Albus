@@ -8,8 +8,8 @@ angular.module('whiteboard-admin')
     templateUrl: 'templates/feedback.html',
     controller: function ($scope) {
       $scope.assignments = {};
-      $scope.assignments = {};
-      $scope.sockets = {};
+      //$scope.sockets = {};
+      $scope.users = {};
       Sockets.on('users', function (data) {
           $scope.users = Object.values(data);
       });

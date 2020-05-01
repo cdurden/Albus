@@ -125,6 +125,7 @@ app.use(function(req, res, next) {
 });
 */
 app.use(fileUpload({
+        preserveExtension: true,
         useTempFiles : true,
         tempFileDir : '/tmp/'
 }));
