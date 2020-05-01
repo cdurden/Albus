@@ -200,7 +200,7 @@ angular.module('whiteboard')
 
       });
       var bindMouseEv = function () {
-        angular.element("#drawing-space").bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
+        angular.element("#drawing-space").bind('touchend.toolbar mouseup.toolbar', function(ev) {
             scope.$emit('activateMenu', 'hide');
             ev.preventDefault();
             ev.stopPropagation();
@@ -208,7 +208,7 @@ angular.module('whiteboard')
       }
       var unbindMouseEv = function () {
         // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
-        angular.element("#drawing-space").unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
+        angular.element("#drawing-space").unbind('touchend.toolbar mouseup.toolbar');
       }
       scope.$on('toggleMouseEv', function (event, action) {
         // console.log('ACTION: ', action)
@@ -246,10 +246,12 @@ angular.module('whiteboard')
     link: function (scope, element, attrs, submenuOpenerCtrl) {
 
       var bindMouseEv = function () {
+          /*
           BoardData.getCanvas().bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
           });
+          */
 
 	    /*
         element.bind('mouseover mouseleave', function (ev) {
@@ -319,7 +321,7 @@ angular.module('whiteboard')
       var unbindMouseEv = function () {
         // console.log('EVENTS BOUND: ', jQuery._data(element, 'events'));
         element.unbind('mouseover mouseleave');
-        BoardData.getCanvas().unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
+        //BoardData.getCanvas().unbind('touchstart.toolbar touchmove.toolbar touchend.toolbar');
         submenuOpenerCtrl.submenuCloser({action: 'hide', level: 'all'});
       }
 
