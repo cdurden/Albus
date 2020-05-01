@@ -178,6 +178,7 @@ angular.module('whiteboard')
               }
               ctrl.menuHandler('show');
               scope.$broadcast('toggleSubmenu', {action: 'show', level: '2'});
+              ev.preventDefault();
               ev.stopPropagation();
             }
           } else {
