@@ -1,4 +1,5 @@
 var express = require('express');
+const fileUpload = require('express-fileupload');
 var path = require('path');
 var app = express();
 var http = require('http');
@@ -123,6 +124,25 @@ app.use(function(req, res, next) {
     next();
 });
 */
+app.use(fileUpload({
+        useTempFiles : true,
+        tempFileDir : '/tmp/'
+}));
+app.post('/upload', function(req, res) {
+  console.log(req.files.file); // the uploaded file object
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+/*
+  let sampleFile = req.files.sampleFile;
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('/somewhere/on/your/server/filename.jpg', function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+    res.send('File uploaded!');
+  });
+*/
+});
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);

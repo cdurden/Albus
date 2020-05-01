@@ -29,6 +29,7 @@ angular.module('whiteboard-admin', [
 }])
 .controller('wbAdminController', function($scope, FileUploader) {
     $scope.uploader = new FileUploader();
+    $scope.uploader.options = {'url': '/upload'};
 })
 .run([
   '$rootScope',
