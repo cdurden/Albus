@@ -137,13 +137,15 @@ angular.module('whiteboard')
         var $container = $canvas.parent();
         $container.css("pointer-events", "none");
         $container.children().css("pointer-events", "none");
-      },
+      }
       this.activateDraw = function() {
         var $canvas = BoardData.getCanvas();
         var $container = $canvas.parent();
         $container.css("pointer-events", "all");
         $container.children().css("pointer-events", "all");
       }
+      $scope.$on('activateNav', this.activateNav);
+      $scope.$on('activateDraw', this.activateDraw);
     },
     link: function (scope, element, attrs, ctrl) {
       
@@ -281,6 +283,7 @@ angular.module('whiteboard')
         element.bind('touchend mouseup', function (ev) {
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
+              score.$emit('activeteNav');
               ev.preventDefault();
               //ev.stopPropagation();
           }
