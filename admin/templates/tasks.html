@@ -20,7 +20,7 @@
       <textarea style="width: 100%;" placeholder="Type instructions for task..." id="m" ng-model="task_json" autocomplete="off" />
         <input type="file" nv-file-select uploader="uploader"/><br/>
         <ul>
-            <div class="file-drop-area" nv-file-drop uploader="{uploader}"></div>
+            <div class="file-drop-area" nv-file-drop uploader="{uploader}">Drag file here</div>
             <li ng-repeat="item in uploader.queue">
                 Name: <span ng-bind="item.file.name"></span><br/>
                 <button ng-click="item.upload()">upload</button>
