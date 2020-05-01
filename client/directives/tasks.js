@@ -36,7 +36,7 @@ angular.module('whiteboard')
           }
       }
       $scope.navigateNext = function() {
-          if ($scope.i<Object.keys($scope.boardData.boards).length) {
+          if ($scope.i<Object.keys($scope.boardData.boards).length-1) {
               $scope.setBoardIndex($scope.i+1);
           }
       }
