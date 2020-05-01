@@ -14,7 +14,7 @@ angular.module('whiteboard-admin')
       Sockets.on('users', function (data) {
         console.log(data);
         $scope.users = data;
-      }
+      });
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;
