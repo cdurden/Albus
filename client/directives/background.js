@@ -27,17 +27,20 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             //    element.html((((board || {}).task || {}).data || {}).background_html || "");
             scope.$watch("$parent.task", function(task) {
-                element.html(((task || {}).data || {}).background_html || "");
-                eval(((task || {}).data || {}).onload);
+                element.html("");
             });
-            scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
-                const handleBackgroundResize = ((elmt) => { return function () {
+            scope.$watch(function () { return element.find('.background-image'); }, function (newValue, oldValue) {
+                if (newValue.length==0) {
+                    element.html(((task || {}).data || {}).background_html || "");
+                    eval(((task || {}).data || {}).onload);
+                } else {
+                    const handleBackgroundResize = ((elmt) => { return function () {
                             backgroundRect = elmt.getBoundingClientRect();
                             dim = backgroundRect;
                             viewBox = calculateViewBox(dim);
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
-                    }
-                })(newValue);
+                        }
+                    })(newValue[0]);
                     //((rs1 || {}).detach || (() =>{}))(oldValue); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
                     $pinchZoom = element.parents('pinch-zoom');
@@ -67,14 +70,15 @@ angular.module('whiteboard')
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
                             //ResizeSensorApi.create(newValue, handleBackgroundResize);
-                            rs1 = new ResizeSensor(newValue, handleBackgroundResize);
+                            rs1 = new ResizeSensor(newValue[0], handleBackgroundResize);
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                         if (isImageReady(img)) {
-                            console.log(angular.element(newValue).has(img).length);
+                            console.log(angular.element(newValue[0]).has(img).length);
                             img.onload();
                             handleBackgroundResize(); //FIXME: for some reason this is not called when the img is readded to the DOM a second time.
                         }
+                    }
                 }
             });
         }
