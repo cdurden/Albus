@@ -49,7 +49,7 @@ angular.module('whiteboard')
                             viewBox = calculateViewBox(dim);
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
                         }
-                    })(container);
+                    })(container[0]);
                     ((rs1 || {}).destroy || (() =>{}))(oldValue); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
                     $pinchZoom = element.parents('pinch-zoom');
@@ -79,7 +79,7 @@ angular.module('whiteboard')
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
                             //ResizeSensorApi.create(newValue, handleBackgroundResize);
-                            rs1 = new ResizeSensor(container, handleBackgroundResize);
+                            rs1 = new ResizeSensor(container[0], handleBackgroundResize);
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                         if (isImageReady(img)) {
