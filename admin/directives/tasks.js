@@ -10,6 +10,10 @@ angular.module('whiteboard-admin')
       $scope.assignments = {};
       $scope.sockets = {};
 //      $scope.uploader = new FileUploader();
+      Sockets.on('users', function (data) {
+        console.log(data);
+        $scope.users = data;
+      }
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;

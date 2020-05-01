@@ -4,8 +4,8 @@
           <form action="">
               <div class="row">
               <div class="col-6">
-              <select id="socket-selector" name="selectedSockets" ng-model="selectedSockets" multiple>
-                  <option ng-repeat="(socketId,socket) in sockets" value="{{socketId}}">{{socket.firstname}} {{socket.lastname}}</option>
+              <select id="socket-selector" name="selectedUsers" ng-model="selectedUsers" multiple>
+                  <option ng-repeat="(userId,user) in users" value="{{userId}}">{{user.firstname}} {{user.lastname}}</option>
               </select>
               </div>
               <div class="col-6">
