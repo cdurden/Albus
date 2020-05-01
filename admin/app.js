@@ -29,7 +29,7 @@ angular.module('whiteboard-admin', [
 }])
 .controller('wbAdminController', function($scope, FileUploader) {
     $scope.uploader = new FileUploader();
-});
+})
     .run([
   '$rootScope',
   function($rootScope) {
