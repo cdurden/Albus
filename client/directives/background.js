@@ -32,7 +32,7 @@ angular.module('whiteboard')
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
                 if (element.find('.background-image').length==0) {
                     element.html(((scope.$parent.task || {}).data || {}).background_html || "");
-                    eval(((task || {}).data || {}).onload);
+                    eval(((scope.$parent.task || {}).data || {}).onload);
                 } else {
                     const handleBackgroundResize = ((elmt) => { return function () {
                             backgroundRect = elmt.getBoundingClientRect();
