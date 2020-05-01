@@ -9,7 +9,7 @@ angular.module('whiteboard-admin')
       $scope.tasks = {};
       $scope.assignments = {};
       $scope.sockets = {};
-      $scope.uploader = new FileUploader();
+//      $scope.uploader = new FileUploader();
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;

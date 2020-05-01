@@ -26,7 +26,11 @@ angular.module('whiteboard-admin', [
       enabled: true,
       requireBase: false
     });
-}]).run([
+}])
+.controller('wbAdminController', function($scope, FileUploader) {
+    $scope.uploader = new FileUploader();
+});
+    .run([
   '$rootScope',
   function($rootScope) {
     // see what's going on when the route tries to change
