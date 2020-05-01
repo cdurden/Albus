@@ -169,7 +169,13 @@ h1.title {
   height: 100%;
 }
 #board-overlay {
-    font-size: 18pt;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    touch-action: none;
     pointer-events: none;
 }
 #background-container {
@@ -214,15 +220,6 @@ h1.title {
   pointer-events: all;
   			-webkit-touch-callout: none ;
 			-webkit-user-select: none ;
-}
-#board-overlay {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 50;
-    touch-action: none;
 }
 
 #board-container svg {
