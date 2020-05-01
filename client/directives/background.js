@@ -32,7 +32,7 @@ angular.module('whiteboard')
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
                 var handleBackgroundResize = ((elmt) => { function () {
-                            backgroundRect = newValue.getBoundingClientRect();
+                            backgroundRect = elmt.getBoundingClientRect();
                             /*
                             if (typeof w === 'undefined' || typeof h === 'undefined') {
                                 w = backgroundRect.width;
