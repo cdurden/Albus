@@ -27,7 +27,11 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             //    element.html((((board || {}).task || {}).data || {}).background_html || "");
             scope.$watch("$parent.task", function(task) {
-                element.html("");
+                if (element.find('.background-image').length==0) {
+                    element.html(((scope.$parent.task || {}).data || {}).background_html || "");
+                } else {
+                    element.html("");
+                }
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
                 if (element.find('.background-image').length==0) {
