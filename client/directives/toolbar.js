@@ -188,8 +188,8 @@ angular.module('whiteboard')
                 scope.$emit('activateMenu', 'show');
               }
               */
-            //} else {
-            //  ctrl.menuHandler('show');
+            } else {
+              ctrl.menuHandler('show');
             }
           } else {
             // console.log('remove class show');
@@ -203,6 +203,7 @@ angular.module('whiteboard')
         angular.element("#drawing-space").bind('touchstart.toolbar touchmove.toolbar touchend.toolbar', function(ev) {
             scope.$emit('activateMenu', 'hide');
             ev.preventDefault();
+            ev.stopPropogation();
         });
       }
       var unbindMouseEv = function () {
@@ -279,11 +280,13 @@ angular.module('whiteboard')
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
+              ev.stopPropogation();
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
           if(levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
+              ev.stopPropogation();
           } else {
 
           // console.log(ev, attrs.wbLevel)
