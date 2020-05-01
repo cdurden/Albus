@@ -27,9 +27,6 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             //    element.html((((board || {}).task || {}).data || {}).background_html || "");
             scope.$watch("$parent.task", function(task) {
-                    if ((resizeSensor || {}).targetElement) {
-                        ResizeSensorApi.destroy(oldContainer);
-                    }
                     element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     eval(((scope.$parent.task || {}).data || {}).onload);
             });
@@ -53,6 +50,12 @@ angular.module('whiteboard')
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
                         }
                     })(container[0]);
+                    //if ((resizeSensor || {}).targetElement) {
+                    //    ResizeSensorApi.destroy(oldContainer);
+                    //}
+                    if (resizeSensor) {
+                        resizeSensor.detach();
+                    }
                     //((resizeSensor || {}).destroy || (() =>{}))(oldContainer); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     //var destroy = (resizeSensor || {}).destroy;
                     //((resizeSensor || {}).destroy || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
@@ -85,7 +88,8 @@ angular.module('whiteboard')
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
                             //resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
-                            resizeSensor = ResizeSensorApi.create(container[0], handleBackgroundResize);
+                            resizeSensor = new ResizeSensor(container[0], handleBackgroundResize);
+                            //resizeSensor = ResizeSensorApi.create(container[0], handleBackgroundResize);
                             //resizeSensor = new ResizeSensor(container[0], handleBackgroundResize);
                             oldContainer = container[0];
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
