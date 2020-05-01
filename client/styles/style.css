@@ -225,6 +225,17 @@ h1.title {
   			-webkit-touch-callout: none ;
 			-webkit-user-select: none ;
 }
+<<<<<<< HEAD
+=======
+#board-overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 29;
+}
+>>>>>>> parent of 1d75bdf... toolbar top level tool selector
 
 #canvas-container svg {
   position: absolute;
