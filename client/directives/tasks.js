@@ -1,3 +1,14 @@
+angular.module('ngClick', function( $location ) { 
+	return { 
+		link: function(scope, elem, attrs) { 
+			if(attrs.href) { elem.on('click,touchend', function() { 
+				$location.path(attrs.href); 
+			}); 
+		} 
+	}, 
+	priority: 1 
+	}; 
+});
 angular.module('whiteboard')
 .directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', function($compile, $http, $templateCache, BoardData, EventHandler, Sockets) {
   return {
