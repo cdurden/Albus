@@ -400,7 +400,7 @@ angular.module('whiteboard.services.inputhandler', [])
 
     if (isToggled(toolName)) {
       toggle(toolName);
-      //actions[toolName].mouseUp(ev.originalEvent.touches[0]);
+      actions[toolName].mouseUp(ev.originalEvent.touches[0]);
     }
   }
 

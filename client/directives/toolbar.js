@@ -288,20 +288,25 @@ angular.module('whiteboard')
           if ((ev.type === 'touchend' || ev.type === 'mouseup') && attrs.wbLevel === '2') {
             // console.log('Should open submenu', ev);
             submenuOpenerCtrl.submenuOpener({action: 'show', level: '2'});
+            ev.preventDefault();
           } else if ((ev.type === 'touchend' || ev.type === 'mouseup') && attrs.wbLevel === '3') {
             // console.log('Should open the color palette!')
             // console.log('Should open third level')
             submenuOpenerCtrl.submenuOpener({action: 'show', level: '3'});
+            ev.preventDefault();
           } else if ((ev.type === 'touchend'  || ev.type === 'mouseup') && (angular.element(ev.toElement).hasClass('lvl1') || angular.element(ev.toElement).hasClass('level-one'))) {
             // console.log('Should close submenu');
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: '2'});
+            ev.preventDefault();
           } else if ((ev.type === 'touchend' || ev.type === 'mouseup') && (angular.element(ev.toElement).hasClass('level-three') || angular.element(ev.toElement).hasClass('lvl2'))) {
             // console.log('close level three') 
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: '3'});
+            ev.preventDefault();
           } else if ((ev.type === 'touchend' || ev.type === 'mouseup') && angular.element(ev.toElement).hasClass('wb-submenu-opener')) {
             // console.log('Here is where i broke D:');
             // console.log(ev)
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
+            ev.preventDefault();
           }
           }
         });
