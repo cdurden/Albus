@@ -1,5 +1,6 @@
 angular.module('whiteboard', [
   'angularLoad',
+  'hmTouchEvents',
   'btford.socket-io',
   'whiteboard.services.receive',
   'whiteboard.services.broadcast',
