@@ -1,4 +1,5 @@
 angular.module('whiteboard-admin', [
+    'angularFileUpload',
     'angularLoad',
     'btford.socket-io',
     'whiteboard.admin.services.sockets',
