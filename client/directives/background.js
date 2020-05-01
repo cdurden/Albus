@@ -27,17 +27,24 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             //    element.html((((board || {}).task || {}).data || {}).background_html || "");
             scope.$watch("$parent.task", function(task) {
+                    element.html(((scope.$parent.task || {}).data || {}).background_html || "");
+                    eval(((scope.$parent.task || {}).data || {}).onload);
+                /*
                 if (element.find('.background-image').length==0) {
                     element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                 } else {
                     element.html("");
                 }
+                */
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
+                /*
                 if (element.find('.background-image').length==0) {
                     element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     eval(((scope.$parent.task || {}).data || {}).onload);
                 } else {
+                */
+                if (true) {
                     var handleBackgroundResize = (function(elmt) { return function () {
                             backgroundRect = elmt.getBoundingClientRect();
                             dim = backgroundRect;
