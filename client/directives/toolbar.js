@@ -278,10 +278,12 @@ angular.module('whiteboard')
         element.bind('touchend mouseup', function (ev) {
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
+              ev.preventDefault();
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
           if(levelTwoChildren.hasClass('show')) {
               scope.$emit('activateMenu', 'hide');
+              ev.preventDefault();
           } else {
 
           // console.log(ev, attrs.wbLevel)
