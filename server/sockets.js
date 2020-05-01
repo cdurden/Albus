@@ -251,6 +251,52 @@ module.exports = function(server) {
         socket.emit('tasks', data);
       });
     });
+    socket.on('getTasksFromSource', function(taskSrcList){
+            api.getTasksFromSource(taskSrcList, function(error, data) {
+                var tasks_json = JSON.stringify(data);
+                client.hmset(socketId, ['tasks', tasks_json], function(err, result) {
+                    client.hget(socketId, 'tasks', function(err, result) {
+                        try {
+                          data = JSON.parse(result);
+                          socket.emit('tasks', data);
+                        } catch {
+                          return;
+                        }
+                    });
+                });
+            });
+      });
+    });
+    socket.on('getAssignmentTasks', function(assignment){
+        request({
+            method: 'GET',
+            url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
+            transformResponse: [function (data) {
+              return data;
+            }]
+        }, function(error, response, body) {
+            console.log("assignment data");
+            console.log(body);
+            if(!error && response.statusCode == 200) {
+              data = JSON.parse(body);
+            } else {
+              data = [];
+            }
+            api.getTasksFromSource(data, function(error, tasks) {
+                var tasks_json = JSON.stringify(data);
+                client.hmset(socketId, ['tasks', tasks_json], function(err, result) {
+                    client.hget(socketId, 'tasks', function(err, result) {
+                        try {
+                          data = JSON.parse(result);
+                          socket.emit('tasks', data);
+                        } catch {
+                          return;
+                        }
+                    });
+                });
+            });
+        });
+    });
     socket.on('getAssignments', function(){
       assignments = ['ProductRule','QuotientRule','NegativeExponents','CorrectProductRule','CorrectQuotientRule','CorrectNegativeExponents','CorrectExponentRuleMistakesAdvanced']
       socket.emit('assignments', assignments);
@@ -274,7 +320,7 @@ module.exports = function(server) {
       task = tasks[task_id];
       socket.emit('showTask', task);
     });
-    socket.on('assignTask', function(data){
+/*    socket.on('assignTask', function(data){
       //console.log(data);
       json = JSON.stringify(data);
       client.set('tasks', json, function(err) {
@@ -289,6 +335,7 @@ module.exports = function(server) {
         });
       });
     });
+    */
     socket.on('assignTasksToSockets', function(assignments){
         console.log("assigning tasks to sockets");
         //console.log(assignments);
@@ -312,6 +359,7 @@ module.exports = function(server) {
             assignTasksToSocket(socketId);
         }
     });
+      /*
     socket.on('assignTasks', function(data){
       //console.log(data);
       api.getTasksFromSource(data, function(error, data) {
@@ -330,6 +378,7 @@ module.exports = function(server) {
         //socket.emit('task', data);
       });
     });
+    */
     socket.on('getSubmissions', function(){
       api.getSubmissions(function(error, data) {
         //console.log(data)

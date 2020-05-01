@@ -39,6 +39,8 @@ angular.module('whiteboard-admin')
           return false;
       });
       scope.$watch('selectedAssignment', function(newValue) {
+        Sockets.emit('getAssignmentTasks', newValue);
+          /*
         $http({
           method: 'GET',
           url: '/static/teaching_assets/assignments/'+newValue+'.json',
@@ -47,8 +49,10 @@ angular.module('whiteboard-admin')
             return data;
           }]
         }).then(function success(response) {
-          scope.tasks = response.data;
+            Sockets.emit('getTasksFromSource', response.data);
+          //scope.tasks = response.data;
         });
+        */
       });
     },
   }
