@@ -282,17 +282,7 @@ module.exports = function(server) {
               data = [];
             }
             api.getTasksFromSource(data, function(error, tasks) {
-                var tasks_json = JSON.stringify(data);
-                client.hmset(socketId, ['tasks', tasks_json], function(err, result) {
-                    client.hget(socketId, 'tasks', function(err, result) {
-                        try {
-                          data = JSON.parse(result);
-                          socket.emit('tasks', data);
-                        } catch {
-                          return;
-                        }
-                    });
-                });
+                socket.emit('tasks', data);
             });
         });
     });
