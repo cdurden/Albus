@@ -1,14 +1,3 @@
-angular.module('ngClick', function( $location ) { 
-	return { 
-		link: function(scope, elem, attrs) { 
-			if(attrs.href) { elem.on('click,touchend', function() { 
-				$location.path(attrs.href); 
-			}); 
-		} 
-	}, 
-	priority: 1 
-	}; 
-});
 angular.module('whiteboard')
 .directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', function($compile, $http, $templateCache, BoardData, EventHandler, Sockets) {
   return {
@@ -73,8 +62,6 @@ angular.module('whiteboard')
         var controlsPrev = element.find('.navigate-left');
         element.on('touchstart', function (e) { e.preventDefault(); });
         element.on('touchmove', function (e) { e.preventDefault(); });
-        element.find('.navigate-right').on('touchend', scope.navigateNext);
-        element.find('.navigate-left').on('touchend', scope.navigatePrev);
 	function addEventListeners() {
 
 		eventsAreBound = true;
