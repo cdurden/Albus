@@ -131,7 +131,7 @@ app.use(fileUpload({
 app.post('/upload', function(req, res) {
   console.log(req.files.file); // the uploaded file object
   console.log("formData");
-  console.log(Object.keys(req.body));
+  console.log(req.body);
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 /*
   let sampleFile = req.files.sampleFile;
