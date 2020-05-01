@@ -193,12 +193,11 @@ angular.module('whiteboard')
               } else {
                 ctrl.menuHandler('show');
               }
-            } else {
-              // console.log('remove class show');
-              // ctrl.menuHandler('hide');
             }
+          } else {
+            // console.log('remove class show');
+            // ctrl.menuHandler('hide');
           }
-
       });
       var bindMouseEv = function () {
         angular.element("#drawing-space").bind('touchend.toolbar mouseup.toolbar', function(ev) {
