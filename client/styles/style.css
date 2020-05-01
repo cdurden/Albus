@@ -174,7 +174,7 @@ h1.title {
     width: 100%;
     left: 0;
     top: 0;
-    z-index: 50;
+    z-index: 29;
     touch-action: none;
     pointer-events: all;
 }
