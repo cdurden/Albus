@@ -77,8 +77,8 @@ angular.module('whiteboard')
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
-                            ResizeSensorApi.create(newValue, handleBackgroundResize);
-                            //rs1 = new ResizeSensor(newValue, handleBackgroundResize);
+                            //ResizeSensorApi.create(newValue, handleBackgroundResize);
+                            rs1 = new ResizeSensor(newValue, handleBackgroundResize);
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                         /*
