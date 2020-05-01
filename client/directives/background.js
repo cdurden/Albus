@@ -82,6 +82,7 @@ angular.module('whiteboard')
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
                         if (isImageReady(img)) {
+                            console.log(angular.element(newValue).has(img).length);
                             img.onload();
                             handleBackgroundResize(); //FIXME: for some reason this is not called when the img is readded to the DOM a second time.
                         }
