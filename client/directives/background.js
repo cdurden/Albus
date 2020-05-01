@@ -32,9 +32,9 @@ angular.module('whiteboard')
             });
             scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    var handleBackgroundResize = (function(element) {
+                    var handleBackgroundResize = (function(elmt) {
                         return(function () {
-                            backgroundRect = element.getBoundingClientRect();
+                            backgroundRect = elmt.getBoundingClientRect();
                             /*
                             if (typeof w === 'undefined' || typeof h === 'undefined') {
                                 w = backgroundRect.width;
@@ -50,8 +50,8 @@ angular.module('whiteboard')
                         });
                     })(newValue);
                     //((rs1 || {}).detach || (() =>{}))(oldValue); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
-                    var img = element.find("img")[0];
-                    $pinchZoom = element.parents('pinch-zoom');
+                    var img = newValue.find("img")[0];
+                    $pinchZoom = newValue.parents('pinch-zoom');
                     $pinchZoom.change(handleBackgroundResize);
                     $pinchZoom.dblclick(function(ev) {
                         ev.currentTarget.scaleTo(2, {
