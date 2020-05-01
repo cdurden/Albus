@@ -73,6 +73,8 @@ angular.module('whiteboard')
         var controlsPrev = element.find('.navigate-left');
         element.on('touchstart', function (e) { e.preventDefault(); });
         element.on('touchmove', function (e) { e.preventDefault(); });
+        element.find('.navigate-right').on('touchend', scope.navigateNext);
+        element.find('.navigate-left').on('touchend', scope.navigatePrev);
 	function addEventListeners() {
 
 		eventsAreBound = true;
