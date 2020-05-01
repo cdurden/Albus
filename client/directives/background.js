@@ -1,6 +1,6 @@
 angular.module('whiteboard')
 .directive('compileTemplate',['BoardData', function compileTemplate(BoardData) {
-    var resizeSensor = null;
+    var resizeSensor1 = null;
     var oldContainer = null;
     var w, h;
     var aspect_ratio;
@@ -51,8 +51,9 @@ angular.module('whiteboard')
                         }
                     })(container[0]);
                     //((resizeSensor || {}).destroy || (() =>{}))(oldContainer); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
-                    var destroy = (resizeSensor || {}).destroy;
-                    ((resizeSensor || {}).destroy || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
+                    //var destroy = (resizeSensor1 || {}).destroy;
+                    //((resizeSensor || {}).destroy || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
+                    ((resizeSensor || {}).detach || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
                     $pinchZoom = element.parents('pinch-zoom');
                     $pinchZoom.change(handleBackgroundResize);
@@ -80,7 +81,8 @@ angular.module('whiteboard')
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
-                            resizeSensor = ResizeSensorApi.create(container[0], handleBackgroundResize);
+                            resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
+                            //resizeSensor = ResizeSensorApi.create(container[0], handleBackgroundResize);
                             //resizeSensor = new ResizeSensor(container[0], handleBackgroundResize);
                             oldContainer = container[0];
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
