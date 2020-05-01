@@ -1,6 +1,6 @@
 angular.module('whiteboard')
 .directive('compileTemplate',['BoardData', function compileTemplate(BoardData) {
-    var resizeSensor1 = null;
+    var resizeSensor = null;
     var oldContainer = null;
     var w, h;
     var aspect_ratio;
@@ -81,8 +81,8 @@ angular.module('whiteboard')
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
-                            resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
-                            //resizeSensor = ResizeSensorApi.create(container[0], handleBackgroundResize);
+                            //resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
+                            resizeSensor = ResizeSensorApi.create(container[0], handleBackgroundResize);
                             //resizeSensor = new ResizeSensor(container[0], handleBackgroundResize);
                             oldContainer = container[0];
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
