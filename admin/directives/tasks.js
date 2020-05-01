@@ -5,10 +5,11 @@ angular.module('whiteboard-admin')
     require: ['wbAdminTasks'],
     replace: true,
     templateUrl: 'templates/tasks.html',
-    controller: function ($scope) {
+    controller: function ($scope, FileUploader) {
       $scope.tasks = {};
       $scope.assignments = {};
       $scope.sockets = {};
+      $scope.uploader = new FileUploader();
       Sockets.on('task', function (data) {
           console.log(data);
           $scope.task = data;
