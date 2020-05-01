@@ -29,8 +29,8 @@ angular.module('whiteboard')
             scope.$watch("$parent.task", function(task) {
                 element.html("");
             });
-            scope.$watch(function () { return element.find('.background-image'); }, function (newValue, oldValue) {
-                if (newValue.length==0) {
+            scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
+                if (element.find('.background-image').length==0) {
                     element.html(((task || {}).data || {}).background_html || "");
                     eval(((task || {}).data || {}).onload);
                 } else {
