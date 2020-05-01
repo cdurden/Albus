@@ -282,7 +282,7 @@ angular.module('whiteboard')
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
-              ev.stopPropagation();
+              //ev.stopPropagation();
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
           if(levelTwoChildren.hasClass('show')) {
