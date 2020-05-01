@@ -155,7 +155,6 @@ angular.module('whiteboard')
           // console.log('add class show');
           // console.log(ev.buttons)
           ctrl.menuHandler('show');
-          $scope.$broadcast('toggleSubmenu', {action: 'show', level: '2'});
           // element.addClass('show');
         } else {
           // console.log('remove class show');
@@ -177,23 +176,8 @@ angular.module('whiteboard')
               if (attrs.wbTool && attrs.wbTool === 'draw') {
                 ctrl.activateDraw();
               }
-    
-              if (ev.type === 'touchend') {
-              /*
-                //if(element.hasClass('show')) {
-                //if(angular.element(ev.currentTarget).parent().find('.level-two').hasClass('show')) {
-                var levelTwoChildren = angular.element(ev.currentTarget).find('.level-two');
-                if(levelTwoChildren.hasClass('show')) {
-                  //ctrl.menuHandler('hide');
-                  scope.$emit('activateMenu', 'hide');
-                } else {
-                  //ctrl.menuHandler('show');
-                  scope.$emit('activateMenu', 'show');
-                }
-                */
-              } else {
-                ctrl.menuHandler('show');
-              }
+              ctrl.menuHandler('show');
+              $scope.$broadcast('toggleSubmenu', {action: 'show', level: '2'});
             }
           } else {
             // console.log('remove class show');
