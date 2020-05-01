@@ -281,12 +281,12 @@ angular.module('whiteboard')
         element.bind('touchend mouseup', function (ev) {
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
-              score.$emit('activeteNav');
+              score.$emit('activateNav');
               ev.preventDefault();
               //ev.stopPropagation();
           }
           if(attrs.wbTool === 'draw') {
-              score.$emit('activeteDraw');
+              scope.$emit('activateDraw');
               //ev.stopPropagation();
           }
           var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
