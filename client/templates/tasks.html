@@ -14,7 +14,7 @@
     <div id="feed-space" wb-feed class="split split-horizontal"></div>
     -->
     <div class="float-s">
-        <button type="button" ng-click="submit()" id="task-submit-button">Submit task</button>
+        <button type="button" ng-click="submit()" ng-touch="submit()" id="task-submit-button">Submit task</button>
     </div>
     <div id="board-selector-container" class="float-se">
       <div style="float: right;">
@@ -22,10 +22,10 @@
               <b>Task selector</b>
           </div>
           <div>
-              <a ng-repeat="board in boardData.boards track by board.i" ng-click="$parent.setBoardIndex(board.i);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
+              <a ng-repeat="board in boardData.boards track by board.i" ng-touch="$parent.setBoardIndex(board.i);" ng-click="$parent.setBoardIndex(board.i);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
           </div>
       </div>
-<aside class="controls" data-controls-layout="bottom-right" data-controls-back-arrows="faded" style="display: block;"><button class="navigate-left enabled" ng-click="navigatePrev();" aria-label="previous task"><div class="controls-arrow"></div></button><button class="navigate-right enabled" ng-click="navigateNext();" aria-label="next task"><div class="controls-arrow"></div></button></aside>
+<aside class="controls" data-controls-layout="bottom-right" data-controls-back-arrows="faded" style="display: block;"><button class="navigate-left enabled" ng-touch="navigatePrev();" ng-click="navigatePrev();" aria-label="previous task"><div class="controls-arrow"></div></button><button class="navigate-right enabled" ng-click="navigateNext();" ng-touch="navigateNext();" aria-label="next task"><div class="controls-arrow"></div></button></aside>
     </div>
   </div>
   <!--
