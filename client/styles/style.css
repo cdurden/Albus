@@ -176,6 +176,7 @@ h1.title {
     top: 0;
     z-index: 50;
     touch-action: none;
+    pointer-events: all;
 }
 #background-container {
     position: relative;
@@ -215,82 +216,66 @@ h1.title {
   position: absolute;
   height: 100%;
   width: 100%;
-}
-#canvas-container {
-  position: absolute;
-  height: 100%;
-  width: 100%;
   z-index: 30; /* TODO: figure out how to reliably set on top */
   pointer-events: all;
   			-webkit-touch-callout: none ;
 			-webkit-user-select: none ;
 }
-<<<<<<< HEAD
-=======
-#board-overlay {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 29;
-}
->>>>>>> parent of 1d75bdf... toolbar top level tool selector
 
-#canvas-container svg {
+#board-container svg {
   position: absolute;
   cursor: url('../assets/images/cursors/path.png'), auto;
 }
 
-#canvas-container svg.path {
+#board-container svg.path {
   cursor: url('../assets/images/cursors/path.png'), auto;
 }
 
-#canvas-container svg.line {
+#board-container svg.line {
   cursor: url('../assets/images/cursors/line.png'), auto;
 }
 
-#canvas-container svg.arrow {
+#board-container svg.arrow {
   cursor: url('../assets/images/cursors/arrow.png'), auto;
 }
 
-#canvas-container svg.rectangle {
+#board-container svg.rectangle {
   cursor: url('../assets/images/cursors/rectangle.png'), auto;
 }
 
-#canvas-container svg.circle {
+#board-container svg.circle {
   cursor: url('../assets/images/cursors/circle.png'), auto;
 }
 
-#canvas-container svg.text {
+#board-container svg.text {
   cursor: url('../assets/images/cursors/text.png'), auto;
 }
 
-#canvas-container svg.magnify {
+#board-container svg.magnify {
   cursor: url('../assets/images/cursors/magnify.png'), auto;
 }
 
-#canvas-container svg.eraser {
+#board-container svg.eraser {
   cursor: url('../assets/images/cursors/eraser.png'), auto;
 }
 
-#canvas-container svg.pan {
+#board-container svg.pan {
   cursor: url('../assets/images/cursors/pan.png'), auto;
 }
 
-#canvas-container svg.move {
+#board-container svg.move {
   cursor: url('../assets/images/cursors/move.png'), auto;
 }
 
-#canvas-container svg.copy {
+#board-container svg.copy {
   cursor: url('../assets/images/cursors/copy.png'), auto;
 }
 
-#canvas-container svg.fill {
+#board-container svg.fill {
   cursor: url('../assets/images/cursors/fill.png'), auto;
 }
 
-#canvas-container svg.strokeColor {
+#board-container svg.strokeColor {
   cursor: url('../assets/images/cursors/strokeColor.png'), auto;
 }
 /*
