@@ -17,11 +17,11 @@
           </form>
       </div>
     <!--<form action="" id="assign-task-form" class="form-container">
-      <textarea style="width: 100%;" placeholder="Type instructions for task..." id="m" ng-model="task_json" autocomplete="off" />
     <button type="submit" class="submit">Assign</button>
     </form>
     -->
-    <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'a': 'test','b':'asdf'}] }"/><br/>
+      <textarea style="width: 100%;" placeholder="Type instructions for task..." id="m" ng-model="task_json" autocomplete="off" />
+    <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'task_json': task_json}] }"/><br/>
         <ul>
             <div class="file-drop-area" nv-file-over uploader="uploader">Drag file here</div>
             <li ng-repeat="item in uploader.queue">
