@@ -27,6 +27,9 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             //    element.html((((board || {}).task || {}).data || {}).background_html || "");
             scope.$watch("$parent.task", function(task) {
+                    if ((resizeSensor || {}).targetElement) {
+                        ResizeSensorApi.destroy(oldContainer);
+                    }
                     element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     eval(((scope.$parent.task || {}).data || {}).onload);
             });
@@ -54,9 +57,6 @@ angular.module('whiteboard')
                     //var destroy = (resizeSensor || {}).destroy;
                     //((resizeSensor || {}).destroy || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     //((resizeSensor || {}).detach || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
-                    if ((resizeSensor || {}).targetElement) {
-                        ResizeSensorApi.destroy(oldContainer);
-                    }
                     var img = element.find("img")[0];
                     $pinchZoom = element.parents('pinch-zoom');
                     $pinchZoom.change(handleBackgroundResize);
