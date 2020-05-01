@@ -51,7 +51,7 @@ angular.module('whiteboard')
                         }
                     })(container[0]);
                     //((resizeSensor || {}).destroy || (() =>{}))(oldContainer); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
-                    resizeSensor.destroy;
+                    var destroy = (resizeSensor || {}).destroy;
                     ((resizeSensor || {}).destroy || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
                     $pinchZoom = element.parents('pinch-zoom');
