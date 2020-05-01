@@ -164,16 +164,6 @@ angular.module('whiteboard')
       });
       element.bind('touchend mouseup', function (ev) {
           if (ev.type === 'touchend' || ev.type === 'mouseup') {
-          if(attrs.wbTool === 'pan') {
-              scope.$emit('activateMenu', 'hide');
-              ev.preventDefault();
-          }
-          //var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
-          var levelTwoChildren = angular.element(ev.currentTarget).parent().find('.level-two');
-          if(levelTwoChildren.hasClass('show')) {
-              scope.$emit('activateMenu', 'hide');
-              ev.preventDefault();
-          }
             // console.log(angular.element(ev.relatedTarget).is('svg'))
             // console.log('add class show');
             // console.log(ev.buttons)
@@ -198,9 +188,9 @@ angular.module('whiteboard')
                 scope.$emit('activateMenu', 'show');
               }
               */
-            } else {
-              ctrl.menuHandler('show');
-            }
+            //} else {
+            //  ctrl.menuHandler('show');
+            //}
           } else {
             // console.log('remove class show');
   
@@ -286,7 +276,6 @@ angular.module('whiteboard')
       };
 
         element.bind('touchend mouseup', function (ev) {
-            /*
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
@@ -296,7 +285,6 @@ angular.module('whiteboard')
               scope.$emit('activateMenu', 'hide');
               ev.preventDefault();
           } else {
-          */
 
           // console.log(ev, attrs.wbLevel)
           if ((ev.type === 'touchend' || ev.type === 'mouseup') && attrs.wbLevel === '2') {
@@ -322,7 +310,7 @@ angular.module('whiteboard')
             submenuOpenerCtrl.submenuCloser({action: 'hide', level: attrs.wbLevel});
             ev.preventDefault();
           }
-         // }
+          }
         });
 
       var unbindMouseEv = function () {
