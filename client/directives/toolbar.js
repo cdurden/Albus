@@ -281,7 +281,7 @@ angular.module('whiteboard')
         element.bind('touchend mouseup', function (ev) {
           if(attrs.wbTool === 'pan') {
               scope.$emit('activateMenu', 'hide');
-              score.$emit('activateNav');
+              //scope.$emit('activateNav');
               ev.preventDefault();
               //ev.stopPropagation();
           }
