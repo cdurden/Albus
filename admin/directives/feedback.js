@@ -41,7 +41,7 @@ angular.module('whiteboard-admin')
       scope.$watch('selectedAssignment', function(newValue) {
         $http({
           method: 'GET',
-          url: '/static/teaching_assets/assignments/'+newValue+'.dot',
+          url: '/static/teaching_assets/assignments/'+newValue+'.json',
           transformResponse: [function (data) {
             // Do whatever you want!
             return data;
