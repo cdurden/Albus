@@ -242,10 +242,10 @@ function getSubmissions(callback) {
   });
 }
 async function getApiUserFromSession(session, callback) {
-    return await getApiUser(getSessionUser(session));
+    return await getApiUser(getSessionUser(session), callback);
 }
 async function getActingApiUserFromSession(session, callback) {
-    return await getApiUser(getActingSessionUser(session));
+    return await getApiUser(getActingSessionUser(session), callback);
 }
 async function getApiUser(lti_user_id, callback) {
   //var lti_user_id = await getActingSessionUser(session);
