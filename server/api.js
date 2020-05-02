@@ -380,4 +380,5 @@ module.exports = {
     createFeedback: createFeedback,
     getFeedback: getFeedback,
     getBoard: getBoard,
+    actAsUser: actAsUser,
 }
