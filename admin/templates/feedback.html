@@ -1,7 +1,5 @@
 <div nv-file-drop uploader="uploader" options="{url: '/upload'">
  <div class="container">
-  <input ng-model="query" type="text"
-          placeholder="Filter by" autofocus>
    <div id="assignment-selector-container" class="row">
     <div class="col-6">
      <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" multiple>
@@ -15,6 +13,8 @@
     </div>
    </div>
    <div class="dropzone row">
+    <input ng-model="query" type="text"
+          placeholder="Filter by" autofocus>
     <ul dnd-list="users" class="itemlist">
      <li ng-repeat="user in users | filter:query track by user.id"
          dnd-draggable="user"
