@@ -153,6 +153,13 @@ module.exports = function(server) {
         socket.emit('user', data);
       });
     });
+    socket.on('getUsers', function() {
+      console.log("getting api users");
+      api.getApiUsers(function(err,results) { 
+          users_dict = results.reduce(function(p, user) { p[user.id] = user; return p; }, {});
+          socket.emit("users", users_dict)
+      });
+    });
     socket.on('getAssignedTasks', function(){
       getSocketData(socket.id).then(function(data) {
           var assignment = data.assignment;
@@ -190,13 +197,6 @@ module.exports = function(server) {
   io.of('/admin').on('connection', function(socket) {
     registerCommonListeners(socket);
     socket.on('disconnect', function(){ });
-    socket.on('getUsers', function() {
-      console.log("getting api users");
-      api.getApiUsers(function(err,results) { 
-          users_dict = results.reduce(function(p, user) { p[user.id] = user; return p; }, {});
-          socket.emit("users", users_dict)
-      });
-    });
     socket.on('getAllClientData', function() {
       console.log("getting socket data");
       getAllClientData(function(results) { socket.emit("allClientData", results) });
