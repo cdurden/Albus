@@ -12,7 +12,7 @@ function getSocketUser(socket) {
 }
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
-        getApiUserFromSession(session, function(api_user) {
+        getApiUserFromSession(session, function(err, api_user) {
             if(api_user.role === 'teacher') {
                 session.actingAsUser = lti_user_id
                 resolve(true);
@@ -241,7 +241,6 @@ function getSubmissions(callback) {
 async function getApiUserFromSession(session, callback) {
   var lti_user_id = await getActingSessionUser(session);
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
-  return;
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
