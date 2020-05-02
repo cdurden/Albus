@@ -124,8 +124,8 @@ angular.module('whiteboard')
         direction: 'horizontal',
       })
       */
-      scope.$watchCollection(function() { Object.values(BoardData.getBoardData().boards).concat([BoardData.getBoardData().boardId]); }, function() {
-        var board = BoardData.getBoardData()[BoardData.getBoardData().boardId];
+      scope.$watchCollection(function(scope) { Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
+        var board = scope.boardData[scope.boardData.boardId];
         if (typeof board === 'undefined') {
             scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
         }
