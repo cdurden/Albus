@@ -4,7 +4,7 @@
         </div>
         <div class="modal-body" id="modal-body">
             <p>
-                Student name: <input type="text" ng-model="studentName" ng-keyup="complete(studentName)"/>
+            Student name: <input type="text" ng-model="selected" typeahead="user as (user.first + ' ' + user.last) for user in users | filter:$viewValue" />
             </p>
             <ul>
                 <li ng-repeat="item in $ctrl.items">
