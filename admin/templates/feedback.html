@@ -57,9 +57,9 @@
       </ul>
      </div>
     </div>
-    <button ng-click="feedbackForms.push([]);">Add Feedback Form</button>
     <button type="submit" class="submit">Create</button>
    </form>
+   <button ng-click="feedbackForms.push([]); ev.preventDefault();">Add Feedback Form</button>
   </div>
  </div>
 </div>
