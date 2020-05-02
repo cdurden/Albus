@@ -401,8 +401,9 @@ var $ctrl = this;
       }
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      $ctrl.selected = selectedItem;
+    modalInstance.result.then(function (selectedUser) {
+      $ctrl.selected = selectedUser;
+      Sockets.emit("actAsUser", selectedUser);
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
     });

@@ -477,6 +477,15 @@ module.exports = function(server) {
     });
 */
 
+    socket.on('actAsUser', function (data) {
+      api.actAsUser(socket.handshake.session, data).then(function(success) {
+          if (success) {
+              api.getApiUserFromSession(socket.handshake.session, function(error, data) {
+                  socket.emit('imitatedUser', data);
+              });
+          }
+      });
+    });
     socket.on('newShape', function (data) {
       console.log("new shape");
       console.log(this.room);
