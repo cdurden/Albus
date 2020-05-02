@@ -380,7 +380,7 @@ var $ctrl = this;
 
   $ctrl.open = function (size, parentSelector) {
     var parentElem = parentSelector ? 
-      angular.element($document[0].querySelector('view-as-modal')) : undefined;
+      angular.element($document[0].querySelector('.view-as-modal '+parentSelector)) : undefined;
     var modalInstance = $uibModal.open({
       animation: $ctrl.animationsEnabled,
       ariaLabelledBy: 'modal-title',
@@ -504,7 +504,7 @@ var $ctrl = this;
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.saveBoard();
         } else if (attrs.wbTool && attrs.wbTool === 'student view') {
-          submenuItemsCtrl.openComponentModal('sm');
+          submenuItemsCtrl.open('sm', 'body');
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
           scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});
