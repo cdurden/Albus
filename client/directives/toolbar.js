@@ -380,7 +380,7 @@ var $ctrl = this;
 
   $ctrl.open = function (size, parentSelector) {
     var parentElem = parentSelector ? 
-      angular.element($document[0].querySelector('.view-as-modal '+parentSelector)) : undefined;
+      angular.element($document[0].querySelector(parentSelector)) : undefined;
     var modalInstance = $uibModal.open({
       animation: $ctrl.animationsEnabled,
       ariaLabelledBy: 'modal-title',
