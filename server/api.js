@@ -11,8 +11,19 @@ function getSocketUser(socket) {
     return(socket.handshake.session.passport.user);
 }
 function getSessionUser(session) {
-    console.log(((session || {}).passport || {}));
-    return(((session || {}).passport || {}).user);
+    return new Promise( (resolve) => {
+        if (session.isMasquerading) {
+            getApiUserFromSession(session, function(api_user) {
+                if(api_user.role === 'teacher') {
+                    resolve(session.masqUser);
+                } else {
+                    resolve(((session || {}).passport || {}).user);
+                }
+            }
+        }
+        console.log(((session || {}).passport || {}));
+        resolve(((session || {}).passport || {}).user);
+    }
 }
 function getBoard(boardId, callback) {
   console.log("Getting board with id "+boardId);
@@ -50,7 +61,7 @@ function getLatestBoard(session, taskId, callback) {
   data = { 
       'task_id': taskId,
   };
-  data.lti_user_id = getSessionUser(session);
+  data.lti_user_id = await getSessionUser(session);
   request({
       url: `${scheme}://${host}:${port}/api/board/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
@@ -92,7 +103,7 @@ function updateAssignments(assignments, callback) {
   );
 }
 function saveBoard(session, board, data, callback) {
-  lti_user_id = getSessionUser(session);
+  lti_user_id = await getSessionUser(session);
   console.log(Object.keys(board));
   console.log("Saving board for lti_user_id: "+lti_user_id);
   data = { 
@@ -150,7 +161,7 @@ function getFeedback(callback) {
   );
 }
 function createFeedback(session, data, callback) {
-  data.lti_user_id = getSessionUser(session);
+  data.lti_user_id = await getSessionUser(session);
   request.post(`${scheme}://${host}:${port}/api/feedback/`,
     {
       headers : { 
@@ -182,7 +193,7 @@ function createFeedback(session, data, callback) {
 }
 function submit(session, data, callback) {
   data.task_id = data.taskId;
-  data.lti_user_id = getSessionUser(session);
+  data.lti_user_id = await getSessionUser(session);
   console.log("Submitting a task response for lti_user_id: "+data.lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/task/${data.task_id}/submissions/`, {
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
@@ -216,7 +227,7 @@ function getSubmissions(callback) {
   });
 }
 function getApiUserFromSession(session, callback) {
-  var lti_user_id = getSessionUser(session);
+  var lti_user_id = await getSessionUser(session);
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,

@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbToolbar', ['BoardData', 'Zoom', 'EventHandler', function (BoardData, Zoom, EventHandler) {
+.directive('wbToolbar', ['BoardData', 'Zoom', 'EventHandler', 'Sockets', function (BoardData, Zoom, EventHandler, Sockets) {
   return {
     restrict: 'A',
     replace: true,
@@ -85,6 +85,11 @@ angular.module('whiteboard')
     },
     link: function (scope, element, attrs, ctrls) {
 
+      Sockets.on('user', function(user) {
+          if (user.role == 'teacher') {
+              scope.menuStructure[3] = ['Admin', ['Student View', 'Dashboard']]
+          }
+      })
       // var $colorIcon = element.find('.icon-color');
       
 

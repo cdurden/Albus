@@ -101,6 +101,9 @@ b {
 .controls .enabled.fragmented:hover {
     opacity: 1; }
 
+.task-submit-button {
+    z-index: 51;
+}
 
 .float-s {
     margin-left: -4em;
