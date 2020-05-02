@@ -400,7 +400,7 @@ var $ctrl = this;
     modalInstance.result.then(function (selectedItem) {
       $ctrl.selected = selectedItem;
     }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
+      console.log('Modal dismissed at: ' + new Date());
     });
   };
   $ctrl.openComponentModal = function () {
@@ -416,7 +416,7 @@ var $ctrl = this;
     modalInstance.result.then(function (selectedItem) {
       $ctrl.selected = selectedItem;
     }, function () {
-      $log.info('modal-component dismissed at: ' + new Date());
+      console.log('modal-component dismissed at: ' + new Date());
     });
   };
 
