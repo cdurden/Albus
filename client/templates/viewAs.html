@@ -7,7 +7,7 @@
             Student name: <input type="text" ng-model="$ctrl.selectedUser" typeahead="user as (user.firstname + ' ' + user.lastname) for user in $ctrl.users | filter:$viewValue" />
             </p>
             <ul>
-                <li ng-repeat="user in $ctrl.users | filter:selected | limitTo:30">
+                <li ng-repeat="user in $ctrl.users | filter:userQuery | limitTo:30">
                     <a href="#" ng-click="$event.preventDefault(); $ctrl.selectedUser = user">{{ user.firstname }} {{user.lastname }}</a>
                 </li>
             </ul>
