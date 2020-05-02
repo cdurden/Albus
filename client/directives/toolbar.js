@@ -451,7 +451,7 @@ angular.module('whiteboard')
           scope.$emit('activateMenu', 'hide');
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.saveBoard();
-        } else if (attrs.wbTool && attrs.wbTool === 'view as') {
+        } else if (attrs.wbTool && attrs.wbTool === 'student view') {
           submenuItemsCtrl.openModal('view-as-modal');
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
