@@ -15,7 +15,7 @@ function getActingSessionUser(session) {
 }
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
-        getApiUser(getSessionUser(session), function(err, api_user) {
+        getApiUser(getSessionUser(session), function(error, api_user) {
             if(api_user.role === 'teacher') {
                 session.actingAsUser = lti_user_id
                 resolve(true);
@@ -28,7 +28,7 @@ function actAsUser(session, lti_user_id) {
 function getActingSessionUser(session) {
     return new Promise( (resolve) => {
         if (typeof session.actingAsUser !== 'undefined') {
-            getApiUser(getSessionUser(session), function(api_user) {
+            getApiUser(getSessionUser(session), function(error, api_user) {
                 if(api_user.role === 'teacher') {
                     resolve(session.actingAsUser);
                 } else {
