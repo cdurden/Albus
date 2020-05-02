@@ -1,44 +1,44 @@
 <div class="toolbar">
-    <div class="menu level-one wb-menu-opener" wb-menu-over-handler ng-repeat="menu in menuStructure" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%" wb-tool="{{setAttributeTool(menu[0])}}">
-    <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%">
-      <p class="menu-text lvl1 valign-text">{{menu[0]}}</p>
-    </div>
-    <div class="menu wb-submenu-opener" wb-level="2" wb-tool="{{setAttributeTool(menu[0])}}"></div>
-    <div class="menu level-two wb-submenu {{menu[0].toLowerCase()}}" wb-level="2" ng-if="menu.length>1">
-      <div class="level-two-items wb-submenu-items valign-text " wb-menu-over-handler wb-tool="{{setAttributeTool(subMenu)}}" ng-repeat="subMenu in menu[1]" style="height: {{100/menu[1].length}}%">
-        <div ng-if="subMenu.toUpperCase()" class="icon icon-{{subMenu.toLowerCase()}} valign-text" >
-          <p>{{subMenu}}</p>
-        </div>
-        <div ng-if="!subMenu.toUpperCase()" style="height: 100%" class="level-three level-three-container">
-          <div class="lvl2 icon icon-{{subMenu[0].toLowerCase()}}" style="height: {{100/menu[1].length}}%">
-            <p class="menu-text lvl2 valign-text">{{subMenu[0]}}</p>
-          </div>
-          <div class="menu wb-submenu-opener" wb-level="3"></div>
-          <div class="menu level-three wb-submenu" wb-level="3">
-            <div ng-if="subMenu[1][0].charAt(0) === '#'" class="level-three-items wb-submenu-items" wb-color-type="{{subMenu[0].toLowerCase()}}" wb-color="{{color}}" ng-repeat="color in subMenu[1]" style="height: {{94.1/subMenu[1].length}}%;">
-              <!-- <p>{{color}}</p> -->
-              <div class="color-palette" wb-menu-over-handler ng-style="{'background-color': menuOver.hexToRGBA(color)}"></div>
-            </div>
-            <div ng-if="subMenu[1][0].charAt(0) !== '#'" class="level-three-items wb-submenu-items" wb-thickness="{{thickness}}"ng-repeat="thickness in subMenu[1]" style="height: {{94.1/subMenu[1].length}}%;">
-              <div class="thickness stroke{{thickness}}" wb-menu-over-handler ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+ <div class="menu level-one wb-menu-opener" wb-menu-over-handler ng-repeat="menu in menuStructure" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%" wb-tool="{{setAttributeTool(menu[0])}}">
+  <div class="icon icon-{{menu[0].toLowerCase()}}" style="height: {{(100-3.3/4*(menuStructure.length+1))/menuStructure.length}}%">
+   <p class="menu-text lvl1 valign-text">{{menu[0]}}</p>
   </div>
-<modal id="view-as-modal">
-    <div class="modal">
-        <div class="modal-body">
-            <h1>View as ...</h1>
-            <p>
-                Student name: 
-<input type="text" ng-model="selected" typeahead="user as (user.first + ' ' + user.last) for user in users | filter:$viewValue" />
-            </p>
-            <button ng-click="submenuItemsCtrl.viewAsStudent(selected);">View as student</button>
-            <button ng-click="submenuItemsCtrl.closeModal('view-as-modal');">Close</button>
-        </div>
+  <div class="menu wb-submenu-opener" wb-level="2" wb-tool="{{setAttributeTool(menu[0])}}"></div>
+   <div class="menu level-two wb-submenu {{menu[0].toLowerCase()}}" wb-level="2" ng-if="menu.length>1">
+    <div class="level-two-items wb-submenu-items valign-text " wb-menu-over-handler wb-tool="{{setAttributeTool(subMenu)}}" ng-repeat="subMenu in menu[1]" style="height: {{100/menu[1].length}}%">
+     <div ng-if="subMenu.toUpperCase()" class="icon icon-{{subMenu.toLowerCase()}} valign-text" >
+      <p>{{subMenu}}</p>
+     </div>
+     <div ng-if="!subMenu.toUpperCase()" style="height: 100%" class="level-three level-three-container">
+      <div class="lvl2 icon icon-{{subMenu[0].toLowerCase()}}" style="height: {{100/menu[1].length}}%">
+       <p class="menu-text lvl2 valign-text">{{subMenu[0]}}</p>
+      </div>
+      <div class="menu wb-submenu-opener" wb-level="3"></div>
+      <div class="menu level-three wb-submenu" wb-level="3">
+       <div ng-if="subMenu[1][0].charAt(0) === '#'" class="level-three-items wb-submenu-items" wb-color-type="{{subMenu[0].toLowerCase()}}" wb-color="{{color}}" ng-repeat="color in subMenu[1]" style="height: {{94.1/subMenu[1].length}}%;">
+        <!-- <p>{{color}}</p> -->
+       <div class="color-palette" wb-menu-over-handler ng-style="{'background-color': menuOver.hexToRGBA(color)}"></div>
+      </div>
+      <div ng-if="subMenu[1][0].charAt(0) !== '#'" class="level-three-items wb-submenu-items" wb-thickness="{{thickness}}"ng-repeat="thickness in subMenu[1]" style="height: {{94.1/subMenu[1].length}}%;">
+       <div class="thickness stroke{{thickness}}" wb-menu-over-handler ></div>
+      </div>
+     </div>
     </div>
-    <div class="modal-background"></div>
-</modal>
+   </div>
+  </div>
+ </div>
+ <modal id="view-as-modal">
+     <div class="modal">
+         <div class="modal-body">
+             <h1>View as ...</h1>
+             <p>
+                 Student name: 
+ <input type="text" ng-model="selected" typeahead="user as (user.first + ' ' + user.last) for user in users | filter:$viewValue" />
+             </p>
+             <button ng-click="submenuItemsCtrl.viewAsStudent(selected);">View as student</button>
+             <button ng-click="submenuItemsCtrl.closeModal('view-as-modal');">Close</button>
+         </div>
+     </div>
+     <div class="modal-background"></div>
+ </modal>
 </div>
