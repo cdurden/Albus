@@ -32,7 +32,7 @@
      <input ng-model="feedbackTemplateCollection" type="text"
            placeholder="Feedback template collection" autofocus>
      <button ng-click="getFeedbackTemplates(); ev.preventDefault();">Update</button>
-     <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="(key, template) as template.description in feedbackTemplates" ng-model="selectedTemplate">
+     <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
      </select>
      <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate.template" autocomplete="off" />
     </div>
