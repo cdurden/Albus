@@ -1,5 +1,5 @@
 angular.module('whiteboard-admin')
-.directive('wbAdminFeedback', ['Sockets', 'angularLoad', '$http', function (Sockets, angularLoad, $http) {
+.directive('wbAdminFeedback', ['Sockets', 'angularLoad', '$http', 'FileUploader' , function (Sockets, angularLoad, $http, FileUploader) {
   return {
     restrict: 'A',
     require: ['wbAdminFeedback'],
@@ -11,6 +11,7 @@ angular.module('whiteboard-admin')
       //$scope.sockets = {};
       $scope.users = [];
       $scope.feedbackUserLists = [[]];
+      $scope.uploader = new FileUploader();
 
     $scope.dragoverCallback = function(index, external, type, callback) {
         $scope.logListEvent('dragged over', index, external, type);
