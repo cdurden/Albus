@@ -101,7 +101,7 @@ b {
 .controls .enabled.fragmented:hover {
     opacity: 1; }
 
-div.task-submit-buttoncontainer {
+div.task-submit-button-container {
     z-index: 51;
 }
 button.task-submit-button {
