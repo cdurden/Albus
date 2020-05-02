@@ -149,7 +149,7 @@ module.exports = function(server) {
       if (typeof socket.handshake.session === 'undefined') {
         return;
       }
-      api.getApiUserFromSession(socket.handshake.session, function(error, data) {
+      api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
         socket.emit('user', data);
       });
     });
@@ -413,7 +413,7 @@ module.exports = function(server) {
       if (typeof socket.handshake.session === 'undefined') {
           return;
       }
-      api.getApiUserFromSession(socket.handshake.session, function(error, data) {
+      api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log("returning from getting Api user");
         if (data) {
           console.log("received data:");
@@ -480,7 +480,7 @@ module.exports = function(server) {
     socket.on('actAsUser', function (data) {
       api.actAsUser(socket.handshake.session, data).then(function(success) {
           if (success) {
-              api.getApiUserFromSession(socket.handshake.session, function(error, data) {
+              api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
                   socket.emit('imitatedUser', data);
               });
           }

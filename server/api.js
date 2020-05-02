@@ -7,12 +7,15 @@ var auth = require('./auth');
 var scheme = "https";
 var host = "localhost";
 var port = 444;
-function getSocketUser(socket) {
-    return(socket.handshake.session.passport.user);
+function getSessionUser(session) {
+    return(session.passport.user);
+}
+function getActingSessionUser(session) {
+    return(session.actingAsUser);
 }
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
-        getApiUserFromSession(session, function(err, api_user) {
+        getApiUser(getSessionUser(session), function(err, api_user) {
             if(api_user.role === 'teacher') {
                 session.actingAsUser = lti_user_id
                 resolve(true);
@@ -25,7 +28,7 @@ function actAsUser(session, lti_user_id) {
 function getActingSessionUser(session) {
     return new Promise( (resolve) => {
         if (typeof session.actingAsUser !== 'undefined') {
-            getApiUserFromSession(session, function(api_user) {
+            getApiUser(getSessionUser(session), function(api_user) {
                 if(api_user.role === 'teacher') {
                     resolve(session.actingAsUser);
                 } else {
@@ -239,7 +242,13 @@ function getSubmissions(callback) {
   });
 }
 async function getApiUserFromSession(session, callback) {
-  var lti_user_id = await getActingSessionUser(session);
+    return await getApiUser(getSessionUser(session));
+}
+async function getActingApiUserFromSession(session, callback) {
+    return await getApiUser(getActingSessionUser(session));
+}
+async function getApiUser(lti_user_id, callback) {
+  //var lti_user_id = await getActingSessionUser(session);
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
     url: `${scheme}://${host}:${port}/api/user/${lti_user_id}`,
@@ -253,7 +262,6 @@ async function getApiUserFromSession(session, callback) {
     } else {
       if (!error) {
         console.log("Response status code: "+response.statusCode);
-        //console.log(body);
       } else {
         console.log("Error getting API user");
         console.log(error);
@@ -365,7 +373,7 @@ function getTaskFromSource(source, callback) {
 }
 module.exports = {
     getApiUsers: getApiUsers,
-    getApiUserFromSession: getApiUserFromSession,
+    getActingApiUserFromSession: getActingApiUserFromSession,
     getTask: getTask,
     getTaskFromSource: getTaskFromSource,
     getTasks: getTasks,
