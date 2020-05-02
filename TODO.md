@@ -8,6 +8,7 @@
 3. Create navigation mode that allows pinch zoom (disable pointer-actions on canvas)
 4. Create a help pane, showing messages
 5. Tie user to room semi-consistently
+6. Use pagination widgets like the ones here: https://angular-ui.github.io/bootstrap/
 
 # Fixes
 1. Fix drawing errors.

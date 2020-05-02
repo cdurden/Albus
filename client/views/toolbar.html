@@ -27,4 +27,18 @@
       </div>
     </div>
   </div>
+<modal id="view-as-modal">
+    <div class="modal">
+        <div class="modal-body">
+            <h1>View as ...</h1>
+            <p>
+                Student name: 
+<input type="text" ng-model="selected" typeahead="user as (user.first + ' ' + user.last) for user in users | filter:$viewValue" />
+            </p>
+            <button ng-click="submenuItemsCtrl.viewAsStudent(selected);">View as student</button>
+            <button ng-click="submenuItemsCtrl.closeModal('view-as-modal');">Close</button>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
 </div>

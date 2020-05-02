@@ -372,8 +372,14 @@ angular.module('whiteboard')
     restrict: 'C',
     replace: false,
     require: 'wbSubmenuItems',
-    controller: function ($scope, BoardData, EventHandler) {
+    controller: function ($scope, BoardData, EventHandler, Modal) {
 
+      this.openModal(id) {
+          Modal.Open(id)
+      }
+      this.closeModal(id) {
+          Modal.Close(id)
+      }
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
       }
@@ -442,6 +448,8 @@ angular.module('whiteboard')
           scope.$emit('activateMenu', 'hide');
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.saveBoard();
+        } else if (attrs.wbTool && attrs.wbTool === 'view as') {
+          submenuItemsCtrl.openModal('view-as-modal');
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
           scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});

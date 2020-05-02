@@ -1,0 +1,12 @@
+<modal id="custom-modal-1">
+    <div class="modal">
+        <div class="modal-body">
+            <h1>Draw as ...</h1>
+            <p>
+                Student name: <input type="text" ng-model="studentName" ng-keyup="complete(studentName)"/>
+            </p>
+            <button ng-click="vm.closeModal('custom-modal-1');">Close</button>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
