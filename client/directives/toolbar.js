@@ -731,7 +731,7 @@ var $ctrl = this;
   };
 
   $ctrl.ok = function () {
-    $uibModalInstance.close($ctrl.selected.users);
+    $uibModalInstance.close($ctrl.selectedUser);
   };
 
   $ctrl.cancel = function () {
