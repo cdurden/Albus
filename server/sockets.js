@@ -266,6 +266,22 @@ module.exports = function(server) {
             });
         });
     });
+    socket.on('getFeedbackTemplates', function(collection){
+        request({
+            method: 'GET',
+            url: 'https://dev.algebra742.org:444/static/teaching_assets/feedback/'+collection+'.json',
+            transformResponse: [function (data) {
+              return data;
+            }]
+        }, function(error, response, body) {
+            if(!error && response.statusCode == 200) {
+              data = JSON.parse(body);
+            } else {
+              data = {};
+            }
+            socket.emit('feedbackTemplates', data);
+        });
+    });
     socket.on('getAssignmentTasks', function(assignment){
         request({
             method: 'GET',

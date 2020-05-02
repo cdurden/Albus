@@ -11,6 +11,7 @@ angular.module('whiteboard-admin')
       //$scope.sockets = {};
       $scope.users = [];
       $scope.feedbackUserLists = [[]];
+      $scope.feedbackTemplates = {};
       $scope.uploader = new FileUploader();
 
     $scope.dragoverCallback = function(index, external, type, callback) {
@@ -66,6 +67,11 @@ angular.module('whiteboard-admin')
       Sockets.on('feedbackRedirect', function (data) {
           console.log(data);
       });
+      Sockets.on('feedbackTemplates', function (data) {
+          console.log(data);
+          $scope.feedbackTemplates = data;
+      });
+      Sockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
       /*
       Sockets.emit('getAssignments');
       Sockets.emit('getUsers');

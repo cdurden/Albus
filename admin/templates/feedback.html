@@ -12,20 +12,29 @@
      </select>
     </div>
    </div>
-   <div class="dropzone row">
-    <input ng-model="query" type="text"
-          placeholder="Filter by" autofocus>
-    <ul dnd-list="users" class="itemlist">
-     <li ng-repeat="user in users | filter:query track by user.id"
-         dnd-draggable="user"
-         dnd-moved="list.splice($index, 1)"
-         dnd-effect-allowed="move"
-         dnd-selected="models.selected = user"
-         ng-class="{'selected': models.selected === user}"
-         >
-         {{user.firstname}} {{user.lastname}}
-     </li>
-    </ul>
+   <div class="row">
+    <div class="dropzone col-8">
+     <input ng-model="query" type="text"
+           placeholder="Filter by" autofocus>
+     <ul dnd-list="users" class="itemlist">
+      <li ng-repeat="user in users | filter:query track by user.id"
+          dnd-draggable="user"
+          dnd-moved="list.splice($index, 1)"
+          dnd-effect-allowed="move"
+          dnd-selected="models.selected = user"
+          ng-class="{'selected': models.selected === user}"
+          >
+          {{user.firstname}} {{user.lastname}}
+      </li>
+     </ul>
+    </div>
+    <div class="dropzone col-4">
+     <input ng-model="feedbackTemplateCollection" type="text"
+           placeholder="Feedback template collection" autofocus>
+     <select id="feedback-template-selector" name="selectedFeedbackTemplate" ng-model="selectedFeedbackTemplate" multiple>
+      <option ng-repeat="(key, template) in feedbackTemplates" value="{{key}}">{{template.description}}</option>
+     </select>
+    </div>
    </div>
    <form action="" id="create-feedback-form" class="form-container">
     <div class="row" ng-repeat-start="feedbackUserList in feedbackUserLists">
