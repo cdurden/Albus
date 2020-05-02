@@ -372,9 +372,12 @@ angular.module('whiteboard')
     restrict: 'C',
     replace: false,
     require: 'wbSubmenuItems',
-    controller: function ($scope, BoardData, EventHandler, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
+    controller: function ($scope, BoardData, EventHandler, Sockets, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
 var $ctrl = this;
  $ctrl.users = [];
+  Sockets.on('users', function(data) {
+  $ctrl.users = data;
+  });
   $ctrl.animationsEnabled = true;
 
 
