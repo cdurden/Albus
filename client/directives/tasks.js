@@ -130,7 +130,7 @@ angular.module('whiteboard')
         if (typeof board === 'undefined') {
             scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
         }
-        scope.task = board.task;
+        scope.task = (board || {}).task;
       }, true);
         /*
       scope.$watch("taskData.tasks", function(tasks) {
