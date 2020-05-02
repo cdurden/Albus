@@ -125,7 +125,7 @@ angular.module('whiteboard')
         direction: 'horizontal',
       })
       */
-      scope.$watchCollection(function(scope) { Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
+      scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         var board = scope.boardData[scope.boardData.boardId];
         if (typeof board === 'undefined') {
             scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
