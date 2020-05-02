@@ -31,10 +31,14 @@ async function getActingSessionUser(session) {
         console.log("Session says acting user is "+session.actingAsUser+". Checking if authorized.");
         if (typeof session.actingAsUser !== 'undefined') {
             getApiUser(getSessionUser(session), function(error, api_user) {
-                if(api_user.role === 'teacher') {
-                    resolve(session.actingAsUser);
+                if (!error) {
+                    if(api_user.role === 'teacher') {
+                        resolve(session.actingAsUser);
+                    } else {
+                        resolve(((session || {}).passport || {}).user);
+                    }
                 } else {
-                    resolve(((session || {}).passport || {}).user);
+                    resolve(null);
                 }
             });
         } else {
