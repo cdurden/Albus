@@ -483,7 +483,7 @@ module.exports = function(server) {
               console.log("Acting as user");
               console.log(socket.handshake.session.actingAsUser);
               api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
-                  socket.emit('imitatedUser', data);
+                  socket.emit('actingAsUser', data);
               });
           }
       });

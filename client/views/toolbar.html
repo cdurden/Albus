@@ -7,7 +7,7 @@
    <div class="menu level-two wb-submenu {{menu[0].toLowerCase()}}" wb-level="2" ng-if="menu.length>1">
     <div class="level-two-items wb-submenu-items valign-text " wb-menu-over-handler wb-tool="{{setAttributeTool(subMenu)}}" ng-repeat="subMenu in menu[1]" style="height: {{100/menu[1].length}}%">
      <div ng-if="subMenu.toUpperCase()" class="icon icon-{{subMenu.toLowerCase()}} valign-text" >
-         <div ng-if="subMenu.toLowerCase()==='student view'" style="position: absolute; top: 50%;">{{imitatedUser.firstname}} {{imitatedUser.lastname}}</div>
+         <div ng-if="subMenu.toLowerCase()==='student view'" style="position: absolute; top: 50%;">{{actingAsUser.firstname}} {{actingAsUser.lastname}}</div>
       <p>{{subMenu}}</p>
      </div>
      <div ng-if="!subMenu.toUpperCase()" style="height: 100%" class="level-three level-three-container">

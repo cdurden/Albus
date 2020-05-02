@@ -373,8 +373,8 @@ angular.module('whiteboard')
     replace: false,
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData, EventHandler, Sockets, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
-  Sockets.on('imitatedUser', function(data) {
-    $scope.imitatedUser = data;
+  Sockets.on('actingAsUser', function(data) {
+    $scope.actingAsUser = data;
   });
 
 var $ctrl = this;

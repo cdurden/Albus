@@ -35,9 +35,10 @@ async function getActingSessionUser(session) {
                     resolve(((session || {}).passport || {}).user);
                 }
             });
+        } else {
+          console.log(((session || {}).passport || {}));
+          resolve(((session || {}).passport || {}).user);
         }
-        console.log(((session || {}).passport || {}));
-        resolve(((session || {}).passport || {}).user);
     });
 }
 function getBoard(boardId, callback) {
