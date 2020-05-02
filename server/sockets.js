@@ -149,7 +149,7 @@ module.exports = function(server) {
       if (typeof socket.handshake.session === 'undefined') {
         return;
       }
-      api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
+      api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         socket.emit('user', data);
       });
     });
@@ -413,7 +413,7 @@ module.exports = function(server) {
       if (typeof socket.handshake.session === 'undefined') {
           return;
       }
-      api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
+      api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log("returning from getting Api user");
         if (data) {
           console.log("received data:");
