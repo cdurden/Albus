@@ -22,6 +22,7 @@ angular.module('whiteboard', [
   'whiteboard.services.taskdata',
   'whiteboard.services.messagehandler',
   'whiteboard.services.reveal',
+  'whiteboard.services.modal',
   'ngRoute'
 ])
 .config(['$provide', function ($provide) {
