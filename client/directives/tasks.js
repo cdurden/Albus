@@ -24,6 +24,7 @@ angular.module('whiteboard')
       EventHandler.loadBoards();
       $scope.setBoardId = function(id) {
           BoardData.setBoardById(id);
+          $scope.boardData.boardId = id;
           EventHandler.loadBoard(id);
       }
       $scope.setBoardIndex = function(i) {
