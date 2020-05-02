@@ -10,9 +10,9 @@ var port = 444;
 function getSessionUser(session) {
     return(session.passport.user);
 }
-function getActingSessionUser(session) {
-    return(session.actingAsUser);
-}
+//function getActingSessionUser(session) {
+//    return(session.actingAsUser);
+//}
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
         getApiUser(getSessionUser(session), function(error, api_user) {
@@ -25,7 +25,7 @@ function actAsUser(session, lti_user_id) {
         });
     });
 }
-function getActingSessionUser(session) {
+async function getActingSessionUser(session) {
     return new Promise( (resolve) => {
         if (typeof session.actingAsUser !== 'undefined') {
             getApiUser(getSessionUser(session), function(error, api_user) {
@@ -245,7 +245,7 @@ async function getApiUserFromSession(session, callback) {
     return await getApiUser(getSessionUser(session), callback);
 }
 async function getActingApiUserFromSession(session, callback) {
-    return await getApiUser(getActingSessionUser(session), callback);
+    return await getApiUser(await getActingSessionUser(session), callback);
 }
 async function getApiUser(lti_user_id, callback) {
   //var lti_user_id = await getActingSessionUser(session);
