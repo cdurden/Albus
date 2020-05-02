@@ -31,8 +31,22 @@
           </form>
       </div>
     <form action="" id="create-feedback-form" class="form-container">
-      <button type="submit" class="submit">Create</button>
-    </form>
+        <div ng-repeat="feedbackForm in feedbackForms">
+<ul dnd-list="list">
+    <!-- The dnd-draggable directive makes an element draggable and will
+         transfer the object that was assigned to it. If an element was
+         dragged away, you have to remove it from the original list
+         yourself using the dnd-moved attribute -->
+    <li ng-repeat="item in list"
+        dnd-draggable="item"
+        dnd-moved="list.splice($index, 1)"
+        dnd-effect-allowed="move"
+        dnd-selected="models.selected = item"
+        ng-class="{'selected': models.selected === item}"
+        >
+        {{item.label}}
+    </li>
+</ul>
     <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'task_json': task_json, 'selectedUsers': selectedUsers}] }"/><br/>
         <ul>
             <div class="file-drop-area" nv-file-over uploader="uploader">Drag file here</div>
@@ -41,5 +55,10 @@
                 <button ng-click="item.upload()">upload</button>
             </li>
         </ul>
-  </div>
+        </div>
+ 
+      <button ng-click="feedbackForms.push(feedbackForms.length)">Add Feedback Form</button>
+      <button type="submit" class="submit">Create</button>
+    </form>
+ </div>
 </div>
