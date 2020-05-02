@@ -75,7 +75,9 @@ module.exports = function(server) {
           } else {
             data = [];
           }
-          api.getTasksFromSource(data, function(error, tasks) {
+          //api.getClientTasksFromSource(socket.handshake.session, data, function(error, tasks) {
+          api.getActingApiUserFromSession(socket.handshake.session, function(error, user) {
+            var tasks = user.tasks;
             console.log("Got tasks");
             console.log(tasks);
             if (tasks) {
