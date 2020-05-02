@@ -2,7 +2,7 @@
  <div class="container">
   <input ng-model="query" type="text"
           placeholder="Filter by" autofocus>
-   <div id="assignment-selector-container">
+   <div id="assignment-selector-container" class="row">
     <div class="col-6">
      <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" multiple>
       <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
@@ -14,7 +14,7 @@
      </select>
     </div>
    </div>
-   <div class="dropzone">
+   <div class="dropzone row">
     <ul dnd-list="users" class="itemlist">
      <li ng-repeat="user in users | filter:query track by user.id"
          dnd-draggable="user"
@@ -28,7 +28,7 @@
     </ul>
    </div>
    <form action="" id="create-feedback-form" class="form-container">
-    <div ng-repeat="feedbackUserList in feedbackUserLists">
+    <div class="row" ng-repeat="feedbackUserList in feedbackUserLists">
      <div class="col-8 dropzone">
       <ul dnd-list="feedbackUserList" class="itemlist">
        <!-- The dnd-draggable directive makes an element draggable and will
