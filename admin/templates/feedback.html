@@ -31,6 +31,7 @@
     <div class="dropzone col-4">
      <input ng-model="feedbackTemplateCollection" type="text"
            placeholder="Feedback template collection" autofocus>
+     <button ng-click="getFeedbackTemplates(); ev.preventDefault();">Update</button>
      <select id="feedback-template-selector" name="selectedFeedbackTemplate" ng-model="selectedFeedbackTemplate" multiple>
       <option ng-repeat="(key, template) in feedbackTemplates" value="{{key}}">{{template.description}}</option>
      </select>

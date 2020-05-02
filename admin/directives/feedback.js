@@ -38,6 +38,9 @@ angular.module('whiteboard-admin')
         message += type + ' element was ' + action + ' position ' + index;
         console.log(message);
     };
+    $scope.getFeedbackTemplates = function() {
+        Sockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
+    }
 
     // Initialize model
     $scope.model = [[], []];
