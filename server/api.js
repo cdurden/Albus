@@ -18,6 +18,7 @@ function actAsUser(session, lti_user_id) {
         getApiUser(getSessionUser(session), function(error, api_user) {
             if(api_user.role === 'teacher') {
                 session.actingAsUser = lti_user_id
+                session.save();
                 resolve(true);
             } else {
                 resolve(false);
