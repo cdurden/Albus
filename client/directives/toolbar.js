@@ -374,7 +374,7 @@ angular.module('whiteboard')
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData, EventHandler, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
 var $ctrl = this;
- $ctrl.items = ['item1', 'item2', 'item3'];
+ $ctrl.users = [];
   $ctrl.animationsEnabled = true;
 
 
@@ -391,8 +391,8 @@ var $ctrl = this;
       size: size,
       appendTo: parentElem,
       resolve: {
-        items: function () {
-          return $ctrl.items;
+        users: function () {
+          return $ctrl.users;
         }
       }
     });
@@ -408,8 +408,8 @@ var $ctrl = this;
       animation: $ctrl.animationsEnabled,
       component: 'modalComponent',
       resolve: {
-        items: function () {
-          return $ctrl.items;
+        users: function () {
+          return $ctrl.users;
         }
       }
     });
@@ -711,15 +711,15 @@ var $ctrl = this;
     }
   };
 })
-.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
+.controller('ModalInstanceCtrl', function ($uibModalInstance, users) {
   var $ctrl = this;
-  $ctrl.items = items;
+  $ctrl.users = users;
   $ctrl.selected = {
-    item: $ctrl.items[0]
+    users: $ctrl.users[0]
   };
 
   $ctrl.ok = function () {
-    $uibModalInstance.close($ctrl.selected.item);
+    $uibModalInstance.close($ctrl.selected.users);
   };
 
   $ctrl.cancel = function () {
