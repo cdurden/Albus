@@ -9,8 +9,8 @@ angular.module('whiteboard-admin')
     controller: function ($scope) {
       $scope.assignments = {};
       //$scope.sockets = {};
-      $scope.users = {};
-      $scope.feedbackForms = [0];
+      $scope.users = [];
+      $scope.feedbackUserLists = [[]];
 
     $scope.dragoverCallback = function(index, external, type, callback) {
         $scope.logListEvent('dragged over', index, external, type);
