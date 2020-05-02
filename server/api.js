@@ -339,14 +339,16 @@ function getTasks(task_ids, callback) {
     }
   });
 }
-/*
 function getClientTasksFromSource(session, sources, callback) {
   request({
     url: `${scheme}://${host}:${port}/api/tasks/source/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
     useQuerystring: true,
-    qs: {'source': sources},
+    qs: {
+        'source': sources,
+        'lti_user_id': await getActingSessionUser(session),
+    },
   },
   function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -359,7 +361,6 @@ function getClientTasksFromSource(session, sources, callback) {
     }
   });
 }
-*/
 function getTasksFromSource(sources, callback) {
   request({
     url: `${scheme}://${host}:${port}/api/tasks/source/`,
