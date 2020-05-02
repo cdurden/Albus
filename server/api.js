@@ -269,11 +269,12 @@ async function getApiUser(lti_user_id, callback) {
     } else {
       if (!error) {
         console.log("Response status code: "+response.statusCode);
+        callback(response.statusCode,null);
       } else {
         console.log("Error getting API user");
         console.log(error);
+        callback(error, null);
       }
-      callback(error, null);
     }
   });
 }
