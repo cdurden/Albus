@@ -4,14 +4,14 @@
         </div>
         <div class="modal-body" id="modal-body">
             <p>
-            Student name: <input type="text" ng-model="selected" typeahead="user as (user.firstname + ' ' + user.lastname) for user in $ctrl.users | filter:$viewValue" />
+            Student name: <input type="text" ng-model="$ctrl.selectedUser" typeahead="user as (user.firstname + ' ' + user.lastname) for user in $ctrl.users | filter:$viewValue" />
             </p>
             <ul>
                 <li ng-repeat="user in $ctrl.users | filter:selected | limitTo:30">
-                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.user = user">{{ user.firstname }} {{user.lastname }}</a>
+                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selectedUser = user">{{ user.firstname }} {{user.lastname }}</a>
                 </li>
             </ul>
-            Selected: <b>{{ $ctrl.selected.user }}</b>
+            Selected: <b>{{ $ctrl.selectedUser.firstname }} {{ $ctrl.selectedUser.lastname }}</b>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
