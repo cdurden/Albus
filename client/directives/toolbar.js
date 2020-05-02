@@ -374,11 +374,11 @@ angular.module('whiteboard')
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData, EventHandler, Modal) {
 
-      this.openModal(id) {
-          Modal.Open(id)
+      this.openModal = function(id) {
+          Modal.Open(id);
       }
-      this.closeModal(id) {
-          Modal.Close(id)
+      this.closeModal = function(id) {
+          Modal.Close(id);
       }
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
