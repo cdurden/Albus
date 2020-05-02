@@ -23,7 +23,7 @@ function getSessionUser(session) {
         }
         console.log(((session || {}).passport || {}));
         resolve(((session || {}).passport || {}).user);
-    }
+    });
 }
 function getBoard(boardId, callback) {
   console.log("Getting board with id "+boardId);
