@@ -17,7 +17,7 @@ function actAsUser(session, lti_user_id) {
                 session.actingAsUser = lti_user_id
                 resolve(true);
             } else {
-                resolve(false).user);
+                resolve(false);
             }
         });
     });
