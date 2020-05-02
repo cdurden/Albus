@@ -332,7 +332,7 @@ h1.title {
   position: absolute;
   right: 10px;
  /* margin-top: 90%;*/
-  height: 75%;
+  height: 90%;
 }
 
 .icon-draw .menu-text {
@@ -348,7 +348,7 @@ h1.title {
 .show .menu-text {
   width: 96%;
   left: 8px;
-  height: 65%;
+  /*height: 65%;*/
   /*margin-top: 110%;*/
 }
 
@@ -829,7 +829,7 @@ h1.title {
   }
 
   .show .menu-text {
-    margin-top: 10%;
+    /*margin-top: 10%;*/
   }
 
   .valign-text {
@@ -1033,7 +1033,7 @@ h1.title {
   }
 
   .show .menu-text {
-    margin-top: 15%;
+   /* margin-top: 15%;*/
   }
 
   .show .level-two-items .icon {
