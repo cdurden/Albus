@@ -409,24 +409,7 @@ var $ctrl = this;
     modalInstance.result.then(function (selectedUser) {
       $ctrl.selected = selectedUser;
       Sockets.emit("actAsUser", selectedUser);
-    }, function () {
       console.log('Modal dismissed at: ' + new Date());
-    });
-  };
-  $ctrl.openComponentModal = function () {
-    var modalInstance = $uibModal.open({
-      animation: $ctrl.animationsEnabled,
-      component: 'modalComponent',
-      resolve: {
-        users: function () {
-          return $ctrl.users;
-        }
-      }
-    });
-    modalInstance.result.then(function (selectedItem) {
-      $ctrl.selected = selectedItem;
-    }, function () {
-      console.log('modal-component dismissed at: ' + new Date());
     });
   };
 
