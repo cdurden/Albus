@@ -478,7 +478,7 @@ module.exports = function(server) {
 */
 
     socket.on('actAsUser', function (data) {
-      api.actAsUser(socket.handshake.session, data).then(function(success) {
+      api.actAsUser(socket.handshake.session, data.lti_user_id).then(function(success) {
           if (success) {
               console.log("Acting as user");
               console.log(socket.handshake.session.actingAsUser);
