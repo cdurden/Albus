@@ -340,6 +340,7 @@ function getTasks(task_ids, callback) {
   });
 }
 function getClientTasksFromSource(session, sources, callback) {
+  var lti_user_id = await getActingSessionUser(session);
   request({
     url: `${scheme}://${host}:${port}/api/tasks/source/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
@@ -347,7 +348,7 @@ function getClientTasksFromSource(session, sources, callback) {
     useQuerystring: true,
     qs: {
         'source': sources,
-        'lti_user_id': await getActingSessionUser(session),
+        'lti_user_id': lti_user_id,
     },
   },
   function(error, response, body) {
