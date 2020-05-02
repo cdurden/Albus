@@ -343,10 +343,10 @@ function getTasks(task_ids, callback) {
     }
   });
 }
-async function getClientTasksFromSource(session, sources, callback) {
+async function getTaskBoardsFromSource(session, sources, callback) {
   var lti_user_id = await getActingSessionUser(session);
   request({
-    url: `${scheme}://${host}:${port}/api/tasks/source/`,
+    url: `${scheme}://${host}:${port}/api/tasks/source/boards/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
     useQuerystring: true,
@@ -412,7 +412,7 @@ module.exports = {
     getSubmissions: getSubmissions,
     getTasksDataFromCollection: getTasksDataFromCollection,
     getTasksFromSource: getTasksFromSource,
-    getClientTasksFromSource: getClientTasksFromSource,
+    getTaskBoardsFromSource: getTaskBoardsFromSource,
     saveBoard: saveBoard,
     getLatestBoard: getLatestBoard,
     getTaskBoard: getTaskBoard,
