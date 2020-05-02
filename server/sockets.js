@@ -480,6 +480,8 @@ module.exports = function(server) {
     socket.on('actAsUser', function (data) {
       api.actAsUser(socket.handshake.session, data).then(function(success) {
           if (success) {
+              console.log("Acting as user");
+              console.log(socket.handshake.session.actingAsUser);
               api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
                   socket.emit('imitatedUser', data);
               });
