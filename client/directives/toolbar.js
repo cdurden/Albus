@@ -726,7 +726,7 @@ var $ctrl = this;
   };
 })
 .component('modalComponent', {
-  templateUrl: 'myModalContent.html',
+  templateUrl: 'templates/viewAs.html',
   bindings: {
     resolve: '<',
     close: '&',
