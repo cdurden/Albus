@@ -1,5 +1,5 @@
 angular.module('whiteboard', [
-  'ui-bootstrap', //text completion
+  'ui.bootstrap', //text completion
   'angularLoad',
   'hmTouchEvents',
   'btford.socket-io',

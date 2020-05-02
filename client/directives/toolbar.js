@@ -380,6 +380,9 @@ angular.module('whiteboard')
       this.closeModal = function(id) {
           Modal.Close(id);
       }
+      this.viewAsStudent = function(student) {
+          EventHandler.masqUser(student);
+      }
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
       }
