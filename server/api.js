@@ -56,7 +56,7 @@ function getTaskBoard(session, taskId, callback) {
     }
   });
 }
-function getLatestBoard(session, taskId, callback) {
+async function getLatestBoard(session, taskId, callback) {
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
   data = { 
       'task_id': taskId,
@@ -102,7 +102,7 @@ function updateAssignments(assignments, callback) {
     }
   );
 }
-function saveBoard(session, board, data, callback) {
+async function saveBoard(session, board, data, callback) {
   lti_user_id = await getSessionUser(session);
   console.log(Object.keys(board));
   console.log("Saving board for lti_user_id: "+lti_user_id);
@@ -160,7 +160,7 @@ function getFeedback(callback) {
     }
   );
 }
-function createFeedback(session, data, callback) {
+async function createFeedback(session, data, callback) {
   data.lti_user_id = await getSessionUser(session);
   request.post(`${scheme}://${host}:${port}/api/feedback/`,
     {
@@ -191,7 +191,7 @@ function createFeedback(session, data, callback) {
     }
   );
 }
-function submit(session, data, callback) {
+async function submit(session, data, callback) {
   data.task_id = data.taskId;
   data.lti_user_id = await getSessionUser(session);
   console.log("Submitting a task response for lti_user_id: "+data.lti_user_id);
@@ -226,7 +226,7 @@ function getSubmissions(callback) {
     }
   });
 }
-function getApiUserFromSession(session, callback) {
+async function getApiUserFromSession(session, callback) {
   var lti_user_id = await getSessionUser(session);
   console.log("Getting API user based on lti_user_id: "+lti_user_id);
   request({
