@@ -35,6 +35,7 @@
      <select id="feedback-template-selector" name="selectedFeedbackTemplate" ng-model="selectedFeedbackTemplate" multiple>
       <option ng-repeat="(key, template) in feedbackTemplates" value="{{key}}">{{template.description}}</option>
      </select>
+     <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" value="{{feedbackTemplates[selectedFeedbackTemplate].template}}" autocomplete="off" />
     </div>
    </div>
    <form action="" id="create-feedback-form" class="form-container">
