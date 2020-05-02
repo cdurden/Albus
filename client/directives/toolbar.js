@@ -376,7 +376,7 @@ angular.module('whiteboard')
 var $ctrl = this;
  $ctrl.users = [];
   Sockets.on('users', function(data) {
-  $ctrl.users = data;
+    $ctrl.users = Object.values(data);
   });
   $ctrl.animationsEnabled = true;
 
