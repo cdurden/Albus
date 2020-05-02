@@ -442,9 +442,11 @@ var $ctrl = this;
           Modal.Close(id);
       }
 */
-      this.viewAsStudent = function(student) {
-          EventHandler.masqUser(student);
+        /*
+      this.viewAsUser = function(student) {
+          EventHandler.viewAsUser(student);
       }
+      */
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
       }

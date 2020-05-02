@@ -493,6 +493,7 @@ module.exports = function(server) {
               api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
                   socket.emit('actingAsUser', data);
               });
+              loadBoards(socket);
           }
       });
     });
