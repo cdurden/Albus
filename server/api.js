@@ -339,7 +339,7 @@ function getTasks(task_ids, callback) {
     }
   });
 }
-function getClientTasksFromSource(session, sources, callback) {
+async function getClientTasksFromSource(session, sources, callback) {
   var lti_user_id = await getActingSessionUser(session);
   request({
     url: `${scheme}://${host}:${port}/api/tasks/source/`,
