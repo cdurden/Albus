@@ -19,7 +19,7 @@ function getSessionUser(session) {
                 } else {
                     resolve(((session || {}).passport || {}).user);
                 }
-            }
+            });
         }
         console.log(((session || {}).passport || {}));
         resolve(((session || {}).passport || {}).user);
