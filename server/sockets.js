@@ -116,6 +116,7 @@ module.exports = function(server) {
                       for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
                           if (!ids.includes(boardId)) {
                               boards.push({
+                                  'i': boards.length,
                                   'id': boardId,
                                   'data': boardStorage,
                                   'shapeStorage': boardStorage,
