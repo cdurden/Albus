@@ -153,6 +153,14 @@ module.exports = function(server) {
         socket.emit('user', data);
       });
     });
+    socket.on('getActingUser', function () {
+      if (typeof socket.handshake.session === 'undefined') {
+        return;
+      }
+      api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
+          socket.emit('actingAsUser', data);
+      });
+    });
     socket.on('getUsers', function() {
       console.log("getting api users");
       api.getApiUsers(function(err,results) { 

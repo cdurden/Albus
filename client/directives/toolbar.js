@@ -82,6 +82,7 @@ angular.module('whiteboard')
         }
       })
       Sockets.emit('getUser');
+      Sockets.emit('getActingUser');
 
     },
     link: function (scope, element, attrs, ctrls) {
