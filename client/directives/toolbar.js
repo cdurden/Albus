@@ -504,7 +504,7 @@ var $ctrl = this;
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.saveBoard();
         } else if (attrs.wbTool && attrs.wbTool === 'student view') {
-          submenuItemsCtrl.open('sm');
+          submenuItemsCtrl.openComponentModal('sm');
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
           scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});
