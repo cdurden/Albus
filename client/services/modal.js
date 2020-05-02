@@ -32,6 +32,4 @@ angular.module('whiteboard.services.modal', [])
             var modal = _.findWhere(modals, { id: id });
             modal.close();
         }
-    }
-
 });
