@@ -724,8 +724,8 @@ var $ctrl = this;
   $ctrl.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
-});
-component('modalComponent', {
+})
+.component('modalComponent', {
   templateUrl: 'myModalContent.html',
   bindings: {
     resolve: '<',
