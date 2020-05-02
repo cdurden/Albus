@@ -1,3 +1,6 @@
 [submodule "admin/js/json-templates"]
 	path = admin/js/json-templates
 	url = https://github.com/datavis-tech/json-templates.git
+[submodule "admin/js/mobile-drag-drop"]
+	path = admin/js/mobile-drag-drop
+	url = https://github.com/timruffles/mobile-drag-drop.git
