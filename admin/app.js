@@ -1,5 +1,5 @@
 angular.module('whiteboard-admin', [
-    'angularDragAndDropLists',
+    'dndLists',
     'angularFileUpload',
     'angularLoad',
     'btford.socket-io',
