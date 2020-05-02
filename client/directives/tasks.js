@@ -32,8 +32,10 @@ angular.module('whiteboard')
           for (let [boardId, board] of Object.entries($scope.boardData.boards)) {
               if (board.i === i) {
                   $scope.setBoardId(boardId);
+                  return(true);
               }
           }
+          return(false);
       }
       $scope.navigateNext = function() {
           if ($scope.i<Object.keys($scope.boardData.boards).length-1) {
@@ -123,8 +125,11 @@ angular.module('whiteboard')
         direction: 'horizontal',
       })
       */
-      scope.$watch("boardData.boards[boardData.boardId].task", function(task) {
-        scope.task = task;
+      scope.$watch("boardData.boards[boardData.boardId]", function(board) {
+        if (typeof board === 'undefined') {
+            scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
+        }
+        scope.task = board.task;
       }, true);
         /*
       scope.$watch("taskData.tasks", function(tasks) {
