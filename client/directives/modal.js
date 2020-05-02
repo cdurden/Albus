@@ -25,11 +25,11 @@ angular.module('whiteboard')
                     open: Open,
                     close: Close
                 };
-                ModalService.Add(modal);
+                Modal.Add(modal);
             
                 // remove self from modal service when directive is destroyed
                 scope.$on('$destroy', function() {
-                    ModalService.Remove(attrs.id);
+                    Modal.Remove(attrs.id);
                     element.remove();
                 });                
 
