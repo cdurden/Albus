@@ -374,6 +374,7 @@ angular.module('whiteboard')
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData, EventHandler, Modal, $uibModal) { //FIXME: remove one of these modal implementations
 var $ctrl = this;
+ $ctrl.items = ['item1', 'item2', 'item3'];
   $ctrl.animationsEnabled = true;
 
 
@@ -712,10 +713,11 @@ var $ctrl = this;
 })
 .controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
   var $ctrl = this;
-  $ctrl.items = items;
+  /*$ctrl.items = items;
   $ctrl.selected = {
     item: $ctrl.items[0]
   };
+  */
 
   $ctrl.ok = function () {
     $uibModalInstance.close($ctrl.selected.item);
@@ -736,8 +738,8 @@ var $ctrl = this;
     var $ctrl = this;
 
     $ctrl.$onInit = function () {
-      $ctrl.items = $ctrl.resolve.items;
-/*      $ctrl.selected = {
+/*      $ctrl.items = $ctrl.resolve.items;
+      $ctrl.selected = {
         item: $ctrl.items[0]
       };
       */
