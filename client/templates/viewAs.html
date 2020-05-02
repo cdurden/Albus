@@ -8,7 +8,7 @@
             </p>
             <ul>
                 <li ng-repeat="user in $ctrl.users | filterBy selected | limitTo:30">
-                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.user = user">{{ user.firstname }} {{user.lastname }}</a>
                 </li>
             </ul>
             Selected: <b>{{ $ctrl.selected.item }}</b>
