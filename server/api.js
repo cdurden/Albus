@@ -408,6 +408,7 @@ module.exports = {
     getSubmissions: getSubmissions,
     getTasksDataFromCollection: getTasksDataFromCollection,
     getTasksFromSource: getTasksFromSource,
+    getClientTasksFromSource: getClientTasksFromSource,
     saveBoard: saveBoard,
     getLatestBoard: getLatestBoard,
     getTaskBoard: getTaskBoard,
