@@ -81,6 +81,7 @@ angular.module('whiteboard')
           $scope.$broadcast('resetTargetBackground', msg);
         }
       })
+      Sockets.emit('getUser');
 
     },
     link: function (scope, element, attrs, ctrls) {
