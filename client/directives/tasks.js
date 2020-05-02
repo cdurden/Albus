@@ -125,7 +125,7 @@ angular.module('whiteboard')
         direction: 'horizontal',
       })
       */
-      scope.$watchGroup(function() { return [Object.values(boardData),boardData.boardId]; }, function() {
+      scope.$watch(function() { return [Object.values(boardData),boardData.boardId]; }, function() {
         var board = scope.boardData[scope.boardData.boardId];
         if (typeof board === 'undefined') {
             scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
