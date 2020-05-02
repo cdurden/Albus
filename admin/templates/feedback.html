@@ -38,6 +38,8 @@
     </div>
    </div>
    <form action="" id="create-feedback-form" class="form-container">
+    <fieldset>
+    <legend>Feedback case:</legend>
     <div class="row" ng-repeat-start="feedbackUserList in feedbackUserLists">
      <div class="col-8 dropzone">
       <ul dnd-list="feedbackUserList" class="itemlist">
@@ -70,6 +72,7 @@
     <div ng-repeat-end class="row">
      <textarea style="width: 100%;" placeholder="Type instructions for task..." id="m" ng-model="task_json" autocomplete="off" />
     </div>
+    </fieldset>
     <button type="submit" class="submit">Create</button>
    </form>
    <button ng-click="feedbackUserLists.push([]); console.log(feedbackUserLists); ev.preventDefault();">Add Feedback Form</button>
