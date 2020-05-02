@@ -30,6 +30,7 @@
               </div>
           </form>
       </div>
+<div class="dropzone">
 <ul dnd-list="users">
     <!-- The dnd-draggable directive makes an element draggable and will
          transfer the object that was assigned to it. If an element was
@@ -45,8 +46,10 @@
         {{user.firstname}} {{user.lastname}}
     </li>
 </ul>
+</div>
     <form action="" id="create-feedback-form" class="form-container">
         <div ng-repeat="feedbackUserList in feedbackUserLists">
+<div class="dropzone">
 <ul dnd-list="feedbackUserList">
     <!-- The dnd-draggable directive makes an element draggable and will
          transfer the object that was assigned to it. If an element was
@@ -62,6 +65,7 @@
         {{item.firstname}} {{item.lastname}}
     </li>
 </ul>
+</div>
     <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'task_json': task_json, 'selectedUsers': selectedUsers}] }"/><br/>
         <ul>
             <div class="file-drop-area" nv-file-over uploader="uploader">Drag file here</div>
