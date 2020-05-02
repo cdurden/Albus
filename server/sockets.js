@@ -145,6 +145,14 @@ module.exports = function(server) {
         }
       });
     });
+    socket.on('getUser', function () {
+      if (typeof socket.handshake.session === 'undefined') {
+        return;
+      }
+      api.getApiUserFromSession(socket.handshake.session, function(error, data) {
+        socket.emit('user', data);
+      });
+    });
     socket.on('getAssignedTasks', function(){
       getSocketData(socket.id).then(function(data) {
           var assignment = data.assignment;
@@ -397,14 +405,6 @@ module.exports = function(server) {
         io.of('/admin').emit('feedbackRedirect', result);
         //socket.emit('confirmSubmission', data);
       });
-    });
-  });
-  io.of('/client').on('getUser', function (socket) {
-    if (typeof socket.handshake.session === 'undefined') {
-      return;
-    }
-    api.getApiUserFromSession(socket.handshake.session, function(error, data) {
-      socket.emit('user', data);
     });
   });
   io.of('/client').on('connection', function (socket) {
