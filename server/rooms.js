@@ -34,6 +34,7 @@ function getRoomAssignment(user) {
                     if (method === null) {
                         method = 'default';
                     }
+                    console.log("Getting room assignment by method "+method);
                     roomAssignmentMethods[method](user).then(function(newRoomId) {
                         resolve(newRoomId)
                     });
