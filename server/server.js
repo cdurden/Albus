@@ -105,6 +105,7 @@ io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the sessio
     autoSave:true
 }));
 io.on('connection', (socket) => {
+    socket.handshake.session.passport = {};
     socket.handshake.session.passport.user = "86258941::65ea761411d6325962ddba010329193a";
     socket.use((packet, next) => {
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
