@@ -40,6 +40,7 @@ function getTaskObjects(taskSrcList, asArray) {
           var taskObjs = [];
           var promises = [];
           for (taskSrc in taskSrcList) {
+              console.log("Getting task from source: "+taskSrc);
               var taskObj = {'src': taskSrc};
               var [_, collection, task] = taskSrc.split(":");
               taskObj.src = taskSrc;
