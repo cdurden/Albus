@@ -60,17 +60,14 @@ function getTaskObjects(taskSrcList, asArray) {
                           } else {
                               data = {};
                           }
-                          var obj = {};
-                          obj['collection'] = collection;
-                          obj['data'] = data;
-                          resolve(obj); // don't parse JSON
+                          resolve(data); // don't parse JSON
                       });
                   }));
               }
           }
           Promise.all(promises).then(function(collectionObjs) {
               console.log(collectionObjs);
-              var collectionObjsHash = collectionObjs.reduce(function(out, obj) { out[obj.collection] = obj.data; return out; }, {});
+              var collectionObjsHash = collectionObjs.reduce(function(out, obj, i) { out[collections[i]] = obj; return out; }, {});
               console.log(collectionObjsHash);
               for (taskObj of taskObjs) {
                   console.log(taskObj);
