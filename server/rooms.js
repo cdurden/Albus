@@ -107,7 +107,7 @@ function assignRoomToSocketId(socketId, roomId) {
     });
 }
 function assignRoomToSocket(socket, roomId) {
-    assignRoomToSocketId(socket.id, roomId).then(function(roomId) {
+    return assignRoomToSocketId(socket.id, roomId).then(function(roomId) {
         socket.room = roomId;
         socket.join(room);
     });
