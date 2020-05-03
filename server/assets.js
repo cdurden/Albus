@@ -49,6 +49,7 @@ function getTaskObjects(taskSrcList, asArray) {
               if (!collections.includes(collection)) {
                   collections.push(collection);
                   promises.push(new Promise((resolve) => {
+                      console.log("Getting task collection "+collection);
                       request({
                           method: 'GET',
                           url: `${scheme}://${host}:${port}${base_uri}/tasks/${collection}.json`,
