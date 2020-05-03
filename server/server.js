@@ -50,7 +50,7 @@ passport.deserializeUser(function(user_id, done) {
 passport.use('lti-spoof-strategy', new CustomStrategy(
 	function(req, callback) {
         console.log("spoofing lti-strategy");
-        callback(null, "86258941::65ea761411d6325962ddba010329193a");
+        callback(null, {user_id: "86258941::65ea761411d6325962ddba010329193a"});
 	}
 ));
 passport.use('lti-strategy', new CustomStrategy(
