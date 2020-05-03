@@ -101,6 +101,15 @@ angular.module('whiteboard', [
 }])
 .controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', function($window, $document, FileUploader, $scope) {
     $scope.uploader = new FileUploader();
+    $scope.uploader.onAfterAddingFile = function(item) {
+        console.log("added file");
+    }
+    $scope.uploader.onBeforeUploadItem = function(item) {
+        console.log("uploading item");
+    }
+    $scope.uploader.onCompleteItem = function(item) {
+        console.log("uploading complete");
+    }
     /*
     $window.addEventListener("dragover",function(e){
           e = e || event;
