@@ -99,14 +99,18 @@ angular.module('whiteboard', [
       requireBase: false
     });
 }])
-.controller('whiteboardController', ['$window', 'FileUploader','$scope', function($window, FileUploader, $scope) {
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', function($window, $document, FileUploader, $scope) {
     $scope.uploader = new FileUploader();
     $window.addEventListener("dragover",function(e){
           e = e || event;
-          e.preventDefault();
+          if (e.target !== $document[0].body) {
+            e.preventDefault();
+          }
     },false);
     $window.addEventListener("drop",function(e){
           e = e || event;
-          e.preventDefault();
+          if (e.target !== $document[0].body) {
+            e.preventDefault();
+          }
     },false);
 }]);
