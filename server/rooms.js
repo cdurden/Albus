@@ -154,8 +154,8 @@ function placeSocketId(socketId, callback) {
     }
     assignRoomToSocketId(socketId, roomId, callback);
   });
-  */
 }
+  */
 function getBoard(roomId, boardId) {
     return((rooms[roomId] || {})[boardId]);
 }
