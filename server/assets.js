@@ -69,6 +69,7 @@ function getTaskObjects(taskSrcList, asArray) {
               }
           }
           Promise.all(promises).then(function(collectionObjs) {
+              console.log(collectionObjs);
               var collectionObjsHash = collectionObjs.reduce(function(out, obj) { out[obj.collection] = obj.data; return out; }, {});
               console.log(collectionObjsHash);
               for (taskObj of taskObjs) {
