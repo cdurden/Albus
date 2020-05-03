@@ -109,4 +109,4 @@ angular.module('whiteboard', [
           e = e || event;
           e.preventDefault();
     },false);
-});
+}]);
