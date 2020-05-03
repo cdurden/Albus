@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload');
 var path = require('path');
 var app = express();
 var http = require('http');
+var api = require('./api');
 //var https = require('https');
 //var httpProxy = require( 'http-proxy' );
 var proxy = require( 'express-http-proxy' );
@@ -75,6 +76,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
+app.use('/lib/', express.static(__dirname + '/../node_modules'));
 app.use('/data/', express.static(__dirname + '/../data'));
 app.use('/admin/', express.static(__dirname + '/../admin'));
 app.use(passport.initialize());
@@ -133,6 +135,15 @@ app.post('/upload', function(req, res) {
   console.log(req.files.file); // the uploaded file object
   console.log("formData");
   console.log(req.body);
+  var boardId = req.body.boardId;
+  var action = req.body.action;
+  if (action === 'setBoardBackground') {
+    if (req.files.file.mimetype === 'image/png') {
+        filename = req.files.file.md5+".png";
+        // mv(req.files.file.tempFilePath, privatePath(filename)) 
+    }
+    api.setBoardBackground(boardId, 
+  }
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 /*
   let sampleFile = req.files.sampleFile;
