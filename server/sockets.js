@@ -1,6 +1,7 @@
 var socketio = require('socket.io');
 var rooms = require('./rooms');
 var api = require('./api');
+var assets = require('./assets');
 var fs = require('fs');
 var users = require('./users');
 var client = require('./db/config');
@@ -57,69 +58,10 @@ module.exports = function(server) {
       });
     });
   }
-  function getTaskData(taskSrcList, asObject) {
-      return new Promise( (resolveTaskSrcObjs) => {
-            var collections = [];
-            var taskObjs = [];
-            var promises = [];
-            for (taskSrc in taskSrcList) {
-                var taskObj = {'src': taskSrc};
-                var [_, collection, task] = taskSrc.split(":");
-                taskObj.src = taskSrc;
-                taskObj.task = task;
-                taskObj.collection = collection;
-                taskObjs.push(taskObj);
-                if (!collections.includes(collection)) {
-                    collections.push(collection);
-                    promises.push(new Promise((resolve) => {
-                        request({
-                            method: 'GET',
-                            url: 'https://dev.algebra742.org:444/static/teaching_assets/tasks/'+collection+'.json',
-                        }, function(error, response, body) {
-                            if(!error && response.statusCode == 200) {
-                                data = JSON.parse(body);
-                            } else {
-                                data = {};
-                            }
-                            resolve(data); // don't parse JSON
-                        });
-                    }));
-                }
-            }
-            Promise.all(promises).then(function(collectionObjs) {
-                for (taskObj in taskObjs) {
-                    taskObj.data = collectionObjs[taskObj.collection][taskObj.task];
-                }
-                if (asObject) {
-                    taskSrcObjs = taskObjs.reduce(function(obj, taskObj) { obj[taskObj.src] = taskObj; return obj; }, {});
-                } else {
-                    taskSrcObjs = taskObjs.map(taskObj => { return taskObj.data });
-                }
-                resolveTaskSrcObjs(taskSrcObjs);
-            })
-      });
-  }
   function loadBoards(socket) {
     getSocketData(socket.id).then(function(data) {
-        var assignment = data.assignment;
-        console.log("Getting assignment "+assignment+" for socket "+socket.id);
-        request({
-            method: 'GET',
-            url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
-            transformResponse: [function (data) {
-              return data;
-            }]
-        }, function(error, response, body) {
-            console.log("assignment data");
-            console.log(body);
-            if(!error && response.statusCode == 200) {
-              data = JSON.parse(body);
-            } else {
-              data = [];
-            }
-            var taskDataPromise = getTaskData(data, true);
-            /*
-            */
+        assets.getAssignmentObject(data.assignment).then(function(assignmentData) {
+            var taskObjectsPromise = assets.getTaskObjects(assignmentData, false);
         
             //api.getActingApiUserFromSession(socket.handshake.session, function(error, user) {
             api.getClientTaskBoardsFromSource(socket.handshake.session, data, function(error, tasks) {
@@ -172,8 +114,8 @@ module.exports = function(server) {
                         console.log("emitting boards");
                         console.log(boards);
                         socket.emit('boards', boards);
-                        taskDataPromise.then(function(taskSrcObjs) {
-                            tasksObj = tasks.reduce(function(obj, task) { task.data = taskSrcObjs[task.source].data; obj[task.id] = task; return obj; }, {});
+                        taskObjectsPromise.then(function(taskObjects) {
+                            tasksObj = tasks.reduce(function(obj, task) { task.data = taskObjects[task.source].data; obj[task.id] = task; return obj; }, {});
                             socket.emit('tasks', tasksObj);
                         });
                     });
