@@ -68,70 +68,161 @@ module.exports = function(server) {
               return data;
             }]
         }, function(error, response, body) {
-          console.log("assignment data");
-          console.log(body);
-          if(!error && response.statusCode == 200) {
-            data = JSON.parse(body);
-          } else {
-            data = [];
-          }
-          //api.getActingApiUserFromSession(socket.handshake.session, function(error, user) {
-          api.getTaskBoardsFromSource(socket.handshake.session, data, function(error, tasks) {
-            console.log("Got tasks");
-            console.log(tasks);
-            if (tasks) {
-              Promise.all(tasks.map((task, i) => {
-                  return new Promise(resolve => {
-                      var board = null;
-                      if (task.boards.length > 0) {
-                          board = task.boards[task.boards.length-1];
-                          board.i = i;
-                          board.id = board.boardId;
-                          board.task_id = task.id;
-                          roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
-                          if (typeof roomBoard !== 'undefined') {
-                              board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
-                          }
-                          rooms.loadBoard(socket, board, function() {
-                              resolve(board);
-                          });
-                      } else {
-                          rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
-                              board.task_id = task.id;
-                              board.i = i;
-                              resolve(board);
-                          });
-                      }
-                  });
-              })).then(function(boards) {
-                  console.log("Got boards from tasks");
-                  console.log(boards);
-                  new Promise(resolve => {
-                      roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
-                      resolve(roomBoards);
-                  }).then(function(roomBoards) {
-                      var ids = boards.map(board => { return board.id });
-                      console.log("Got board from room");
-                      console.log(roomBoards);
-                      for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
-                          if (!ids.includes(boardId)) {
-                              boards.push({
-                                  'i': boards.length,
-                                  'id': boardId,
-                                  'data': boardStorage,
-                                  'shapeStorage': boardStorage,
-                              });
-                          }
-                      }
-                      console.log("emitting boards");
-                      console.log(boards);
-                      socket.emit('boards', boards);
-                      tasksObj = tasks.reduce(function(obj, task) { obj[task.id] = task; return obj; }, {});
-                      socket.emit('tasks', tasksObj);
-                  });
-              });
+            console.log("assignment data");
+            console.log(body);
+            if(!error && response.statusCode == 200) {
+              data = JSON.parse(body);
+            } else {
+              data = [];
             }
-          });
+            /*
+            var collections = [];
+            var taskObjs = [];
+            var promises = [];
+            for (taskSrc in data) {
+                var taskObj = {'src': taskSrc};
+                var [_, collection, task] = taskSrc.split(":");
+                taskObj.task = task;
+                taskObj.collection = collection;
+                taskObjs.push(taskObj);
+                if (!collections.includes(collection)) {
+                    collections.push(collection);
+                    promises.push(new Promise((resolve) => {
+                        request({
+                            method: 'GET',
+                            url: 'https://dev.algebra742.org:444/static/teaching_assets/tasks/'+collection+'.json',
+                        }, function(error, response, body) {
+                            if(!error && response.statusCode == 200) {
+                                data = JSON.parse(body);
+                            } else {
+                                data = {};
+                            }
+                            resolve(body); // don't parse JSON
+                        });
+                    }));
+                }
+            }
+            Promise.all(promises).then(function(collectionObjs) {
+                for (taskObj in taskObjs) {
+                    taskObj.data = collectionObjs[taskObj.collection][taskObj.task];
+                }
+                taskSrcObjs = taskObjs.map(taskObj => { return taskObj.data });
+                api.getTaskBoardsFromSource(socket.handshake.session, taskSrcObjs, function(error, tasks) {
+                    console.log("Got tasks");
+                    console.log(tasks);
+                    if (tasks) {
+                        Promise.all(tasks.map((task, i) => {
+                            return new Promise(resolve => {
+                                var board = null;
+                                if (task.boards.length > 0) {
+                                    board = task.boards[task.boards.length-1];
+                                    board.i = i;
+                                    board.id = board.boardId;
+                                    board.task_id = task.id;
+                                    roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
+                                    if (typeof roomBoard !== 'undefined') {
+                                        board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                                    }
+                                    rooms.loadBoard(socket, board, function() {
+                                        resolve(board);
+                                    });
+                                } else {
+                                    rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                                        board.task_id = task.id;
+                                        board.i = i;
+                                        resolve(board);
+                                    });
+                                }
+                            });
+                        })).then(function(boards) {
+                            console.log("Got boards from tasks");
+                            console.log(boards);
+                            new Promise(resolve => {
+                                roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
+                                resolve(roomBoards);
+                            }).then(function(roomBoards) {
+                                var ids = boards.map(board => { return board.id });
+                                console.log("Got board from room");
+                                console.log(roomBoards);
+                                for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
+                                    if (!ids.includes(boardId)) {
+                                        boards.push({
+                                            'i': boards.length,
+                                            'id': boardId,
+                                            'data': boardStorage,
+                                            'shapeStorage': boardStorage,
+                                        });
+                                    }
+                                }
+                                console.log("emitting boards");
+                                console.log(boards);
+                                socket.emit('boards', boards);
+                                tasksObj = tasks.reduce(function(obj, task) { obj[task.id] = task; return obj; }, {});
+                                socket.emit('tasks', tasksObj);
+                            });
+                        });
+                    }
+                });
+            })
+            */
+        
+            //api.getActingApiUserFromSession(socket.handshake.session, function(error, user) {
+            api.getTaskBoardsFromSource(socket.handshake.session, data, function(error, tasks) {
+              console.log("Got tasks");
+              console.log(tasks);
+              if (tasks) {
+                Promise.all(tasks.map((task, i) => {
+                    return new Promise(resolve => {
+                        var board = null;
+                        if (task.boards.length > 0) {
+                            board = task.boards[task.boards.length-1];
+                            board.i = i;
+                            board.id = board.boardId;
+                            board.task_id = task.id;
+                            roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
+                            if (typeof roomBoard !== 'undefined') {
+                                board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                            }
+                            rooms.loadBoard(socket, board, function() {
+                                resolve(board);
+                            });
+                        } else {
+                            rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                                board.task_id = task.id;
+                                board.i = i;
+                                resolve(board);
+                            });
+                        }
+                    });
+                })).then(function(boards) {
+                    console.log("Got boards from tasks");
+                    console.log(boards);
+                    new Promise(resolve => {
+                        roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
+                        resolve(roomBoards);
+                    }).then(function(roomBoards) {
+                        var ids = boards.map(board => { return board.id });
+                        console.log("Got board from room");
+                        console.log(roomBoards);
+                        for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
+                            if (!ids.includes(boardId)) {
+                                boards.push({
+                                    'i': boards.length,
+                                    'id': boardId,
+                                    'data': boardStorage,
+                                    'shapeStorage': boardStorage,
+                                });
+                            }
+                        }
+                        console.log("emitting boards");
+                        console.log(boards);
+                        socket.emit('boards', boards);
+                        tasksObj = tasks.reduce(function(obj, task) { obj[task.id] = task; return obj; }, {});
+                        socket.emit('tasks', tasksObj);
+                    });
+                });
+              }
+            });
         });  
     });
   }
