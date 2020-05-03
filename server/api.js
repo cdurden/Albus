@@ -4,9 +4,13 @@ const agent = new https.Agent({
     rejectUnauthorized: false
 });
 var auth = require('./auth');
-var scheme = "https";
 var host = "localhost";
+/*
+var scheme = "https";
 var port = 444;
+*/
+var scheme = "http";
+var port = 80;
 function getSessionUser(session) {
     return(session.passport.user);
 }
