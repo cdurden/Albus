@@ -18,8 +18,10 @@ module.exports = function(server) {
   var io = socketio.listen(server);
 
   function setSocketUser(socketId, user) {
-      return new Promise((resolve) => client.hmset(socketId, ['user', user], function(err, result) {
-          resolve(result)
+      return new Promise((resolve) => {
+          client.hmset(socketId, ['user', user], function(err, result) {
+              resolve(result)
+          });
       });
   }
   function getSocketData(socketId) {
