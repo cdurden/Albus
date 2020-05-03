@@ -99,3 +99,14 @@ angular.module('whiteboard', [
       requireBase: false
     });
 }])
+.controller('whiteboardController', ['$window', 'FileUploader', function($window, FileUploader, $scope) {
+    $scope.uploader = new FileUploader();
+    $window.addEventListener("dragover",function(e){
+          e = e || event;
+          e.preventDefault();
+    },false);
+    $window.addEventListener("drop",function(e){
+          e = e || event;
+          e.preventDefault();
+    },false);
+}
