@@ -14,7 +14,64 @@ function generateRandomId(length) {
 
   return id;
 }
+roomAssignmentMethods = {
+    'default': function(user) {
+        return new Promise( resolve => { 
+            client.hget('roomAssignments', user, function(err, roomId) {
+                resolve(roomId || utils.generateRandomId(5));
+            }
+        });
+    }
+}
+function getRoomAssignment(user) {
+    return new Promise( resolve => {
+        resolve();
+        client.hget(user, 'roomId', function(err, roomId) {
+            if (roomId !== null) {
+                resolve(roomId);
+            } else {
+                client.hget('roomAssignmentMethod', function(err, method) {
+                    if (method === null) {
+                        method = 'default';
+                    }
+                    roomAssignmentMethods[method](user).then(function(newRoomId) {
+                        resolve(newRoomId)
+                    });
+                });
+            }
+        });
+    });
+}
+function assignUserToRoom(user, roomId) {
+    console.log("Placing user in room");
+    return new Promise(resolve => {
+        if (typeof roomId === 'undefined') {
+            getRoomAssignment(user).then(function(roomId) {
+                client.hmset(user, ['roomId', roomId], function(err, res) {
+                    resolve(res);
+                });
+            });
+        } else {
+            client.hmset(user, ['roomId', roomId], function(err, res) {
+                resolve(res);
+            });
+        }
+    });
+}
 
+function getUserFromSocket(socket) {
+    return(socket.handshake.session.passport.user);
+}
+function getUserFromSocketId(socketId) {
+    return new Promise(resolve => {
+        client.hget(socketId, 'user', function(err, user) {
+            resolve(user);
+        });
+    });
+}
+
+
+/*
 function assignRoomToSocketId(socketId, roomId, callback) {
   console.log("Setting room of "+socketId+" to "+roomId)
   client.hmset(socketId, ['roomId', roomId], function(err, res) {
@@ -23,6 +80,39 @@ function assignRoomToSocketId(socketId, roomId, callback) {
     });
   });
 }
+*/
+function assignRoomToSocketId(socketId, roomId) {
+    return new Promise( resolve => {
+        var roomIdPromise;
+        roomIdPromise = new Promise( resolveRoomId =>
+            if (typeof roomId !== 'undefined') {
+                resolveRoomId(roomId);
+            } else {
+                getUserFromSocketId(socketId).then(function(user) {
+                    getRoomAssignment(user).then(function(roomId) {
+                        resolveRoomId(roomId);
+                    });
+                });
+            }
+        })
+        roomIdPromise.then(function(roomId) {
+            client.hmset(socketId, ['roomId', roomId], function(err, res) {
+                if (res) {
+                    resolve(roomId);
+                } else {
+                    resolve(res);
+                }
+            });
+        });
+    });
+}
+function assignRoomToSocket(socket, roomId) {
+    assignRoomToSocketId(socket.id, roomId).then(function(roomId) {
+        socket.room = roomId;
+        socket.join(room);
+    });
+}
+/*
 function assignRoomToSocket(socket, roomId, callback) {
   if (typeof socket === 'undefined') {
       console.log("Received undefined socket, cannot assign to roomt");
@@ -38,13 +128,22 @@ function assignRoomToSocket(socket, roomId, callback) {
   });
 }
 function placeSocket(socket, callback) {
-  placeSocketId(socket.id, function(err, result) {
-    roomId = result.roomId;
+  placeSocketId(socket.id).then(function(roomId) {
     assignRoomToSocket(socket, roomId, callback);
   })
 }
 function placeSocketId(socketId, callback) {
-  console.log("placing socket");
+  return new Promise( resolve => {
+      console.log("placing socket");
+      getUserFromSocketId(socketId).then(function(user) {
+          getRoomAssignment(user).then(function(roomId) {
+              assignRoomToSocketId(socketId, roomId);
+              resolve(roomId);
+          });
+      });
+  });
+  */
+    /*
   client.hgetall(socketId, function(err, result) {
     console.log(result);
     var roomId;
@@ -55,6 +154,7 @@ function placeSocketId(socketId, callback) {
     }
     assignRoomToSocketId(socketId, roomId, callback);
   });
+  */
 }
 function getBoard(roomId, boardId) {
     return((rooms[roomId] || {})[boardId]);
@@ -178,9 +278,12 @@ var roomsManager = {
   loadBoard: loadBoard,
   getOrCreateTaskBoard: getOrCreateTaskBoard,
 
+    /*
   placeSocketId: placeSocketId,
   placeSocket: placeSocket,
+  */
   assignRoomToSocket: assignRoomToSocket,
+  assignRoomToSocketId: assignRoomToSocketId,
 
   addShape: function (shape, socket) {
     new Promise(resolve => {

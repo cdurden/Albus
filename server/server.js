@@ -147,12 +147,20 @@ app.post('/upload', function(req, res) {
   console.log(req.body);
   var boardId = req.body.boardId;
   var action = req.body.action;
+  var filename;
   if (action === 'setBoardBackground') {
     if (req.files.file.mimetype === 'image/png') {
         filename = req.files.file.md5+".png";
         // mv(req.files.file.tempFilePath, privatePath(filename)) 
     }
-    //api.setBoardBackground(boardId, filename);
+    shapeStorage = rooms.getBoardStorage(rooms.getRoomAssignment(req.user), boardId);
+    api.saveBoard(req.session, shapeStorage, { boardId: boardId }, filename, function(err, data) {
+        if (!err) {
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    });
   }
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 /*

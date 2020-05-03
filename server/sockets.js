@@ -17,11 +17,16 @@ module.exports = function(server) {
 
   var io = socketio.listen(server);
 
+  function setSocketUser(socketId, user) {
+      return new Promise((resolve) => client.hmset(socketId, ['user', user], function(err, result) {
+          resolve(result)
+      });
+  }
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       if (result === null) {
         console.log("The following socket id was not found in Redis store:");
-        rooms.placeSocketId(socketId, function(err, result) {
+        rooms.assignRoomToSocketId(socketId).then(function(roomId) {
           console.log(socketId);
           result['socketId'] = socketId;
           resolve(result);
@@ -51,7 +56,7 @@ module.exports = function(server) {
   function saveBoardToApi(socket, data) {
     return new Promise(resolve => {
       shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-      api.saveBoard(socket.handshake.session, shapeStorage, data, function(err, data) {
+      api.saveBoard(socket.handshake.session, shapeStorage, data, undefined, function(err, data) {
           console.log("Board saved");
           console.log(data);
           resolve(data);
@@ -413,6 +418,7 @@ module.exports = function(server) {
       if (typeof socket.handshake.session === 'undefined') {
           return;
       }
+      setSocketUser(socket.id, socket.handshake.session.passport.user);
       api.getApiUserFromSession(socket.handshake.session, function(error, data) {
         console.log("returning from getting Api user");
         if (data) {
@@ -421,7 +427,7 @@ module.exports = function(server) {
           flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
           //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
-            rooms.placeSocket(socket, function() {
+            rooms.assignRoomToSocket(socket).then(function(roomId) {
               console.log("Setting up boards for socket "+socket.id);
               loadBoards(socket);
                 /*

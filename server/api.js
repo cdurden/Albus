@@ -129,7 +129,7 @@ function updateAssignments(assignments, callback) {
     }
   );
 }
-async function saveBoard(session, board, data, callback) {
+async function saveBoard(session, board, data, backgroundImage, callback) {
   lti_user_id = await getActingSessionUser(session);
   console.log(Object.keys(board));
   console.log("Saving board for lti_user_id: "+lti_user_id);
@@ -137,6 +137,7 @@ async function saveBoard(session, board, data, callback) {
       'lti_user_id': lti_user_id, 
       'task_id': data.taskId,
       'boardId': data.boardId,
+      'background_image': backgroundImage,
       'data': board,
   };
   request.post(`${scheme}://${host}:${port}/api/boards/`,
@@ -406,6 +407,47 @@ function getTaskFromSource(source, callback) {
       callback(error, null);
     }
   });
+}
+async function saveBoard(session, board, data, callback) {
+  lti_user_id = await getActingSessionUser(session);
+  console.log(Object.keys(board));
+  console.log("Saving board for lti_user_id: "+lti_user_id);
+  data = { 
+      'lti_user_id': lti_user_id, 
+      'task_id': data.taskId,
+      'boardId': data.boardId,
+      'data': board,
+  };
+  request.post(`${scheme}://${host}:${port}/api/boards/`,
+    {
+      headers : { 
+        "Authorization" : "Bearer " + auth.api_auth_token,
+//        "Content-Type" : "application/json",
+      },
+      agent: agent,
+      json: data,
+      /*
+    json: true,
+    body: { 'lti_user_id': lti_user_id, 
+            'task_id': data.taskId,
+            'data': board,
+    },
+    */
+    },
+    function(error, response, body) {
+      //console.log(response)
+      if (!error && response.statusCode == 201) {
+        //console.log(body)
+        //data = JSON.parse(body)
+        callback(null, body);
+      } else {
+        console.log(error);
+        callback(error, null);
+      }
+    }
+  );
+}
+function setBoardBackground(boardId, filename) {
 }
 module.exports = {
     getApiUsers: getApiUsers,
