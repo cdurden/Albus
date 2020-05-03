@@ -155,13 +155,15 @@ app.post('/upload', function(req, res) {
         filename = req.files.file.md5+".png";
         // mv(req.files.file.tempFilePath, privatePath(filename)) 
     }
-    shapeStorage = rooms.getBoardStorage(rooms.getRoomAssignment(user), boardId);
-    api.saveBoard(req.session, shapeStorage, { boardId: boardId }, filename, function(err, data) {
-        if (!err) {
-            res.sendStatus(200);
-        } else {
-            res.sendStatus(500);
-        }
+    rooms.getRoomAssignment(user).then(function(roomId) {
+        shapeStorage = rooms.getBoardStorage(roomId, boardId);
+        api.saveBoard(req.session, shapeStorage, { boardId: boardId }, filename, function(err, data) {
+            if (!err) {
+                res.sendStatus(200);
+            } else {
+                res.sendStatus(500);
+            }
+        });
     });
   }
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
