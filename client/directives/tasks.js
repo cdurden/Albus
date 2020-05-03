@@ -17,7 +17,7 @@ angular.module('whiteboard')
       $scope.boardData = BoardData.getBoardData();
       $scope.i = 0;
       $scope.uploader = new FileUploader();
-      angular.element($document[0].body).attr("nv-file-drop",true).attr("uploader","uploader").attr("options", "{url: '/upload', 'autoUpload': true}");
+      //angular.element($document[0].body).attr("nv-file-drop",true).attr("uploader","uploader").attr("options", "{url: '/upload', 'autoUpload': true}");
 $window.addEventListener("dragover",function(e){
   e = e || event;
   e.preventDefault();
