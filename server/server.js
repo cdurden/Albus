@@ -158,6 +158,7 @@ app.post('/upload', function(req, res) {
 */
 });
 app.get('/', function (req, res) {
+  req.session.user = "86258941::65ea761411d6325962ddba010329193a";
   console.log("responding to GET request at /");
   console.log(req.user);
   res.sendFile(path.resolve(__dirname+'/../client/index.html'));
