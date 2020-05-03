@@ -84,7 +84,7 @@ function assignRoomToSocketId(socketId, roomId, callback) {
 function assignRoomToSocketId(socketId, roomId) {
     return new Promise( resolve => {
         var roomIdPromise;
-        roomIdPromise = new Promise( resolveRoomId =>
+        roomIdPromise = new Promise( resolveRoomId => {
             if (typeof roomId !== 'undefined') {
                 resolveRoomId(roomId);
             } else {
@@ -94,7 +94,7 @@ function assignRoomToSocketId(socketId, roomId) {
                     });
                 });
             }
-        })
+        });
         roomIdPromise.then(function(roomId) {
             client.hmset(socketId, ['roomId', roomId], function(err, res) {
                 if (res) {
