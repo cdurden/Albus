@@ -19,7 +19,7 @@ function getAssignmentObject(assignment) {
             method: 'GET',
             url: `${scheme}://${host}:${port}${base_uri}/assignments/${assignment}.json`,
         }, function(error, response, body) {
-            console.log("assignment data");
+            console.log("Assignment data for assignment "+assignment);
             /*
             console.log(response);
             console.log(error);
