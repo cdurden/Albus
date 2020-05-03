@@ -99,10 +99,12 @@ angular.module('whiteboard', [
       requireBase: false
     });
 }])
-.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', function($window, $document, FileUploader, $scope) {
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', function($window, $document, FileUploader, $scope, BoardData) {
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
         console.log("added file");
+        var boardId = BoardData.getBoardData().boardId;
+        item.options.formData = [{ 'boardId': boardId }];
         this.uploadItem(item);
     }
     $scope.uploader.onBeforeUploadItem = function(item) {
