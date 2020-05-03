@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', function($compile, $http, $templateCache, BoardData, EventHandler, Sockets) {
+.directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', 'FileUploader', '$document', function($compile, $http, $templateCache, BoardData, EventHandler, Sockets, FileUploader, $document) {
   return {
     restrict: 'A',
     //require: ['^form'],
@@ -16,6 +16,8 @@ angular.module('whiteboard')
       //$scope.boards = BoardData.getBoards();
       $scope.boardData = BoardData.getBoardData();
       $scope.i = 0;
+      $scope.uploader = new FileUploader();
+      angular.element($document[0].body).attr("nv-file-drop",true).attr("uploader","uploader").attr("options", "{url: '/upload', 'autoUpload': true}");
       //BoardData.loadBoard(Object.keys($scope.boards)[0]);
       //$scope.taskBoards = BoardData.getTaskBoards();
       //$scope.boards = [];
