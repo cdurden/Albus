@@ -18,6 +18,14 @@ angular.module('whiteboard')
       $scope.i = 0;
       $scope.uploader = new FileUploader();
       angular.element($document[0].body).attr("nv-file-drop",true).attr("uploader","uploader").attr("options", "{url: '/upload', 'autoUpload': true}");
+$document.addEventListener("dragover",function(e){
+  e = e || event;
+  e.preventDefault();
+},false);
+$document.addEventListener("drop",function(e){
+  e = e || event;
+  e.preventDefault();
+},false);
       //BoardData.loadBoard(Object.keys($scope.boards)[0]);
       //$scope.taskBoards = BoardData.getTaskBoards();
       //$scope.boards = [];
