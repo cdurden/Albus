@@ -60,7 +60,7 @@ function getTaskObjects(taskSrcList, asArray) {
                           } else {
                               data = {};
                           }
-                          obj = {};
+                          var obj = {};
                           obj['collection'] = collection;
                           obj['data'] = data;
                           resolve(obj); // don't parse JSON
