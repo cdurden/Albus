@@ -282,6 +282,7 @@ var roomsManager = {
   placeSocketId: placeSocketId,
   placeSocket: placeSocket,
   */
+  getRoomAssignment: getRoomAssignment,
   assignRoomToUser: assignRoomToUser,
   assignRoomToSocket: assignRoomToSocket,
   assignRoomToSocketId: assignRoomToSocketId,
