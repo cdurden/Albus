@@ -47,6 +47,11 @@ passport.deserializeUser(function(user_id, done) {
   user = {'user_id': user_id}
   done(null, user);
 });
+passport.use('lti-spoof-strategy', new CustomStrategy(
+	function(req, callback) {
+        callback(null, "86258941::65ea761411d6325962ddba010329193a");
+	}
+));
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
         console.log("using lti-strategy");
@@ -92,6 +97,9 @@ app.post('/lti/', function(req, res, next) {
   //res.send('POST request to the homepage')
   res.redirect('/');
 });
+app.use(passport.authenticate('lti-spoof-strategy, {failureFlash: true}),  function (req, res) {
+    next();
+});
 
 var server = http.createServer(app);
 
@@ -105,8 +113,6 @@ io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the sessio
     autoSave:true
 }));
 io.on('connection', (socket) => {
-    socket.handshake.session.passport = {};
-    socket.handshake.session.passport.user = "86258941::65ea761411d6325962ddba010329193a";
     socket.use((packet, next) => {
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
             next();
