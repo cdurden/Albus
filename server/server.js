@@ -142,7 +142,7 @@ app.post('/upload', function(req, res) {
         filename = req.files.file.md5+".png";
         // mv(req.files.file.tempFilePath, privatePath(filename)) 
     }
-    api.setBoardBackground(boardId, 
+    //api.setBoardBackground(boardId, filename);
   }
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 /*
