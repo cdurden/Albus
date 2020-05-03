@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', 'FileUploader', '$document', function($compile, $http, $templateCache, BoardData, EventHandler, Sockets, FileUploader, $document) {
+.directive('wbTasks', ['$compile', '$http', '$templateCache', 'BoardData', 'EventHandler', 'Sockets', 'FileUploader', '$document', '$window', function($compile, $http, $templateCache, BoardData, EventHandler, Sockets, FileUploader, $document, $window) {
   return {
     restrict: 'A',
     //require: ['^form'],
@@ -18,11 +18,11 @@ angular.module('whiteboard')
       $scope.i = 0;
       $scope.uploader = new FileUploader();
       angular.element($document[0].body).attr("nv-file-drop",true).attr("uploader","uploader").attr("options", "{url: '/upload', 'autoUpload': true}");
-$document.addEventListener("dragover",function(e){
+$window.addEventListener("dragover",function(e){
   e = e || event;
   e.preventDefault();
 },false);
-$document.addEventListener("drop",function(e){
+$window.addEventListener("drop",function(e){
   e = e || event;
   e.preventDefault();
 },false);
