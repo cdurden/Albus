@@ -101,6 +101,7 @@ angular.module('whiteboard', [
 }])
 .controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', function($window, $document, FileUploader, $scope) {
     $scope.uploader = new FileUploader();
+    /*
     $window.addEventListener("dragover",function(e){
           e = e || event;
           if (e.target !== $document[0].body) {
@@ -113,4 +114,5 @@ angular.module('whiteboard', [
             e.preventDefault();
           }
     },false);
+    */
 }]);
