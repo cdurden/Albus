@@ -19,7 +19,7 @@ roomAssignmentMethods = {
         return new Promise( resolve => { 
             client.hget('roomAssignments', user, function(err, roomId) {
                 resolve(roomId || utils.generateRandomId(5));
-            }
+            });
         });
     }
 }
