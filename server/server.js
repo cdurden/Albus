@@ -142,7 +142,8 @@ app.use(fileUpload({
         tempFileDir : '/tmp/'
 }));
 app.post('/upload', function(req, res) {
-  console.log("User "+req.user.lti_user_id+" requested to upload a file");
+    var user = req.session.passport.user;
+  console.log("User "+user+" requested to upload a file");
   console.log(req.files.file); // the uploaded file object
   console.log("formData");
   console.log(req.body);
@@ -154,7 +155,7 @@ app.post('/upload', function(req, res) {
         filename = req.files.file.md5+".png";
         // mv(req.files.file.tempFilePath, privatePath(filename)) 
     }
-    shapeStorage = rooms.getBoardStorage(rooms.getRoomAssignment(req.user), boardId);
+    shapeStorage = rooms.getBoardStorage(rooms.getRoomAssignment(user), boardId);
     api.saveBoard(req.session, shapeStorage, { boardId: boardId }, filename, function(err, data) {
         if (!err) {
             res.sendStatus(200);
