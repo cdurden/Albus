@@ -103,6 +103,7 @@ angular.module('whiteboard', [
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
         console.log("added file");
+        this.uploadItem(item);
     }
     $scope.uploader.onBeforeUploadItem = function(item) {
         console.log("uploading item");
