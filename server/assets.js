@@ -20,6 +20,8 @@ function getAssignmentObject(assignment) {
             url: `${scheme}://${host}:${port}${base_uri}/assignments/${assignment}.json`,
         }, function(error, response, body) {
             console.log("assignment data");
+            console.log(response);
+            console.log(error);
             console.log(body);
             if(!error && response.statusCode == 200) {
               data = JSON.parse(body);
