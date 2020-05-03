@@ -60,16 +60,20 @@ function getTaskObjects(taskSrcList, asArray) {
                           } else {
                               data = {};
                           }
-                          resolve(data); // don't parse JSON
+                          obj = {};
+                          obj['collection'] = collection;
+                          obj['data'] = data;
+                          resolve(obj); // don't parse JSON
                       });
                   }));
               }
           }
           Promise.all(promises).then(function(collectionObjs) {
-              console.log(collectionObjs);
+              collectionObjHash = collectionObjs.reduce(function(out, obj) { out[obj.collection] = obj.data; return obj; }, {});
+              console.log(collectionObjsHash);
               for (taskObj of taskObjs) {
                   console.log(taskObj);
-                  taskObj.data = collectionObjs[taskObj.collection][taskObj.task];
+                  taskObj.data = collectionObjsHash[taskObj.collection][taskObj.task];
               }
               if (asArray) {
                   taskSrcObjs = taskObjs.map(taskObj => { return taskObj.data });
