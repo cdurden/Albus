@@ -98,7 +98,7 @@ app.post('/lti/', function(req, res, next) {
   //res.send('POST request to the homepage')
   res.redirect('/');
 });
-app.use(passport.authenticate('lti-spoof-strategy', {failureFlash: true}),  function (req, res) {
+app.use(passport.authenticate('lti-spoof-strategy', {failureFlash: true}),  function (req, res, next) {
   console.log(req.session);
     next();
 });
