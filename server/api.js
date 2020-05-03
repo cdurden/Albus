@@ -1,5 +1,6 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
-var https = require('https');
+//var https = require('https');
+var https = require('http');
 const agent = new https.Agent({  
     rejectUnauthorized: false
 });
