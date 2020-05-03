@@ -146,7 +146,8 @@ module.exports = function(server) {
       if (typeof socket.handshake.session === 'undefined') {
         return;
       }
-      api.getApiUserFromSession(socket.handshake.session, function(error, data) {
+      var user = socket.handshake.session.passport.user;
+      api.getApiUser(user, function(error, data) {
         socket.emit('user', data);
       });
     });
@@ -418,29 +419,32 @@ module.exports = function(server) {
       if (typeof socket.handshake.session === 'undefined') {
           return;
       }
-      setSocketUser(socket.id, socket.handshake.session.passport.user);
-      api.getApiUserFromSession(socket.handshake.session, function(error, data) {
-        console.log("returning from getting Api user");
-        if (data) {
-          console.log("received data:");
-          console.log(data);
-          flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
-          client.hmset(socket.id, flat_data, function(err, result) {
-          //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
-            rooms.assignRoomToSocket(socket).then(function(roomId) {
-              console.log("Setting up boards for socket "+socket.id);
-              loadBoards(socket);
-                /*
-              rooms.setupBoards(socket, function (boards) {
-                console.log("Sending boards to "+socket.id);
-                socket.emit('boards', boards);
+      var user = socket.handshake.session.passport.user;
+      setSocketUser(socket.id, user);
+      api.getApiUser(user, function(error, data) {
+          console.log("returning from getting Api user");
+          if (data) {
+              console.log("received data:");
+              console.log(data);
+              flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
+              client.hmset(socket.id, flat_data, function(err, result) {
+              //client.hmset(socket.id, Object.entries(data).flat(), function(err, result) {
+                  rooms.assignRoomToUser(user).then(function() {
+                      rooms.assignRoomToSocket(socket).then(function(roomId) {
+                          console.log("Setting up boards for socket "+socket.id);
+                          loadBoards(socket);
+                            /*
+                          rooms.setupBoards(socket, function (boards) {
+                            console.log("Sending boards to "+socket.id);
+                            socket.emit('boards', boards);
+                          });
+                          */
+                          console.log("emitting client data to admin");
+                          getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
+                      });
+                  });
               });
-              */
-              console.log("emitting client data to admin");
-              getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
-            });
-          });
-        }
+          }
       });
     //}
  

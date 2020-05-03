@@ -42,7 +42,7 @@ function getRoomAssignment(user) {
         });
     });
 }
-function assignUserToRoom(user, roomId) {
+function assignRoomToUser(user, roomId) {
     console.log("Placing user in room");
     return new Promise(resolve => {
         if (typeof roomId === 'undefined') {
@@ -282,6 +282,7 @@ var roomsManager = {
   placeSocketId: placeSocketId,
   placeSocket: placeSocket,
   */
+  assignRoomToUser: assignRoomToUser,
   assignRoomToSocket: assignRoomToSocket,
   assignRoomToSocketId: assignRoomToSocketId,
 

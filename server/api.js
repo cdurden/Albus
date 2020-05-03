@@ -450,6 +450,7 @@ async function saveBoard(session, board, data, callback) {
 function setBoardBackground(boardId, filename) {
 }
 module.exports = {
+    getApiUser: getApiUser,
     getApiUsers: getApiUsers,
     getActingApiUserFromSession: getActingApiUserFromSession,
     getApiUserFromSession: getApiUserFromSession,
