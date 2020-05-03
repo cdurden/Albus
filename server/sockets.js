@@ -20,7 +20,7 @@ module.exports = function(server) {
   function setSocketUser(socketId, user) {
       return new Promise((resolve) => {
           client.hmset(socketId, ['user', user], function(err, result) {
-              resolve(result)
+              resolve(result);
           });
       });
   }
