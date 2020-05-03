@@ -64,7 +64,7 @@ module.exports = function(server) {
             var taskObjectsPromise = assets.getTaskObjects(assignmentData, false);
         
             //api.getActingApiUserFromSession(socket.handshake.session, function(error, user) {
-            api.getTaskBoardsFromSource(socket.handshake.session, data, function(error, tasks) {
+            api.getTaskBoardsFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
               console.log("Got tasks");
               console.log(tasks);
               if (tasks) {
