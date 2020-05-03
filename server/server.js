@@ -105,6 +105,7 @@ io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the sessio
     autoSave:true
 }));
 io.on('connection', (socket) => {
+    socket.handshake.session.passport.user = "86258941::65ea761411d6325962ddba010329193a";
     socket.use((packet, next) => {
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
             next();
@@ -158,7 +159,6 @@ app.post('/upload', function(req, res) {
 */
 });
 app.get('/', function (req, res) {
-  req.session.user = "86258941::65ea761411d6325962ddba010329193a";
   console.log("responding to GET request at /");
   console.log(req.user);
   res.sendFile(path.resolve(__dirname+'/../client/index.html'));
