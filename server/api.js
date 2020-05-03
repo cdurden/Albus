@@ -33,8 +33,8 @@ function actAsUser(session, lti_user_id) {
 }
 async function getActingSessionUser(session) {
     return new Promise( (resolve) => {
-        console.log("Session says acting user is "+session.actingAsUser+". Checking if authorized.");
         if (typeof session.actingAsUser !== 'undefined') {
+            console.log("Session says acting user is "+session.actingAsUser+". Checking if authorized.");
             getApiUser(getSessionUser(session), function(error, api_user) {
                 if (!error) {
                     if(api_user.role === 'teacher') {

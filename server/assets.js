@@ -64,7 +64,9 @@ function getTaskObjects(taskSrcList, asArray) {
               }
           }
           Promise.all(promises).then(function(collectionObjs) {
+              console.log(collectionObjs);
               for (taskObj in taskObjs) {
+                  console.log(taskObj);
                   taskObj.data = collectionObjs[taskObj.collection][taskObj.task];
               }
               if (asArray) {
