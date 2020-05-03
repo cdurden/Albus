@@ -142,6 +142,7 @@ app.use(fileUpload({
         tempFileDir : '/tmp/'
 }));
 app.post('/upload', function(req, res) {
+  console.log("User "+req.user+" requested to upload a file");
   console.log(req.files.file); // the uploaded file object
   console.log("formData");
   console.log(req.body);
