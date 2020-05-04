@@ -80,14 +80,6 @@ passport.use('lti-strategy', new CustomStrategy(
 ));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/upload', function(req, res, next) {
-    rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
-        console.log("Setting roomId to request object: "+roomId);
-        req.roomId = roomId
-        next();
-    });
-});
-app.post('/upload', api.uploadProxy);
 
 app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
@@ -145,11 +137,21 @@ app.use(function(req, res, next) {
     next();
 });
 */
+app.use('/upload', function(req, res, next) {
+    rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
+        console.log("Setting roomId to request object: "+roomId);
+        req.roomId = roomId
+        next();
+    });
+});
+app.post('/upload', api.uploadProxy);
+/*
 app.use(fileUpload({
         preserveExtension: true,
         useTempFiles : true,
         tempFileDir : '/tmp/'
 }));
+*/
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
