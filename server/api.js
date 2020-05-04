@@ -55,6 +55,7 @@ const proxy_options = {
       // Make any needed POST parameter changes
       let body = new Object();
 
+      console.log("Getting roomId from request object: "+req.roomId);
       body.data = rooms.getBoardStorage(req.roomId, boardId);
       console.log(body.data);
       body.boardId = boardId;
