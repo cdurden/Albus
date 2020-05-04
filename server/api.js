@@ -145,7 +145,7 @@ function uploadHandler(creq, cres, next){
         //formData.append('file', fs.createReadStream(file.tempFilePath), { filename: file.filename, contentType: file.mimetype, knownLength: file.size} );
         var options = { filename: file.name, contentType: file.mimetype, knownLength: file.size}
         console.log(options);
-        formData.append('file', file.data, file.name);
+        formData.append('file', fs.createReadStream(file.tempFilePath), options);
         var url =`${scheme}://${host}:${port}/api/upload`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             cres.send(res);
