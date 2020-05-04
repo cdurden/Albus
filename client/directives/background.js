@@ -111,9 +111,9 @@ angular.module('whiteboard')
     replace: true,
     templateUrl: './templates/background.html',
     controller: function ($scope) {
-        var boardData = BoardData.getBoardData();
-        $scope.board = boardData.boards[boardData.boardId];
+     //   var boardData = BoardData.getBoardData();
+     //   $scope.board = boardData.boards[boardData.boardId];  //FIXME: this needs to be updated
     },
-    scope: {},
+    //scope: {},
   }
 }]);
