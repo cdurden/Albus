@@ -125,7 +125,7 @@ async function uploadHandler(creq, cres, next){
         var FormData = require("form-data");
         var formData = new FormData();
         var boardId = creq.body.boardId;
-        var lti_user_id = creq.session.passport.user
+        var lti_user_id = user
         var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
         var data_json = JSON.stringify(shapeStorage);
         console.log("data: "+data_json);
