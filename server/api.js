@@ -23,6 +23,7 @@ function getSessionUser(session) {
 //    return(session.actingAsUser);
 //}
 function uploadHandler(req, res) {
+    console.log("Handling file upload by proxying the request to the API server");
     var url =`${scheme}://${host}:${port}/api/upload`;
     proxy.web(req, res, { target: url });
 }
