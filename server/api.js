@@ -22,10 +22,30 @@ function getSessionUser(session) {
 //function getActingSessionUser(session) {
 //    return(session.actingAsUser);
 //}
-function uploadHandler(req, res) {
+function uploadHandler(client_req, client_res) {
     console.log("Handling file upload by proxying the request to the API server");
     var url =`${scheme}://${host}:${port}/api/upload/`;
-    proxy.web(req, res, { target: url });
+/*
+    var options = {
+      hostname: 'www.google.com',
+      port: 80,
+      path: client_req.url,
+      method: client_req.method,
+      headers: client_req.headers
+    };
+*/
+  
+    var proxy = http.request({ 'url': url }, function (res) {
+      client_res.writeHead(res.statusCode, res.headers)
+      res.pipe(client_res, {
+        end: true
+      });
+    });
+  
+    client_req.pipe(proxy, {
+      end: true
+    });
+    //proxy.web(req, res, { target: url });
 }
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
