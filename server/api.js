@@ -121,7 +121,9 @@ function uploadHandler(creq, cres, next){
     var form = new FormData();
     form.append('lti_user_id', creq.session.passport.user);
     form.append('boardId', creq.body.boardId);
-    form.append('task_id', creq.body.task_id);
+    if (typeof creq.body.task_id !== 'undefined') {
+        form.append('task_id', creq.body.task_id);
+    }
     shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
     data_json = JSON.stringify(shapeStorage);
     form.append('data_json', data_json);
