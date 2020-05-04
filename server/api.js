@@ -3,6 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 //var https = require('https');
 var http = require('http');
 var rooms = require('./rooms');
+var fs = require('fs');
 
 var httpProxy = require('http-proxy');
 
