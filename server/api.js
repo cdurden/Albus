@@ -134,6 +134,7 @@ function uploadHandler(creq, cres, next){
         console.log("boardId: "+boardId);
         console.log("lti_user_id: "+lti_user_id);
         console.log("file: "+creq.files.file.tempFilePath);
+        /*
         formData.append('lti_user_id', lti_user_id);
         formData.append('boardId', boardId);
         if (typeof creq.body.task_id !== 'undefined') {
@@ -146,6 +147,14 @@ function uploadHandler(creq, cres, next){
         var options = { filename: file.name, contentType: file.mimetype, knownLength: file.size}
         console.log(options);
         formData.append('file', fs.createReadStream(file.tempFilePath), options);
+        */
+        var formData = {
+            'lti_user_id': lti_user_id,
+            'boardId': boardId,
+            'data_json': data_json,
+            'file': fs.createReadStream(file.tempFilePath),
+        }
+
         var url =`${scheme}://${host}:${port}/api/upload`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             cres.send(res);
