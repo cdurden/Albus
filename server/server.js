@@ -137,7 +137,6 @@ app.use(function(req, res, next) {
     next();
 });
 */
-/*
 app.use('/upload', function(req, res, next) {
     console.log("Trying to get roomId and store it in the request object...");
     rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
@@ -146,7 +145,6 @@ app.use('/upload', function(req, res, next) {
         next();
     });
 });
-*/
 app.use(fileUpload({
         preserveExtension: true,
         useTempFiles : true,

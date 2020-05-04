@@ -55,9 +55,15 @@ const proxy_options = {
       if (req.body) delete req.body;
 
       // Make any needed POST parameter changes
-      var body = new Object();
+      let body = new Object();
 
       //console.log("Getting roomId from request object: "+req.roomId);
+      shapeStorage = rooms.getBoardStorage(req.roomId, boardId);
+      data_json = JSON.stringify(shapeStorage);
+      console.log(data_json);
+      body.data_json = data_json;
+       
+      /*
       proxyReq.socket.pause();
       rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
         console.log("Got roomId: "+roomId);
@@ -73,6 +79,7 @@ const proxy_options = {
         console.error(err);
         res.sendStatus(500);
       });
+      */
       body.boardId = boardId;
       if (typeof task_id !== 'undefined') {
           body.task_id = task_id;
