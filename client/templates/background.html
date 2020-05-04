@@ -2,9 +2,11 @@
     <pinch-zoom>
         <div ng-if="!board.background_image"
             ng-bind-html-unsafe="task.data.background_html" id="background-container" class="background-container" compile-template>
+            {{board.id}}
         </div>
         <div ng-if="board.background_image"
             id="background-container" class="background-container" compile-template>
+            {{board.id}}
             <div class='background-image'><img ng-src="/api/file/{{board.user.lti_user_id.split(':')[0]}}/{{board.background_image}}"></div>
         </div>
     </pinch-zoom>
