@@ -70,8 +70,9 @@ module.exports = function(server) {
     });
   }
   function actAsUser(socket, lti_user_id) {
+      var session = socket.handshake.session;
       return new Promise( (resolve) => {
-          api.getApiUser(socket.handshake.session.passport.user, function(error, api_user) {
+          api.getApiUser(session.passport.user, function(error, api_user) {
               if(api_user.role === 'teacher') {
                   session.actingAsUser = lti_user_id
                   session.save();
