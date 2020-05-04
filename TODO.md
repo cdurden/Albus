@@ -13,3 +13,4 @@
 1. Fix drawing errors.
 2. Set initial viewport so that it maps to image identically across devices?
 3. Set the viewport for boards without backgrounds
+4. Fix the whole authentication workflow. Requests are getting past the passport middleware without being authenticated.
