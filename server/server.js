@@ -82,7 +82,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/upload', function(req, res, next) {
     rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
-        console.log("Setting roomId to request object");
+        console.log("Setting roomId to request object: "+roomId);
         req.roomId = roomId
         next();
     });
