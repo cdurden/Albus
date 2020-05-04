@@ -5,19 +5,29 @@ const agent = new https.Agent({
     rejectUnauthorized: false
 });
 //var auth = require('./auth');
-var host = "localhost";
-var base_uri = "/static/teaching_assets/";
 /*
 var scheme = "https";
 var port = 444;
 */
-var scheme = "http";
-var port = 80;
+var settings = require('./settings');
+var scheme = settings.assets_scheme;
+var port = settings.assets_port;
+var host = settings.assets_host;
+var path = settings.assets_path;
+if (scheme === 'https') {
+    var http = require('https');
+} else {
+    var http = require('http');
+}
+const agent = new http.Agent({  
+    rejectUnauthorized: false
+});
+
 function getAssignmentObject(assignment) {
     return new Promise( resolve => {
         request({
             method: 'GET',
-            url: `${scheme}://${host}:${port}${base_uri}/assignments/${assignment}.json`,
+            url: `${scheme}://${host}:${port}${path}/assignments/${assignment}.json`,
         }, function(error, response, body) {
             console.log("Assignment data for assignment "+assignment);
             /*
@@ -53,7 +63,7 @@ function getTaskObjects(taskSrcList, asArray) {
                       console.log("Getting task collection "+collection);
                       request({
                           method: 'GET',
-                          url: `${scheme}://${host}:${port}${base_uri}/tasks/${collection}.json`,
+                          url: `${scheme}://${host}:${port}${path}/tasks/${collection}.json`,
                       }, function(error, response, body) {
                           if(!error && response.statusCode == 200) {
                               data = JSON.parse(body);

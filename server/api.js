@@ -2,20 +2,12 @@ var request = require('request').defaults({ rejectUnauthorized: false }) // TODO
 //const { createProxyMiddleware } = require('http-proxy-middleware');
 var rooms = require('./rooms');
 var fs = require('fs');
-var settings = require('./settings');
-
-var httpProxy = require('http-proxy');
 
 var auth = require('./auth');
-var host = "localhost";
-/*
-var scheme = "https";
-var port = 444;
-var scheme = "http";
-var port = 80;
-*/
+var settings = require('./settings');
 var scheme = settings.api_scheme;
 var port = settings.api_port;
+var host = settings.api_host;
 if (scheme === 'https') {
     var http = require('https');
 } else {
