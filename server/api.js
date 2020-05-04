@@ -58,7 +58,7 @@ const proxy_options = {
       console.log("Getting roomId from request object: "+req.roomId);
       proxyReq.socket.pause();
       rooms.getRoomAssignment(req.session.passport.user).then((roomId) => {
-        body.data = rooms.getBoardStorage(req.roomId, boardId);
+        body.data = rooms.getBoardStorage(roomId, boardId);
         console.log("Setting body data to shapeStorage:");
         console.log(body.data);
         proxyReq.socket.resume();
