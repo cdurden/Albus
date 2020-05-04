@@ -20,13 +20,13 @@ var port = 80;
 //var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
 
 const proxy_filter = function (path, req) {
-  return path.match('^/upload') && (req.method === 'POST');
+  return path.match('^/upload') && (req.method === 'POST') && (req.body.action === 'setBoardBackground');
 };
 
 const proxy_options = {
   target: scheme+"://"+host+":"+port,
   pathRewrite: {
-    '^/upload': '/api/upload', // Host path & target path conversion
+    '^/upload': '/api/boards/', // Host path & target path conversion
   },
   onError(err, req, res) {
     res.writeHead(500, {
