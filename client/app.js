@@ -108,7 +108,7 @@ angular.module('whiteboard', [
         var board = boardData.boards[boardId];
         item.formData = [{ 'boardId': boardId, 'action': 'setBoardBackground' }];
         if (typeof board.task_id !== 'undefined') {
-            item.formData.task_id = board.task_id;
+            item.formData[0].task_id = board.task_id;
         }
         this.uploadItem(item);
     }
