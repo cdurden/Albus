@@ -1,5 +1,6 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
 //var https = require('https');
+var http = require('http');
 
 var httpProxy = require('http-proxy');
 
