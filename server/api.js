@@ -116,7 +116,7 @@ function uploadHandler(req, res) {
 
 async function uploadHandler(creq, cres, next){
     //var user = creq.session.passport.user;
-    var user = await getActingSessionUser(session);
+    var user = await getActingSessionUser(creq.session);
     console.log("User "+user+" requested to upload a file");
     creq.files.file;
     var boardId = creq.body.boardId;
