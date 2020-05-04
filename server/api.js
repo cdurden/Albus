@@ -19,8 +19,13 @@ var scheme = "http";
 var port = 80;
 //var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
 
+/*
 const proxy_filter = function (path, req) {
   return path.match('^/upload') && (req.method === 'POST') && (req.body.action === 'setBoardBackground');
+};
+*/
+const proxy_filter = function (path, req) {
+  return path.match('^/upload') && (req.method === 'POST');
 };
 
 const proxy_options = {
