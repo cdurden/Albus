@@ -53,6 +53,9 @@ const proxy_options = {
       let body = new Object();
 
       body.data = 'data added to body';
+      console.log("Proxying request");
+      body.lti_user_id = req.session.passport.user;
+      console.log("Set lti_user_id on body to "+body.lti_user_id);
 
       // URI encode JSON object
       body = Object.keys(body)
