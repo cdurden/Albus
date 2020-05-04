@@ -45,13 +45,13 @@ const proxy_options = {
     if (req.method == 'POST' && req.body) {
       // Add req.body logic here if needed....
 
-      // ....
-
-      // Remove body-parser body object from the request
       var boardId = req.body.boardId;
       console.dir(req.body);
       console.dir(req.files);
+      console.log(req.method);
       var task_id = req.body.task_id;
+
+      // Remove body-parser body object from the request
       if (req.body) delete req.body;
 
       // Make any needed POST parameter changes
