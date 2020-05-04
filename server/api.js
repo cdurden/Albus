@@ -24,8 +24,8 @@ function getSessionUser(session) {
 //    return(session.actingAsUser);
 //}
 function uploadHandler(req, res) {
-    var url =`${scheme}://${host}:${port}/api/`;
-    console.log("Handling file upload by proxying the request to the API server");
+    var url =`${scheme}://${host}:${port}/api/upload`;
+    console.log("Handling file upload by proxying the request to "+url);
     /*
     request.post(url).pipe(res);
     var options = {
@@ -48,7 +48,7 @@ function uploadHandler(req, res) {
       end: true
     });
     */
-    proxy.web(req, res, { target: url }, function(e) { console.log("Received error while proxying."); console.log(e); })
+    proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {

@@ -78,6 +78,7 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
+app.post('/upload', api.uploadHandler);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -142,7 +143,6 @@ app.use(fileUpload({
         useTempFiles : true,
         tempFileDir : '/tmp/'
 }));
-app.post('/upload', api.uploadHandler);
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
