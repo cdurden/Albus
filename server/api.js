@@ -1,8 +1,7 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
 //var https = require('https');
 
-var proxy = require('express-http-proxy');
-//var proxy = httpProxy.createProxyServer({});
+var httpProxy = require('http-proxy');
 
 var https = require('http');
 const agent = new https.Agent({  
@@ -16,6 +15,7 @@ var port = 444;
 */
 var scheme = "http";
 var port = 80;
+var proxy = httpProxy.createProxyServer({'target: `${scheme}://${host}:${port}`});
 function getSessionUser(session) {
     return(session.passport.user);
 }
