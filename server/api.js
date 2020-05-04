@@ -1,5 +1,5 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
-const { createProxyMiddleware } = require('http-proxy-middleware');
+//const { createProxyMiddleware } = require('http-proxy-middleware');
 var rooms = require('./rooms');
 var fs = require('fs');
 var settings = require('./settings');
@@ -28,6 +28,7 @@ const proxy_filter = function (path, req) {
   return path.match('^/upload') && (req.method === 'POST') && (req.body.action === 'setBoardBackground');
 };
 */
+/*
 const proxy_filter = function (path, req) {
   return path.match('^/upload') && (req.method === 'POST');
 };
@@ -66,23 +67,21 @@ const proxy_options = {
       console.log(data_json);
       body.data_json = data_json;
        
-      /*
-      proxyReq.socket.pause();
-      rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
-        console.log("Got roomId: "+roomId);
-        console.log("Setting body data to shapeStorage for roomId "+roomId+" and boardId "+boardId);
-        shapeStorage = rooms.getBoardStorage(roomId, boardId);
-        console.log(shapeStorage);
-        data_json = JSON.stringify(shapeStorage);
-        console.log(data_json);
-        body.data_json = data_json;
-        console.log(body.data_json);
-        proxyReq.socket.resume();
-      }).catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
-      */
+//      proxyReq.socket.pause();
+//      rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
+//        console.log("Got roomId: "+roomId);
+//        console.log("Setting body data to shapeStorage for roomId "+roomId+" and boardId "+boardId);
+//        shapeStorage = rooms.getBoardStorage(roomId, boardId);
+//        console.log(shapeStorage);
+//        data_json = JSON.stringify(shapeStorage);
+//        console.log(data_json);
+//        body.data_json = data_json;
+//        console.log(body.data_json);
+//        proxyReq.socket.resume();
+//      }).catch((err) => {
+//        console.error(err);
+//        res.sendStatus(500);
+//      });
       body.boardId = boardId;
       if (typeof task_id !== 'undefined') {
           body.task_id = task_id;
@@ -109,6 +108,7 @@ const proxy_options = {
   },
 };
 const uploadProxy = createProxyMiddleware(proxy_filter, proxy_options);
+*/
 
 function getSessionUser(session) {
     return(session.passport.user);
