@@ -54,7 +54,7 @@ const proxy_options = {
 
       // Make any needed POST parameter changes
       let body = new Object();
-      rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
+      await rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
         body.data = rooms.getBoardStorage(roomId, boardId);
         console.log(body.data);
         body.boardId = boardId;
