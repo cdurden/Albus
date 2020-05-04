@@ -17,6 +17,7 @@ module.exports = function(server) {
 
   var io = socketio.listen(server);
 
+  // IMPORTANT: this must be called as soom as the connection is established to that information about the user can be used to control the socket
   function setSocketUser(socketId, user) {
       return new Promise((resolve) => {
           client.hmset(socketId, ['user', user], function(err, result) {
