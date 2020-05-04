@@ -27,7 +27,7 @@ function getRoomAssignment(user) {
     return new Promise( resolve => {
         resolve();
         client.hget(user, 'roomId', function(err, roomId) {
-            if (roomId !== null) {
+            if (roomId) {
                 resolve(roomId);
             } else {
                 client.hget('roomAssignmentMethod', function(err, method) {
