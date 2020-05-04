@@ -64,6 +64,10 @@ function assignRoomToUser(user, roomId) {
 function getUserFromSocket(socket) {
     return(socket.handshake.session.passport.user);
 }
+function getActingUserFromSocket(socket) {
+    return(socket.handshake.session.actingAsUser || getUserFromSocket(socket));
+}
+/*
 function getUserFromSocketId(socketId) {
     return new Promise(resolve => {
         client.hget(socketId, 'user', function(err, user) {
@@ -71,6 +75,7 @@ function getUserFromSocketId(socketId) {
         });
     });
 }
+*/
 
 
 /*
@@ -90,7 +95,7 @@ function assignRoomToSocketId(socketId, roomId) {
             if (typeof roomId !== 'undefined') {
                 resolveRoomId(roomId);
             } else {
-                getUserFromSocketId(socketId).then(function(user) {
+                getActingUserFromSocketId(socketId).then(function(user) {
                     getRoomAssignment(user).then(function(roomId) {
                         resolveRoomId(roomId);
                     });

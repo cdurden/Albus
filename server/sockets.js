@@ -28,6 +28,7 @@ module.exports = function(server) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       if (result === null) {
         console.log("The following socket id was not found in Redis store:");
+        // FIXME: Is this where we want to do this?
         rooms.assignRoomToSocketId(socketId).then(function(roomId) {
           console.log(socketId);
           result['socketId'] = socketId;
@@ -496,6 +497,8 @@ module.exports = function(server) {
           if (success) {
               console.log("Acting as user");
               console.log(socket.handshake.session.actingAsUser);
+              console.log("Reassigning room to socket");
+              rooms.assignRoomToSocket(socket);
               api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
                   socket.emit('actingAsUser', data);
               });
