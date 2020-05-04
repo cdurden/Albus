@@ -35,6 +35,7 @@ const proxy_options = {
     res.end('Something went wrong. And we are reporting a custom error message.' + err);
   },
   onProxyReq(proxyReq, req, res) {
+    console.log("Proxying request");
     if (req.method == 'POST' && req.body) {
       // Add req.body logic here if needed....
 
