@@ -65,16 +65,13 @@ function getUserFromSocket(socket) {
     return(socket.handshake.session.passport.user);
 }
 function getActingUserFromSocket(socket) {
-    return(socket.handshake.session.actingAsUser || getUserFromSocket(socket));
+    var user = socket.handshake.session.actingAsUser;
+    if (typeof user === 'undefined') {
+        user = getUserFromSocket(socket);
+    }
+    console.log("Got acting user: "+user);
+    return(user);
 }
-function getActingUserFromSocketId(socketId) {
-    return new Promise(resolve => {
-        client.hget(socketId, 'actingAsUser', function(err, user) {
-            resolve(user);
-        });
-    });
-}
-/*
 function getUserFromSocketId(socketId) {
     return new Promise(resolve => {
         client.hget(socketId, 'user', function(err, user) {
@@ -82,7 +79,19 @@ function getUserFromSocketId(socketId) {
         });
     });
 }
-*/
+function getActingUserFromSocketId(socketId) {
+    return new Promise(resolve => {
+        client.hget(socketId, 'actingAsUser', function(err, actingAsUser) {
+            if (typeof actingAsUser === 'undefined') {
+                getUserFromSocketId(socketId).then(function(user) {
+                    resolve(user);
+                }
+            } else {
+                resolve(actingAsUser);
+            }
+        });
+    });
+}
 
 
 /*
