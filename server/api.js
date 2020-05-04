@@ -135,7 +135,7 @@ function uploadHandler(creq, cres, next){
         shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
         data_json = JSON.stringify(shapeStorage);
         form.append('data_json', data_json);
-        form.append('file', fs.createReadStream(req.files.file.tempFilePath));
+        form.append('file', fs.createReadStream(creq.files.file.tempFilePath));
         var url =`${scheme}://${host}:${port}/api/upload`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token } }, function(err, res, body){
             cres.send(res);
