@@ -59,12 +59,13 @@ const proxy_options = {
       proxyReq.socket.pause();
       rooms.getRoomAssignment(req.session.passport.user).then((roomId) => {
         body.data = rooms.getBoardStorage(req.roomId, boardId);
+        console.log("Setting body data to shapeStorage:");
+        console.log(body.data);
         proxyReq.socket.resume();
       }).catch((err) => {
         console.error(err);
         res.sendStatus(500);
       });
-      console.log(body.data);
       body.boardId = boardId;
       body.task_id = task_id;
       console.log("Proxying request");
