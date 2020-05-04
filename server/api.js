@@ -132,8 +132,12 @@ function uploadHandler(creq, cres, next){
         if (typeof creq.body.task_id !== 'undefined') {
             formData.append('task_id', creq.body.task_id);
         }
-        shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
-        data_json = JSON.stringify(shapeStorage);
+        var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
+        var data_json = JSON.stringify(shapeStorage);
+        console.log("data: "+data_json);
+        console.log("boardId: "+boardId);
+        console.log("lti_user_id: "+lti_user_id);
+        console.log("file: "+creq.files.file.tempFilePath);
         formData.append('data_json', data_json);
         formData.append('file', fs.createReadStream(creq.files.file.tempFilePath));
         var url =`${scheme}://${host}:${port}/api/upload`;
