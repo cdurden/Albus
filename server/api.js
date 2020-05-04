@@ -56,6 +56,7 @@ const proxy_options = {
       let body = new Object();
 
       body.data = rooms.getBoardStorage(rooms.getRoomAssignment(req.session.passport.user), boardId);
+      console.log(body.data);
       body.boardId = boardId;
       body.task_id = task_id;
       console.log("Proxying request");
