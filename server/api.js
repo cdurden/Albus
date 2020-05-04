@@ -1,8 +1,8 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
 //var https = require('https');
 
-var httpProxy = require('http-proxy');
-var proxy = httpProxy.createProxyServer({});
+var proxy = require('express-http-proxy');
+//var proxy = httpProxy.createProxyServer({});
 
 var https = require('http');
 const agent = new https.Agent({  
