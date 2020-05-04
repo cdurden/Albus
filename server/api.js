@@ -128,22 +128,22 @@ function uploadHandler(creq, cres, next){
         var formData = new FormData();
         var boardId = creq.body.boardId;
         var lti_user_id = creq.session.passport.user
-        formData.append('lti_user_id', lti_user_id);
-        formData.append('boardId', boardId);
-        if (typeof creq.body.task_id !== 'undefined') {
-            formData.append('task_id', creq.body.task_id);
-        }
         var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
         var data_json = JSON.stringify(shapeStorage);
         console.log("data: "+data_json);
         console.log("boardId: "+boardId);
         console.log("lti_user_id: "+lti_user_id);
         console.log("file: "+creq.files.file.tempFilePath);
+        formData.append('lti_user_id', lti_user_id);
+        formData.append('boardId', boardId);
+        if (typeof creq.body.task_id !== 'undefined') {
+            formData.append('task_id', creq.body.task_id);
+        }
         formData.append('data_json', data_json);
         var file = creq.files.file;
         console.log(file);
         //formData.append('file', fs.createReadStream(file.tempFilePath), { filename: file.filename, contentType: file.mimetype, knownLength: file.size} );
-        formData.append('file', file.data, { filename: file.filename, contentType: file.mimetype, knownLength: file.size} );
+        formData.append('file', file.data, { filename: file.name, contentType: file.mimetype, knownLength: file.size} );
         var url =`${scheme}://${host}:${port}/api/upload`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             cres.send(res);
