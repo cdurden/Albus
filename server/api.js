@@ -141,13 +141,13 @@ function uploadHandler(creq, cres, next){
             formData.append('task_id', creq.body.task_id);
         }
         formData.append('data_json', data_json);
-        var file = creq.files.file;
         console.log(file);
         //formData.append('file', fs.createReadStream(file.tempFilePath), { filename: file.filename, contentType: file.mimetype, knownLength: file.size} );
         var options = { filename: file.name, contentType: file.mimetype, knownLength: file.size}
         console.log(options);
         formData.append('file', fs.createReadStream(file.tempFilePath), options);
         */
+        var file = creq.files.file;
         var formData = {
             'lti_user_id': lti_user_id,
             'boardId': boardId,
