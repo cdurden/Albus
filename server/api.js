@@ -437,4 +437,5 @@ module.exports = {
     getFeedback: getFeedback,
     getBoard: getBoard,
     actAsUser: actAsUser,
+    uploadHandler: uploadHandler,
 }
