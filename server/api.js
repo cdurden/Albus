@@ -1,5 +1,9 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
 //var https = require('https');
+
+var httpProxy = require('http-proxy');
+var proxy = httpProxy.createProxyServer({});
+
 var https = require('http');
 const agent = new https.Agent({  
     rejectUnauthorized: false
@@ -18,6 +22,10 @@ function getSessionUser(session) {
 //function getActingSessionUser(session) {
 //    return(session.actingAsUser);
 //}
+function uploadHandler(req, res) {
+    var url =`${scheme}://${host}:${port}/api/upload`;
+    proxy.web(req, res, { target: url });
+}
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
         getApiUser(getSessionUser(session), function(error, api_user) {

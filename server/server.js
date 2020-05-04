@@ -4,6 +4,7 @@ var path = require('path');
 var app = express();
 var http = require('http');
 var api = require('./api');
+var upload = require('./upload');
 //var https = require('https');
 //var httpProxy = require( 'http-proxy' );
 var proxy = require( 'express-http-proxy' );
@@ -141,44 +142,7 @@ app.use(fileUpload({
         useTempFiles : true,
         tempFileDir : '/tmp/'
 }));
-app.post('/upload', function(req, res) {
-    var user = req.session.passport.user;
-  console.log("User "+user+" requested to upload a file");
-  console.log(req.files.file); // the uploaded file object
-  console.log("formData");
-  console.log(req.body);
-  var boardId = req.body.boardId;
-  var action = req.body.action;
-  var filename;
-  if (action === 'setBoardBackground') {
-    if (req.files.file.mimetype === 'image/png') {
-        filename = req.files.file.md5+".png";
-        // mv(req.files.file.tempFilePath, privatePath(filename)) 
-    }
-    rooms.getRoomAssignment(user).then(function(roomId) {
-        shapeStorage = rooms.getBoardStorage(roomId, boardId);
-        api.saveBoard(req.session, shapeStorage, { boardId: boardId }, filename, function(err, data) {
-            if (!err) {
-                res.sendStatus(200);
-            } else {
-                res.sendStatus(500);
-            }
-        });
-    });
-  }
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-/*
-  let sampleFile = req.files.sampleFile;
-
-  // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv('/somewhere/on/your/server/filename.jpg', function(err) {
-    if (err)
-      return res.status(500).send(err);
-
-    res.send('File uploaded!');
-  });
-*/
-});
+app.post('/upload', uploadHandler);
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
