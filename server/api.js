@@ -28,7 +28,7 @@ function uploadHandler(client_req, client_res) {
     var url =`${scheme}://${host}:${port}/api/upload/`;
     var options = {
       hostname: host,
-      port: post,
+      port: port,
       path: '/api/upload/',
       method: client_req.method,
       headers: client_req.headers
