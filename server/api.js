@@ -127,7 +127,8 @@ function uploadHandler(creq, cres, next){
         var FormData = require("form-data");
         var formData = new FormData();
         var boardId = creq.body.boardId;
-        formData.append('lti_user_id', creq.session.passport.user);
+        var lti_user_id = creq.session.passport.user
+        formData.append('lti_user_id', lti_user_id);
         formData.append('boardId', boardId);
         if (typeof creq.body.task_id !== 'undefined') {
             formData.append('task_id', creq.body.task_id);
