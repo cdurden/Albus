@@ -155,7 +155,8 @@ function uploadHandler(creq, cres, next){
             'file': fs.createReadStream(file.tempFilePath),
         }
 
-        var url =`${scheme}://${host}:${port}/api/upload`;
+        //var url =`${scheme}://${host}:${port}/api/upload`;
+        var url =`${scheme}://${host}:${port}/boards/`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             cres.send(res);
         });
