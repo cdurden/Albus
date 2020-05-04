@@ -6,11 +6,6 @@ var settings = require('./settings');
 
 var httpProxy = require('http-proxy');
 
-//var https = require('https');
-var https = require('http');
-const agent = new https.Agent({  
-    rejectUnauthorized: false
-});
 var auth = require('./auth');
 var host = "localhost";
 /*
@@ -21,6 +16,14 @@ var port = 80;
 */
 var scheme = settings.api_scheme;
 var port = settings.api_port;
+if (scheme === 'https') {
+    var http = require('https');
+} else {
+    var http = require('http');
+}
+const agent = new http.Agent({  
+    rejectUnauthorized: false
+});
 //var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
 
 /*
