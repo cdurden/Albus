@@ -130,6 +130,7 @@ angular.module('whiteboard')
       scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         var board = scope.boardData.boards[scope.boardData.boardId];
         scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
+        scope.board = board;
         scope.task = (board || {}).task;
       }, true);
         /*

@@ -1,6 +1,11 @@
 <div id="background-frame">
     <pinch-zoom>
-        <div ng-bind-html-unsafe="task.data.background_html" id="background-container" class="background-container" compile-template>
+        <div ng-if="board.background_image"
+            ng-bind-html-unsafe="task.data.background_html" id="background-container" class="background-container" compile-template>
+        </div>
+        <div ng-if="!board.background_image"
+            id="background-container" class="background-container" compile-template>
+            <div class='background-image'><img src='/api/file//{board.background_image}'></div>
         </div>
     </pinch-zoom>
 </div>
