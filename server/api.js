@@ -55,7 +55,7 @@ const proxy_options = {
       if (req.body) delete req.body;
 
       // Make any needed POST parameter changes
-      let body = new Object();
+      var body = new Object();
 
       //console.log("Getting roomId from request object: "+req.roomId);
       proxyReq.socket.pause();
