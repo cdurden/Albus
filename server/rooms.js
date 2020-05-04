@@ -85,7 +85,7 @@ function getActingUserFromSocketId(socketId) {
             if (typeof actingAsUser === 'undefined') {
                 getUserFromSocketId(socketId).then(function(user) {
                     resolve(user);
-                }
+                });
             } else {
                 resolve(actingAsUser);
             }
