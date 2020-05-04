@@ -1,12 +1,12 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
 const { createProxyMiddleware } = require('http-proxy-middleware');
-//var https = require('https');
-var http = require('http');
 var rooms = require('./rooms');
 var fs = require('fs');
+var settings = require('./settings');
 
 var httpProxy = require('http-proxy');
 
+//var https = require('https');
 var https = require('http');
 const agent = new https.Agent({  
     rejectUnauthorized: false
@@ -16,9 +16,11 @@ var host = "localhost";
 /*
 var scheme = "https";
 var port = 444;
-*/
 var scheme = "http";
 var port = 80;
+*/
+var scheme = settings.api_scheme;
+var port = settings.api_port;
 //var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
 
 /*

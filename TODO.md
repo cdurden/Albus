@@ -5,10 +5,9 @@
 # UI
 1. Add instructions (e.g. as pop-ups) to assignments
 2. Allow user to join a room as an observer
-3. Create navigation mode that allows pinch zoom (disable pointer-actions on canvas)
-4. Create a help pane, showing messages
-5. Tie user to room semi-consistently
-6. Use pagination widgets like the ones here: https://angular-ui.github.io/bootstrap/
+3. Create a help pane, showing messages
+4. Use pagination widgets like the ones here: https://angular-ui.github.io/bootstrap/
+5. Create a Groupings tab in the admin dashboard, and enable assignments and rooms tabs to load groupings and use them to assign students more efficiently
 
 # Fixes
 1. Fix drawing errors.
