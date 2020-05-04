@@ -85,7 +85,7 @@ app.use('/upload', function(req, res, next) {
         req.roomId = roomId
         next();
     });
-}
+});
 app.post('/upload', api.uploadProxy);
 
 app.use(express.static(__dirname + '/lib'));
