@@ -84,7 +84,6 @@ const proxy_options = {
       if (typeof task_id !== 'undefined') {
           body.task_id = task_id;
       }
-      console.log("Proxying request");
       body.lti_user_id = req.session.passport.user;
       console.log("Set lti_user_id on body to "+body.lti_user_id);
 
@@ -97,7 +96,7 @@ const proxy_options = {
 
       // Update header
       proxyReq.setHeader("Authorization", "Bearer " + auth.api_auth_token );
-      proxyReq.setHeader('content-type', 'multipart/form-data');
+      //proxyReq.setHeader('content-type', 'multipart/form-data');
       proxyReq.setHeader('content-length', body.length);
 
       // Write out body changes to the proxyReq stream
