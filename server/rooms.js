@@ -24,18 +24,20 @@ roomAssignmentMethods = {
     }
 }
 function getRoomAssignment(user) {
+    console.log("Getting room assignment for user "+user);
     return new Promise( resolve => {
         resolve();
         client.hget(user, 'roomId', function(err, roomId) {
             if (roomId) {
+                console.log("Got roomId "+roomId+" from Redis server");
                 resolve(roomId);
             } else {
                 client.hget('roomAssignmentMethod', function(err, method) {
                     if (method === null) {
                         method = 'default';
                     }
-                    console.log("Getting room assignment by method "+method);
                     roomAssignmentMethods[method](user).then(function(newRoomId) {
+                        console.log("Got roomId "+newRoomId+" using assignment method "+method);
                         resolve(newRoomId)
                     });
                 });
