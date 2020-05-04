@@ -56,7 +56,14 @@ const proxy_options = {
       let body = new Object();
 
       console.log("Getting roomId from request object: "+req.roomId);
-      body.data = rooms.getBoardStorage(req.roomId, boardId);
+      proxyReq.socket.pause();
+      rooms.getRoomAssignment(req.session.passport.user).then((roomId) => {
+        body.data = rooms.getBoardStorage(req.roomId, boardId);
+        proxyReq.socket.resume();
+      }).catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
       console.log(body.data);
       body.boardId = boardId;
       body.task_id = task_id;
