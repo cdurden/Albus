@@ -80,7 +80,7 @@ passport.use('lti-strategy', new CustomStrategy(
 ));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.post('/upload', api.uploadProxy);
+router.post('/upload', api.uploadProxy);
 
 app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
