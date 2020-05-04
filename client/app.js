@@ -99,7 +99,7 @@ angular.module('whiteboard', [
       requireBase: false
     });
 }])
-.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', function($window, $document, FileUploader, $scope, BoardData) {
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', function($window, $document, FileUploader, $scope, BoardData, EventHandler) {
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
         console.log("added file");
@@ -117,6 +117,7 @@ angular.module('whiteboard', [
     }
     $scope.uploader.onCompleteItem = function(item) {
         console.log("uploading complete");
+        EventHandler.loadBoards();
     }
     /*
     $window.addEventListener("dragover",function(e){
