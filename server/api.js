@@ -24,7 +24,7 @@ function getSessionUser(session) {
 //}
 function uploadHandler(req, res) {
     console.log("Handling file upload by proxying the request to the API server");
-    var url =`${scheme}://${host}:${port}/api/upload`;
+    var url =`${scheme}://${host}:${port}/api/upload/`;
     proxy.web(req, res, { target: url });
 }
 function actAsUser(session, lti_user_id) {
