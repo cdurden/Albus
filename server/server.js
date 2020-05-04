@@ -154,7 +154,8 @@ app.use(fileUpload({
         tempFileDir : '/tmp/'
 }));
 */
-app.use('/upload', api.uploadHandler);
+app.use('/upload', upload.uploadHandler);
+//app.use('/upload', api.uploadHandler);
 //app.use('/upload', api.uploadProxy);
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");

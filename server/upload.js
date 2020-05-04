@@ -18,8 +18,9 @@ function privatePath(filename) {
 }
 
 function uploadHandler(req, res) {
-    proxy.web(req, res, { target: 'http://mytarget.com:8080' });
     /*
+    proxy.web(req, res, { target: 'http://mytarget.com:8080' });
+    */
     var user = req.session.passport.user;
     console.log("User "+user+" requested to upload a file");
     console.log(req.files.file); // the uploaded file object
@@ -44,7 +45,6 @@ function uploadHandler(req, res) {
             });
         });
     }
-    */
 }
 
 module.exports = {
