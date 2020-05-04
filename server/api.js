@@ -65,6 +65,7 @@ const proxy_options = {
         shapeStorage = rooms.getBoardStorage(roomId, boardId);
         console.log(shapeStorage);
         body.data_json = JSON.stringify(shapeStorage);
+        console.log(body.data_json);
         proxyReq.socket.resume();
       }).catch((err) => {
         console.error(err);
