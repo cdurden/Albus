@@ -68,6 +68,23 @@ module.exports = function(server) {
       });
     });
   }
+  function actAsUser(socket, lti_user_id) {
+      return new Promise( (resolve) => {
+          api.getApiUser(socket.handshake.session.passport.user, function(error, api_user) {
+              if(api_user.role === 'teacher') {
+                  session.actingAsUser = lti_user_id
+                  session.save();
+                  client.hmset(socket.id, ['actingAsUser', lti_user_id], function(err, result) {
+                      if (result) {
+                          resolve(true);
+                      }
+                  });
+              } else {
+                  resolve(false);
+              }
+          });
+      });
+  }
   function loadBoards(socket) {
     getSocketData(socket.id).then(function(data) {
         assets.getAssignmentObject(data.assignment).then(function(assignmentData) {
@@ -493,7 +510,7 @@ module.exports = function(server) {
 */
 
     socket.on('actAsUser', function (data) {
-      api.actAsUser(socket.handshake.session, data.lti_user_id).then(function(success) {
+      actAsUser(socket, data.lti_user_id).then(function(success) {
           if (success) {
               console.log("Acting as user");
               console.log(socket.handshake.session.actingAsUser);

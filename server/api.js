@@ -164,6 +164,7 @@ async function uploadHandler(creq, cres, next){
     }
 }
 
+/*
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
         getApiUser(getSessionUser(session), function(error, api_user) {
@@ -177,6 +178,7 @@ function actAsUser(session, lti_user_id) {
         });
     });
 }
+*/
 async function getActingSessionUser(session) {
     return new Promise( (resolve) => {
         if (typeof session.actingAsUser !== 'undefined') {
@@ -574,7 +576,7 @@ module.exports = {
     createFeedback: createFeedback,
     getFeedback: getFeedback,
     getBoard: getBoard,
-    actAsUser: actAsUser,
+    //actAsUser: actAsUser,
     uploadHandler: uploadHandler,
 //    uploadProxy: uploadProxy,
 }

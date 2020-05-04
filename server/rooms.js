@@ -67,6 +67,13 @@ function getUserFromSocket(socket) {
 function getActingUserFromSocket(socket) {
     return(socket.handshake.session.actingAsUser || getUserFromSocket(socket));
 }
+function getActingUserFromSocketId(socketId) {
+    return new Promise(resolve => {
+        client.hget(socketId, 'actingAsUser', function(err, user) {
+            resolve(user);
+        });
+    });
+}
 /*
 function getUserFromSocketId(socketId) {
     return new Promise(resolve => {
