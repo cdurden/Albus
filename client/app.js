@@ -103,8 +103,13 @@ angular.module('whiteboard', [
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
         console.log("added file");
-        var boardId = BoardData.getBoardData().boardId;
+        var boardData = BoardData.getBoardData();
+        var boardId = boardData.boardId;
+        var board = boardData.boards[boardId];
         item.formData = [{ 'boardId': boardId, 'action': 'setBoardBackground' }];
+        if (typeof board.task_id !== 'undefined') {
+            item.formData.task_id = board.task_id;
+        }
         this.uploadItem(item);
     }
     $scope.uploader.onBeforeUploadItem = function(item) {
