@@ -84,9 +84,11 @@ function getActingUserFromSocketId(socketId) {
         client.hget(socketId, 'actingAsUser', function(err, actingAsUser) {
             if (typeof actingAsUser === 'undefined') {
                 getUserFromSocketId(socketId).then(function(user) {
+                    console.log("Got acting user: "+user);
                     resolve(user);
                 });
             } else {
+                console.log("Got acting user: "+actingAsUser);
                 resolve(actingAsUser);
             }
         });
