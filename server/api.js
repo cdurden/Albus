@@ -50,6 +50,7 @@ const proxy_options = {
       // Remove body-parser body object from the request
       var boardId = req.body.boardId;
       console.dir(req.body);
+      console.dir(req.files);
       var task_id = req.body.task_id;
       if (req.body) delete req.body;
 
