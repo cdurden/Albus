@@ -21,5 +21,6 @@ deploy
 client/dist/*
 
 server/auth.js
+server/settings.js
 server/privkey.pem
 server/fullchain.pem
