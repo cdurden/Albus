@@ -98,13 +98,11 @@ const uploadProxy = createProxyMiddleware(proxy_filter, proxy_options);
 function getSessionUser(session) {
     return(session.passport.user);
 }
-/*
 function uploadHandler(req, res) {
     var url =`${scheme}://${host}:${port}/api/upload`;
     console.log("Handling file upload by proxying the request to "+url);
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
-*/
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
         getApiUser(getSessionUser(session), function(error, api_user) {
@@ -516,6 +514,6 @@ module.exports = {
     getFeedback: getFeedback,
     getBoard: getBoard,
     actAsUser: actAsUser,
-    //uploadHandler: uploadHandler,
+    uploadHandler: uploadHandler,
     uploadProxy: uploadProxy,
 }
