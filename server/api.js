@@ -48,12 +48,16 @@ const proxy_options = {
       // ....
 
       // Remove body-parser body object from the request
+      var boardId = req.body.boardId;
+      var task_id = req.body.task_id;
       if (req.body) delete req.body;
 
       // Make any needed POST parameter changes
       let body = new Object();
 
-      body.data = rooms.getBoardStorage(rooms.getRoomAssignment(req.session.passport.user), req.body.boardId);
+      body.data = rooms.getBoardStorage(rooms.getRoomAssignment(req.session.passport.user), boardId);
+      body.boardId = boardId;
+      body.task_id = task_id;
       console.log("Proxying request");
       body.lti_user_id = req.session.passport.user;
       console.log("Set lti_user_id on body to "+body.lti_user_id);
