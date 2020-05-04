@@ -26,17 +26,15 @@ function getSessionUser(session) {
 function uploadHandler(client_req, client_res) {
     console.log("Handling file upload by proxying the request to the API server");
     var url =`${scheme}://${host}:${port}/api/upload/`;
-/*
     var options = {
-      hostname: 'www.google.com',
-      port: 80,
-      path: client_req.url,
+      hostname: host,
+      port: post,
+      path: '/api/upload/',
       method: client_req.method,
       headers: client_req.headers
     };
-*/
   
-    var proxy = http.request({ 'url': url }, function (res) {
+    var proxy = http.request(options, function (res) {
       client_res.writeHead(res.statusCode, res.headers)
       res.pipe(client_res, {
         end: true
