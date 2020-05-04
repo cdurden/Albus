@@ -140,7 +140,9 @@ function uploadHandler(creq, cres, next){
         console.log("lti_user_id: "+lti_user_id);
         console.log("file: "+creq.files.file.tempFilePath);
         formData.append('data_json', data_json);
-        formData.append('file', fs.createReadStream(creq.files.file.tempFilePath));
+        var file = creq.files.file;
+        console.log(file);
+        formData.append('file', fs.createReadStream(file.tempFilePath), { filename: file.filename, contentType: file.contentType} );
         var url =`${scheme}://${host}:${port}/api/upload`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             cres.send(res);
