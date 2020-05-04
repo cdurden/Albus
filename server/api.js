@@ -143,7 +143,9 @@ function uploadHandler(creq, cres, next){
         var file = creq.files.file;
         console.log(file);
         //formData.append('file', fs.createReadStream(file.tempFilePath), { filename: file.filename, contentType: file.mimetype, knownLength: file.size} );
-        formData.append('file', file.data, { filename: file.name, contentType: file.mimetype, knownLength: file.size} );
+        var options = { filename: file.name, contentType: file.mimetype, knownLength: file.size}
+        console.log(options);
+        formData.append('file', file.data, file.name);
         var url =`${scheme}://${host}:${port}/api/upload`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             cres.send(res);
