@@ -114,8 +114,9 @@ function uploadHandler(req, res) {
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
 
-function uploadHandler(creq, cres, next){
-    var user = creq.session.passport.user;
+async function uploadHandler(creq, cres, next){
+    //var user = creq.session.passport.user;
+    var user = await getActingSessionUser(session);
     console.log("User "+user+" requested to upload a file");
     creq.files.file;
     var boardId = creq.body.boardId;
