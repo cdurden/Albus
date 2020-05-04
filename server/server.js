@@ -80,12 +80,13 @@ passport.use('lti-strategy', new CustomStrategy(
 ));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.post('/upload', function(req, res, next) {
+app.use('/upload', function(req, res, next) {
     rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
         req.roomId = roomId
         next();
     });
-}, api.uploadProxy);
+}
+app.post('/upload', api.uploadProxy);
 
 app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
