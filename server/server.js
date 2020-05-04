@@ -147,13 +147,11 @@ app.use('/upload', function(req, res, next) {
     });
 });
 */
-/*
 app.use(fileUpload({
         preserveExtension: true,
         useTempFiles : true,
         tempFileDir : '/tmp/'
 }));
-*/
 app.use('/upload', upload.uploadHandler);
 //app.use('/upload', api.uploadHandler);
 //app.use('/upload', api.uploadProxy);
