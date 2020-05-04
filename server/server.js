@@ -78,6 +78,7 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
+app.post('/upload', api.uploadProxy);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -147,7 +148,6 @@ app.use('/upload', function(req, res, next) {
     });
 });
 */
-app.post('/upload', api.uploadProxy);
 /*
 app.use(fileUpload({
         preserveExtension: true,
