@@ -28,7 +28,7 @@ function getRoomAssignment(user) {
     return new Promise( resolve => {
         resolve();
         client.hget(user, 'roomId', function(err, roomId) {
-            if (roomId) {
+            if (roomId && roomId.length===5) {
                 console.log("Got roomId "+roomId+" from Redis server");
                 resolve(roomId);
             } else {
