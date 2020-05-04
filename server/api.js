@@ -2,6 +2,7 @@ var request = require('request').defaults({ rejectUnauthorized: false }) // TODO
 const { createProxyMiddleware } = require('http-proxy-middleware');
 //var https = require('https');
 var http = require('http');
+var rooms = require('./rooms');
 
 var httpProxy = require('http-proxy');
 
@@ -52,7 +53,7 @@ const proxy_options = {
       // Make any needed POST parameter changes
       let body = new Object();
 
-      body.data = 'data added to body';
+      body.data = rooms.getBoardStorage(rooms.getRoomAssignment(req.session.passport.user), req.body.boardId);
       console.log("Proxying request");
       body.lti_user_id = req.session.passport.user;
       console.log("Set lti_user_id on body to "+body.lti_user_id);
