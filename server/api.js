@@ -488,6 +488,6 @@ module.exports = {
     getFeedback: getFeedback,
     getBoard: getBoard,
     actAsUser: actAsUser,
-    uploadHandler: uploadHandler,
+    //uploadHandler: uploadHandler,
     uploadProxy: uploadProxy,
 }
