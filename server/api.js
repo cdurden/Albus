@@ -97,7 +97,7 @@ const proxy_options = {
 
       // Update header
       proxyReq.setHeader("Authorization", "Bearer " + auth.api_auth_token );
-      proxyReq.setHeader('content-type', 'application/x-www-form-urlencoded');
+      proxyReq.setHeader('content-type', 'multipart/form-data');
       proxyReq.setHeader('content-length', body.length);
 
       // Write out body changes to the proxyReq stream
