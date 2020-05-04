@@ -125,19 +125,19 @@ function uploadHandler(creq, cres, next){
     var action = creq.body.action;
     if (action === 'setBoardBackground') {
         var FormData = require("form-data");
-        var form = new FormData();
+        var formData = new FormData();
         var boardId = creq.body.boardId;
-        form.append('lti_user_id', creq.session.passport.user);
-        form.append('boardId', boardId);
+        formData.append('lti_user_id', creq.session.passport.user);
+        formData.append('boardId', boardId);
         if (typeof creq.body.task_id !== 'undefined') {
-            form.append('task_id', creq.body.task_id);
+            formData.append('task_id', creq.body.task_id);
         }
         shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
         data_json = JSON.stringify(shapeStorage);
-        form.append('data_json', data_json);
-        form.append('file', fs.createReadStream(creq.files.file.tempFilePath));
+        formData.append('data_json', data_json);
+        formData.append('file', fs.createReadStream(creq.files.file.tempFilePath));
         var url =`${scheme}://${host}:${port}/api/upload`;
-        request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token } }, function(err, res, body){
+        request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             cres.send(res);
         });
     }
