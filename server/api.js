@@ -115,7 +115,6 @@ function uploadHandler(req, res) {
     console.log("Handling file upload by proxying the request to "+url);
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
-var multiparty = require("multiparty");
 
 function uploadHandler(creq, cres, next){
     var FormData = require("form-data");
