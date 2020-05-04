@@ -131,7 +131,7 @@ function uploadHandler(creq, cres, next){
     request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token } }, function(err, res, body){
         cres.send(res);
     });
-});
+}
 
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
