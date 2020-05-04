@@ -105,15 +105,14 @@ angular.module('whiteboard')
         }
     }
 }])
-.directive('wbBackground', ['Sockets', function (Sockets) {
+.directive('wbBackground', ['BoardData', function (BoardData) {
   return {
     restrict: 'A',
     replace: true,
     templateUrl: './templates/background.html',
-    controller: function (MessageHandler) {
-      this.handleEvent = function (ev) {
-        MessageHandler['feed'](ev);
-      }
+    controller: function ($scope) {
+        var boardData = BoardData.getBoardData();
+        $scope.board = boardData.boards[boardData.boardId];
     },
     scope: {},
   }
