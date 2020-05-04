@@ -14,7 +14,7 @@ function generateRandomId(length) {
 
   return id;
 }
-roomAssignmentMethods = {
+var roomAssignmentMethods = {
     'default': function(user) {
         return new Promise( resolve => { 
             client.hget('roomAssignments', user, function(err, roomId) {
@@ -33,7 +33,7 @@ function getRoomAssignment(user) {
                 resolve(roomId);
             } else {
                 client.hget('roomAssignmentMethod', function(err, method) {
-                    if (method === null) {
+                    if (typeof method === 'undefined') {
                         method = 'default';
                     }
                     roomAssignmentMethods[method](user).then(function(newRoomId) {
