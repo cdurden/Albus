@@ -1,4 +1,5 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
+const { createProxyMiddleware } = require('http-proxy-middleware');
 //var https = require('https');
 var http = require('http');
 
@@ -16,40 +17,66 @@ var port = 444;
 */
 var scheme = "http";
 var port = 80;
-var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
+//var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
+
+const proxy_filter = function (path, req) {
+  return path.match('^/upload') && (req.method === 'POST');
+};
+
+const proxy_options = {
+  target: scheme+"://"+host+":"+port,
+  pathRewrite: {
+    '^/upload': '/api/upload', // Host path & target path conversion
+  },
+  onError(err, req, res) {
+    res.writeHead(500, {
+      'Content-Type': 'text/plain',
+    });
+    res.end('Something went wrong. And we are reporting a custom error message.' + err);
+  },
+  onProxyReq(proxyReq, req, res) {
+    if (req.method == 'POST' && req.body) {
+      // Add req.body logic here if needed....
+
+      // ....
+
+      // Remove body-parser body object from the request
+      if (req.body) delete req.body;
+
+      // Make any needed POST parameter changes
+      let body = new Object();
+
+      body.data = 'data added to body';
+
+      // URI encode JSON object
+      body = Object.keys(body)
+        .map(function (key) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(body[key]);
+        })
+        .join('&');
+
+      // Update header
+      proxyReq.setHeader('content-type', 'application/x-www-form-urlencoded');
+      proxyReq.setHeader('content-length', body.length);
+
+      // Write out body changes to the proxyReq stream
+      proxyReq.write(body);
+      proxyReq.end();
+    }
+  },
+};
+const uploadProxy = createProxyMiddleware(proxy_filter, proxy_options);
+
 function getSessionUser(session) {
     return(session.passport.user);
 }
-//function getActingSessionUser(session) {
-//    return(session.actingAsUser);
-//}
+/*
 function uploadHandler(req, res) {
     var url =`${scheme}://${host}:${port}/api/upload`;
     console.log("Handling file upload by proxying the request to "+url);
-    /*
-    request.post(url).pipe(res);
-    var options = {
-      hostname: host,
-      port: port,
-      path: '/api/upload/',
-      method: client_req.method,
-      headers: client_req.headers
-    };
-  
-    var proxy = http.request(options, function (res) {
-      req.setEncoding('utf8');
-      client_res.writeHead(res.statusCode, res.headers)
-      res.pipe(client_res, {
-        end: true
-      });
-    });
-  
-    client_req.pipe(proxy, {
-      end: true
-    });
-    */
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
+*/
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
         getApiUser(getSessionUser(session), function(error, api_user) {
@@ -462,4 +489,5 @@ module.exports = {
     getBoard: getBoard,
     actAsUser: actAsUser,
     uploadHandler: uploadHandler,
+    uploadProxy: uploadProxy,
 }

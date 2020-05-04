@@ -78,7 +78,7 @@ passport.use('lti-strategy', new CustomStrategy(
 		}
 	}
 ));
-app.post('/upload', api.uploadHandler);
+app.post('/upload', api.uploadProxy);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
