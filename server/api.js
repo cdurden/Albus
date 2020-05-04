@@ -26,6 +26,8 @@ function getSessionUser(session) {
 function uploadHandler(client_req, client_res) {
     console.log("Handling file upload by proxying the request to the API server");
     var url =`${scheme}://${host}:${port}/api/upload/`;
+    /*
+    request.post(url).pipe(res);
     var options = {
       hostname: host,
       port: port,
@@ -35,6 +37,7 @@ function uploadHandler(client_req, client_res) {
     };
   
     var proxy = http.request(options, function (res) {
+      req.setEncoding('utf8');
       client_res.writeHead(res.statusCode, res.headers)
       res.pipe(client_res, {
         end: true
@@ -44,7 +47,8 @@ function uploadHandler(client_req, client_res) {
     client_req.pipe(proxy, {
       end: true
     });
-    //proxy.web(req, res, { target: url });
+    */
+    proxy.web(req, res, { target: url }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
