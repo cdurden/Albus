@@ -15,7 +15,7 @@ var port = 444;
 */
 var scheme = "http";
 var port = 80;
-var proxy = httpProxy.createProxyServer({'target: `${scheme}://${host}:${port}`});
+var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
 function getSessionUser(session) {
     return(session.passport.user);
 }
