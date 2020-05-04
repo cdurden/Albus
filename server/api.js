@@ -54,30 +54,31 @@ const proxy_options = {
 
       // Make any needed POST parameter changes
       let body = new Object();
-
-      body.data = rooms.getBoardStorage(rooms.getRoomAssignment(req.session.passport.user), boardId);
-      console.log(body.data);
-      body.boardId = boardId;
-      body.task_id = task_id;
-      console.log("Proxying request");
-      body.lti_user_id = req.session.passport.user;
-      console.log("Set lti_user_id on body to "+body.lti_user_id);
-
-      // URI encode JSON object
-      body = Object.keys(body)
-        .map(function (key) {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(body[key]);
-        })
-        .join('&');
-
-      // Update header
-      proxyReq.setHeader("Authorization", "Bearer " + auth.api_auth_token );
-      proxyReq.setHeader('content-type', 'application/x-www-form-urlencoded');
-      proxyReq.setHeader('content-length', body.length);
-
-      // Write out body changes to the proxyReq stream
-      proxyReq.write(body);
-      proxyReq.end();
+      rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
+        body.data = rooms.getBoardStorage(roomId, boardId);
+        console.log(body.data);
+        body.boardId = boardId;
+        body.task_id = task_id;
+        console.log("Proxying request");
+        body.lti_user_id = req.session.passport.user;
+        console.log("Set lti_user_id on body to "+body.lti_user_id);
+  
+        // URI encode JSON object
+        body = Object.keys(body)
+          .map(function (key) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(body[key]);
+          })
+          .join('&');
+  
+        // Update header
+        proxyReq.setHeader("Authorization", "Bearer " + auth.api_auth_token );
+        proxyReq.setHeader('content-type', 'application/x-www-form-urlencoded');
+        proxyReq.setHeader('content-length', body.length);
+  
+        // Write out body changes to the proxyReq stream
+        proxyReq.write(body);
+        proxyReq.end();
+      });
     }
   },
 };
