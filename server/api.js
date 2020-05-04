@@ -154,6 +154,9 @@ function uploadHandler(creq, cres, next){
             'data_json': data_json,
             'file': fs.createReadStream(file.tempFilePath),
         }
+        if (typeof creq.body.task_id !== 'undefined') {
+            formData['task_id'] = creq.body.task_id;
+        }
 
         //var url =`${scheme}://${host}:${port}/api/upload`;
         var url =`${scheme}://${host}:${port}/api/boards/`;
