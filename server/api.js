@@ -115,6 +115,24 @@ function uploadHandler(req, res) {
     console.log("Handling file upload by proxying the request to "+url);
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
+var multiparty = require("multiparty");
+
+function uploadHandler(creq, cres, next){
+    var FormData = require("form-data");
+    var form = new FormData();
+    form.append('lti_user_id', creq.session.passport.user);
+    form.append('boardId', creq.body.boardId);
+    form.append('task_id', creq.body.task_id);
+    shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
+    data_json = JSON.stringify(shapeStorage);
+    form.append('data_json', data_json);
+    form.append('file', creq.files.file);
+    var url =`${scheme}://${host}:${port}/api/upload`;
+    request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token } }, function(err, res, body){
+        cres.send(res);
+    });
+});
+
 function actAsUser(session, lti_user_id) {
     return new Promise( (resolve) => {
         getApiUser(getSessionUser(session), function(error, api_user) {
