@@ -62,6 +62,7 @@ const proxy_options = {
         .join('&');
 
       // Update header
+      proxyReq.setHeader("Authorization", "Bearer " + auth.api_auth_token );
       proxyReq.setHeader('content-type', 'application/x-www-form-urlencoded');
       proxyReq.setHeader('content-length', body.length);
 
