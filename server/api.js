@@ -64,14 +64,16 @@ const proxy_options = {
         console.log("Setting body data to shapeStorage for roomId "+roomId+" and boardId "+boardId);
         shapeStorage = rooms.getBoardStorage(roomId, boardId);
         console.log(shapeStorage);
-        body.data = shapeStorage;
+        body.data_json = JSON.stringify(shapeStorage);
         proxyReq.socket.resume();
       }).catch((err) => {
         console.error(err);
         res.sendStatus(500);
       });
       body.boardId = boardId;
-      body.task_id = task_id;
+      if (typeof task_id !== 'undefined') {
+          body.task_id = task_id;
+      }
       console.log("Proxying request");
       body.lti_user_id = req.session.passport.user;
       console.log("Set lti_user_id on body to "+body.lti_user_id);
