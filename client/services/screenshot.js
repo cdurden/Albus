@@ -17,7 +17,7 @@ function screenshot() {
   var data = (new XMLSerializer()).serializeToString(svg); 
   canvg.Canvg.fromString(ctx, data); // Render SVG on Canvas.
   var theImage=document.getElementById("screenshot");
-      theImage.src=canvas.toDataURL();
+      theImage.src=$canvas[0].toDataURL();
   theImage.onload = function() {
           var w = $window.open("");
           w.document.write(this.outerHTML);
