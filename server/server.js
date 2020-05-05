@@ -120,7 +120,9 @@ io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the sessio
 io.on('connection', (socket) => {
     console.log("Got connection request");
     console.log(socket.handshake.session);
-    socket.use((packet, next) => {
+});
+    io.use((socket, next) => {
+        console.log("Got packet");
         console.log(socket.handshake.session);
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
             next();
@@ -128,7 +130,6 @@ io.on('connection', (socket) => {
             next(new Error('Socket not authenticated'));
         }
     });
-});
 
 /*
 app.use('/lti/', function(req,res) {
