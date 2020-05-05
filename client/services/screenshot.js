@@ -18,10 +18,10 @@ function screenshot() {
   SVG2PNG(svg, function() {
       var theImage=document.getElementById("toImage");
           theImage.src=canvas.toDataURL();
-      theImage.onload(function() {
+      theImage.onload = function() {
               var w = window.open("");
               w.document.write(theImage.outerHTML);
-      });
+      };
   })
 }
   return {
