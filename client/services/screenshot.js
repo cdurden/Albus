@@ -16,7 +16,7 @@ function SVG2PNG(svg, callback) {
 function screenshot() {
   var svg = BoardData.getCanvas()[0];
   SVG2PNG(svg, function() {
-      var theImage=document.getElementById("toImage");
+      var theImage=document.getElementById("screenshot");
           theImage.src=canvas.toDataURL();
       theImage.onload = function() {
               var w = $window.open("");
