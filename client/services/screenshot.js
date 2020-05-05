@@ -14,7 +14,7 @@ function screenshot() {
   var canvas = BoardData.getCanvas()[0];
   var box = canvas.getAttribute('viewBox');
   let [x, y, w, h] = box.split(/\s+|,/);
-  var paper = Raphael($document.find("#screenshot_container")[0]);
+  var paper = Raphael($document.find("#screenshot-container")[0]);
   paper.setViewBox(x, y, w, h, true);
   paper.canvas = canvas.cloneNode(true);
   var backgroundImg = $document.find(".background-image img");
