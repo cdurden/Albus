@@ -16,7 +16,6 @@ function screenshot() {
   let [x, y, w, h] = box.split(/\s+|,/);
   var backgroundImg = $document.find(".background-image img");
   //paper.image(backgroundImg.attr('src'), 0, 0, backgroundImg[0].width, backgroundImg[0].height).toBack();
-  var svg = BoardData.getCanvas()[0];
   //var box = svg.getAttribute('viewBox');
   //let [x, y, w, h] = box.split(/\s+|,/);
   var $container = $document.find("#screenshot-container");
@@ -30,7 +29,7 @@ function screenshot() {
   //canvas.width = svg.width
   //var bp = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">;';
   //var data = bp+svg.outerHTML; // Get SVG element as HTML code.
-  var data = (new XMLSerializer()).serializeToString(svg); 
+  var data = (new XMLSerializer()).serializeToString(paper.canvas); 
   v = canvg.Canvg.fromString(ctx, data); // Render SVG on Canvas.
   v.start();
   var theImage=document.getElementById("screenshot");
