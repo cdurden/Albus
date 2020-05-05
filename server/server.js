@@ -132,7 +132,8 @@ io.on('connection', (socket) => {
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
             next();
         } else {
-            next(new Error('Socket not authenticated'));
+            //next(new Error('Socket not authenticated'));
+            next();
         }
     });
 
