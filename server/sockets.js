@@ -29,7 +29,7 @@ module.exports = function(server) {
       autoSave:true
   }));
   */
-  io.use((socket, next) => {
+  io.of('/client').use((socket, next) => {
       console.log("Got packet");
       console.log(socket.handshake.session);
       if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
