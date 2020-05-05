@@ -254,7 +254,7 @@ app.get('/:id', function (req, res) {
 app.get('/:id/screenShot', function (req, res) {
     //filename = sanitize(UNSAFE_USER_INPUT);
     const tmp = require('tmp');
-    const tmpobj = tmp.fileSync();
+    const tmpobj = tmp.fileSync({postfix: '.png' });
     console.log('File: ', tmpobj.name);
     webshot('localhost/' + req.params.id, tmpobj.name, function(err) {
         console.log(err);
