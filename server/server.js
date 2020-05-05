@@ -128,7 +128,7 @@ io.on('connection', (socket) => {
 });
     io.use((socket, next) => {
         console.log("Got packet");
-        console.log(socket.handshake);
+ //       console.log(socket.handshake);
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
             next();
         } else {
