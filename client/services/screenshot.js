@@ -5,12 +5,18 @@ var $canvas; // Create a Canvas element.
 var ctx; // For Canvas returns 2D graphic.
 $window.onload = () => {
   $canvas = angular.element('<canvas>'); // Create a Canvas element.
-  angular.element($document[0].body).append($canvas[0]);
+  //angular.element($document[0].body).append($canvas[0]);
   ctx = $canvas[0].getContext('2d'); // For Canvas returns 2D graphic.
   canvg = $window.canvg; // Render SVG on Canvas.
 };
 function screenshot() {
-  var paper = BoardData.getBoard();
+  var board = BoardData.getBoard();
+  var canvas = BoardData.getCanvas()[0];
+  var box = canvas.getAttribute('viewBox');
+  let [x, y, w, h] = box.split(/\s+|,/);
+  var paper = Raphael();
+  paper.setViewBox(x, y, w, h, true);
+  paper.canvas = canvas.cloneNode(true);
   var backgroundImg = $document.find(".background-image img");
   //paper.image(backgroundImg.attr('src'), 0, 0, backgroundImg[0].width, backgroundImg[0].height).toBack();
   var svg = BoardData.getCanvas()[0];
