@@ -20,7 +20,7 @@ function screenshot() {
           theImage.src=canvas.toDataURL();
       theImage.onload = function() {
               var w = window.open("");
-              w.document.write(theImage.outerHTML);
+              w.document.write(this.outerHTML);
       };
   })
 }
