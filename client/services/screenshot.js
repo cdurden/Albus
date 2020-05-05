@@ -5,7 +5,7 @@ var $canvas; // Create a Canvas element.
 var ctx; // For Canvas returns 2D graphic.
 $window.onload = () => {
   $canvas = angular.element('<canvas>'); // Create a Canvas element.
-  $document.body.append(canvas)[0];
+  $document.body.append($canvas[0]);
   ctx = canvas[0].getContext('2d'); // For Canvas returns 2D graphic.
   canvg = $window.canvg; // Render SVG on Canvas.
 };
