@@ -624,6 +624,12 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('loadBoardFromApi', function(boardId) {
       api.getBoard(boardId, function(err, board) {
+        if (!board) {
+            board = {
+                'boardId': boardId,
+                'data': {}
+            }
+        }
         rooms.loadBoard(socket, board['data'], function(result) {
           socket.emit('board', board);
         });
