@@ -9,7 +9,8 @@ $window.onload = () => {
   canvg = $window.canvg; // Render SVG on Canvas.
 };
 function SVG2PNG(svg, callback) {
-  var data = svg.outerHTML; // Get SVG element as HTML code.
+  var bp = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">;';
+  var data = bp+svg.outerHTML; // Get SVG element as HTML code.
   canvg.Canvg.fromString(ctx, data); // Render SVG on Canvas.
   callback(canvas); // Execute callback function.
 }
