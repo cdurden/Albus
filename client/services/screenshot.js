@@ -24,7 +24,7 @@ function screenshot() {
   h = backgroundImg[0].naturalHeight;
   paper.canvas = canvas.cloneNode(true);
   $container.append(paper.canvas); 
-  paper.setViewBox(0, 0, w, h, true);
+  //paper.setViewBox(0, 0, w, h, true);
   paper.image(backgroundImg.attr('src'), 0,0,w,h).toBack();
   //canvas.width = svg.width
   //var bp = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">;';
