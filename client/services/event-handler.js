@@ -32,6 +32,10 @@ angular.module('whiteboard.services.eventhandler', [])
   function loadBoards() {
     Broadcast.loadBoards();
   }
+  function loadBoardFromApi(id) {
+    Broadcast.loadBoardFromApi(id);
+  }
+
 
   function setSocketId (socketId) {
     BoardData.setSocketId(socketId);
@@ -223,6 +227,7 @@ angular.module('whiteboard.services.eventhandler', [])
     updateBoardStorage: updateBoardStorage,
     updateBoards: updateBoards,
     loadBoard: loadBoard,
+    loadBoardFromApi: loadBoardFromApi,
     loadBoards: loadBoards,
     saveBoardToApi: saveBoardToApi,
   };

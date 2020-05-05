@@ -387,7 +387,7 @@ var $ctrl = this;
 
 
   $ctrl.open = function (size, parentSelector) {
-    Sockets.emit('getUsers');
+    //Sockets.emit('getUsers');
     var parentElem = parentSelector ? 
       angular.element($document[0].querySelector(parentSelector)) : undefined;
     var modalInstance = $uibModal.open({

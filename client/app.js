@@ -50,7 +50,9 @@ angular.module('whiteboard', [
         //templateUrl: 'views/board+chat.html',
         //templateUrl: 'views/slides.html',
         resolve: {
-          'something': function (Sockets, $location) {
+          'something': function (Sockets, EventHandler, $location) {
+            EventHandler.loadBoards();
+            Sockets.emit('getUsers');
             /*
             var roomId = Auth.generateRandomId(5);
             Sockets.emit('roomId', {roomId: roomId});
@@ -68,7 +70,7 @@ angular.module('whiteboard', [
         //templateUrl: 'views/board+chat.html',
         templateUrl: 'views/slides.html',
         resolve: {
-          'something': function (Sockets, $location) {
+          'something': function (Sockets, EventHandler, $location) {
             /*
             var roomId = Auth.generateRandomId(5);
             Sockets.emit('roomId', {roomId: roomId});
@@ -85,9 +87,10 @@ angular.module('whiteboard', [
         templateUrl: '/views/board.html',
         //templateUrl: 'views/board+chat.html',
         resolve: {
-          'somethingElse': function (Sockets, BoardData, $location) {
+          'somethingElse': function (Sockets, EventHandler, $location) {
             //BoardData.setBoardId($location.path().slice(1));
-            BoardData.loadBoardFromApi($location.path().slice(1));
+            EventHandler.loadBoardFromApi($location.path().slice(1));
+            Sockets.emit('getUsers');
             //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
           }
         },
