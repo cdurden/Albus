@@ -10,7 +10,7 @@ $window.onload = () => {
 };
 function SVG2PNG(svg, callback) {
   var data = svg.outerHTML; // Get SVG element as HTML code.
-  canvg(canvas, data); // Render SVG on Canvas.
+  canvg.Canvg(canvas, data); // Render SVG on Canvas.
   callback(canvas); // Execute callback function.
 }
 function screenshot() {
