@@ -14,7 +14,9 @@ function screenshot() {
   var backgroundImg = $document.find(".background-image img");
   //paper.image(backgroundImg.attr('src'), 0, 0, backgroundImg[0].width, backgroundImg[0].height).toBack();
   var svg = BoardData.getCanvas()[0];
-  paper.image(backgroundImg.attr('src'), 0, 0, svg.clientWidth, svg.clientHeight).toBack();
+  var box = svg.getAttribute('viewBox');
+  let [x, y, w, h] = box.split(/\s+|,/);
+  paper.image(backgroundImg.attr('src'), x,y,w,h).toBack();
   //canvas.width = svg.width
   //var bp = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">;';
   //var data = bp+svg.outerHTML; // Get SVG element as HTML code.
