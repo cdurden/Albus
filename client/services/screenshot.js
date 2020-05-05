@@ -16,7 +16,7 @@ function screenshot() {
               var w = window.open("");
               w.document.write(theImage.outerHTML);
       });
-  }
+  })
 }
   return {
       screenshot: screenshot,
