@@ -20,10 +20,10 @@ function screenshot() {
   //var box = svg.getAttribute('viewBox');
   //let [x, y, w, h] = box.split(/\s+|,/);
   var paper = Raphael($document.find("#screenshot-container")[0]);
-  paper.canvas = canvas.cloneNode(true);
   w = backgroundImg[0].naturalWidth;
   h = backgroundImg[0].naturalHeight;
-  //paper.setViewBox(0, 0, w, h, true);
+  paper.setViewBox(0, 0, w, h, true);
+  paper.canvas = canvas.cloneNode(true);
   paper.image(backgroundImg.attr('src'), 0,0,w,h).toBack();
   //canvas.width = svg.width
   //var bp = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">;';
