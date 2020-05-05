@@ -1,3 +1,7 @@
+table.malign td {
+    text-align: center;
+}
+
 b {
     font-weight: bold;
 }
