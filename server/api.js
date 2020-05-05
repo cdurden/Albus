@@ -212,6 +212,7 @@ function getBoard(boardId, callback) {
       console.log(body);
       callback(null, body);
     } else {
+      console.err(error);
       callback(error, null);
     }
   });
