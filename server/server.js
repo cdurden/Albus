@@ -114,6 +114,8 @@ var io = require('./sockets')(server);
 io.use(sharedsession(session, {
     autoSave:true
 }));
+
+server.start();
 /*
 io.of('/client').use(sharedsession(session, {
     autoSave:true
@@ -293,7 +295,7 @@ var end = function () {
   server.close();
 };
 
-start();
+//start();
 
 
 exports.start = start;
