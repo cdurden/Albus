@@ -12,7 +12,7 @@ $window.onload = () => {
 function screenshot() {
   var paper = BoardData.getBoard();
   var backgroundImg = $document.find(".background-image img");
-  paper.image(backgroundImg.attr('src'), 0, 0, backgroundImg[0].width, backgroundImg[0].height);
+  paper.image(backgroundImg.attr('src'), 0, 0, backgroundImg[0].width, backgroundImg[0].height).toBack();
   var svg = BoardData.getCanvas()[0];
   //canvas.width = svg.width
   //var bp = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">;';
