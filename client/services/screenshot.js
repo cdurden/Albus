@@ -21,7 +21,6 @@ function screenshot() {
   var theImage=document.getElementById("screenshot");
       theImage.src=$canvas[0].toDataURL();
   theImage.onload = function() {
-    context.drawImage(theImage, 0, 0);
           var w = $window.open("");
           w.document.write(this.outerHTML);
   };
