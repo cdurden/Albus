@@ -101,6 +101,7 @@ app.post('/lti/', function(req, res, next) {
   res.redirect('/');
 });
 app.use(passport.authenticate('lti-spoof-strategy', {failureFlash: true}),  function (req, res, next) {
+    console.log("Passed lti-spoof-strategy middleware");
   console.log(req.session);
     next();
 });
