@@ -256,8 +256,7 @@ module.exports = function(server) {
               api.getTasksFromSource(data, function(error, data) {
                   console.log(data);
                   if (typeof io.of("/client").connected[socketId] !== 'undefined') {
-                    loadBoards(io.of("/client").connected[socketId]);
-                    //io.of("/client").connected[socketId].emit('tasks', data);
+                    loadBoards(io.of("/client").connected[socketId]); //FIXME: just inform the client of the update, and handle loading the boards on the client side
                   }
               });
             })  
@@ -456,7 +455,7 @@ module.exports = function(server) {
                   rooms.assignRoomToUser(user).then(function() {
                       rooms.assignRoomToSocket(socket).then(function(roomId) {
                           console.log("Setting up boards for socket "+socket.id);
-                          loadBoards(socket);
+                          //loadBoards(socket);
                             /*
                           rooms.setupBoards(socket, function (boards) {
                             console.log("Sending boards to "+socket.id);
