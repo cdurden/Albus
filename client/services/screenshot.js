@@ -16,7 +16,7 @@ function screenshot() {
   let [x, y, w, h] = box.split(/\s+|,/);
   var paper = Raphael($document.find("#screenshot-container")[0]);
   paper.canvas = canvas.cloneNode(true);
-  paper.setViewBox(x, y, w, h, true);
+  //paper.setViewBox(x, y, w, h, true);
   var backgroundImg = $document.find(".background-image img");
   //paper.image(backgroundImg.attr('src'), 0, 0, backgroundImg[0].width, backgroundImg[0].height).toBack();
   var svg = BoardData.getCanvas()[0];
