@@ -17,7 +17,7 @@ module.exports = function(server) {
 
   var io = socketio.listen(server);
   var sharedsession = require("express-socket.io-session");
-  io.use(sharedsession(session, {
+  io.of('/client').use(sharedsession(session, {
       autoSave:true
   }));
   
