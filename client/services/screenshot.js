@@ -4,8 +4,8 @@ var canvg;
 var canvas; // Create a Canvas element.
 var ctx; // For Canvas returns 2D graphic.
 $window.onload = () => {
-  var canvas = document.createElement('canvas'); // Create a Canvas element.
-  var ctx = canvas.getContext('2d'); // For Canvas returns 2D graphic.
+  canvas = document.createElement('canvas'); // Create a Canvas element.
+  ctx = canvas.getContext('2d'); // For Canvas returns 2D graphic.
   canvg = $window.canvg; // Render SVG on Canvas.
 };
 function SVG2PNG(svg, callback) {
@@ -15,7 +15,7 @@ function SVG2PNG(svg, callback) {
 }
 function screenshot() {
   var svg = BoardData.getCanvas()[0];
-  SVG2PNG(svg, function(canvas) {
+  SVG2PNG(svg, function() {
       var theImage=document.getElementById("toImage");
           theImage.src=canvas.toDataURL();
       theImage.onload(function() {
