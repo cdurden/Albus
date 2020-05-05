@@ -111,12 +111,17 @@ var server = http.createServer(app);
 app.use(compression());
 
 var io = require('./sockets')(server);
+io.use(sharedsession(session, {
+    autoSave:true
+}));
+/*
 io.of('/client').use(sharedsession(session, {
     autoSave:true
 }));
 io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the session established by a client
     autoSave:true
 }));
+*/
 io.on('connection', (socket) => {
     console.log("Got connection request");
     console.log(socket.handshake.session);
