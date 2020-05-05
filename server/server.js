@@ -119,6 +119,7 @@ io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the sessio
 }));
 io.on('connection', (socket) => {
     console.log("Got connection request");
+    console.log(socket.handshake.session);
     socket.use((packet, next) => {
         if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
             next();
