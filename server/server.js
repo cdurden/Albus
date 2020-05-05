@@ -252,8 +252,13 @@ app.get('/:id', function (req, res) {
 });
 
 app.get('/:id/screenShot', function (req, res) {
-  webshot('localhost:3000/' + req.params.id, req.params.id + '.png', function(err) {
-    res.sendFile(req.params.id + '.png', { root: __dirname });
+    //filename = sanitize(UNSAFE_USER_INPUT);
+    const tmp = require('tmp');
+    const tmpobj = tmp.fileSync();
+    console.log('File: ', tmpobj.name);
+    webshot('localhost:3000/' + req.params.id, tmpobj.name, function(err) {
+    res.sendFile(tmpobj.name, { root: __dirname });
+    //res.sendFile(tmpobj.name, { root: __dirname });
   });
 })
 var start = function () {
