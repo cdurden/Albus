@@ -10,7 +10,7 @@ var _ = require('underscore');
 var auth = require('./auth');
 var async = require('async');
 const { promisify } = require("util");
-module.exports = function(server) {
+module.exports = function(server, session) {
 
   var room = {};
   var board = {};
@@ -20,15 +20,9 @@ module.exports = function(server) {
   io.of('/client').use(sharedsession(session, {
       autoSave:true
   }));
-  
-  /*
-  io.of('/client').use(sharedsession(session, {
+  io.of('/admin').use(sharedsession(session, {
       autoSave:true
   }));
-  io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the session established by a client
-      autoSave:true
-  }));
-  */
   io.of('/client').use((socket, next) => {
       console.log("Got packet");
       console.log(socket.handshake.session);
@@ -38,10 +32,6 @@ module.exports = function(server) {
           next(new Error('Socket not authenticated'));
           //next();
       }
-  });
-  io.on('connection', (socket) => {
-      console.log("Got connection request");
-      console.log(socket.handshake.session);
   });
 
   // IMPORTANT: this must be called as soom as the connection is established to that information about the user can be used to control the socket
