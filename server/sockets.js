@@ -437,7 +437,8 @@ module.exports = function(server) {
     });
   });
   io.of('/client').on('connection', function (socket) {
-    console.log("connection from socket "+socket.id);
+    console.log("Handling client connection from socket "+socket.id);
+      console.log(socket.handshake.session);
     //if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
       if (typeof socket.handshake.session === 'undefined') {
           return;

@@ -122,20 +122,20 @@ io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the sessio
     autoSave:true
 }));
 */
+io.use((socket, next) => {
+    console.log("Got packet");
+    console.log(socket.handshake.session);
+    if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
+        next();
+    } else {
+        next(new Error('Socket not authenticated'));
+        //next();
+    }
+});
 io.on('connection', (socket) => {
     console.log("Got connection request");
     console.log(socket.handshake.session);
 });
-    io.use((socket, next) => {
-        console.log("Got packet");
-        console.log(socket.handshake.session);
-        if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
-            next();
-        } else {
-            next(new Error('Socket not authenticated'));
-            //next();
-        }
-    });
 
 /*
 app.use('/lti/', function(req,res) {
