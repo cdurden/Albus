@@ -19,7 +19,7 @@ var CustomStrategy = require('passport-custom');
 //var lti = require('ims-lti');
 var lti = require('@dinoboff/ims-lti');
 var auth = require('./auth');
-var sharedsession = require("express-socket.io-session");
+//var sharedsession = require("express-socket.io-session");
 var passport = require('passport');
 var expressSession = require('express-session');
 var redisStore = require('connect-redis')(expressSession);
@@ -111,11 +111,12 @@ var server = http.createServer(app);
 app.use(compression());
 
 var io = require('./sockets')(server);
+/*
 io.use(sharedsession(session, {
     autoSave:true
 }));
+*/
 
-server.start();
 /*
 io.of('/client').use(sharedsession(session, {
     autoSave:true
@@ -124,6 +125,7 @@ io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the sessio
     autoSave:true
 }));
 */
+/*
 io.use((socket, next) => {
     console.log("Got packet");
     console.log(socket.handshake.session);
@@ -138,6 +140,7 @@ io.on('connection', (socket) => {
     console.log("Got connection request");
     console.log(socket.handshake.session);
 });
+*/
 
 /*
 app.use('/lti/', function(req,res) {
@@ -295,7 +298,7 @@ var end = function () {
   server.close();
 };
 
-//start();
+start();
 
 
 exports.start = start;

@@ -16,6 +16,33 @@ module.exports = function(server) {
   var board = {};
 
   var io = socketio.listen(server);
+  var sharedsession = require("express-socket.io-session");
+  io.use(sharedsession(session, {
+      autoSave:true
+  }));
+  
+  /*
+  io.of('/client').use(sharedsession(session, {
+      autoSave:true
+  }));
+  io.of('/admin').use(sharedsession(session, { // FIXME: feeding off of the session established by a client
+      autoSave:true
+  }));
+  */
+  io.use((socket, next) => {
+      console.log("Got packet");
+      console.log(socket.handshake.session);
+      if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
+          next();
+      } else {
+          next(new Error('Socket not authenticated'));
+          //next();
+      }
+  });
+  io.on('connection', (socket) => {
+      console.log("Got connection request");
+      console.log(socket.handshake.session);
+  });
 
   // IMPORTANT: this must be called as soom as the connection is established to that information about the user can be used to control the socket
   function setSocketUser(socketId, user) {
