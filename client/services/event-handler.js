@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.eventhandler', [])
-.factory('EventHandler', ['BoardData', 'FeedData', 'TaskData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', 'Broadcast', function (BoardData, FeedData, TaskData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap, Broadcast) {
+.factory('EventHandler', ['BoardData', 'FeedData', 'TaskData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', 'Broadcast', 'Screenshot', function (BoardData, FeedData, TaskData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap, Broadcast, Screenshot) {
 
   function clearBoard() {
     //shapeStorage = {};
@@ -206,6 +206,10 @@ angular.module('whiteboard.services.eventhandler', [])
     }
   };
 
+  function screenshot() {
+      Screenshot.screenshot();
+  }
+
   return {
     cursor: cursor,
     setSocketId: setSocketId,
@@ -230,5 +234,6 @@ angular.module('whiteboard.services.eventhandler', [])
     loadBoardFromApi: loadBoardFromApi,
     loadBoards: loadBoards,
     saveBoardToApi: saveBoardToApi,
+    screenshot: screenshot,
   };
 }]);

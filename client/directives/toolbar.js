@@ -89,7 +89,7 @@ angular.module('whiteboard')
 
       Sockets.on('user', function(user) {
           if (user.role == 'teacher') {
-              scope.menuStructure[3] = ['Admin', ['Student View', 'Dashboard']]
+              scope.menuStructure[3] = ['Admin', ['Student View', 'Dashboard', 'Screenshot']]
           }
       })
       // var $colorIcon = element.find('.icon-color');
@@ -433,6 +433,9 @@ var $ctrl = this;
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
       }
+      this.screenshot = function () {
+        EventHandler.screenshot();
+      }
       this.submit = function () {
         data = {
           'boardId': BoardData.getBoardId(),
@@ -500,6 +503,8 @@ var $ctrl = this;
           submenuItemsCtrl.saveBoard();
         } else if (attrs.wbTool && attrs.wbTool === 'student view') {
           submenuItemsCtrl.open('sm', 'body');
+        } else if (attrs.wbTool && attrs.wbTool === 'screenshot') {
+          submenuItemsCtrl.screenshot();
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
           // console.log(ev)
           scope.$emit('toggleAllSubmenu', {action: 'hide', level: '3'});
