@@ -1,14 +1,20 @@
 angular.module('whiteboard.services.screenshot', [])
 .factory('Screenshot', ['BoardData', '$window', function (BoardData, $window) {
-function SVG2PNG(svg, callback) {
+var canvg;
+var canvas; // Create a Canvas element.
+var ctx; // For Canvas returns 2D graphic.
+$window.onload = () => {
   var canvas = document.createElement('canvas'); // Create a Canvas element.
   var ctx = canvas.getContext('2d'); // For Canvas returns 2D graphic.
+  canvg = $window.canvg(canvas, data); // Render SVG on Canvas.
+};
+function SVG2PNG(svg, callback) {
   var data = svg.outerHTML; // Get SVG element as HTML code.
-  $window.canvg(canvas, data); // Render SVG on Canvas.
+  canvg(canvas, data); // Render SVG on Canvas.
   callback(canvas); // Execute callback function.
 }
 function screenshot() {
-  svg = BoardData.getCanvas()[0];
+  var svg = BoardData.getCanvas()[0];
   SVG2PNG(svg, function(canvas) {
       var theImage=document.getElementById("toImage");
           theImage.src=canvas.toDataURL();
