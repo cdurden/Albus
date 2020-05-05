@@ -87,7 +87,9 @@ function getActingUserFromSocketId(socketId) {
             if (!actingAsUser) {
                 getUserFromSocketId(socketId).then(function(user) {
                     console.log("Got acting user: "+user);
-                    console.log("WARNING: This is the last fallback to get user information. Since this failed, user assignments will not be tied to this socket. This could mean that you did not call setSocketUser when making the socket connection.");
+                    if (typeof user === 'undefined') {
+                        console.log("WARNING: This is the last fallback to get user information. Since this failed, user assignments will not be tied to this socket. This could mean that you did not call setSocketUser when making the socket connection.");
+                    }
                     resolve(user);
                 });
             } else {
