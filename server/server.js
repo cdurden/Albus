@@ -82,11 +82,6 @@ passport.use('lti-strategy', new CustomStrategy(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(__dirname + '/lib'));
-app.use(express.static(__dirname + '/../client'));
-app.use('/lib/', express.static(__dirname + '/../node_modules'));
-app.use('/data/', express.static(__dirname + '/../data'));
-app.use('/admin/', express.static(__dirname + '/../admin'));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -105,6 +100,11 @@ app.use(passport.authenticate('lti-spoof-strategy', {failureFlash: true}),  func
   console.log(req.session);
     next();
 });
+app.use(express.static(__dirname + '/lib'));
+app.use(express.static(__dirname + '/../client'));
+app.use('/lib/', express.static(__dirname + '/../node_modules'));
+app.use('/data/', express.static(__dirname + '/../data'));
+app.use('/admin/', express.static(__dirname + '/../admin'));
 
 var server = http.createServer(app);
 
