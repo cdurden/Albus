@@ -6,7 +6,7 @@ var ctx; // For Canvas returns 2D graphic.
 $window.onload = () => {
   var canvas = document.createElement('canvas'); // Create a Canvas element.
   var ctx = canvas.getContext('2d'); // For Canvas returns 2D graphic.
-  canvg = $window.canvg(canvas, data); // Render SVG on Canvas.
+  canvg = $window.canvg; // Render SVG on Canvas.
 };
 function SVG2PNG(svg, callback) {
   var data = svg.outerHTML; // Get SVG element as HTML code.
