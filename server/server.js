@@ -257,7 +257,8 @@ app.get('/:id/screenShot', function (req, res) {
     const tmpobj = tmp.fileSync();
     console.log('File: ', tmpobj.name);
     webshot('localhost/' + req.params.id, tmpobj.name, function(err) {
-    res.sendFile(tmpobj.name);
+        console.log(err);
+        res.sendFile(tmpobj.name);
     //res.sendFile(tmpobj.name, { root: __dirname });
   });
 })
