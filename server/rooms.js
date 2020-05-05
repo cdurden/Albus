@@ -263,7 +263,6 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
         setupRoom(socket);
     }
     boardId = generateRandomId(5);
-    rooms[roomId][boardId] = {};
     taskBoards[roomId][taskId] = boardId;
   } else {
     boardId = taskBoards[roomId][taskId];

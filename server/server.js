@@ -256,11 +256,21 @@ app.get('/:id/screenShot', function (req, res) {
     const tmp = require('tmp');
     const tmpobj = tmp.fileSync({postfix: '.png' });
     console.log('File: ', tmpobj.name);
+    var page = require('webpage').create();
+    page.open('localhost' + req.params.id, function(status) {
+        var title = page.evaluate(function() {
+          return document.title;
+        });
+        console.log('Page title is ' + title);
+        phantom.exit();
+    });
+/*
     webshot('localhost/' + req.params.id, tmpobj.name, function(err) {
         console.log(err);
         res.sendFile(tmpobj.name);
     //res.sendFile(tmpobj.name, { root: __dirname });
   });
+*/
 })
 var start = function () {
   server.listen(port);
