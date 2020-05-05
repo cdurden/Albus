@@ -1,4 +1,5 @@
 var express = require('express');
+var webshot = require('webshot');
 const fileUpload = require('express-fileupload');
 var path = require('path');
 var app = express();
