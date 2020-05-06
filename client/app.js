@@ -83,7 +83,7 @@ angular.module('whiteboard', [
           }
         },
         //authenticate: true
-      });
+      })
       .when('/slides', {
         //templateUrl: './views/board.html',
         //templateUrl: 'views/board+chat.html',
