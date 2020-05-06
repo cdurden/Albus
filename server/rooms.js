@@ -300,7 +300,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
               callback(null, {
                   'task': { 'id': taskId },
                   'id': boardId,
-                  'data': result,
+                  'shapeStorage': result,
               });
           });
       }
