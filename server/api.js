@@ -202,7 +202,7 @@ async function getActingSessionUser(session) {
 }
 async function getBoard(session, boardId, callback) {
   var lti_user_id = await getActingSessionUser(session);
-  console.log("Getting board with id "+boardId);
+  console.log("Getting board with id "+boardId+" for user "+lti_user_id);
   request({
       url: `${scheme}://${host}:${port}/api/user/${lti_user_id}/board/${boardId}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
