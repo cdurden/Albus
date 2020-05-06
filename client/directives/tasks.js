@@ -36,7 +36,8 @@ angular.module('whiteboard')
           for (let [boardId, board] of Object.entries($scope.boardData.boards)) {
               if (board.i === i) {
                   //$scope.setBoardId(boardId);
-                  EventHandler.loadBoard(boardId);
+                  //BoardData.setBoardById(id);
+                  $scope.boardData.boardId = boardId;
                   return(true);
               }
           }
@@ -132,6 +133,7 @@ angular.module('whiteboard')
       */
       scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         scope.board = scope.boardData.boards[scope.boardData.boardId];
+        EventHandler.loadBoard(scope.boardData.boardId);
           /*
         scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
         scope.board = board;
