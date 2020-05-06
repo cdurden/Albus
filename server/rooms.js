@@ -239,16 +239,17 @@ function setupBoards(socket, callback) {
 }
 function loadBoard(socket, board, callback) {
   roomId = socket.room;
+  boardId = board.boardId;
   if (typeof rooms[roomId] === 'undefined') {
       setupRoom(socket);
   }
-  rooms[roomId][board.id] = board['shapeStorage'];
-  client.hmset(roomId, board.id, JSON.stringify(board['shapeStorage'])); 
+  rooms[roomId][boardId] = board['shapeStorage'];
+  client.hmset(roomId, boardId, JSON.stringify(board['shapeStorage'])); 
   if (board.task_id) {
       if (typeof taskBoards[roomId] === 'undefined') {
           taskBoards[roomId] = {};
       }
-      taskBoards[roomId][board.task_id] = board.id
+      taskBoards[roomId][board.task_id] = boardId
   }
   callback(null, board);
 }

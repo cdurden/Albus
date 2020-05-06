@@ -651,7 +651,7 @@ function get_all_data_by_socket(socket, callback) {
           console.log("Board not found");
           socket.emit('boardNotFound', boardId);
         } else {
-          rooms.loadBoard(socket, board['data'], function(result) {
+          rooms.loadBoard(socket, board, function(result) {
             console.log("Sending board to client");
             socket.emit('board', board);
           });
