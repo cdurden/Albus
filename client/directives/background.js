@@ -100,6 +100,7 @@ angular.module('whiteboard')
                             //resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
                             $pinchZoom = element.find('pinch-zoom');
                             $pinchZoom.change(handleBackgroundResize);
+                            $pinchZoom.css("overflow", "unset");
                             $pinchZoom.dblclick(function(ev) {
                                 ev.currentTarget.scaleTo(2, {
                                   // Transform origin. Can be a number, or string percent, eg "50%"
