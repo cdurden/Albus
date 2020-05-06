@@ -172,7 +172,7 @@ angular.module('whiteboard.services.boarddata', [])
   function getSocketId () {
     return socketId;
   }
-  function getShapeStorage(id, boardId) {
+  function getShapeStorage(boardId) {
     var _shapeStorage;
     if (typeof boards[boardId] === 'undefined') {
         _shapeStorage = shapeStorage;
@@ -187,7 +187,7 @@ angular.module('whiteboard.services.boarddata', [])
 
 
   function pushToStorage (id, socketId, boardId, shape) {
-    var _shapeStorage = getShapeStorage(id, boardId);
+    var _shapeStorage = getShapeStorage(boardId);
     if (typeof _shapeStorage[socketId] === 'undefined') {
       _shapeStorage[socketId] = {};
     }
@@ -195,11 +195,11 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function getShapeById (id, socketId, boardId) {
-    var _shapeStorage = getShapeStorage(id, boardId);
+    var _shapeStorage = getShapeStorage(boardId);
     return _shapeStorage[socketId][id];
   }
   function removeShape (shape) {
-    var _shapeStorage = getShapeStorage(id, boardId);
+    var _shapeStorage = getShapeStorage(boardId);
     if (shape.socketId !== null && shape.id !== null) {
       delete _shapeStorage[shape.socketId][shape.id];
     }
@@ -210,7 +210,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function setCurrentShape (id) {
-    var _shapeStorage = getShapeStorage(id, boardId);
+    var _shapeStorage = getShapeStorage(boardId);
     currentShape = _shapeStorage[socketId][id];
   }
 
