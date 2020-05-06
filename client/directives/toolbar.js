@@ -13,6 +13,17 @@ angular.module('whiteboard')
     controller: function ($scope) {
 
       var fill = [
+        '#950008',
+        '#fa4103',
+        '#f3f726',
+        '#00af0c',
+        '#08a8fe',
+        '#061bff',
+        '#95075d',
+        '#cbcbcb',
+        '#47121a',
+        '#000000',
+          /*
         '#e74c3c', 
         '#e67e22', 
         '#f1c40f', 
@@ -23,9 +34,21 @@ angular.module('whiteboard')
         '#34495e',
         '#95a5a6',
         '#ecf0f1',
+        */
       ];
 
       var stroke = [
+        '#950008',
+        '#fa4103',
+        '#f3f726',
+        '#00af0c',
+        '#08a8fe',
+        '#061bff',
+        '#95075d',
+        '#cbcbcb',
+        '#47121a',
+        '#000000',
+          /*
         '#c0392b',
         '#d35400',
         '#f39c12',
@@ -36,6 +59,7 @@ angular.module('whiteboard')
         '#2c3e50',
         '#7f8c8d',
         '#bdc3c7',
+        */
       ];
 
       var thickness = [
