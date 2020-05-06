@@ -60,12 +60,12 @@ angular.module('whiteboard')
                 }
             });
             scope.$watch("backgroundCleared", function (newValue, oldValue) {
-                var container = element.find('.background-image');
                 if (newValue) {
                     element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     eval(((scope.$parent.task || {}).data || {}).onload);
                 } else {
                 */
+                    var container = element.find('.background-image');
                     var handleBackgroundResize = (function(elmt) { return function () {
                             backgroundRect = elmt.getBoundingClientRect();
                             dim = backgroundRect;
