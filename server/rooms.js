@@ -270,12 +270,12 @@ function loadBoard(socket, board, callback) {
 function getOrCreateTaskBoard(socket, taskId, callback) {
   var boardId;
   roomId = socket.room;
+  if (typeof rooms[roomId] === 'undefined') {
+      setupRoom(socket);
+  }
   //if (typeof taskBoards[roomId][taskId] === 'undefined') {
   getTaskBoard(roomId, taskId).then(function(boardId) {
       if (!boardId) { //FIXME: check this correctly
-          if (typeof rooms[roomId] === 'undefined') {
-              setupRoom(socket);
-          }
           boardId = generateRandomId(5);
     //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
           setTaskBoard(roomId, taskId, boardId).then(function() {
