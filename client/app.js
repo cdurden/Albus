@@ -105,7 +105,7 @@ angular.module('whiteboard', [
         //templateUrl: 'views/slides.html',
         resolve: {
           'something': function (Sockets, EventHandler, $location) {
-            EventHandler.loadBoards($location.path().slice(2));
+            EventHandler.loadBoards($location.path().slice(13));
             Sockets.emit('getUsers');
             Sockets.emit('getUser');
             Sockets.emit('getActingUser');
