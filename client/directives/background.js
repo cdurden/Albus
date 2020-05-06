@@ -51,7 +51,7 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             //scope.$watch("board", function(board) {
             //scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
-            scope.$watchCollection(function () { return element.find('.background-image').toArray(); }, function (newValue, oldValue) {
+            scope.$watchCollection(function () { return element.find('.background-image img').toArray(); }, function (newValue, oldValue) {
                 if(newValue.length>0) {
                     /*
                     scope.backgroundCleared = true;
