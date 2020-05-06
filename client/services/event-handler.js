@@ -209,6 +209,18 @@ angular.module('whiteboard.services.eventhandler', [])
   function screenshot() {
       Screenshot.screenshot();
   }
+  var activateNav = function() {
+    var $canvas = BoardData.getCanvas();
+    var $container = $canvas.parent();
+    $container.css("pointer-events", "none");
+    $container.children().css("pointer-events", "none");
+  }
+  var activateDraw = function() {
+    var $canvas = BoardData.getCanvas();
+    var $container = $canvas.parent();
+    $container.css("pointer-events", "all");
+    $container.children().css("pointer-events", "all");
+  }
 
   return {
     cursor: cursor,
@@ -235,5 +247,7 @@ angular.module('whiteboard.services.eventhandler', [])
     loadBoards: loadBoards,
     saveBoardToApi: saveBoardToApi,
     screenshot: screenshot,
+    activateNav: activateNav,
+    activateDraw: activateDraw,
   };
 }]);

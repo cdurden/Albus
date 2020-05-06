@@ -13,8 +13,9 @@ angular.module('whiteboard')
     link: function (scope, element, attrs, ctrls) {
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
       var boardCtrl = ctrls[0];
-      /*
       BoardData.createBoard(element);
+      BoardData.activateNav();
+      /*
       BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
       BoardData.getCanvas().bind('click', function() {scope.$emit('activateMenu', 'hide');});
       scope.$on('setCursorClass', function (evt, msg) {

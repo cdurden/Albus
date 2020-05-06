@@ -99,7 +99,10 @@ angular.module('whiteboard')
 	function onNavigateNextClicked( event ) { event.preventDefault(); navigateNext(); }
 
       var boardCtrl = ctrl;
+        /*
       BoardData.createBoard(element.find('#board-container'));
+      EventHandler.activateNav();
+      */
       var canvas = BoardData.getCanvas();
       //BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
       canvas.bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);

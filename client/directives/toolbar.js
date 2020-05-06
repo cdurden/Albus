@@ -23,6 +23,7 @@ angular.module('whiteboard')
         '#cbcbcb',
         '#47121a',
         '#000000',
+        'transparent',
           /*
         '#e74c3c', 
         '#e67e22', 
