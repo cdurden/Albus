@@ -84,19 +84,6 @@ angular.module('whiteboard')
                     //((resizeSensor || {}).destroy || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     //((resizeSensor || {}).detach || (() =>{}))(); //FIXME: angular.js:15570 TypeError: Cannot read property '_isCollectionTyped' of undefined (ResizeSensor.js)
                     var img = element.find("img")[0];
-                    $pinchZoom = element.parents('pinch-zoom');
-                    $pinchZoom.change(handleBackgroundResize);
-                    $pinchZoom.dblclick(function(ev) {
-                        ev.currentTarget.scaleTo(2, {
-                          // Transform origin. Can be a number, or string percent, eg "50%"
-                          originX: 0,
-                          originY: 0,
-                          // Should the transform origin be relative to the container, or content?
-                          relativeTo: 'content',
-                          // Fire a 'change' event if values are different to current values
-                          allowChangeEvent: true,
-                        });
-                    });
                     if (typeof img !== 'undefined') {
                         img.onload = function() {
                             w = img.naturalWidth;
@@ -111,6 +98,19 @@ angular.module('whiteboard')
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
                             //resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
+                            $pinchZoom = element.parents('pinch-zoom');
+                            $pinchZoom.change(handleBackgroundResize);
+                            $pinchZoom.dblclick(function(ev) {
+                                ev.currentTarget.scaleTo(2, {
+                                  // Transform origin. Can be a number, or string percent, eg "50%"
+                                  originX: 0,
+                                  originY: 0,
+                                  // Should the transform origin be relative to the container, or content?
+                                  relativeTo: 'content',
+                                  // Fire a 'change' event if values are different to current values
+                                  allowChangeEvent: true,
+                                });
+                            });
                             resizeSensor = new ResizeSensor(container[0], handleBackgroundResize);
                             //resizeSensor = ResizeSensorApi.create(container[0], handleBackgroundResize);
                             //resizeSensor = new ResizeSensor(container[0], handleBackgroundResize);
