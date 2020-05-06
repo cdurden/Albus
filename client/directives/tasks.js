@@ -31,7 +31,7 @@ angular.module('whiteboard')
           EventHandler.loadBoard(id);
       }
       */
-      $scope.setBoardIndex = function(i) {
+      $scope.setBoardIndex = function(i, $event) {
           $scope.i = i;
           for (let [boardId, board] of Object.entries($scope.boardData.boards)) {
               if (board.i === i) {
@@ -41,17 +41,22 @@ angular.module('whiteboard')
                   return(true);
               }
           }
+          $event && $event.preventDefault();
           return(false);
       }
-      $scope.navigateNext = function() {
+      $scope.navigateNext = function($event) {
           if ($scope.i<Object.keys($scope.boardData.boards).length-1) {
               $scope.setBoardIndex($scope.i+1);
           }
+          $event && $event.preventDefault();
+          return(false);
       }
-      $scope.navigatePrev = function() {
+      $scope.navigatePrev = function($event) {
           if ($scope.i>0) {
               $scope.setBoardIndex($scope.i-1);
           }
+          $event && $event.preventDefault();
+          return(false);
       }
       $scope.submit = function() { //FIXME: this should not be here
           data = {
