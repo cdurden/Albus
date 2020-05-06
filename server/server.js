@@ -287,6 +287,7 @@ app.get('/:id/screenShot', function (req, res) {
         console.log('Page title is ' + title);
         phantom.exit();
     });
+})
 */
 /*
     webshot('localhost/' + req.params.id, tmpobj.name, function(err) {
@@ -295,7 +296,6 @@ app.get('/:id/screenShot', function (req, res) {
     //res.sendFile(tmpobj.name, { root: __dirname });
   });
 */
-})
 var start = function () {
   server.listen(port);
 };
