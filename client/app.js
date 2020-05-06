@@ -69,6 +69,21 @@ angular.module('whiteboard', [
           }
         }
       })
+      .when('/lti/', {
+        templateUrl: '/views/board.html',
+        //templateUrl: 'views/board+chat.html',
+        resolve: {
+          'somethingElse': function (Sockets, EventHandler, $location) {
+            //BoardData.setBoardId($location.path().slice(1));
+            EventHandler.loadBoards();
+            Sockets.emit('getUsers');
+            Sockets.emit('getUser');
+            Sockets.emit('getActingUser');
+            //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
+          }
+        },
+        //authenticate: true
+      });
       .when('/slides', {
         //templateUrl: './views/board.html',
         //templateUrl: 'views/board+chat.html',

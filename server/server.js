@@ -97,11 +97,13 @@ app.post('/lti/', function(req, res, next) {
   //res.send('POST request to the homepage')
   res.redirect('/');
 });
+/*
 app.use(passport.authenticate('lti-spoof-strategy', {failureFlash: true}),  function (req, res, next) {
     console.log("Passed lti-spoof-strategy middleware");
   console.log(req.session);
     next();
 });
+*/
 app.use(express.static(__dirname + '/lib'));
 app.use(express.static(__dirname + '/../client'));
 app.use('/lib/', express.static(__dirname + '/../node_modules'));
@@ -264,6 +266,7 @@ app.use(function ( req, res ) {
 
 // ======================== main routes ===============================//
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
+/*
 app.get('/:id', function (req, res) {
   console.log(req.user);
   res.sendFile(path.resolve(__dirname+'/../client/index.html'));
@@ -274,6 +277,7 @@ app.get('/:id/screenShot', function (req, res) {
     const tmp = require('tmp');
     const tmpobj = tmp.fileSync({postfix: '.png' });
     console.log('File: ', tmpobj.name);
+    */
 /*
     var page = require('webpage').create();
     page.open('localhost' + req.params.id, function(status) {
