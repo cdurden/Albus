@@ -285,7 +285,7 @@ angular.module('whiteboard.services.boarddata', [])
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
   function updateBoards(_boards) {
-    for (id in boards) {
+    for (id in _boards) {
         if (typeof boardId === 'undefined') {
             if (boards[id].i == 0) {
                 $rootScope.$apply(function() {
