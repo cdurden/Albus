@@ -215,16 +215,19 @@ function setupBoard(socket, boardId, callback) {
         client.hmset(roomId, boardId, JSON.stringify({})); 
         rooms[roomId][boardId] = {};
       }
+      console.log("Node.js process board data");
+      console.log(rooms[roomId][boardId]);
       console.log("Setting up board "+boardId+" for socket "+socket.id);
       console.log("Redis board data");
       console.log(reply);
       
       if (!rooms[roomId][boardId]) {
-        rooms[roomId][boardId] = {};
+        //rooms[roomId][boardId] = {};
+        rooms[roomId][boardId] = reply;
       }
-      rooms[roomId][boardId][socket.id] = {};
-      console.log("Application board data");
-      console.log(rooms[roomId][boardId]);
+      if (typeof rooms[roomId][boardId][socket.id] === 'undefined') {
+          rooms[roomId][boardId][socket.id] = {};
+      }
       callback(rooms[roomId][boardId]);
     });
 }
