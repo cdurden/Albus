@@ -200,7 +200,7 @@ async function getActingSessionUser(session) {
         }
     });
 }
-function getBoard(session, boardId, callback) {
+async function getBoard(session, boardId, callback) {
   var lti_user_id = await getActingSessionUser(session);
   console.log("Getting board with id "+boardId);
   request({
