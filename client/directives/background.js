@@ -24,9 +24,13 @@ angular.module('whiteboard')
     }
     return {
         link: function(scope, element, attr){
+            var watchFn = function(scope) {
+                return scope.boardData.boardId;
+            }
             //scope.$watch("$parent.board", function(board) {
             //scope.$watch("board", function(board) {
-            scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
+            //scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
+            scope.$watch(watchFn, function(newBoardId, oldBoardId) {
                 var board = scope.boardData.boards[newBoardId];
                 element.html((((board || {}).task || {}).data || {}).background_html || "");
             //scope.$watch("$parent.task", function(task) {
