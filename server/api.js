@@ -200,10 +200,11 @@ async function getActingSessionUser(session) {
         }
     });
 }
-function getBoard(boardId, callback) {
+function getBoard(session, boardId, callback) {
+  var lti_user_id = await getActingSessionUser(session);
   console.log("Getting board with id "+boardId);
   request({
-      url: `${scheme}://${host}:${port}/api/board/${boardId}`,
+      url: `${scheme}://${host}:${port}/api/user/${lti_user_id}/board/${boardId}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
       json: data,
   },

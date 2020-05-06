@@ -640,7 +640,7 @@ function get_all_data_by_socket(socket, callback) {
       });
     });
     socket.on('loadBoardFromApi', function(boardId) {
-      api.getBoard(boardId, function(err, board) {
+      api.getBoard(socket.handshake.session, boardId, function(err, board) {
         if (typeof board.id === 'undefined') {
             board = {
                 'boardId': boardId,
