@@ -49,7 +49,11 @@ angular.module('whiteboard')
     //scope: {},
         link: function(scope, element, attr){
             //scope.$watch("$parent.board", function(board) {
-            //scope.$watch("board", function(board) {
+            scope.$watch("board", function(newValue, oldValue) {
+                if (typeof newValue === 'undefined') {
+                    scope.$parent.setBoardIndex(0);
+                }
+            }
             //scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
             scope.$watchCollection(function () { return element.find('.background-image img').toArray().map(elmt => { return elmt.getAttribute("src"); }); }, function (newValue, oldValue) {
                 if(newValue.length>0) {
