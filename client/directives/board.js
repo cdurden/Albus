@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbBoard', ['BoardData', 'Broadcast', 'Receive', 'LeapMotion', function (BoardData) {
+.directive('wbBoard', ['BoardData', 'EventHandler', function (BoardData, EventHandler) {
   return {
     restrict: 'A',
     require: ['wbBoard'],
@@ -14,7 +14,7 @@ angular.module('whiteboard')
       $("#board-container").on('touchstart', function (e) { e.preventDefault(); });
       var boardCtrl = ctrls[0];
       BoardData.createBoard(element);
-      BoardData.activateNav();
+      EventHandler.activateNav();
       /*
       BoardData.getCanvas().bind('touchstart touchend touchmove mousedown mouseup mousemove dblclick', boardCtrl.handleEvent);
       BoardData.getCanvas().bind('click', function() {scope.$emit('activateMenu', 'hide');});
