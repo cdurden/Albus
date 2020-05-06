@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbBoard', ['BoardData', 'EventHandler', function (BoardData, EventHandler) {
+.directive('wbBoard', ['BoardData', 'EventHandler', 'Receive', function (BoardData, EventHandler) {
   return {
     restrict: 'A',
     require: ['wbBoard'],
