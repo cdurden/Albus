@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.receive', [])
-.factory('Receive', function (Sockets, EventHandler) {
+.factory('Receive', function (Sockets, EventHandler, UserData) {
   Sockets.on('showExisting', function (data) {
     console.log("show existing");
     console.log(data);
@@ -44,6 +44,9 @@ angular.module('whiteboard.services.receive', [])
       EventHandler.setTaskBoard(taskBoards[taskId], taskId);
     }
   });
+  Sockets.on('users', function(users) {
+      UserData.setUsers(users);
+  }
   Sockets.on('clearBoard', function (data) {
     "clearing the board";
     EventHandler.clearBoard();
@@ -98,6 +101,9 @@ angular.module('whiteboard.services.receive', [])
     console.log(data);
     EventHandler.confirmTaskSubmission(data);
   })
+  Sockets.on('actingAsUser', function(data) {
+    UserData.setActingUser(data);
+  });
 
   return {};
 

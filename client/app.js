@@ -21,6 +21,7 @@ angular.module('whiteboard', [
   'whiteboard.services.visualizer',
   'whiteboard.services.feeddata',
   'whiteboard.services.taskdata',
+  'whiteboard.services.userdata',
   'whiteboard.services.messagehandler',
   'whiteboard.services.reveal',
   'whiteboard.services.screenshot',

@@ -373,16 +373,15 @@ angular.module('whiteboard')
     restrict: 'C',
     replace: false,
     require: 'wbSubmenuItems',
-    controller: function ($scope, BoardData, EventHandler, Sockets, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
+    controller: function ($scope, BoardData, EventHandler, Sockets, UserData, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
+    $scope.actingAsUser = UserData.getActingUser();
+        /*
   Sockets.on('actingAsUser', function(data) {
     $scope.actingAsUser = data;
   });
+  */
 
-var $ctrl = this;
- $ctrl.users = [];
-  Sockets.on('users', function(data) {
-    $ctrl.users = Object.values(data);
-  });
+  var $ctrl = this;
   $ctrl.animationsEnabled = true;
 
 
@@ -401,7 +400,7 @@ var $ctrl = this;
       appendTo: parentElem,
       resolve: {
         users: function () {
-          return $ctrl.users;
+          return UserData.getUsers();
         }
       }
     });
@@ -417,19 +416,6 @@ var $ctrl = this;
     $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
   };
 
-/*
-      this.openModal = function(id) {
-          Modal.Open(id);
-      }
-      this.closeModal = function(id) {
-          Modal.Close(id);
-      }
-*/
-        /*
-      this.viewAsUser = function(student) {
-          EventHandler.viewAsUser(student);
-      }
-      */
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
       }
