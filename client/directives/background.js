@@ -7,7 +7,10 @@ angular.module('whiteboard')
             }
             scope.$watch(watchFn, function(newBoardId, oldBoardId) {
                 var board = scope.boardData.boards[newBoardId];
-                element.html( (((board || {}).task || {}).data || {}).background_html || "");
+                taskBackgroundHtml = (((board || {}).task || {}).data || {}).background_html;
+                if (typeof taskBackgroundHtml !== 'undefined' ) {
+                    element.html(taskBackgroundHtml);
+                }
             //scope.$watch("$parent.task", function(task) {
             //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     //eval(((scope.$parent.task || {}).data || {}).onload);
