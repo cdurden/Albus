@@ -36,7 +36,7 @@ angular.module('whiteboard')
           for (let [boardId, board] of Object.entries($scope.boardData.boards)) {
               if (board.i === i) {
                   //$scope.setBoardId(boardId);
-                  EventHandler.loadBoard(id);
+                  EventHandler.loadBoard(boardId);
                   return(true);
               }
           }
