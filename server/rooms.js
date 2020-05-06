@@ -302,7 +302,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
               });
           });
       }
-  }
+  });
 }
 var roomsManager = {
 
