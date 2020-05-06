@@ -110,7 +110,7 @@ angular.module('whiteboard.services.broadcast', [])
   var loadBoardFromApi = function (data) {
     Sockets.emit('loadBoardFromApi', data)
   };
-  var loadBoards = function () {
+  var loadBoards = function (assignment) {
     Sockets.emit('loadBoards')
   };
   var getLatestBoardFromApi = function (data) {
