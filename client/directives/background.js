@@ -4,7 +4,7 @@ angular.module('whiteboard')
         link: function(scope, element, attr){
             scope.$watch(watchFn, function(newBoardId, oldBoardId) {
                 var board = scope.boardData.boards[newBoardId];
-                element.html( board.background_(((board || {}).task || {}).data || {}).background_html || "");
+                element.html( (((board || {}).task || {}).data || {}).background_html || "");
             //scope.$watch("$parent.task", function(task) {
             //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     //eval(((scope.$parent.task || {}).data || {}).onload);
