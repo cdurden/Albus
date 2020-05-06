@@ -296,12 +296,12 @@ angular.module('whiteboard.services.boarddata', [])
                 });
             }
         }
-        boardIds.push(board.id) 
+        boardIds.push(board.id);
         boards[board.id] = board;
     }
-    for (board of boards){
+    for (let [boardId,board] of Object.entries(boards)){
         if (!boardIds.includes(board.id)) {
-            delete boards[id]; //FIXME: prompt user to save changes
+            delete boards[boardId]; //FIXME: prompt user to save changes
         }
     }
   }
