@@ -115,8 +115,11 @@ angular.module('whiteboard.services.shapeeditor', [])
       var lastPoint = path.slice(path.lastIndexOf('L') + 1).split(',').map(Number);
       if (lastPoint[0] === shape.initX && lastPoint[1] === shape.initY) {
         shape.pathDProps = path + 'Z';
-        shape.attr('fill', shape.tool.colors.fill ? shape.tool.colors.fill : (shape.tool.colors.fill = tool.colors.fill));
+        //shape.attr('fill', shape.tool.colors.fill ? shape.tool.colors.fill : (shape.tool.colors.fill = tool.colors.fill));
       }
+      // put this here to fill paths even if they are not closed.
+      shape.attr('fill', shape.tool.colors.fill ? shape.tool.colors.fill : (shape.tool.colors.fill = tool.colors.fill));
+
       ShapeManipulation.pathSmoother(shape);
     }
     
