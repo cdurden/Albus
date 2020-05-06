@@ -24,16 +24,19 @@ angular.module('whiteboard')
       //$scope.data = {};
       //Sockets.emit("getAssignedTasks");
       //EventHandler.loadBoards();
+        /*
       $scope.setBoardId = function(id) {
           BoardData.setBoardById(id);
           $scope.boardData.boardId = id;
           EventHandler.loadBoard(id);
       }
+      */
       $scope.setBoardIndex = function(i) {
           $scope.i = i;
           for (let [boardId, board] of Object.entries($scope.boardData.boards)) {
               if (board.i === i) {
-                  $scope.setBoardId(boardId);
+                  //$scope.setBoardId(boardId);
+                  EventHandler.loadBoard(id);
                   return(true);
               }
           }
@@ -129,10 +132,12 @@ angular.module('whiteboard')
       */
       scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         var board = scope.boardData.boards[scope.boardData.boardId];
+          /*
         scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
         scope.board = board;
         scope.task = (board || {}).task;
-      }, true);
+        */
+      });
         /*
       scope.$watch("taskData.tasks", function(tasks) {
           tasks.forEach((task, i) => { 
