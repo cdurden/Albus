@@ -291,7 +291,7 @@ angular.module('whiteboard.services.boarddata', [])
                 $rootScope.$apply(function() {
                     boardId = id;
                     boardData.boardId = id;
-                }
+                });
             }
         }
         if (!Object.keys(_boards).includes(id)) {
