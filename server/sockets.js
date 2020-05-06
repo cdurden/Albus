@@ -648,9 +648,11 @@ function get_all_data_by_socket(socket, callback) {
                 'data': {}
             }
         */
+          console.log("Board not found");
           socket.emit('boardNotFound', boardId);
         } else {
           rooms.loadBoard(socket, board['data'], function(result) {
+            console.log("Sending board to client");
             socket.emit('board', board);
           });
         }
