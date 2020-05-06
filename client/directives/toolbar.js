@@ -81,8 +81,8 @@ angular.module('whiteboard')
           $scope.$broadcast('resetTargetBackground', msg);
         }
       })
-      Sockets.emit('getUser');
-      Sockets.emit('getActingUser');
+      //Sockets.emit('getUser');
+      //Sockets.emit('getActingUser');
 
     },
     link: function (scope, element, attrs, ctrls) {
@@ -374,7 +374,7 @@ angular.module('whiteboard')
     replace: false,
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData, EventHandler, Sockets, UserData, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
-    $scope.actingAsUser = UserData.getActingUser();
+    $scope.userData = UserData.getDataObject();
         /*
   Sockets.on('actingAsUser', function(data) {
     $scope.actingAsUser = data;

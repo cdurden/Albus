@@ -55,6 +55,8 @@ angular.module('whiteboard', [
           'something': function (Sockets, EventHandler, $location) {
             EventHandler.loadBoards();
             Sockets.emit('getUsers');
+            Sockets.emit('getUser');
+            Sockets.emit('getActingUser');
             /*
             var roomId = Auth.generateRandomId(5);
             Sockets.emit('roomId', {roomId: roomId});
@@ -93,6 +95,8 @@ angular.module('whiteboard', [
             //BoardData.setBoardId($location.path().slice(1));
             EventHandler.loadBoardFromApi($location.path().slice(1));
             Sockets.emit('getUsers');
+            Sockets.emit('getUser');
+            Sockets.emit('getActingUser');
             //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
           }
         },
