@@ -31,8 +31,9 @@ angular.module('whiteboard')
             //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     eval(((scope.$parent.task || {}).data || {}).onload);
             });
-            scope.$watch(function () { return element.find('.background-image')[0]; }, function (newValue, oldValue) {
-                if(element.find('.background-image').length==0) {
+            scope.$watchGroup(function () { return element.find('.background-image').toArray(); }, function (newValue, oldValue) {
+                if(newValue.length>0) {
+                    /*
                     scope.backgroundCleared = true;
                 } else {
                     scope.backgroundCleared = false;
@@ -43,6 +44,7 @@ angular.module('whiteboard')
                 if (newValue) {
                     element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     eval(((scope.$parent.task || {}).data || {}).onload);
+                */
                 } else {
                     var handleBackgroundResize = (function(elmt) { return function () {
                             backgroundRect = elmt.getBoundingClientRect();
