@@ -98,7 +98,7 @@ angular.module('whiteboard')
                             //h = backgroundRect.height;
                             //((rs2 || {}).detach || (() =>{}))();
                             //resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
-                            $pinchZoom = element.parents('pinch-zoom');
+                            $pinchZoom = element.find('pinch-zoom');
                             $pinchZoom.change(handleBackgroundResize);
                             $pinchZoom.dblclick(function(ev) {
                                 ev.currentTarget.scaleTo(2, {
