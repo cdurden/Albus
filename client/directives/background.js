@@ -3,7 +3,7 @@ angular.module('whiteboard')
     return {
         link: function(scope, element, attr){
             var watchFn = function(scope) {
-                var board = scope.boardData.boards[scope.boar  dData.boardId]
+                var board = scope.boardData.boards[scope.boardData.boardId];
                 return (((board || {}).task   || {}).data || {}).background_html;
             }
             //scope.$watch(watchFn, function(newBoardId, oldBoardId) {
