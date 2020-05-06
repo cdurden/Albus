@@ -3,13 +3,16 @@ angular.module('whiteboard')
     return {
         link: function(scope, element, attr){
             var watchFn = function(scope) {
-                return scope.boardData.boardId;
+                var board = scope.boardData.boards[scope.boar  dData.boardId]
+                return (((board || {}).task   || {}).data || {}).background_html;
             }
-            scope.$watch(watchFn, function(newBoardId, oldBoardId) {
-                var board = scope.boardData.boards[newBoardId];
-                taskBackgroundHtml = (((board || {}).task || {}).data || {}).background_html;
-                if (typeof taskBackgroundHtml !== 'undefined' ) {
-                    element.html(taskBackgroundHtml);
+            //scope.$watch(watchFn, function(newBoardId, oldBoardId) {
+            scope.$watch(watchFn, function(newBackgroundHtml, oldBackgroundHtml) {
+                //var board = scope.boardData.boards[newBoardId];
+                //taskBackgroundHtml = (((board || {}).task || {}).data || {}).background_html;
+                //if (typeof taskBackgroundHtml !== 'undefined' ) {
+                if (typeof newBackgroundHtml !== 'undefined' ) {
+                    element.html(newBackgroundHtml);
                 }
             //scope.$watch("$parent.task", function(task) {
             //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
