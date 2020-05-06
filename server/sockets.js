@@ -159,7 +159,7 @@ module.exports = function(server, session) {
                                 });
                             }
                         }
-                        console.log("emitting boards");
+                        console.log("emitting boards to socket "+socket.id);
                         console.log(boards);
                         socket.emit('boards', boards);
                         taskObjectsPromise.then(function(taskObjects) {
