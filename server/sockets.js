@@ -104,11 +104,16 @@ module.exports = function(server, session) {
           });
       });
   }
-  function loadBoards(socket) {
-    getSocketData(socket.id).then(function(data) {
+  function loadBoards(socket, assignment) {
+    var assignmentPromise;
+    if (typeof assignment !== 'undefined') {
+        assignmentPromise = new Promise(resolve => { resolve({ 'assignment': assignment }) });
+    } else {
+        assignmentPromise = getSocketData(socket.id);
+    }
+    assignmentPromise.then(function(data) {
         assets.getAssignmentObject(data.assignment).then(function(assignmentData) {
             var taskObjectsPromise = assets.getTaskObjects(assignmentData, false);
-        
             //api.getActingApiUserFromSession(socket.handshake.session, function(error, user) {
             api.getTaskBoardsFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
               console.log("Got tasks");
@@ -254,6 +259,8 @@ module.exports = function(server, session) {
       console.log("assigning sockets to rooms");
       for (socketId in assignments) {
         rooms.assignRoomToSocket(io.of("/client").connected[socketId], assignments[socketId]['roomId']);
+        io.of("/client").connected[socketId].emit("room", assignments[socketId]['roomId']); //FIXME: handle exceptions
+          /*
         getSocketData(socketId).then(function(data) {
             var socketId = data.socketId;
             var assignment = data.assignment;
@@ -280,6 +287,7 @@ module.exports = function(server, session) {
               });
             })  
         });
+        */
       }
     });
     socket.on('updateAssignments', function(data) {
@@ -664,8 +672,8 @@ function get_all_data_by_socket(socket, callback) {
       var boardStorage = rooms.getBoardStorage(socket.room, boardId);
       socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
     });
-    socket.on('loadBoards', function() {
-      loadBoards(socket);
+    socket.on('loadBoards', function(assignment) {
+      loadBoards(socket, assignment);
       // load assignment
     });
     socket.on('getOrCreateTaskBoard', function(taskId) {

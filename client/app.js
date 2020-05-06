@@ -84,6 +84,43 @@ angular.module('whiteboard', [
         },
         //authenticate: true
       })
+      .when('/board/:id', {
+        templateUrl: '/views/board.html',
+        //templateUrl: 'views/board+chat.html',
+        resolve: {
+          'somethingElse': function (Sockets, EventHandler, $location) {
+            //BoardData.setBoardId($location.path().slice(1));
+            EventHandler.loadBoardFromApi($location.path().slice(2));
+            Sockets.emit('getUsers');
+            Sockets.emit('getUser');
+            Sockets.emit('getActingUser');
+            //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
+          }
+        },
+        //authenticate: true
+      })
+      .when('/assignment/:id', {
+        templateUrl: './views/board.html',
+        //templateUrl: 'views/board+chat.html',
+        //templateUrl: 'views/slides.html',
+        resolve: {
+          'something': function (Sockets, EventHandler, $location) {
+            EventHandler.loadBoards($location.path().slice(2));
+            Sockets.emit('getUsers');
+            Sockets.emit('getUser');
+            Sockets.emit('getActingUser');
+            /*
+            var roomId = Auth.generateRandomId(5);
+            Sockets.emit('roomId', {roomId: roomId});
+            $location.path('/' + roomId);
+            Sockets.on('assignment', function(data) {
+              $location.path('/' + data);
+            });
+            Sockets.emit('get_assignment');
+            */
+          }
+        }
+      })
       .when('/slides', {
         //templateUrl: './views/board.html',
         //templateUrl: 'views/board+chat.html',
@@ -101,21 +138,6 @@ angular.module('whiteboard', [
             */
           }
         }
-      })
-      .when('/:id', {
-        templateUrl: '/views/board.html',
-        //templateUrl: 'views/board+chat.html',
-        resolve: {
-          'somethingElse': function (Sockets, EventHandler, $location) {
-            //BoardData.setBoardId($location.path().slice(1));
-            EventHandler.loadBoardFromApi($location.path().slice(1));
-            Sockets.emit('getUsers');
-            Sockets.emit('getUser');
-            Sockets.emit('getActingUser');
-            //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
-          }
-        },
-        //authenticate: true
       });
 
     $locationProvider.html5Mode({
