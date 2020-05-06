@@ -44,9 +44,6 @@ angular.module('whiteboard.services.receive', [])
       EventHandler.setTaskBoard(taskBoards[taskId], taskId);
     }
   });
-  Sockets.on('users', function(users) {
-      UserData.setUsers(users);
-  }
   Sockets.on('clearBoard', function (data) {
     "clearing the board";
     EventHandler.clearBoard();
@@ -96,11 +93,14 @@ angular.module('whiteboard.services.receive', [])
   Sockets.on('tasks', function (data) {
     console.log(data);
     EventHandler.setTasks(data);
-  })
+  });
   Sockets.on('submissionConfirmation', function (data) {
     console.log(data);
     EventHandler.confirmTaskSubmission(data);
-  })
+  });
+  Sockets.on('users', function(users) {
+      UserData.setUsers(users);
+  });
   Sockets.on('actingAsUser', function(data) {
     UserData.setActingUser(data);
   });
