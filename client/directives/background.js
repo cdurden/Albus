@@ -51,7 +51,7 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             scope.$watch("board", function(newValue, oldValue) {
                 if (typeof newValue === 'undefined') {
-                    scope.$parent.setBoardIndex(0);
+                    scope.setBoardIndex(0);
                 }
             }
             //scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
