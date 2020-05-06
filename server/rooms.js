@@ -208,6 +208,9 @@ function setupBoard(socket, boardId, callback) {
       if (typeof rooms[roomId] === 'undefined') {
           setupRoom(socket)
       }
+      if (!rooms[roomId][boardId]) {
+        rooms[roomId][boardId] = {};
+      }
       if (reply) {
         storedBoard = JSON.parse(reply);
         _.extend(rooms[roomId][boardId], storedBoard);
@@ -221,10 +224,6 @@ function setupBoard(socket, boardId, callback) {
       console.log("Redis board data");
       console.log(reply);
       
-      if (!rooms[roomId][boardId]) {
-        //rooms[roomId][boardId] = {};
-        rooms[roomId][boardId] = reply;
-      }
       if (typeof rooms[roomId][boardId][socket.id] === 'undefined') {
           rooms[roomId][boardId][socket.id] = {};
       }
