@@ -42,6 +42,9 @@ angular.module('whiteboard')
         if (img.naturalWidth === 0) {
             return false;
         }
+        if (img.clientWidth === 0) {
+            return false;
+        }
         return true;
     }
   return {
@@ -130,11 +133,21 @@ angular.module('whiteboard')
                             oldContainer = container[0];
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
-                        if (isImageReady(img)) {
-                            console.log(angular.element(container).has(img).length);
-                            img.onload();
-                            handleBackgroundResize(); //FIXME: for some reason this is not called when the img is readded to the DOM a second time.
-                        }
+
+                        var checkImageInterval = function() { var counter = 0;
+                            return setInterval( function() {
+                                if (isImageReady(img)) {
+                                    console.log(angular.element(container).has(img).length);
+                                    img.onload();
+                                    handleBackgroundResize(); //FIXME: for some reason this is not called when the img is readded to the DOM a second time.
+                                    clearInterval(checkImageInterval);
+                                }
+                                if (counter > 100) {
+                                    clearInterval(checkImageInterval);
+                                }
+                                counter = counter+1;
+                            }, 100);
+                        }();
                     }
                 }
             });
