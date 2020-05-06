@@ -285,6 +285,8 @@ angular.module('whiteboard.services.boarddata', [])
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
   function updateBoards(_boards) {
+    var boardIds = [];
+    var board;
     for (board of _boards) {
         if (typeof boardId === 'undefined') {
             if (board.i == 0) {
@@ -294,12 +296,13 @@ angular.module('whiteboard.services.boarddata', [])
                 });
             }
         }
-        if (!Object.keys(_boards).includes(id)) {
+        boardIds.push(board.id) 
+        boards[board.id] = board;
+    }
+    for (board of boards){
+        if (!boardIds.includes(board.id)) {
             delete boards[id]; //FIXME: prompt user to save changes
         }
-    }
-    for (_board of _boards) {
-      boards[_board.id] = _board;
     }
   }
   function updateBoardStorage(_boardId, shapeStorage) {
