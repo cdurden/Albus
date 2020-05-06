@@ -366,7 +366,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function touchStart (ev) {
-    console.log('touchstart');
+    //console.log('touchstart');
     if (ev.originalEvent.targetTouches.length > 1) {
       BoardData.getCanvas().css({'pointer-events': 'none'});
     } else {
@@ -394,7 +394,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function touchEnd (ev) {
-    console.log('touchend');
+    //console.log('touchend');
     ev.preventDefault();
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
@@ -405,7 +405,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function mouseDown (ev) {
-    console.log('mousedown');
+    //console.log('mousedown');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     toggle(toolName);
@@ -423,7 +423,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function mouseUp (ev) {
-    console.log('mouseup');
+    //console.log('mouseup');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     if (isToggled(toolName)) {
