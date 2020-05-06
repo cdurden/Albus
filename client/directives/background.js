@@ -2,6 +2,9 @@ angular.module('whiteboard')
 .directive('compileTemplate',['BoardData', function compileTemplate(BoardData) {
     return {
         link: function(scope, element, attr){
+            var watchFn = function(scope) {
+                return scope.boardData.boardId;
+            }
             scope.$watch(watchFn, function(newBoardId, oldBoardId) {
                 var board = scope.boardData.boards[newBoardId];
                 element.html( (((board || {}).task || {}).data || {}).background_html || "");
@@ -45,13 +48,10 @@ angular.module('whiteboard')
     },
     //scope: {},
         link: function(scope, element, attr){
-            var watchFn = function(scope) {
-                return scope.boardData.boardId;
-            }
             //scope.$watch("$parent.board", function(board) {
             //scope.$watch("board", function(board) {
             //scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
-            scope.$watchCollection(function () { return element.find('.background-image img').toArray(); }, function (newValue, oldValue) {
+            scope.$watchCollection(function () { return element.find('.background-image img').toArray().map(elmt => { return elmt.getAttribute("src"); }); }, function (newValue, oldValue) {
                 if(newValue.length>0) {
                     /*
                     scope.backgroundCleared = true;
