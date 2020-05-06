@@ -31,7 +31,7 @@ angular.module('whiteboard')
             //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
                     eval(((scope.$parent.task || {}).data || {}).onload);
             });
-            scope.$watchGroup(function () { return element.find('.background-image').toArray(); }, function (newValue, oldValue) {
+            scope.$watchCollection(function () { return element.find('.background-image').toArray(); }, function (newValue, oldValue) {
                 if(newValue.length>0) {
                     /*
                     scope.backgroundCleared = true;

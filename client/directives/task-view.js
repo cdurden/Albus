@@ -22,7 +22,7 @@ angular.module('whiteboard')
     scope.$watch("$parent.task", function(task) {
       //var task;
       //angular.copy((board || {}).task, task);
-      //scope.task = task;
+      scope.task = task;
       if (typeof task !== 'undefined') {
           if (typeof task.data ==='undefined') {
               task.data = {};
