@@ -228,6 +228,20 @@ function setupBoard(socket, boardId, callback) {
       callback(rooms[roomId][boardId]);
     });
 }
+function getTaskBoard(roomId, taskId) {
+    return new Promise(resolve => {
+        client.hget('taskBoards', roomId+taskId, function(err, boardId) {
+            resolve(boardId);
+        });
+    });
+}
+function setTaskBoard(roomId, taskId, boardId) {
+    return new Promise(resolve => {
+        client.hmset('taskBoards', [roomId+taskId, boardId], function(err, res) {
+            resolve(res);
+        });
+    });
+}
 function setupBoards(socket, callback) {
   var boards = [];
   for (boardId in rooms[socket.room]) {
@@ -246,46 +260,48 @@ function loadBoard(socket, board, callback) {
   rooms[roomId][boardId] = board['shapeStorage'];
   client.hmset(roomId, boardId, JSON.stringify(board['shapeStorage'])); 
   if (board.task_id) {
-      if (typeof taskBoards[roomId] === 'undefined') {
-          taskBoards[roomId] = {};
-      }
-      taskBoards[roomId][board.task_id] = boardId
+      setTaskBoard(roomId, board.task_id, boardId).then(function() {
+          callback(null, board);
+      });
+  } else {
+      callback(null, board);
   }
-  callback(null, board);
 }
 function getOrCreateTaskBoard(socket, taskId, callback) {
   var boardId;
   roomId = socket.room;
-  if (typeof taskBoards[roomId] === 'undefined') {
-    //console.log("Task boards for roomId "+roomId+" do not exist. Creating this collection.");
-    taskBoards[roomId] = {};
-  }
-  if (typeof taskBoards[roomId][taskId] === 'undefined') {
+  //if (typeof taskBoards[roomId][taskId] === 'undefined') {
+  getTaskBoard(roomId, taskId).then(function(boardId) {
+      if (!boardId) { //FIXME: check this correctly
+          if (typeof rooms[roomId] === 'undefined') {
+              setupRoom(socket);
+          }
+          boardId = generateRandomId(5);
     //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
-    if (typeof rooms[roomId] === 'undefined') {
-        setupRoom(socket);
-    }
-    boardId = generateRandomId(5);
-    taskBoards[roomId][taskId] = boardId;
-  } else {
-    boardId = taskBoards[roomId][taskId];
-    //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-  }
-  console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-  if (typeof rooms[roomId][boardId] !== 'undefined') {
-      callback(null, {
-          'task': { 'id': taskId },
-          'id': boardId,
-          'shapeStorage': rooms[roomId][boardId],
-      });
-  } else {
-      setupBoard(socket, boardId, function(result) {
+          setTaskBoard(roomId, taskId, boardId).then(function() {
+              callback(null, board);
+          });
+   //taskBoards[roomId][taskId] = boardId;
+   //   } else {
+   //     boardId = taskBoards[roomId][taskId];
+        //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
+      }
+      console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
+      if (typeof rooms[roomId][boardId] !== 'undefined') {
           callback(null, {
               'task': { 'id': taskId },
               'id': boardId,
-              'data': result,
+              'shapeStorage': rooms[roomId][boardId],
           });
-      });
+      } else {
+          setupBoard(socket, boardId, function(result) {
+              callback(null, {
+                  'task': { 'id': taskId },
+                  'id': boardId,
+                  'data': result,
+              });
+          });
+      }
   }
 }
 var roomsManager = {
