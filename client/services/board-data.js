@@ -288,6 +288,7 @@ angular.module('whiteboard.services.boarddata', [])
     var boardIds = [];
     var board;
     for (board of newBoards) {
+        boards[board.id] = board;
         if (typeof boardId === 'undefined') {
             if (board.i == 0) {
                 $rootScope.$apply(function() {
@@ -297,7 +298,6 @@ angular.module('whiteboard.services.boarddata', [])
             }
         }
         boardIds.push(board.id);
-        boards[board.id] = board;
     }
     for (let [boardId,board] of Object.entries(boards)){
         if (!boardIds.includes(board.id)) {
