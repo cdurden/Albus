@@ -1,5 +1,18 @@
 angular.module('whiteboard')
 .directive('compileTemplate',['BoardData', function compileTemplate(BoardData) {
+    return {
+        link: function(scope, element, attr){
+            scope.$watch(watchFn, function(newBoardId, oldBoardId) {
+                var board = scope.boardData.boards[newBoardId];
+                element.html( board.background_(((board || {}).task || {}).data || {}).background_html || "");
+            //scope.$watch("$parent.task", function(task) {
+            //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
+                    //eval(((scope.$parent.task || {}).data || {}).onload);
+            });
+        }
+    }
+}])
+.directive('wbBackground', ['BoardData', function (BoardData) {
     var resizeSensor = null;
     var oldContainer = null;
     var w, h;
@@ -22,7 +35,15 @@ angular.module('whiteboard')
         }
         return true;
     }
-    return {
+  return {
+    restrict: 'A',
+    replace: true,
+    templateUrl: './templates/background.html',
+    controller: function ($scope) {
+     //   var boardData = BoardData.getBoardData();
+     //   $scope.board = boardData.boards[boardData.boardId];  //FIXME: this needs to be updated
+    },
+    //scope: {},
         link: function(scope, element, attr){
             var watchFn = function(scope) {
                 return scope.boardData.boardId;
@@ -30,13 +51,6 @@ angular.module('whiteboard')
             //scope.$watch("$parent.board", function(board) {
             //scope.$watch("board", function(board) {
             //scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
-            scope.$watch(watchFn, function(newBoardId, oldBoardId) {
-                var board = scope.boardData.boards[newBoardId];
-                element.html((((board || {}).task || {}).data || {}).background_html || "");
-            //scope.$watch("$parent.task", function(task) {
-            //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
-                    //eval(((scope.$parent.task || {}).data || {}).onload);
-            });
             scope.$watchCollection(function () { return element.find('.background-image').toArray(); }, function (newValue, oldValue) {
                 if(newValue.length>0) {
                     /*
@@ -112,17 +126,5 @@ angular.module('whiteboard')
                 }
             });
         }
-    }
-}])
-.directive('wbBackground', ['BoardData', function (BoardData) {
-  return {
-    restrict: 'A',
-    replace: true,
-    templateUrl: './templates/background.html',
-    controller: function ($scope) {
-     //   var boardData = BoardData.getBoardData();
-     //   $scope.board = boardData.boards[boardData.boardId];  //FIXME: this needs to be updated
-    },
-    //scope: {},
   }
 }]);

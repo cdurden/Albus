@@ -22,7 +22,7 @@
               <b>Task selector</b>
           </div>
           <div>
-              <a ng-repeat="board in boardData.boards track by board.i" ng-click="$parent.setBoardIndex(board.i);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
+              <a ng-repeat="board in boardData.boards track by board.i" hm-tap="$parent.setBoardIndex(board.i);" ng-click="$parent.setBoardIndex(board.i);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
           </div>
       </div>
 <aside class="controls" data-controls-layout="bottom-right" data-controls-back-arrows="faded" style="display: block;"><button class="navigate-left enabled" hm-tap="navigatePrev();" ng-click="navigatePrev();" aria-label="previous task"><div class="controls-arrow"></div></button><button class="navigate-right enabled" hm-tap="navigateNext();" ng-click="navigateNext();" aria-label="next task"><div class="controls-arrow"></div></button></aside>
