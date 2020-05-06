@@ -53,7 +53,7 @@ angular.module('whiteboard')
                 if (typeof newValue === 'undefined') {
                     scope.setBoardIndex(0);
                 }
-            }
+            });
             //scope.$watch("boardData.boardId", function(newBoardId, oldBoardId) {
             scope.$watchCollection(function () { return element.find('.background-image img').toArray().map(elmt => { return elmt.getAttribute("src"); }); }, function (newValue, oldValue) {
                 if(newValue.length>0) {
