@@ -125,6 +125,8 @@ module.exports = function(server, session) {
                             roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
                             if (typeof roomBoard !== 'undefined') {
                                 board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                                board.apiBoard = board.shapeStorage;
+                                board.shapeStorage = roomBoard;
                             }
                             rooms.loadBoard(socket, board, function() {
                                 resolve(board);
