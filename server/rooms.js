@@ -351,7 +351,8 @@ var roomsManager = {
         resolve();
       }
     }).then(function() {
-      if ( typeof rooms[socket.room][shape.boardId][socket.id][shape.myid] === 'undefined' ) {
+      //if ( typeof rooms[socket.room][shape.boardId][socket.id][shape.myid] === 'undefined' ) {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] || {})[shape.myid] === 'undefined') {
           return;
       }
       rooms[socket.room][shape.boardId][socket.id][shape.myid]['mouseX'] = shape.mouseX;
@@ -373,6 +374,9 @@ var roomsManager = {
         resolve();
       }
     }).then(function() {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] || {})[shape.myid] === 'undefined') {
+          return;
+      }
       var storedShape = rooms[socket.room][shape.boardId][shape.socketId][shape.myid];
       if (shape.attr.r) {
         storedShape.initX = shape.attr.cx;
@@ -411,6 +415,9 @@ var roomsManager = {
         resolve();
       }
     }).then(function() {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] || {})[shape.myid] === 'undefined') {
+          return;
+      }
       rooms[socket.room][shape.boardId][socket.id][shape.myid]['pathDProps'] = shape.pathDProps;
       //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
       client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
@@ -427,6 +434,9 @@ var roomsManager = {
         resolve();
       }
     }).then(function() {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] || {})[shape.myid] === 'undefined') {
+          return;
+      }
       if (shape.tool && shape.tool.text) {
         rooms[socket.room][shape.boardId][socket.id][shape.myid]['tool'] = shape.tool;
       }
@@ -445,6 +455,9 @@ var roomsManager = {
         resolve();
       }
     }).then(function() {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] || {})[shape.myid] === 'undefined') {
+          return; //FIXME: add some warning messages to figure out why this is happening
+      }
       console.log("deleting shape "+shape.myid);
       console.log("roomId: "+socket.room);
       console.log("boardId: "+shape.boardId);
