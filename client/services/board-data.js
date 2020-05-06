@@ -309,9 +309,8 @@ angular.module('whiteboard.services.boarddata', [])
           }
           //boards[boardId].shapeStorage = Object.assign(boards[boardId].shapeStorage, shapeStorage);
       }
-      $rootScope.$apply(function() {
-          boardId = newBoardId;
-      });
+      boardId = newBoardId;
+      //callback && callback();
       //shapeStorage = boards[newBoardId].shapeStorage;
   }
   function getBoardObj(id) {
