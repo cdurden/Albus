@@ -285,12 +285,12 @@ angular.module('whiteboard.services.boarddata', [])
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
   function updateBoards(_boards) {
-    for (id in _boards) {
+    for (board of _boards) {
         if (typeof boardId === 'undefined') {
-            if (_boards[id].i == 0) {
+            if (board.i == 0) {
                 $rootScope.$apply(function() {
-                    boardId = id;
-                    boardData.boardId = id;
+                    boardId = board.id;
+                    boardData.boardId = board.id;
                 });
             }
         }
