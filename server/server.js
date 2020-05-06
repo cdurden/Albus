@@ -271,11 +271,11 @@ app.use(function ( req, res ) {
 
 // ======================== main routes ===============================//
 //app.get('/:id', passport.authenticate(strategy), function (req, res) {
-/*
-app.get('/:id', function (req, res) {
+app.get('/:resource/:id', function (req, res) {
   console.log(req.user);
   res.sendFile(path.resolve(__dirname+'/../client/index.html'));
 });
+/*
 
 app.get('/:id/screenShot', function (req, res) {
     //filename = sanitize(UNSAFE_USER_INPUT);
