@@ -214,7 +214,6 @@ async function getBoard(session, boardId, callback) {
       callback(null, body);
     } else {
       console.log("Error getting board: "+error);
-      console.err(error);
       callback(error, null);
     }
   });
