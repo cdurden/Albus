@@ -103,6 +103,8 @@ angular.module('whiteboard')
                             //((rs2 || {}).detach || (() =>{}))();
                             //resizeSensor1 = resizeSensor.create(container[0], handleBackgroundResize);
                             $pinchZoom = element.find('pinch-zoom');
+                            $pinchZoom.unbind('change');
+                            $pinchZoom.unbind('dblclick');
                             $pinchZoom.change(handleBackgroundResize);
                             $pinchZoom.css("overflow", "unset");
                             $pinchZoom.dblclick(function(ev) {
