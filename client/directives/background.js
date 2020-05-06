@@ -134,7 +134,8 @@ angular.module('whiteboard')
                             //rs2 = new ResizeSensor(document.getElementById("drawing-space"), handleBackgroundResize);
                         }
 
-                        var checkImageInterval = function() { var counter = 0;
+                        var checkImageInterval = function() {
+                            var counter = 0;
                             return setInterval( function() {
                                 if (isImageReady(img)) {
                                     console.log(angular.element(container).has(img).length);
@@ -146,7 +147,7 @@ angular.module('whiteboard')
                                     clearInterval(checkImageInterval);
                                 }
                                 counter = counter+1;
-                            }, 100);
+                            }, 50);
                         }();
                     }
                 }
