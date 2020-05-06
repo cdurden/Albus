@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.boarddata', [])
-.factory('BoardData', ['Broadcast', function (Broadcast) {
+.factory('BoardData', ['Broadcast', '$rootScope', function (Broadcast, $rootScope) {
   //svgWidth/Height are the width and height of the DOM element
   var svgWidth = 1500; //sizeX
   var svgHeight = 1000; //sizeY
@@ -309,7 +309,9 @@ angular.module('whiteboard.services.boarddata', [])
           }
           //boards[boardId].shapeStorage = Object.assign(boards[boardId].shapeStorage, shapeStorage);
       }
-      boardId = newBoardId;
+      $rootScope.$apply(function() {
+          boardId = newBoardId;
+      });
       //shapeStorage = boards[newBoardId].shapeStorage;
   }
   function getBoardObj(id) {
