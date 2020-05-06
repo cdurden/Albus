@@ -14,7 +14,10 @@
     <div id="feed-space" wb-feed class="split split-horizontal"></div>
     -->
     <div class="float-s task-submit-button-container">
-        <button type="button" ng-click="submit()" hm-tap="submit()" class="task-submit-button">Submit task</button>
+        <!--
+            <button type="button" ng-click="submit()" hm-tap="submit()" class="task-submit-button">Submit task</button>
+        -->
+        <button type="button" hm-tap="submit()" class="task-submit-button">Submit task</button>
     </div>
     <div id="board-selector-container" class="float-se">
       <div style="float: right;">
@@ -22,10 +25,17 @@
               <b>Task selector</b>
           </div>
           <div>
+        <!--
               <a ng-repeat="board in boardData.boards track by board.i" hm-tap="$parent.setBoardIndex(board.i, $event);" ng-click="$parent.setBoardIndex(board.i, $event);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
+        -->
+              <a ng-repeat="board in boardData.boards track by board.i" hm-tap="$parent.setBoardIndex(board.i, $event);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
+
           </div>
       </div>
+        <!--
 <aside class="controls" data-controls-layout="bottom-right" data-controls-back-arrows="faded" style="display: block;"><button class="navigate-left enabled" hm-tap="navigatePrev($event);" ng-click="navigatePrev($event);" aria-label="previous task"><div class="controls-arrow"></div></button><button class="navigate-right enabled" hm-tap="navigateNext($event);" ng-click="navigateNext($event);" aria-label="next task"><div class="controls-arrow"></div></button></aside>
+        -->
+<aside class="controls" data-controls-layout="bottom-right" data-controls-back-arrows="faded" style="display: block;"><button class="navigate-left enabled" hm-tap="navigatePrev($event);" aria-label="previous task"><div class="controls-arrow"></div></button><button class="navigate-right enabled" hm-tap="navigateNext($event);" aria-label="next task"><div class="controls-arrow"></div></button></aside>
     </div>
   </div>
   <!--
