@@ -200,7 +200,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function removeShape (shape) {
     var _shapeStorage = getShapeStorage(id, boardId);
-    if (shape.socketId !== null && shape.if !== null) {
+    if (shape.socketId !== null && shape.id !== null) {
       delete _shapeStorage[shape.socketId][shape.id];
     }
   }
