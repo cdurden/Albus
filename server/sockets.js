@@ -105,6 +105,7 @@ module.exports = function(server, session) {
       });
   }
   function loadBoards(socket, assignment) {
+    console.log("Loading boards for assignment "+assignment);
     var assignmentPromise;
     if (typeof assignment !== 'undefined') {
         assignmentPromise = new Promise(resolve => { resolve({ 'assignment': assignment }) });
