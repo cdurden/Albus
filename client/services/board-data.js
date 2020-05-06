@@ -287,7 +287,7 @@ angular.module('whiteboard.services.boarddata', [])
   function updateBoards(_boards) {
     for (id in _boards) {
         if (typeof boardId === 'undefined') {
-            if (boards[id].i == 0) {
+            if (_boards[id].i == 0) {
                 $rootScope.$apply(function() {
                     boardId = id;
                     boardData.boardId = id;
