@@ -25,7 +25,8 @@ angular.module('whiteboard')
     return {
         link: function(scope, element, attr){
             //scope.$watch("$parent.board", function(board) {
-            scope.$watch("board", function(board) {
+            //scope.$watch("board", function(board) {
+            scope.$watch("boardData.boardId", function(board) {
                 element.html((((board || {}).task || {}).data || {}).background_html || "");
             //scope.$watch("$parent.task", function(task) {
             //        element.html(((scope.$parent.task || {}).data || {}).background_html || "");
