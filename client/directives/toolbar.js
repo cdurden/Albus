@@ -400,7 +400,7 @@ angular.module('whiteboard')
       appendTo: parentElem,
       resolve: {
         users: function () {
-          return UserData.getUsers();
+          return Object.values(UserData.getUsers());
         }
       }
     });
