@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader' , '$document', 'BoardData', function (Sockets, angularLoad, $http, FileUploader, $document, BoardData) {
+.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader' , '$document', 'BoardData', 'Sockets', function (AdminSockets, angularLoad, $http, FileUploader, $document, BoardData, ClientSockets) {
   return {
     restrict: 'A',
     require: ['wbFeedback'],
@@ -60,7 +60,7 @@ angular.module('whiteboard')
         console.log(message);
     };
     $scope.getFeedbackTemplates = function() {
-        Sockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
+        AdminSockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
     }
 
     // Initialize model
@@ -77,35 +77,35 @@ angular.module('whiteboard')
     $scope.$watch('model', function(model) {
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
-      Sockets.on('users', function (data) {
+      AdminSockets.on('users', function (data) {
           $scope.users = Object.values(data);
       });
-      Sockets.on('assignments', function (data) {
+      AdminSockets.on('assignments', function (data) {
           console.log(data);
           $scope.assignments = data;
       });
-      Sockets.emit('getSubmissions');
-      Sockets.on('submissions', function (data) {
+      AdminSockets.emit('getSubmissions');
+      AdminSockets.on('submissions', function (data) {
           console.log(data);
           $scope.submissions = data;
       });
-      Sockets.on('tasks', function (data) {
+      AdminSockets.on('tasks', function (data) {
           console.log(data);
           $scope.tasks = data;
       });
       Sockets.on('feedbackCreated', function (data) {
           console.log(data);
       });
-      Sockets.on('feedbackTemplates', function (data) {
+      AdminSockets.on('feedbackTemplates', function (data) {
           //console.log(data);
           templates = Object.entries(data).map( ([key, obj],i) => { obj.id = key; return(obj) });
           console.log(templates);
           $scope.feedbackTemplates = templates;
       });
-      Sockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
+      AdminSockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
       /*
-      Sockets.emit('getAssignments');
-      Sockets.emit('getUsers');
+      AdminSockets.emit('getAssignments');
+      AdminSockets.emit('getUsers');
       */
     },
     link: function(scope, element, attrs, ctrls) {
@@ -134,22 +134,6 @@ angular.module('whiteboard')
 
           Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId });
           return false;
-      });
-      scope.$watch('selectedAssignment', function(newValue) {
-        Sockets.emit('getAssignmentTasks', newValue);
-          /*
-        $http({
-          method: 'GET',
-          url: '/static/teaching_assets/assignments/'+newValue+'.json',
-          transformResponse: [function (data) {
-            // Do whatever you want!
-            return data;
-          }]
-        }).then(function success(response) {
-            Sockets.emit('getTasksFromSource', response.data);
-          //scope.tasks = response.data;
-        });
-        */
       });
     },
   }

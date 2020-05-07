@@ -501,18 +501,6 @@ module.exports = function(server, session) {
         //socket.emit('confirmSubmission', data);
       });
     });
-    socket.on('createFeedback', function(data){
-      shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-      newBoardId = util.generateRandomId(6);
-      saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
-          data.boardId = newBoardId;
-          api.createFeedback(socket.handshake.session, data, function(error, result) {
-            //console.log(data)
-            io.of('/admin').emit('feedbackCreated', result);
-            //socket.emit('confirmSubmission', data);
-          });
-      });
-    });
   });
   io.of('/client').on('connection', function (socket) {
     console.log("Handling client connection from socket "+socket.id);
@@ -751,10 +739,14 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('createFeedback', function(data){
       shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-      api.createFeedback(socket.handshake.session, data, function(error, result) {
-        //console.log(data)
-        io.of('/admin').emit('feedbackRedirect', result);
-        //socket.emit('confirmSubmission', data);
+      newBoardId = util.generateRandomId(6);
+      saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
+          data.boardId = newBoardId;
+          api.createFeedback(socket.handshake.session, data, function(error, result) {
+            //console.log(data)
+            io.of('/admin').emit('feedbackCreated', result);
+            //socket.emit('confirmSubmission', data);
+          });
       });
     });
     socket.on('getLatestBoardFromApi', function(taskId) {
