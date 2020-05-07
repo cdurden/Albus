@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader' , function (Sockets, angularLoad, $http, FileUploader) {
+.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader' , '$document', function (Sockets, angularLoad, $http, FileUploader, $document) {
   return {
     restrict: 'A',
     require: ['wbFeedback'],
@@ -29,13 +29,12 @@ angular.module('whiteboard')
         // Return false here to cancel drop. Return true if you insert the item yourself.
         return item;
     };
-    /*
-     * $scope.dragendCallback = function(event) {
+     $scope.dragendCallback = function(event) {
         $scope.logListEvent('drag ended');
         console.log(event)
         // Return false here to cancel drop. Return true if you insert the item yourself.
+        return true;
     };
-    */
 
     $scope.logEvent = function(message) {
         console.log(message);
