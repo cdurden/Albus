@@ -109,11 +109,12 @@ module.exports = function(server, session) {
         console.log("Got submissions");
         console.log(submissions);
         if (submissions) {
+        var taskObjectsPromise = assets.getTaskObjects(submissions.map(submission => { return submission.task.source }, false);
           Promise.all(submissions.map((submission, i) => {
               return new Promise(resolve => {
                   var board = submission.board;
                   board.i = i;
-                  board.task = submission.task; //FIXME: I'm not sure why this is not already returned by the api
+                  //board.task = submission.task; //FIXME: I'm not sure why this is not already returned by the api
                   //board.id = board.boardId;
                   rooms.loadBoard(socket, board, function() {
                      resolve(board);
@@ -124,6 +125,10 @@ module.exports = function(server, session) {
               console.log(boards);
               console.log("emitting boards to socket "+socket.id);
               socket.emit('boards', boards);
+              taskObjectsPromise.then(function(taskObjects) {
+                  tasksObj = tasks.reduce(function(obj, task) { task.data = taskObjects[task.source].data; obj[task.id] = task; return obj; }, {});
+                  socket.emit('tasks', tasksObj);
+              });
           });
         }
       });
