@@ -28,6 +28,7 @@
          dnd-dragstart="dragstartCallback(event, template)"
          class="tiny-font"
          style="width: 100px;"
+         ng-click="selectedTemplate = template.template"
          ng-class="{'selected': models.selected === template}"
          >
          {{template.description}}

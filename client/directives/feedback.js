@@ -14,6 +14,7 @@ angular.module('whiteboard')
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
       $scope.feedbackTemplate = "";
+      $scope.selectedTemplate = "";
       $scope.feedbackTemplateCollection = "ScientificNotation";
       $scope.uploader = new FileUploader();
 
