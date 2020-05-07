@@ -16,7 +16,7 @@
   <div class="row">
    <div class="dropzone col-12">
     <ul dnd-list="feedbackTemplates" class="itemlist">
-     <li ng-repeat="(key,template) in feedbackTemplates | filter:query track by $index"
+     <li ng-repeat="template in feedbackTemplates | filter:query track by $index"
          dnd-draggable="template"
          dnd-moved="list.splice($index, 1)"
          dnd-effect-allowed="move"
