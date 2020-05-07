@@ -59,6 +59,7 @@ passport.use('lti-spoof-strategy', new CustomStrategy(
 */
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
+        console.log("Hostname: "+req.headers.host);
         if (req.headers.host === 'localhost' || req.headers.host.match("^192.168.2")) {
             console.log("spoofing lti-strategy");
             callback(null, {user_id: "86258941::65ea761411d6325962ddba010329193a"});
