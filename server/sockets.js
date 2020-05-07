@@ -81,7 +81,7 @@ module.exports = function(server, session) {
     }
     return new Promise(resolve => {
       shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-      console.log("Getting shapeStorage for saveBoardToApi handler (boardId="+data.boardId+")");
+      console.log("Getting shapeStorage for saveBoardToApi handler (roomId: +"socket.room+", boardId: "+data.boardId+")");
       console.log(shapeStorage);
       data.boardId = saveAs;
       api.saveBoard(socket.handshake.session, shapeStorage, data, undefined, function(err, data) {
