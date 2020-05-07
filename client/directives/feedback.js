@@ -12,6 +12,7 @@ angular.module('whiteboard')
       $scope.users = [];
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
+      $scope.feedbackTemplateCollection = "ScientificNotation";
       $scope.uploader = new FileUploader();
 
     $scope.dragoverCallback = function(index, external, type, callback) {
