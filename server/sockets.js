@@ -472,6 +472,9 @@ module.exports = function(server, session) {
       });
     });
     */
+    socket.on('loadSubmissions', function(){
+        loadSubmissions(socket);
+    });
     socket.on('getSubmissions', function(){
       api.getSubmissions(function(error, data) {
         //console.log(data)
