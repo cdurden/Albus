@@ -357,7 +357,7 @@ async function createFeedback(session, data, callback) {
     */
     },
     function(error, response, body) {
-      console.log(response)
+      //console.log(response)
       if (!error && response.statusCode == 201) {
         console.log(body)
         //data = JSON.parse(body)
