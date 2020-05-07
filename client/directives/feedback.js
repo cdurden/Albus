@@ -29,17 +29,15 @@ angular.module('whiteboard')
         event.dataTransfer.setData('text/plain', item.description);
         $scope.draggedTemplate = item.template;
     }
-
-
+    $scope.dragenterCallback = function(event) {
+        console.log('received dragenter');
+        event.preventDefault();
+    }
     $scope.dropCallback = function(index, item, external, type) {
         $scope.logListEvent('dropped at', index, external, type);
         // Return false here to cancel drop. Return true if you insert the item yourself.
         return item;
     };
-    $scope.dragenterCallback = function(event) {
-        console.log('received dragenter');
-        event.preventDefault();
-    }
     $document[0].addEventListener('drop', function(event) {
         event.preventDefault();
         if ( event.target.id == "feedback-textarea" ) {
