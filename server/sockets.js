@@ -109,7 +109,7 @@ module.exports = function(server, session) {
         console.log("Got submissions");
         console.log(submissions);
         if (submissions) {
-        var taskObjectsPromise = assets.getTaskObjects(submissions.map(submission => { return submission.task.source }, false);
+        var taskObjectsPromise = assets.getTaskObjects(submissions.map(submission => { return submission.task.source }), false);
           Promise.all(submissions.map((submission, i) => {
               return new Promise(resolve => {
                   var board = submission.board;
