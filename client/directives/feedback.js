@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader' , '$document', function (Sockets, angularLoad, $http, FileUploader, $document) {
+.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader' , '$document', 'BoardData', function (Sockets, angularLoad, $http, FileUploader, $document, BoardData) {
   return {
     restrict: 'A',
     require: ['wbFeedback'],
@@ -7,6 +7,7 @@ angular.module('whiteboard')
     scope: {},
     templateUrl: 'templates/feedback.html',
     controller: function ($scope) {
+      $scope.boardData = BoardData.getBoardData();
       $scope.assignments = {};
       //$scope.sockets = {};
       $scope.users = [];
