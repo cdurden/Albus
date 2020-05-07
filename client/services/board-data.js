@@ -288,19 +288,19 @@ angular.module('whiteboard.services.boarddata', [])
     var boardIds = [];
     var board;
     for (board of newBoards) {
-        boards[board.id] = board;
+        boards[board.boardId] = board;
         if (typeof boardId === 'undefined') {
             if (board.i == 0) {
                 $rootScope.$apply(function() {
-                    boardId = board.id;
-                    boardData.boardId = board.id;
+                    boardId = board.boardId;
+                    boardData.boardId = board.boardId;
                 });
             }
         }
-        boardIds.push(board.id);
+        boardIds.push(board.boardId);
     }
     for (let [boardId,board] of Object.entries(boards)){
-        if (!boardIds.includes(board.id)) {
+        if (!boardIds.includes(board.boardId)) {
             delete boards[boardId]; //FIXME: prompt user to save changes
         }
     }
