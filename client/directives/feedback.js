@@ -38,7 +38,7 @@ angular.module('whiteboard')
     };
     $scope.dragenterCallback = function(event) {
         console.log('received dragenter');
-        event.preventDefault()
+        event.preventDefault();
     }
     $document[0].addEventListener('drop', function(event) {
         event.preventDefault();
