@@ -4,18 +4,22 @@
    <div class="dropzone col-12">
     <input ng-model="feedbackTemplateCollection" type="text"
           placeholder="Feedback template collection" autofocus>
-    <div class="row">
      <button ng-click="getFeedbackTemplates(); ev.preventDefault();">Update</button>
-    </div>
-    <div class="row">
-     <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template.template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
-    </div>
+   </div>
+  </div>
+  <div class="row">
+   <div class="dropzone col-12">
+    <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template.template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
     </select>
+   </div>
+  </div>
+  <div class="row">
+   <div class="dropzone col-12">
     <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off" />
    </div>
   </div>
   <form action="" id="create-feedback-form" class="form-container">
-   <div ng-repeat-end class="row">
+   <div class="row">
     <div class="col-12">
      <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'task_json': task_json, 'selectedUsers': selectedUsers}] }"/><br/>
      <ul>
@@ -27,7 +31,7 @@
      </ul>
     </div>
    </div>
-   <div ng-repeat-end class="row">
+   <div class="row">
     <div class="col-12">
      <textarea style="width: 100%;" placeholder="Type feedback" id="m" ng-model="task_json" autocomplete="off" />
     </div>
