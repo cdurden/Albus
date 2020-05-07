@@ -1,3 +1,6 @@
+.container {
+    position: absolute;
+}
 #screenshot-container {
     display: none;
 }
