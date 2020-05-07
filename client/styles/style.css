@@ -1114,6 +1114,9 @@ h1.title {
 
 }
 
+.tiny-font {
+    font-size: 8pt;
+}
 .reveal section p.sm-font, div.sm-font {
     font-size: 18pt;
 }
