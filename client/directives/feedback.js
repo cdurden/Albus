@@ -104,7 +104,7 @@ angular.module('whiteboard')
         //element.find(".dropzone ul li").bind("drop", function(event) {
         element.find("#feedback-textarea").bind("drop", function(event) {
             event.preventDefault();
-            scope.feedbackTemplate += scope.draggedTemplate;
+            scope.feedbackTemplate += "\n\n"+scope.draggedTemplate;
             scope.draggedTemplate = '';
             console.log("drop");
             console.log(event);
