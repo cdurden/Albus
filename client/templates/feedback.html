@@ -15,7 +15,13 @@
   </div>
   <div class="row">
    <div class="dropzone col-12">
-    <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off" />
+    <div class="feedback-text"
+         dnd-draggable="selectedTemplate"
+         dnd-effect-allowed="copyTo"
+         dnd-selected="models.selected = selectedTemplate"
+        >
+     <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off" />
+    </div>
    </div>
   </div>
   <form action="" id="create-feedback-form" class="form-container">
