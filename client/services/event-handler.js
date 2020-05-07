@@ -32,6 +32,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function loadBoards(assignment) {
     Broadcast.loadBoards(assignment);
   }
+  function loadSubmissions() {
+    Broadcast.loadSubmissions();
+  }
   function loadBoardFromApi(id) {
     Broadcast.loadBoardFromApi(id);
   }
