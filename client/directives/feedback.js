@@ -115,6 +115,10 @@ angular.module('whiteboard')
         element.find("#feedback-textarea").bind("dragenter", function(event) {
             console.log("dragenter");
             console.log(event);
+            event.preventDefault();
+        });
+        element.find("#feedback-textarea").bind("dragover", function(event) {
+            event.preventDefault();
         });
       $(element).find("#create-feedback-form").bind("submit",function(ev) {
           ev.preventDefault();
