@@ -252,5 +252,6 @@ angular.module('whiteboard.services.eventhandler', [])
     screenshot: screenshot,
     activateNav: activateNav,
     activateDraw: activateDraw,
+    loadSubmissions: loadSubmissions,
   };
 }]);
