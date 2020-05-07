@@ -115,7 +115,7 @@ angular.module('whiteboard')
         // console.log('> ', svg.attr("class").split(' '));
       });
       Split(['#drawing-space', '#feed-space'], {
-        sizes: [100,0],
+        sizes: [75,25],
         minSize: [0, 0],
         snapOffset: 0,
         expandToMin: false,
