@@ -103,7 +103,8 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         resolve: {
           'something': function (Sockets, EventHandler, $location) {
-            EventHandler.loadBoards();
+            //EventHandler.loadBoards();
+            EventHandler.loadSubmissions();
             Sockets.emit('getUsers');
             Sockets.emit('getUser');
             Sockets.emit('getActingUser');
