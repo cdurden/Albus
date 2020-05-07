@@ -46,13 +46,15 @@ module.exports = function(server, session) {
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       if (result === null) {
-        console.log("The following socket id was not found in Redis store:");
+        console.log("WARNING: The following socket id was not found in Redis store:");
         // FIXME: Is this where we want to do this?
+        /*
         rooms.assignRoomToSocketId(socketId).then(function(roomId) {
           console.log(socketId);
           result['socketId'] = socketId;
           resolve(result);
         });
+        */
       } else {
         console.log(socketId);
         result['socketId'] = socketId;
