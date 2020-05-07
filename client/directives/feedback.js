@@ -107,8 +107,13 @@ angular.module('whiteboard')
       */
     },
     link: function(scope, element, attrs, ctrls) {
-        element.find(".dropzone ul li").bind("drop", function(event) {
+        //element.find(".dropzone ul li").bind("drop", function(event) {
+        element.find("#feedback-textarea").bind("drop", function(event) {
             console.log("drop");
+            console.log(event);
+        });
+        element.find("#feedback-textarea").bind("dragenter", function(event) {
+            console.log("dragenter");
             console.log(event);
         });
       $(element).find("#create-feedback-form").bind("submit",function(ev) {
