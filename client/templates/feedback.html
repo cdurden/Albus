@@ -51,7 +51,10 @@
    <div class="row">
     <div class="dropzone col-12">
      Student: {{boardData.boards[boardData.boardId].user.firstname}}
-     Submission id: {{submissions[boardData.boards[boardData.boardId].submissions[0]]}}
+     <!--
+     Feedback: {{submissions[boardData.boards[boardData.boardId].submissions[0]].feedback}}
+     -->
+     Feedback: {{boardData.boards[boardData.boardId].submission.feedback.join()}}
     </div>
    </div>
 
