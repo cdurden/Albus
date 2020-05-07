@@ -23,6 +23,11 @@ angular.module('whiteboard')
         }
         return index < 10; // Disallow dropping in the third row.
     };
+    $scope.dragstartCallback = function(event, item) {
+        console.log(item.description)
+        event.dataTransfer.setData('text/plain', item.description);
+    }
+
 
     $scope.dropCallback = function(index, item, external, type) {
         $scope.logListEvent('dropped at', index, external, type);
