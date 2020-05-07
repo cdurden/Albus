@@ -114,7 +114,7 @@ module.exports = function(server, session) {
   function loadSubmissions(socket) {
       api.getSubmissions(function(error, submissions) {
         console.log("Got submissions");
-        console.log(submissions);
+        console.log(submissions.length);
         if (submissions) {
         var tasks = Array.from(new Set(submissions.map(submission => { return submission.task })))
         var taskObjectsPromise = assets.getTaskObjects(tasks.map(task => { return task.source }), false);
@@ -135,7 +135,7 @@ module.exports = function(server, session) {
               });
           })).then(function(boards) {
               console.log("Got boards from submissions");
-              console.log(boards);
+              console.log(boards.length);
               console.log("emitting boards to socket "+socket.id);
               socket.emit('boards', boards);
               taskObjectsPromise.then(function(taskObjects) {
