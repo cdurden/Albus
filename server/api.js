@@ -200,6 +200,22 @@ async function getActingSessionUser(session) {
         }
     });
 }
+async function getBoards(callback) {
+  console.log("Getting board with id "+boardId+" for user "+lti_user_id);
+  request({
+      url: `${scheme}://${host}:${port}/api/boards`,
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+      callback(null, body);
+    } else {
+      console.log("Error getting board: "+error);
+      callback(error, null);
+    }
+  });
+}
 async function getBoard(session, boardId, callback) {
   var lti_user_id = await getActingSessionUser(session);
   console.log("Getting board with id "+boardId+" for user "+lti_user_id);
