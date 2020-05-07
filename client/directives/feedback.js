@@ -71,8 +71,9 @@ angular.module('whiteboard')
           console.log(data);
       });
       Sockets.on('feedbackTemplates', function (data) {
-          console.log(data);
+          //console.log(data);
           templates = Object.entries(data).map( (key, obj) => { obj.id = key; return(obj) });
+          console.log(templates);
           $scope.feedbackTemplates = templates;
       });
       Sockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
