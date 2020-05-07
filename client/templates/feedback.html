@@ -17,6 +17,7 @@
    <div class="dropzone col-12">
     <ul dnd-list="feedbackTemplates" 
         dnd-dragover="dragoverCallback(index, external, type)"
+        dnd-dragend="dragendCallback(event)"
         dnd-drop="dropCallback(index, item, external, type)"
         class="itemlist">
      <li ng-repeat="template in feedbackTemplates | filter:query track by $index"
@@ -59,7 +60,7 @@
    </div>
    <div class="row">
     <div class="dropzone col-12">
-     <textarea style="width: 100%;" placeholder="Type feedback" id="m" ng-model="task_json" autocomplete="off" ondragenter="console.log('received dragenter'); event.preventDefault();" ondrop="console.log('got drop');"/>
+     <textarea style="width: 100%;" placeholder="Type feedback" id="m" ng-model="task_json" autocomplete="off" ondragenter="console.log('received dragenter'); event.preventDefault();"/>
     </div>
    </div>
    </fieldset>
