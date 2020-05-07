@@ -121,6 +121,7 @@ angular.module('whiteboard', [
           }
         }
       })
+      /*
       .when('/submissions', {
         templateUrl: './views/board.html',
         resolve: {
@@ -132,6 +133,7 @@ angular.module('whiteboard', [
           }
         }
       })
+      */
       .when('/slides', {
         //templateUrl: './views/board.html',
         //templateUrl: 'views/board+chat.html',
