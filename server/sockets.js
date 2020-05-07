@@ -121,6 +121,10 @@ module.exports = function(server, session) {
           Promise.all(submissions.map((submission, i) => {
               return new Promise(resolve => {
                   var board = submission.board;
+                  if (board === null) {
+                      console.log("ERROR: board is null");
+                      console.log(submission)
+                  }
                   board.i = i;
                   board.submission_id = submission.id
                   //board.task = submission.task; //FIXME: I'm not sure why this is not already returned by the api
