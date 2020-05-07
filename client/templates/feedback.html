@@ -8,20 +8,33 @@
    </div>
   </div>
   <div class="row">
-   <div class="dropzone col-12">
-    <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template.template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
-    </select>
+   <div class="col-12">
+    <input ng-model="query" type="text"
+         placeholder="Filter by" autofocus>
    </div>
   </div>
   <div class="row">
    <div class="dropzone col-12">
-    <div class="feedback-text"
-         dnd-draggable="selectedTemplate"
-         dnd-effect-allowed="copyTo"
-         dnd-selected="models.selected = selectedTemplate"
-        >
-     <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off" />
-    </div>
+    <ul dnd-list="feedbackTemplates" class="itemlist">
+     <li ng-repeat="template in feedbackTemplates | filter:query track by $index"
+         dnd-draggable="template"
+         dnd-moved="list.splice($index, 1)"
+         dnd-effect-allowed="move"
+         dnd-selected="models.selected = template"
+         ng-class="{'selected': models.selected === template}"
+         >
+         {{template.description}} {{user.lastname}}
+     </li>
+    </ul>
+<!--
+    <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template.template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
+    </select>
+-->
+   </div>
+  </div>
+  <div class="row">
+   <div class="dropzone col-12">
+     <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="models.selected" autocomplete="off" />
    </div>
   </div>
   <form action="" id="create-feedback-form" class="form-container">
