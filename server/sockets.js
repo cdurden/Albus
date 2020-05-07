@@ -105,7 +105,7 @@ module.exports = function(server, session) {
       });
   }
   function loadSubmissions(socket) {
-      api.getSubmissions(socket.handshake.session, assignmentData, function(error, submissions) {
+      api.getSubmissions(socket.handshake.session, function(error, submissions) {
         console.log("Got submissions");
         console.log(submissions);
         if (submissions) {
@@ -704,9 +704,9 @@ function get_all_data_by_socket(socket, callback) {
       // load assignment
     });
     socket.on('loadSubmissions', function() {
-      api.getSubmissions(socket.handshake.session, filter, function(err, submissions) {
-          loadBoards(socket);
-      });
+      //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
+      loadSubmissions(socket);
+      //});
       // load assignment
     });
     socket.on('getOrCreateTaskBoard', function(taskId) {
