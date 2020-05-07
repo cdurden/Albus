@@ -65,7 +65,7 @@ passport.use('lti-strategy', new CustomStrategy(
         console.log("IPs from proxy: "+req.ips);
         var forwardedIpsStr = req.header('x-forwarded-for');
         console.log("X-Forwarded-For: "+forwardedIpsStr);
-        if (req.headers.host === 'localhost' || req.headers.host.match("^192.168.2")) {
+        if (req.headers.host === 'localhost' || req.headers.host.match("^localhost:[0-9]+")) {
             console.log("spoofing lti-strategy");
             callback(null, {user_id: "86258941::65ea761411d6325962ddba010329193a"});
         } else {
