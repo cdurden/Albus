@@ -209,7 +209,8 @@ async function getBoards(callback) {
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
-      callback(null, body);
+      boards = JSON.parse(body)
+      callback(null, boards);
     } else {
       console.log("Error getting board: "+error);
       callback(error, null);
