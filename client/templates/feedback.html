@@ -20,6 +20,8 @@
          dnd-draggable="template"
          dnd-moved="list.splice($index, 1)"
          dnd-effect-allowed="move"
+         dnd-dragover="dragoverCallback(index, external, type)"
+         dnd-drop="dropCallback(index, item, external, type)"
          dnd-selected="models.selected = template"
          ng-class="{'selected': models.selected === template}"
          >
