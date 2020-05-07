@@ -105,7 +105,7 @@ module.exports = function(server, session) {
       });
   }
   function loadSubmissions(socket) {
-      api.getSubmissions(socket.handshake.session, function(error, submissions) {
+      api.getSubmissions(function(error, submissions) {
         console.log("Got submissions");
         console.log(submissions);
         if (submissions) {
