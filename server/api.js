@@ -594,6 +594,7 @@ module.exports = {
     createFeedback: createFeedback,
     getFeedback: getFeedback,
     getBoard: getBoard,
+    getBoards: getBoards,
     //actAsUser: actAsUser,
     uploadHandler: uploadHandler,
 //    uploadProxy: uploadProxy,
