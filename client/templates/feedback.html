@@ -48,6 +48,12 @@
   </div>
   <form action="" id="create-feedback-form" class="form-container">
    <div class="row">
+    <div class="dropzone col-12">
+     <textarea id="feedback-textarea" style="font-size: 10pt; width: 100%;" placeholder="Type feedback" id="m" ng-model="feedbackTemplate" autocomplete="off" ondragenter="dragenterCallback(event);"/>
+    </div>
+   </div>
+   </fieldset>
+   <div class="row">
     <div class="col-12">
      <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'task_json': task_json, 'selectedUsers': selectedUsers}] }"/><br/>
      <ul>
@@ -59,12 +65,6 @@
      </ul>
     </div>
    </div>
-   <div class="row">
-    <div class="dropzone col-12">
-     <textarea id="feedback-textarea" style="font-size: 10pt; width: 100%;" placeholder="Type feedback" id="m" ng-model="feedbackTemplate" autocomplete="off" ondragenter="dragenterCallback(event);"/>
-    </div>
-   </div>
-   </fieldset>
    <button type="submit" class="submit">Create</button>
   </form>
  </div>
