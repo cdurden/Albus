@@ -104,6 +104,29 @@ module.exports = function(server, session) {
           });
       });
   }
+  function loadSubmissions(socket) {
+      api.getSubmissions(socket.handshake.session, assignmentData, function(error, submissions) {
+        console.log("Got submissions");
+        console.log(submissions);
+        if (submissions) {
+          Promise.all(submissions.map((submission, i) => {
+              return new Promise(resolve => {
+                  var board = submission.board;
+                  board.i = i;
+                  //board.id = board.boardId;
+                  rooms.loadBoard(socket, board, function() {
+                     resolve(board);
+                  });
+              });
+          })).then(function(boards) {
+              console.log("Got boards from submissions");
+              console.log(boards);
+              console.log("emitting boards to socket "+socket.id);
+              socket.emit('boards', boards);
+          });
+        }
+      });
+  }
   function loadBoards(socket, assignment) {
     console.log("Loading boards for assignment "+assignment);
     var assignmentPromise;
@@ -126,7 +149,7 @@ module.exports = function(server, session) {
                         if (task.boards.length > 0) {
                             board = task.boards[task.boards.length-1];
                             board.i = i;
-                            board.id = board.boardId;
+                            board.id = board.boardId; //FIXME: why is this here?
                             board.task_id = task.id;
                             roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
                             if (typeof roomBoard !== 'undefined') {
@@ -675,6 +698,12 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('loadBoards', function(assignment) {
       loadBoards(socket, assignment);
+      // load assignment
+    });
+    socket.on('loadSubmissions', function() {
+      api.getSubmissions(socket.handshake.session, filter, function(err, submissions) {
+          loadBoards(socket);
+      });
       // load assignment
     });
     socket.on('getOrCreateTaskBoard', function(taskId) {
