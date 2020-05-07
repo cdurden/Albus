@@ -33,7 +33,6 @@ angular.module('whiteboard')
         $scope.logListEvent('drag ended');
         console.log(event)
         // Return false here to cancel drop. Return true if you insert the item yourself.
-        return item;
     };
 
     $scope.logEvent = function(message) {
