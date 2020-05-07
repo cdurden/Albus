@@ -12,4 +12,4 @@ api.getBoards(function(err, boards) {
             })
         }
     }
-});
+}).then(process.exit);
