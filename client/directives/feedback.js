@@ -93,7 +93,7 @@ angular.module('whiteboard')
           console.log(data);
           $scope.tasks = data;
       });
-      Sockets.on('feedbackRedirect', function (data) {
+      Sockets.on('feedbackCreated', function (data) {
           console.log(data);
       });
       Sockets.on('feedbackTemplates', function (data) {
@@ -130,7 +130,11 @@ angular.module('whiteboard')
           var users = scope.selectedUsers;
           var assignments = scope.selectedAssignments;
           var tasks = scope.selectedTasks;
-          Sockets.emit('createFeedback', { 'users': users, 'tasks': tasks, 'assignments': assignments });
+          var submission_id = scope.submission_id;
+          var boardId = scope.boardData.boardId;
+          var data = { 'subject': 'Feedback on '+scope.submissions[submission_id].task_id, 'template': scope.feedbackTemplate };
+
+          Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId });
           return false;
       });
       scope.$watch('selectedAssignment', function(newValue) {

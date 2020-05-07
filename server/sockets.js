@@ -74,11 +74,15 @@ module.exports = function(server, session) {
       });
     });
   }
-  function saveBoardToApi(socket, data) {
+  function saveBoardToApi(socket, data, saveAs) {
+    if (typeof saveAs === 'undefined') {
+        saveAs = data.boardId;
+    }
     return new Promise(resolve => {
       shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
       console.log("Getting shapeStorage for saveBoardToApi handler");
       console.log(shapeStorage);
+      data.boardId = saveAs;
       api.saveBoard(socket.handshake.session, shapeStorage, data, undefined, function(err, data) {
           console.log("Board saved");
           console.log(data);
@@ -495,10 +499,15 @@ module.exports = function(server, session) {
       });
     });
     socket.on('createFeedback', function(data){
-      api.createFeedback(socket.handshake.session, data, function(error, result) {
-        //console.log(data)
-        io.of('/admin').emit('feedbackRedirect', result);
-        //socket.emit('confirmSubmission', data);
+      shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
+      newBoardId = generateRandomId(6);
+      saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
+          data.boardId = newBoardId;
+          api.createFeedback(socket.handshake.session, data, function(error, result) {
+            //console.log(data)
+            io.of('/admin').emit('feedbackCreated', result);
+            //socket.emit('confirmSubmission', data);
+          });
       });
     });
   });
@@ -735,6 +744,14 @@ function get_all_data_by_socket(socket, callback) {
             socket.emit('board', result);
           });
         }
+      });
+    });
+    socket.on('createFeedback', function(data){
+      shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
+      api.createFeedback(socket.handshake.session, data, function(error, result) {
+        //console.log(data)
+        io.of('/admin').emit('feedbackRedirect', result);
+        //socket.emit('confirmSubmission', data);
       });
     });
     socket.on('getLatestBoardFromApi', function(taskId) {
