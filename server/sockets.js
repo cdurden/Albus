@@ -127,8 +127,11 @@ module.exports = function(server, session) {
               console.log("emitting boards to socket "+socket.id);
               socket.emit('boards', boards);
               taskObjectsPromise.then(function(taskObjects) {
+                  console.log("Tasks");
+                  console.log(tasks);
+                  console.log("Objects for tasks");
                   console.log(taskObjects);
-                  tasksObj = tasks.reduce(function(obj, task) { task.data = taskObjects[task.source].data; obj[task.id] = task; return obj; }, {});
+                  tasksObj = tasks.reduce(function(obj, task) { task.data = (taskObjects[task.source] || {}).data; obj[task.id] = task; return obj; }, {});
                   socket.emit('tasks', tasksObj);
               });
           });
