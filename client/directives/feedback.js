@@ -127,11 +127,9 @@ angular.module('whiteboard')
         });
       $(element).find("#create-feedback-form").bind("submit",function(ev) {
           ev.preventDefault();
-          var users = scope.selectedUsers;
-          var assignments = scope.selectedAssignments;
-          var tasks = scope.selectedTasks;
-          var submission_id = scope.submission_id;
           var boardId = scope.boardData.boardId;
+          var board = scope.boardData.boards[boardId];
+          var submission_id = board.submission_id;
           var data = { 'subject': 'Feedback on '+scope.submissions[submission_id].task_id, 'template': scope.feedbackTemplate };
 
           Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId });
