@@ -29,11 +29,13 @@ angular.module('whiteboard')
         // Return false here to cancel drop. Return true if you insert the item yourself.
         return item;
     };
-    $scope.dragendCallback = function(event) {
+    /*
+     * $scope.dragendCallback = function(event) {
         $scope.logListEvent('drag ended');
         console.log(event)
         // Return false here to cancel drop. Return true if you insert the item yourself.
     };
+    */
 
     $scope.logEvent = function(message) {
         console.log(message);
