@@ -11,7 +11,7 @@ angular.module('whiteboard')
       //$scope.sockets = {};
       $scope.users = [];
       $scope.feedbackUserLists = [[]];
-      $scope.feedbackTemplates = {};
+      $scope.feedbackTemplates = [];
       $scope.uploader = new FileUploader();
 
     $scope.dragoverCallback = function(index, external, type, callback) {
