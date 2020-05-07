@@ -23,6 +23,7 @@
          dnd-draggable="template"
          dnd-moved="list.splice($index, 1)"
          dnd-effect-allowed="move"
+         dnd-dragend="dragendCallback(event)"
          dnd-selected="models.selected = template"
          class="tiny-font"
          style="width: 100px;"
