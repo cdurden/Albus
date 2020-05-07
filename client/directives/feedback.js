@@ -9,6 +9,7 @@ angular.module('whiteboard')
     controller: function ($scope) {
       $scope.boardData = BoardData.getBoardData();
       $scope.assignments = {};
+      $scope.submissions = {};
       //$scope.sockets = {};
       $scope.users = [];
       $scope.draggedTemplate;
@@ -82,6 +83,11 @@ angular.module('whiteboard')
       Sockets.on('assignments', function (data) {
           console.log(data);
           $scope.assignments = data;
+      });
+      Sockets.emit('getSubmissions');
+      Sockets.on('submissions', function (data) {
+          console.log(data);
+          $scope.submissions = data;
       });
       Sockets.on('tasks', function (data) {
           console.log(data);
