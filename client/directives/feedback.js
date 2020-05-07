@@ -39,13 +39,6 @@ angular.module('whiteboard')
         // Return false here to cancel drop. Return true if you insert the item yourself.
         return item;
     };
-    $document[0].addEventListener('drop', function(event) {
-        event.preventDefault();
-        if ( event.target.id == "feedback-textarea" ) {
-            $scope.feedbackTemplate += $scope.draggedTemplate;
-        }
-        $scope.draggedTemplate = '';
-    })
      $scope.dragendCallback = function(event) {
         $scope.logListEvent('drag ended');
         console.log(event)
@@ -109,6 +102,9 @@ angular.module('whiteboard')
     link: function(scope, element, attrs, ctrls) {
         //element.find(".dropzone ul li").bind("drop", function(event) {
         element.find("#feedback-textarea").bind("drop", function(event) {
+            event.preventDefault();
+            $scope.feedbackTemplate += $scope.draggedTemplate;
+            $scope.draggedTemplate = '';
             console.log("drop");
             console.log(event);
         });
