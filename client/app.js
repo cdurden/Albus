@@ -1,5 +1,6 @@
 angular.module('whiteboard', [
   'ui.bootstrap', //text completion
+  'dndLists',
   'angularFileUpload',
   'angularLoad',
   'hmTouchEvents',
