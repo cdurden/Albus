@@ -99,6 +99,17 @@ angular.module('whiteboard', [
         },
         //authenticate: true
       })
+      .when('/submissions', {
+        templateUrl: './views/board.html',
+        resolve: {
+          'something': function (Sockets, EventHandler, $location) {
+            EventHandler.loadBoards();
+            Sockets.emit('getUsers');
+            Sockets.emit('getUser');
+            Sockets.emit('getActingUser');
+          }
+        }
+      })
       .when('/assignment/:id', {
         templateUrl: './views/board.html',
         resolve: {
