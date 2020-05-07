@@ -1,6 +1,7 @@
 var socketio = require('socket.io');
 var rooms = require('./rooms');
 var api = require('./api');
+var util = require('./utils/util');
 var assets = require('./assets');
 var fs = require('fs');
 var users = require('./users');
@@ -500,7 +501,7 @@ module.exports = function(server, session) {
     });
     socket.on('createFeedback', function(data){
       shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-      newBoardId = generateRandomId(6);
+      newBoardId = util.generateRandomId(6);
       saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
           data.boardId = newBoardId;
           api.createFeedback(socket.handshake.session, data, function(error, result) {
