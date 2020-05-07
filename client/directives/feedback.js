@@ -10,6 +10,7 @@ angular.module('whiteboard')
       $scope.assignments = {};
       //$scope.sockets = {};
       $scope.users = [];
+      $scope.draggedTemplate;
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
       $scope.feedbackTemplateCollection = "ScientificNotation";
@@ -26,6 +27,7 @@ angular.module('whiteboard')
     $scope.dragstartCallback = function(event, item) {
         console.log(item.description)
         event.dataTransfer.setData('text/plain', item.description);
+        $scope.draggedTemplate = item.template;
     }
 
 
@@ -34,6 +36,13 @@ angular.module('whiteboard')
         // Return false here to cancel drop. Return true if you insert the item yourself.
         return item;
     };
+    $document.addEventListener('drop', function(event) {
+        event.preventDefault();
+        if ( event.target.id == "feedback-textarea" ) {
+            $scope.feedbackTemplate += $scope.draggedTemplate;
+        }
+        $scope.draggedTemplate = '';
+    })
      $scope.dragendCallback = function(event) {
         $scope.logListEvent('drag ended');
         console.log(event)
