@@ -25,7 +25,7 @@
          dnd-effect-allowed="move"
          dnd-selected="models.selected = template"
          dnd-dragend="dragendCallback(event)"
-         dnd-dragstart="dragstartCallback(event)"
+         dnd-dragstart="dragstartCallback(event, item)"
          class="tiny-font"
          style="width: 100px;"
          ng-class="{'selected': models.selected === template}"
