@@ -114,6 +114,13 @@ angular.module('whiteboard')
         svg.attr("class", msg.tool);
         // console.log('> ', svg.attr("class").split(' '));
       });
+      Split(['#drawing-space', '#feed-space'], {
+        sizes: [100,0],
+        minSize: [0, 0],
+        snapOffset: 0,
+        expandToMin: false,
+        direction: 'horizontal',
+      })
       //scope.taskData = TaskData.getData();
         /*
       Split(['#interactive-space', '#task-space'], {
@@ -121,13 +128,6 @@ angular.module('whiteboard')
         minSize: [0, 0],
         snapOffset: 0,
         direction: 'vertical',
-      })
-      Split(['#drawing-space', '#feed-space'], {
-        sizes: [100,0],
-        minSize: [0, 0],
-        snapOffset: 0,
-        expandToMin: false,
-        direction: 'horizontal',
       })
       Split(['#task-container', '#board-selector-container'], {
         sizes: [75,25],
