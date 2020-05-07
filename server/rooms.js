@@ -277,33 +277,38 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
   }
   //if (typeof taskBoards[roomId][taskId] === 'undefined') {
   getTaskBoard(roomId, taskId).then(function(boardId) {
+      var setTaskBoardPromise;
       if (!boardId) { //FIXME: check this correctly
           boardId = generateRandomId(5);
     //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
-          setTaskBoard(roomId, taskId, boardId).then(function() {
-              callback(null, board);
+          setTaskBoardPromise = setTaskBoard(roomId, taskId, boardId).then(function(res) {
+              return(res);
           });
    //taskBoards[roomId][taskId] = boardId;
    //   } else {
    //     boardId = taskBoards[roomId][taskId];
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-      }
-      console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-      if (typeof rooms[roomId][boardId] !== 'undefined') {
-          callback(null, {
-              'task': { 'id': taskId },
-              'id': boardId,
-              'shapeStorage': rooms[roomId][boardId],
-          });
       } else {
-          setupBoard(socket, boardId, function(result) {
+          setTaskBoardPromise = Promise.resolve(boardId);
+      }
+      setTaskBoardPromise.then(function() {
+          console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
+          if (typeof rooms[roomId][boardId] !== 'undefined') {
               callback(null, {
                   'task': { 'id': taskId },
                   'id': boardId,
-                  'shapeStorage': result,
+                  'shapeStorage': rooms[roomId][boardId],
               });
-          });
-      }
+          } else {
+              setupBoard(socket, boardId, function(result) {
+                  callback(null, {
+                      'task': { 'id': taskId },
+                      'id': boardId,
+                      'shapeStorage': result,
+                  });
+              });
+          }
+      });
   });
 }
 var roomsManager = {
