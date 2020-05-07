@@ -1,6 +1,6 @@
 .container {
     position: absolute;
-    width: 100%;
+    width: unset;
 }
 #screenshot-container {
     display: none;
