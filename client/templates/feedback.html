@@ -28,7 +28,7 @@
          dnd-dragstart="dragstartCallback(event, template)"
          class="tiny-font"
          style="width: 100px;"
-         ng-click="selectedTemplate = template.template"
+         ng-click="selectedTemplate = template.template;"
          ng-class="{'selected': models.selected === template}"
          >
          {{template.description}}
@@ -44,13 +44,13 @@
    <div
         dnd-drop="dropCallback(index, item, external, type)"
         class="dropzone col-12">
-     <textarea style="font-size: 10pt; width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off"/>
+     <textarea style="font-size: 10pt; width: 100%;" placeholder="Template preview..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off"/>
    </div>
   </div>
   <form action="" id="create-feedback-form" class="form-container">
    <div class="row">
     <div class="dropzone col-12">
-     <textarea id="feedback-textarea" style="font-size: 10pt; width: 100%;" placeholder="Type feedback" id="m" ng-model="feedbackTemplate" autocomplete="off" ondragenter="dragenterCallback(event);"/>
+     <textarea id="feedback-textarea" style="min-height: 150px; font-size: 10pt; width: 100%;" placeholder="Type feedback" id="m" ng-model="feedbackTemplate" autocomplete="off" ondragenter="dragenterCallback(event);"/>
     </div>
    </div>
    </fieldset>
