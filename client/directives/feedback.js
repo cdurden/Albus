@@ -13,6 +13,7 @@ angular.module('whiteboard')
       $scope.draggedTemplate;
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
+      $scope.feedbackTemplate = "";
       $scope.feedbackTemplateCollection = "ScientificNotation";
       $scope.uploader = new FileUploader();
 
