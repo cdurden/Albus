@@ -33,6 +33,7 @@ angular.module('whiteboard')
         console.log('received dragenter');
         event.preventDefault();
     }
+
     $scope.dropCallback = function(index, item, external, type) {
         $scope.logListEvent('dropped at', index, external, type);
         // Return false here to cancel drop. Return true if you insert the item yourself.
@@ -106,6 +107,10 @@ angular.module('whiteboard')
       */
     },
     link: function(scope, element, attrs, ctrls) {
+        element.find("#feedback-textarea").bind("drop", function(event) {
+            console.log("drop");
+            console.log(event);
+        });
       $(element).find("#create-feedback-form").bind("submit",function(ev) {
           ev.preventDefault();
           var users = scope.selectedUsers;
