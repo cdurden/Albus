@@ -4,8 +4,12 @@
    <div class="dropzone col-12">
     <input ng-model="feedbackTemplateCollection" type="text"
           placeholder="Feedback template collection" autofocus>
-    <button ng-click="getFeedbackTemplates(); ev.preventDefault();">Update</button>
-    <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template.template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
+    <div class="row">
+     <button ng-click="getFeedbackTemplates(); ev.preventDefault();">Update</button>
+    </div>
+    <div class="row">
+     <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template.template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
+    </div>
     </select>
     <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off" />
    </div>
