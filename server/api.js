@@ -201,7 +201,7 @@ async function getActingSessionUser(session) {
     });
 }
 async function getBoards(callback) {
-  console.log("Getting board with id "+boardId+" for user "+lti_user_id);
+  console.log("Getting all boards from API");
   request({
       url: `${scheme}://${host}:${port}/api/boards`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
