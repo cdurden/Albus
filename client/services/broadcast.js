@@ -143,6 +143,7 @@ angular.module('whiteboard.services.broadcast', [])
     getLatestBoardFromApi: getLatestBoardFromApi,
     getOrCreateTaskBoard: getOrCreateTaskBoard,
     getBoardStorage: getBoardStorage,
+    loadSubmissions: loadSubmissions,
   };
 
 });
