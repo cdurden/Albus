@@ -113,6 +113,7 @@ module.exports = function(server, session) {
               return new Promise(resolve => {
                   var board = submission.board;
                   board.i = i;
+                  board.task = submission.task; //FIXME: I'm not sure why this is not already returned by the api
                   //board.id = board.boardId;
                   rooms.loadBoard(socket, board, function() {
                      resolve(board);
