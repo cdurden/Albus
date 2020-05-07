@@ -110,7 +110,7 @@ angular.module('whiteboard', [
           }
         }
       })
-      .when('/submissions/', {
+      .when('/submissions', {
         templateUrl: './views/board.html',
         resolve: {
           'something': function (Sockets, EventHandler, $location) {
