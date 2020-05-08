@@ -120,12 +120,12 @@ button.task-submit-button {
 }
 
 .float-s {
-    margin-left: -4em;
-    width: 8em;
+    margin-left: -40%;
+    width: 80%;
     text-align: center;
     left: 50%;
     position: absolute;
-    bottom: 10px;
+    bottom: 0px;
 }
 .float-se {
     position: absolute;

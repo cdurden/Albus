@@ -33,7 +33,7 @@ angular.module('whiteboard')
           EventHandler.loadBoard(id);
       }
       */
-      $scope.boardIndexChanges = function() {
+      $scope.boardIndexChanged = function() {
           $scope.setBoardIndex($scope.boardIndex);
       }
       $scope.setBoardIndex = function(i, $event) {
