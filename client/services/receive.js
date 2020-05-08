@@ -25,10 +25,10 @@ angular.module('whiteboard.services.receive', [])
     console.log(data);
     EventHandler.updateBoardStorage(data.boardId, data.shapeStorage);
   });
-  Sockets.on('board', function (data) {
-    console.log("got board");
-    console.log(data);
-    EventHandler.addBoard(data);
+  Sockets.on('board', function (board) {
+    console.log(board);
+    //EventHandler.addBoard(data);
+    EventHandler.updateBoards([board]);
   });
   Sockets.on('boards', function (boards) {
     EventHandler.updateBoards(boards);
