@@ -12,15 +12,21 @@ async function submitBoard(board) {
         })
     }
 }
+async function getBoards() {
+    return new Promise(resolve => {
+    api.getBoards((err, boards) => {
+        //console.log(boards);
+        resolve(boards)
+    });
+    })
+}
 
 async function submitBoards() {
     return new Promise(resolve => {
-        api.getBoards((err, boards) => {
-            //console.log(boards);
-            for (board of boards) {
-                await submitBoard(board);
-            }
-        });
+        boards = await getBoards();
+        for (board of boards) {
+            await submitBoard(board);
+        }
     });
 }
 submitBoards().then(process.exit);
