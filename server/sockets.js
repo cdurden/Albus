@@ -168,7 +168,7 @@ module.exports = function(server, session) {
             api.getTasksFromSources(assignmentAsset, function(error, tasks) {//new
                 console.log("Got tasks");
                 console.log(tasks);
-                Promise.all(assignmentAsset.map((taskSource, i) {
+                Promise.all(assignmentAsset.map((taskSource, i) =>
                     //Promise.all(tasks.map((task, i) => {
                     return new Promise(resolve => {
                         if (tasks[i]) { //FIXME: correctly test whether this task was received
