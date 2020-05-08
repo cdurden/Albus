@@ -352,15 +352,16 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
                   });
               });
           });
+      }
     //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
           //setTaskBoardPromise = setTaskBoard(roomId, taskId, boardId).then(function(res) {
    //taskBoards[roomId][taskId] = boardId;
    //   } else {
    //     boardId = taskBoards[roomId][taskId];
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-      }
       //setTaskBoardPromise.then(function() {
       registeredTaskBoardPromise.then(function(board) {
+          console.log("Task board registered. Setting it up for socket");
           setupBoardForSocket(socket, boardId, function(board) {
               console.log("Task board registered and setup for socket");
               callback(null, board);
