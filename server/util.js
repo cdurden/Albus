@@ -13,12 +13,12 @@ async function submitBoard(board) {
     }
 }
 async function getBoards() {
-    //return new Promise(resolve => {
+    return new Promise(resolve => {
     api.getBoards((err, boards) => {
         //console.log(boards);
-        return(boards)
+        resolve(boards)
     });
-    //})
+    })
 }
 
 async function submitBoards() {
