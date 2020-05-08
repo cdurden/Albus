@@ -263,10 +263,13 @@ function getTaskBoard(roomId, taskSource) {
         //client.hget('taskBoards', roomId+taskId, function(err, boardId) {
         client.hget(roomId, taskSource, function(err, boardId) {
             if (boardId) {
+                console.log("Board registered with task "+taskSource+" in room "+roomId);
+                console.log("Getting registered board");
                 getBoard(roomId, boardId, function(err, board) {
                     resolve(board);
                 });
             } else {
+                console.log("Board not registered with task "+taskSource+" in room "+roomId);
                 resolve(undefined);
             }
         });
