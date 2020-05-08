@@ -241,7 +241,7 @@ function setupBoardForSocket(socket, boardId, callback) {
               shapeStorage[socket.id] = {};
               callback && callback(shapeStorage)
           }
-      }
+      });
 }
 function getTaskBoard(roomId, taskId) {
     return new Promise(resolve => {
