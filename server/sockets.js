@@ -86,7 +86,8 @@ module.exports = function(server, session) {
       console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
       console.log(shapeStorage);
       data.boardId = saveAs;
-      api.saveBoard(socket.handshake.session, shapeStorage, data, undefined, function(err, data) {
+      data.shapeStorage = shapeStorage;
+      api.saveBoard(socket.handshake.session, data, undefined, function(err, data) {
           console.log("Board saved");
           console.log(data);
           resolve(data);
@@ -742,7 +743,7 @@ function get_all_data_by_socket(socket, callback) {
       });
     });
     socket.on('createFeedback', function(data){
-      shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
+      //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
       newBoardId = util.generateRandomId(6);
       saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
           data.boardId = newBoardId;

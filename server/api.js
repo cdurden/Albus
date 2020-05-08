@@ -108,11 +108,13 @@ const uploadProxy = createProxyMiddleware(proxy_filter, proxy_options);
 function getSessionUser(session) {
     return(session.passport.user);
 }
+/*
 function uploadHandler(req, res) {
     var url =`${scheme}://${host}:${port}/api/upload`;
     console.log("Handling file upload by proxying the request to "+url);
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
+*/
 
 async function uploadHandler(creq, cres, next){
     //var user = creq.session.passport.user;
@@ -127,8 +129,8 @@ async function uploadHandler(creq, cres, next){
         var boardId = creq.body.boardId;
         var lti_user_id = user
         var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
-        var data_json = JSON.stringify(shapeStorage);
-        console.log("data: "+data_json);
+        var shapeStorage_json = JSON.stringify(shapeStorage);
+        console.log("shapeStorage: "+data_json);
         console.log("boardId: "+boardId);
         console.log("lti_user_id: "+lti_user_id);
         console.log("file: "+creq.files.file.tempFilePath);
@@ -149,7 +151,7 @@ async function uploadHandler(creq, cres, next){
         var formData = {
             'lti_user_id': lti_user_id,
             'boardId': boardId,
-            'data_json': data_json,
+            'shapeStorage_json': shapeStorage_json,
             'file': fs.createReadStream(file.tempFilePath),
         }
         if (typeof creq.body.task_id !== 'undefined') {
@@ -223,7 +225,7 @@ async function getBoard(session, boardId, callback) {
   request({
       url: `${scheme}://${host}:${port}/api/user/${lti_user_id}/board/${boardId}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
-      json: data,
+      //json: data, //FIXME: this looks undefined
   },
     function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -296,16 +298,18 @@ function updateAssignments(assignments, callback) {
     }
   );
 }
-async function saveBoard(session, board, data, backgroundImage, callback) {
+async function saveBoard(session, data, backgroundImage, callback) {
   lti_user_id = await getActingSessionUser(session);
   console.log(Object.keys(board));
   console.log("Saving board for lti_user_id: "+lti_user_id);
+  shapeStorage_json = JSON.stringify(data.shapeStorage);
+  console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
   data = { 
       'lti_user_id': lti_user_id, 
       'task_id': data.taskId,
       'boardId': data.boardId,
       'background_image': backgroundImage,
-      'data': board,
+      'shapeStorage_json': shapeStorage_json,
   };
   request.post(`${scheme}://${host}:${port}/api/boards/`,
     {
