@@ -115,7 +115,7 @@ angular.module('whiteboard')
         // console.log('> ', svg.attr("class").split(' '));
       });
       if (scope.mode === 'submissions') {
-          element.find('#drawing-space').addClass(['split', 'split-horizontal']);
+          //element.find('#drawing-space').addClass(['split', 'split-horizontal']);
           Split(['#drawing-space', '#feed-space'], {
             sizes: [50,50],
             minSize: [0, 0],
