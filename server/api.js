@@ -363,6 +363,8 @@ function getFeedback(callback) {
 }
 async function createFeedback(session, data, callback) {
   data.lti_user_id = await getActingSessionUser(session);
+  console.log("Creating feedback for submission: "+data.submission_id);
+  console.log(data);
   request.post(`${scheme}://${host}:${port}/api/feedback/`,
     {
       headers : { 
