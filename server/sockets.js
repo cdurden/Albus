@@ -219,10 +219,16 @@ module.exports = function(server, session) {
                         }
                         console.log("emitting boards to socket "+socket.id);
                         console.log(boards);
-                        socket.emit('boards', boards);
+                        //socket.emit('boards', boards);
                         taskObjectsPromise.then(function(taskObjects) {
                             tasksObj = tasks.reduce(function(obj, task) { task.data = taskObjects[task.source].data; obj[task.id] = task; return obj; }, {});
+                            for (board in boards) {
+                                board.task = tasksObj[board.task.source]
+                            }
+                            socket.emit('boards', boards);
+                            /*
                             socket.emit('tasks', tasksObj);
+                            */
                         });
                     });
                 });
