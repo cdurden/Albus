@@ -146,7 +146,6 @@ angular.module('whiteboard', [
           'resource': function(Sockets, EventHandler, $location) {
               return(undefined);
           }
-          'resource'
         }
       });
 
