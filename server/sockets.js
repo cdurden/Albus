@@ -707,6 +707,7 @@ function get_all_data_by_socket(socket, callback) {
             }
         */
           console.log("Board not found");
+          console.log(board);
           socket.emit('boardNotFound', boardId);
         } else {
           rooms.loadBoard(socket, board, function(result) {
