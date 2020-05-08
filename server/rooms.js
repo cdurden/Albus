@@ -332,12 +332,12 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
   //getTaskBoard(roomId, taskId).then(function(boardId) {
   getTaskBoard(roomId, taskSource).then(function(board) {
       //var setTaskBoardPromise;
-      var registerTaskBoardPromise;
+      var registeredTaskBoardPromise;
       if (!board) { //FIXME: check this correctly
           boardId = generateRandomId(5);
           setupBoard(roomId, boardId, function(board) {
               //resolve(shapeStorage);
-              registerTaskBoardPromise = registerTaskBoard(roomId, taskSource, boardId).then(function(res) {
+              registeredTaskBoardPromise = registerTaskBoard(roomId, taskSource, boardId).then(function(res) {
                   resolve(board);
               });
           });
@@ -347,35 +347,26 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
    //   } else {
    //     boardId = taskBoards[roomId][taskId];
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-      } else {
-          //setTaskBoardPromise = Promise.resolve(boardId);
-          registerTaskBoardPromise = Promise.resolve(board);
+      } else { // task board already exists, return promise resolve to it
+          registeredTaskBoardPromise = Promise.resolve(board);
       }
       //setTaskBoardPromise.then(function() {
       registerTaskBoardPromise.then(function(board) {
+          setupBoardForSocket(socket, boardId, function(board) {
+              callback(null, board);
+          });
+      });
+          /*
           console.log("Task board for roomId "+roomId+" and taskSource "+taskSource+" is "+board.boardId);
           if (typeof rooms[roomId][board.boardId] !== 'undefined') {
               callback(board)
-          /*
-              callback(null, {
-                  'task': { 'source': taskSource },
-                  'boardId': boardId,
-                  'shapeStorage': rooms[roomId][boardId],
-              });
-              */
           } else {
               setupBoardForSocket(socket, boardId, function(board) {
                   callback(null, board);
-                  /*
-                  callback(null, {
-                      'task': { 'source': taskSource },
-                      'boardId': boardId,
-                      'shapeStorage': result,
-                  });
-                  */
               });
           }
       });
+              */
   });
 }
 var roomsManager = {
