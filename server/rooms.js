@@ -189,24 +189,30 @@ function placeSocketId(socketId, callback) {
 function getBoard(roomId, boardId) {
     return((rooms[roomId] || {})[boardId]);
 }
-function getBoardStorage(roomId, boardId) {
+async function getBoardStorage(roomId, boardId) {
+    new Promise(resolve => {
+        nodeStorage = (rooms[roomId] || {})[boardId]
+        if (nodeStorage) {
+            resolve(nodeStorage)
+        } else {
+            setupBoard(roomId, boardId);
+        }
     return((rooms[roomId] || {})[boardId]);
 }
 function getBoards(roomId) {
     return(rooms[roomId]);
 }
-function setupRoom(socket, callback) {
-    roomId = socket.room;
+function setupRoom(roomId, callback) {
     rooms[roomId] = {};
     callback && callback(rooms[roomId]);
 }
-function setupBoard(socket, boardId, callback) {
-    if (typeof rooms[socket.room] === 'undefined') {
-      setupRoom(socket);
+function setupBoard(roomId, boardId, callback) {
+    if (typeof rooms[roomId] === 'undefined') {
+      setupRoom(roomId);
     }
     client.hget(roomId, boardId, function (err, reply) {
       if (typeof rooms[roomId] === 'undefined') {
-          setupRoom(socket)
+          setupRoom(roomId)
       }
       if (!rooms[roomId][boardId]) {
         rooms[roomId][boardId] = {};
@@ -220,15 +226,20 @@ function setupBoard(socket, boardId, callback) {
       }
       console.log("Node.js process board data");
       console.log(rooms[roomId][boardId]);
-      console.log("Setting up board "+boardId+" for socket "+socket.id);
+      console.log("Setting up board "+boardId+" in room "+roomId);
       console.log("Redis board data");
       console.log(reply);
       
-      if (typeof rooms[roomId][boardId][socket.id] === 'undefined') {
-          rooms[roomId][boardId][socket.id] = {};
-      }
-      callback(rooms[roomId][boardId]);
+      callback && callback(rooms[roomId][boardId]);
     });
+}
+function setupBoardForSocket(socket, boardId, callback) {
+      setupBoard(socket.room, boardId, function(shapeStorage) {
+          if (typeof shapeStorage[socket.id] === 'undefined') {
+              shapeStorage[socket.id] = {};
+              callback && callback(shapeStorage)
+          }
+      }
 }
 function getTaskBoard(roomId, taskId) {
     return new Promise(resolve => {
@@ -247,17 +258,18 @@ function setTaskBoard(roomId, taskId, boardId) {
 function setupBoards(socket, callback) {
   var boards = [];
   for (boardId in rooms[socket.room]) {
-    setupBoard(socket, boardId, function(board) {
+    setupBoardForSocket(socket, boardId, function(board) { // Can I just do setupBoard here?
       boards.push(board);
     })
   }
   callback && callback(boards)
 }
-function loadBoard(socket, board, callback) {
-  roomId = socket.room;
+function loadBoard(roomId, board, callback) {
+  //roomId = socket.room;
   boardId = board.boardId;
   if (typeof rooms[roomId] === 'undefined') {
-      setupRoom(socket);
+      //setupRoom(socket.room);
+      setupRoom(roomId);
   }
   rooms[roomId][boardId] = board['shapeStorage'];
   client.hmset(roomId, boardId, JSON.stringify(board['shapeStorage'])); 
@@ -273,7 +285,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
   var boardId;
   roomId = socket.room;
   if (typeof rooms[roomId] === 'undefined') {
-      setupRoom(socket);
+      setupRoom(socket.room);
   }
   //if (typeof taskBoards[roomId][taskId] === 'undefined') {
   getTaskBoard(roomId, taskId).then(function(boardId) {
@@ -300,7 +312,7 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
                   'shapeStorage': rooms[roomId][boardId],
               });
           } else {
-              setupBoard(socket, boardId, function(result) {
+              setupBoardForSocket(socket, boardId, function(result) {
                   callback(null, {
                       'task': { 'id': taskId },
                       'boardId': boardId,
@@ -343,7 +355,7 @@ var roomsManager = {
   addShape: function (shape, socket) {
     new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
-        setupBoard(socket, shape.boardId, function() {
+        setupBoardForSocket(socket, shape.boardId, function() {
     //it seems that the client was setting the socketId of the shape
     //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
     //here the line has been modified to use the id of the current socket.
@@ -364,7 +376,7 @@ var roomsManager = {
   editShape: function (shape, socket) {
     new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
-        setupBoard(socket, shape.boardId, function() {
+        setupBoardForSocket(socket, shape.boardId, function() {
     //it seems that the client was setting the socketId of the shape
     //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
     //here the line has been modified to use the id of the current socket.
@@ -390,7 +402,7 @@ var roomsManager = {
   moveShape: function (shape, socket) {
     new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
-        setupBoard(socket, shape.boardId, function() {
+        setupBoardForSocket(socket, shape.boardId, function() {
           resolve();
         })
       } else {
@@ -431,7 +443,7 @@ var roomsManager = {
   completePath: function (shape, socket) {
     new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
-        setupBoard(socket, shape.boardId, function() {
+        setupBoardForSocket(socket, shape.boardId, function() {
           resolve();
         })
       } else {
@@ -450,7 +462,7 @@ var roomsManager = {
   completeShape: function (shape, socket) {
     new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
-        setupBoard(socket, shape.boardId, function() {
+        setupBoardForSocket(socket, shape.boardId, function() {
           resolve();
         })
       } else {
@@ -471,7 +483,7 @@ var roomsManager = {
   deleteShape: function (shape, socket) {
     new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {})[socket.id] === 'undefined') {
-        setupBoard(socket, shape.boardId, function() {
+        setupBoardForSocket(socket, shape.boardId, function() {
           resolve();
         })
       } else {

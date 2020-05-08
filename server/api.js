@@ -128,40 +128,42 @@ async function uploadHandler(creq, cres, next){
         var formData = new FormData();
         var boardId = creq.body.boardId;
         var lti_user_id = user
-        var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
-        var shapeStorage_json = JSON.stringify(shapeStorage);
-        console.log("shapeStorage: "+data_json);
-        console.log("boardId: "+boardId);
-        console.log("lti_user_id: "+lti_user_id);
-        console.log("file: "+creq.files.file.tempFilePath);
-        /*
-        formData.append('lti_user_id', lti_user_id);
-        formData.append('boardId', boardId);
-        if (typeof creq.body.task_id !== 'undefined') {
-            formData.append('task_id', creq.body.task_id);
-        }
-        formData.append('data_json', data_json);
-        console.log(file);
-        //formData.append('file', fs.createReadStream(file.tempFilePath), { filename: file.filename, contentType: file.mimetype, knownLength: file.size} );
-        var options = { filename: file.name, contentType: file.mimetype, knownLength: file.size}
-        console.log(options);
-        formData.append('file', fs.createReadStream(file.tempFilePath), options);
-        */
-        var file = creq.files.file;
-        var formData = {
-            'lti_user_id': lti_user_id,
-            'boardId': boardId,
-            'shapeStorage_json': shapeStorage_json,
-            'file': fs.createReadStream(file.tempFilePath),
-        }
-        if (typeof creq.body.task_id !== 'undefined') {
-            formData['task_id'] = creq.body.task_id;
-        }
-
-        //var url =`${scheme}://${host}:${port}/api/upload`;
-        var url =`${scheme}://${host}:${port}/api/boards/`;
-        request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
-            cres.send(res);
+        //var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
+        rooms.getBoardStorage(creq.roomId, boardId).then(function(shapeStorage) {
+            var shapeStorage_json = JSON.stringify(shapeStorage);
+            console.log("shapeStorage: "+data_json);
+            console.log("boardId: "+boardId);
+            console.log("lti_user_id: "+lti_user_id);
+            console.log("file: "+creq.files.file.tempFilePath);
+            /*
+            formData.append('lti_user_id', lti_user_id);
+            formData.append('boardId', boardId);
+            if (typeof creq.body.task_id !== 'undefined') {
+                formData.append('task_id', creq.body.task_id);
+            }
+            formData.append('data_json', data_json);
+            console.log(file);
+            //formData.append('file', fs.createReadStream(file.tempFilePath), { filename: file.filename, contentType: file.mimetype, knownLength: file.size} );
+            var options = { filename: file.name, contentType: file.mimetype, knownLength: file.size}
+            console.log(options);
+            formData.append('file', fs.createReadStream(file.tempFilePath), options);
+            */
+            var file = creq.files.file;
+            var formData = {
+                'lti_user_id': lti_user_id,
+                'boardId': boardId,
+                'shapeStorage_json': shapeStorage_json,
+                'file': fs.createReadStream(file.tempFilePath),
+            }
+            if (typeof creq.body.task_id !== 'undefined') {
+                formData['task_id'] = creq.body.task_id;
+            }
+    
+            //var url =`${scheme}://${host}:${port}/api/upload`;
+            var url =`${scheme}://${host}:${port}/api/boards/`;
+            request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
+                cres.send(res);
+            });
         });
     }
 }

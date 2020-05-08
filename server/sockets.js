@@ -82,15 +82,17 @@ module.exports = function(server, session) {
         saveAs = data.boardId;
     }
     return new Promise(resolve => {
-      shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-      console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
-      console.log(shapeStorage);
-      data.boardId = saveAs;
-      data.shapeStorage = shapeStorage;
-      api.saveBoard(socket.handshake.session, data, undefined, function(err, data) {
-          console.log("Board saved");
-          console.log(data);
-          resolve(data);
+      //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
+      rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId).then(function(shapeStorage) {
+          console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
+          console.log(shapeStorage);
+          data.boardId = saveAs;
+          data.shapeStorage = shapeStorage;
+          api.saveBoard(socket.handshake.session, data, undefined, function(err, data) {
+              console.log("Board saved");
+              console.log(data);
+              resolve(data);
+          });
       });
     });
   }
@@ -175,14 +177,16 @@ module.exports = function(server, session) {
                             board.i = i;
                             //board.id = board.boardId; //FIXME: why is this here?
                             board.task_id = task.id;
-                            roomBoardStorage = rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId)
-                            if (typeof roomBoardStorage !== 'undefined') {
-                                board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
-                                board.apiBoardStorage = board.shapeStorage;
-                                board.shapeStorage = roomBoardStorage;
-                            }
-                            rooms.loadBoard(socket, board, function() {
-                                resolve(board);
+                            //roomBoardStorage = rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId)
+                            rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomBoardStorage) {
+                                if (typeof roomBoardStorage !== 'undefined') {
+                                    board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                                    board.apiBoardStorage = board.shapeStorage;
+                                    board.shapeStorage = roomBoardStorage;
+                                }
+                                rooms.loadBoard(socket, board, function() {
+                                    resolve(board);
+                                });
                             });
                         } else {
                             rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
@@ -713,8 +717,10 @@ function get_all_data_by_socket(socket, callback) {
       });
     });
     socket.on('getBoardStorage', function(boardId) {
-      var boardStorage = rooms.getBoardStorage(socket.room, boardId);
-      socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
+      //var boardStorage = rooms.getBoardStorage(socket.room, boardId);
+      rooms.getBoardStorage(socket.room, boardId).then(function(boardStorage) {
+          socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
+      });
     });
     socket.on('loadBoards', function(assignment) {
       loadBoards(socket, assignment);
