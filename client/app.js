@@ -70,6 +70,7 @@ angular.module('whiteboard', [
     $routeProvider
       .when('/', {
         templateUrl: './views/board.html',
+        controller: 'whiteboardController',
         resolve: {
           'mode': function(Sockets, EventHandler, $location) {
               EventHandler.loadBoards();
@@ -79,6 +80,7 @@ angular.module('whiteboard', [
       })
       .when('/lti/', { //FIXME: Is this route necessary?
         templateUrl: '/views/board.html',
+        controller: 'whiteboardController',
         //templateUrl: 'views/board+chat.html',
         resolve: {
           'somethingElse': function (Sockets, EventHandler, $location) {
@@ -94,6 +96,7 @@ angular.module('whiteboard', [
       })
       .when('/board/:id', {
         templateUrl: '/views/board.html',
+        controller: 'whiteboardController',
         resolve: {
           'mode': function (Sockets, EventHandler, $location) {
             EventHandler.loadBoardFromApi($location.path().slice(2));
@@ -106,6 +109,7 @@ angular.module('whiteboard', [
       })
       .when('/submissions', {
         templateUrl: './views/board.html',
+        controller: 'whiteboardController',
         resolve: {
           'user': function (Sockets, EventHandler, $location) {
                 return new Promise(resolve => {
@@ -125,6 +129,7 @@ angular.module('whiteboard', [
       })
       .when('/assignment/:id', {
         templateUrl: './views/board.html',
+        controller: 'whiteboardController',
         resolve: {
           'mode': function (Sockets, EventHandler, $location) {
             EventHandler.loadBoards($location.path().slice(12));
@@ -137,6 +142,7 @@ angular.module('whiteboard', [
       })
       .when('/slides', {
         templateUrl: 'views/slides.html',
+        controller: 'whiteboardController',
         resolve: {
           'mode': function (Sockets, EventHandler, $location) {
               return('slides');
