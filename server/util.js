@@ -16,7 +16,7 @@ async function getBoards() {
     //return new Promise(resolve => {
     api.getBoards((err, boards) => {
         //console.log(boards);
-        resolve(boards)
+        return(boards)
     });
     //})
 }
