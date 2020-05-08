@@ -265,6 +265,7 @@ async function getLatestBoard(session, taskId, callback) {
   data = { 
       'task_id': taskId,
   };
+  console.log("Calling getActingSessionUser")
   data.lti_user_id = await getActingSessionUser(session);
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
   request({
