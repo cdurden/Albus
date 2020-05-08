@@ -15,7 +15,7 @@ async function submitBoard(board) {
 
 async function submitBoards() {
     return new Promise(resolve => {
-        api.getBoards(function(err, boards) {
+        api.getBoards((err, boards) => {
             //console.log(boards);
             for (board of boards) {
                 await submitBoard(board);
