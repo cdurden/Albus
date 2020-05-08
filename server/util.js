@@ -11,10 +11,13 @@ function submitBoards() {
                     console.log("Submitting work on board "+board.boardId);
                     data = { taskId: board.task_id, lti_user_id: board.user.lti_user_id, board_id: board.id }
                     session.actingAsUser = board.user.lti_user_id;
+                    console.log(session.actingAsUser);
+                    /*
                     api.submit(session, data, function(err, res) {
                         console.log(res)
                         resolve(res)
                     })
+                    */
                 }
             }
         });
