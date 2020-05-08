@@ -12,7 +12,7 @@ angular.module('whiteboard.services.boarddata', [])
   var boardId;
   var board;
   var boards = {};
-  var boardData = {'boards': boards};
+  var boardData = {'boards': boards, boardIdsList: []};
   var taskBoards = {};
   var $canvas;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
@@ -285,7 +285,7 @@ angular.module('whiteboard.services.boarddata', [])
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
   function updateBoards(newBoards) {
-    var boardIds = [];
+    boardData.boardIdsList = [];
     var board;
     for (board of newBoards) {
         boards[board.boardId] = board;
@@ -297,10 +297,10 @@ angular.module('whiteboard.services.boarddata', [])
                 });
             }
         }
-        boardIds.push(board.boardId);
+        boardData.boardIdsList.push(board.boardId);
     }
     for (let [boardId,board] of Object.entries(boards)){
-        if (!boardIds.includes(board.boardId)) {
+        if (!boardData.boardIdsList.includes(board.boardId)) {
             delete boards[boardId]; //FIXME: prompt user to save changes
         }
     }

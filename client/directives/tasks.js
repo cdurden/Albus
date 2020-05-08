@@ -14,6 +14,8 @@ angular.module('whiteboard')
     controller: function ($scope, InputHandler) {
       //$scope.taskData = TaskData.getData();
       //$scope.boards = BoardData.getBoards();
+      $scope.maxBoardSelectorSize = 10;
+      $scope.boardIndex = 1;
       $scope.boardData = BoardData.getBoardData();
       $scope.i = 0;
       $scope.uploader = new FileUploader();
@@ -31,16 +33,12 @@ angular.module('whiteboard')
           EventHandler.loadBoard(id);
       }
       */
+      $scope.boardIndexChanges = function() {
+          $scope.setBoardIndex($scope.boardIndex);
+      }
       $scope.setBoardIndex = function(i, $event) {
-          $scope.i = i;
-          for (let [boardId, board] of Object.entries($scope.boardData.boards)) {
-              if (board.i === i) {
-                  //$scope.setBoardId(boardId);
-                  //BoardData.setBoardById(id);
-                  $scope.boardData.boardId = boardId;
-                  return(true);
-              }
-          }
+          boardId = $scope.boardData.boardIdList[i-1];
+          $scope.boardData.boardId = boardId;
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
       }
@@ -139,6 +137,7 @@ angular.module('whiteboard')
       */
       scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         scope.board = scope.boardData.boards[scope.boardData.boardId];
+        scope.numBoards = Object.keys(scope.boardData.boards).length
         if (typeof scope.boardData.boardId !== 'undefined' ) {
             EventHandler.loadBoard(scope.boardData.boardId);
         }
