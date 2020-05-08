@@ -37,7 +37,7 @@ angular.module('whiteboard')
           $scope.setBoardIndex($scope.boardIndex);
       }
       $scope.setBoardIndex = function(i, $event) {
-          boardId = $scope.boardData.boardIdList[i-1];
+          boardId = $scope.boardData.boardIdsList[i-1];
           $scope.boardData.boardId = boardId;
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
