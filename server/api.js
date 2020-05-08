@@ -549,12 +549,12 @@ async function getTaskBoardsFromSource(session, sources, callback) {
     }
   });
 }
-function getTasksFromSources(session, sources, callback) {
+function getTasksFromSources(sources, callback) {
   request({
     url: `${scheme}://${host}:${port}/api/tasks/source/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
     agent: agent,
-    useQuerystring: true,
+    //useQuerystring: true,
     json: {'sources': sources},
   },
   function(error, response, body) {
