@@ -346,9 +346,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
           boardId = generateRandomId(5);
           setupBoard(roomId, boardId, function(board) {
               //resolve(shapeStorage);
-              registeredTaskBoardPromise = registerTaskBoard(roomId, taskSource, boardId).then(function(res) {
-                  resolve(board);
-              });
+              registeredTaskBoardPromise = registerTaskBoard(roomId, taskSource, boardId);
           });
     //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
           //setTaskBoardPromise = setTaskBoard(roomId, taskId, boardId).then(function(res) {
