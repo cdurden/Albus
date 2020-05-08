@@ -184,6 +184,7 @@ function actAsUser(session, lti_user_id) {
 }
 */
 async function getActingSessionUser(session) {
+    console.log("getActingSessionUser called");
     //return new Promise( (resolve) => {
         if (typeof session.actingAsUser !== 'undefined') {
             console.log("Session says acting user is "+session.actingAsUser+". Checking if authorized.");
@@ -202,6 +203,7 @@ async function getActingSessionUser(session) {
                 }
             });
         } else {
+          console.log("Resolving actingSessionUser");
           console.log(((session || {}).passport || {}));
           //resolve(((session || {}).passport || {}).user);
           return(((session || {}).passport || {}).user);
