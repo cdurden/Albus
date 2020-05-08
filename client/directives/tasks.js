@@ -69,6 +69,7 @@ angular.module('whiteboard')
       }
     },
     link: function(scope, element, attrs, ctrl) {
+        /*
         var controlsNext = element.find('.navigate-right');
         var controlsPrev = element.find('.navigate-left');
         element.on('touchstart', function (e) { e.preventDefault(); });
@@ -95,6 +96,7 @@ angular.module('whiteboard')
 	}
 	function onNavigatePrevClicked( event ) { event.preventDefault(); navigatePrev(); }
 	function onNavigateNextClicked( event ) { event.preventDefault(); navigateNext(); }
+    */
 
       var boardCtrl = ctrl;
       BoardData.createBoard(element.find('#board-container'));
@@ -112,13 +114,15 @@ angular.module('whiteboard')
         svg.attr("class", msg.tool);
         // console.log('> ', svg.attr("class").split(' '));
       });
-      Split(['#drawing-space', '#feed-space'], {
-        sizes: [50,50],
-        minSize: [0, 0],
-        snapOffset: 0,
-        expandToMin: false,
-        direction: 'horizontal',
-      })
+      if (scope.mode === 'submissions') {
+          Split(['#drawing-space', '#feed-space'], {
+            sizes: [50,50],
+            minSize: [0, 0],
+            snapOffset: 0,
+            expandToMin: false,
+            direction: 'horizontal',
+          })
+      }
       //scope.taskData = TaskData.getData();
         /*
       Split(['#interactive-space', '#task-space'], {
@@ -144,19 +148,7 @@ angular.module('whiteboard')
         if (typeof scope.boardData.boardId !== 'undefined' ) {
             EventHandler.loadBoard(scope.boardData.boardId);
         }
-          /*
-        scope.setBoardIndex(scope.i) || scope.setBoardIndex(0);
-        scope.board = board;
-        scope.task = (board || {}).task;
-        */
       });
-        /*
-      scope.$watch("taskData.tasks", function(tasks) {
-          tasks.forEach((task, i) => { 
-            BoardData.getOrCreateTaskBoard(task.id);
-          });
-      });
-      */
     }
   }
 }]);

@@ -48,30 +48,36 @@ angular.module('whiteboard', [
 }]) 
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
+    var originalWhen = $routeProvider.when;
+
+    $routeProvider.when = function(path, route) {
+        route.resolve || (route.resolve = {});
+        angular.extend(route.resolve, {
+          'user': function (Sockets, EventHandler, $location) {
+                return new Promise(resolve => {
+                Sockets.emit('getUser');
+                Sockets.emit('getUsers');
+                Sockets.emit('getActingUser');
+                Sockets.on('user', function(user) {
+                    resolve(user);
+                })
+            })
+          }
+        });
+
+        return originalWhen.call($routeProvider, path, route);
+    };
     $routeProvider
       .when('/', {
         templateUrl: './views/board.html',
-        //templateUrl: 'views/board+chat.html',
-        //templateUrl: 'views/slides.html',
         resolve: {
-          'something': function (Sockets, EventHandler, $location) {
-            EventHandler.loadBoards();
-            Sockets.emit('getUsers');
-            Sockets.emit('getUser');
-            Sockets.emit('getActingUser');
-            /*
-            var roomId = Auth.generateRandomId(5);
-            Sockets.emit('roomId', {roomId: roomId});
-            $location.path('/' + roomId);
-            Sockets.on('assignment', function(data) {
-              $location.path('/' + data);
-            });
-            Sockets.emit('get_assignment');
-            */
+          'mode': function(Sockets, EventHandler, $location) {
+              EventHandler.loadBoards();
+              return('assignment');
           }
         }
       })
-      .when('/lti/', {
+      .when('/lti/', { //FIXME: Is this route necessary?
         templateUrl: '/views/board.html',
         //templateUrl: 'views/board+chat.html',
         resolve: {
@@ -88,70 +94,42 @@ angular.module('whiteboard', [
       })
       .when('/board/:id', {
         templateUrl: '/views/board.html',
-        //templateUrl: 'views/board+chat.html',
         resolve: {
-          'somethingElse': function (Sockets, EventHandler, $location) {
-            //BoardData.setBoardId($location.path().slice(1));
+          'mode': function (Sockets, EventHandler, $location) {
             EventHandler.loadBoardFromApi($location.path().slice(2));
-            Sockets.emit('getUsers');
-            Sockets.emit('getUser');
-            Sockets.emit('getActingUser');
-            //Sockets.emit('roomId', {roomId: $location.path().slice(2)});
+            return('board')
+          },
+          'board': function (Sockets, EventHandler, $locat  ion) {
+            return($location.path().slice(2));
           }
         },
-        //authenticate: true
       })
       .when('/submissions', {
         templateUrl: './views/board.html',
         resolve: {
-          'something': function (Sockets, EventHandler, $location) {
-            //EventHandler.loadBoards();
+          'mode': function (Sockets, EventHandler, $location) {
             EventHandler.loadSubmissions();
-            Sockets.emit('getUsers');
-            Sockets.emit('getUser');
-            Sockets.emit('getActingUser');
+            return('submissions');
           }
         }
       })
       .when('/assignment/:id', {
         templateUrl: './views/board.html',
         resolve: {
-          'something': function (Sockets, EventHandler, $location) {
+          'mode': function (Sockets, EventHandler, $location) {
             EventHandler.loadBoards($location.path().slice(12));
-            Sockets.emit('getUsers');
-            Sockets.emit('getUser');
-            Sockets.emit('getActingUser');
-          }
+            return('assignment')
+          },
+          'assignment': function (Sockets, EventHandler, $locat  ion) {
+            return($location.path().slice(12));
+          },
         }
       })
-      /*
-      .when('/submissions', {
-        templateUrl: './views/board.html',
-        resolve: {
-          'something': function (Sockets, EventHandler, $location) {
-            EventHandler.loadSubmissions();
-            Sockets.emit('getUsers');
-            Sockets.emit('getUser');
-            Sockets.emit('getActingUser');
-          }
-        }
-      })
-      */
       .when('/slides', {
-        //templateUrl: './views/board.html',
-        //templateUrl: 'views/board+chat.html',
         templateUrl: 'views/slides.html',
         resolve: {
-          'something': function (Sockets, EventHandler, $location) {
-            /*
-            var roomId = Auth.generateRandomId(5);
-            Sockets.emit('roomId', {roomId: roomId});
-            $location.path('/' + roomId);
-            Sockets.on('assignment', function(data) {
-              $location.path('/' + data);
-            });
-            Sockets.emit('get_assignment');
-            */
+          'mode': function (Sockets, EventHandler, $location) {
+              return('slides');
           }
         }
       });
@@ -162,6 +140,18 @@ angular.module('whiteboard', [
     });
 }])
 .controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', function($window, $document, FileUploader, $scope, BoardData, EventHandler) {
+    $scope.user = $scope.$resolve.user;
+    $scope.mode = $scope.$resolve.mode;
+    if ($scope.mode === 'assignment') {
+        if ($scope.resolve.assignment) {
+            $scope.assignment = $scope.resolve.assignment;
+        } else {
+            $scope.assignment = $scope.user.assignment;
+        } 
+    }
+    if ($scope.mode === 'board') {
+        $scope.board = $scope.$resolve.board;
+    }
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
         console.log("added file");
@@ -182,18 +172,4 @@ angular.module('whiteboard', [
         console.log("uploading complete");
         EventHandler.loadBoards();
     }
-    /*
-    $window.addEventListener("dragover",function(e){
-          e = e || event;
-          if (e.target !== $document[0].body) {
-            e.preventDefault();
-          }
-    },false);
-    $window.addEventListener("drop",function(e){
-          e = e || event;
-          if (e.target !== $document[0].body) {
-            e.preventDefault();
-          }
-    },false);
-    */
 }]);
