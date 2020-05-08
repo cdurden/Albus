@@ -262,7 +262,7 @@ function getTaskBoard(session, taskId, callback) {
   });
 }
 async function getLatestBoard(session, taskId, callback) {
-  data = { 
+  var data = { 
       'task_id': taskId,
   };
   console.log("Calling getActingSessionUser")
