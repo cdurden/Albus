@@ -99,7 +99,7 @@ angular.module('whiteboard', [
             EventHandler.loadBoardFromApi($location.path().slice(2));
             return('board')
           },
-          'board': function (Sockets, EventHandler, $locat  ion) {
+          'board': function (Sockets, EventHandler, $location) {
             return($location.path().slice(2));
           }
         },
@@ -120,7 +120,7 @@ angular.module('whiteboard', [
             EventHandler.loadBoards($location.path().slice(12));
             return('assignment')
           },
-          'assignment': function (Sockets, EventHandler, $locat  ion) {
+          'assignment': function (Sockets, EventHandler, $location) {
             return($location.path().slice(12));
           },
         }
