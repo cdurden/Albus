@@ -549,7 +549,7 @@ async function getTaskBoardsFromSource(session, sources, callback) {
     }
   });
 }
-function getTasksFromSource(sources, callback) {
+function getTasksFromSources(sources, callback) {
   request({
     url: `${scheme}://${host}:${port}/api/tasks/source/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
@@ -595,7 +595,7 @@ module.exports = {
     submit: submit,
     getSubmissions: getSubmissions,
     getTasksDataFromCollection: getTasksDataFromCollection,
-    getTasksFromSource: getTasksFromSource,
+    getTasksFromSources: getTasksFromSources,
     getTaskBoardsFromSource: getTaskBoardsFromSource,
     saveBoard: saveBoard,
     getLatestBoard: getLatestBoard,

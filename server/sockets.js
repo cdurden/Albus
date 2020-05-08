@@ -165,7 +165,7 @@ module.exports = function(server, session) {
         assets.getAssignmentObject(data.assignment).then(function(assignmentData) {
             var taskObjectsPromise = assets.getTaskObjects(assignmentData, false);
             //api.getTaskBoardsFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
-            api.getTasksFromSource(socket.handshake.session, assignmentData, function(error, tasks) {//new
+            api.getTasksFromSources(socket.handshake.session, assignmentData, function(error, tasks) {//new
               console.log("Got tasks");
               console.log(tasks);
               if (tasks) {
@@ -175,9 +175,9 @@ module.exports = function(server, session) {
                             if (typeof (board || {}).id !== 'undefined') {
                             //var board = null;
                             //if (task.boards.length > 0) {
-                                board = task.boards[task.boards.length-1];
-                                board.i = i;
-                                board.task_id = task.id;
+                                //board = task.boards[task.boards.length-1];
+                                //board.i = i;
+                                //board.task_id = task.id;
                                 rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomBoardStorage) {
                                     if (typeof roomBoardStorage !== 'undefined') {
                                         board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
@@ -281,7 +281,7 @@ module.exports = function(server, session) {
             console.log("assignment data");
             console.log(body);
             data = JSON.parse(body)
-            api.getTasksFromSource(data, function(error, data) {
+            api.getTasksFromSources(data, function(error, data) {
                 console.log(data);
                 socket.emit('tasks', data);
             });
@@ -368,8 +368,8 @@ module.exports = function(server, session) {
         socket.emit('tasks', data);
       });
     });
-    socket.on('getTasksFromSource', function(taskSrcList){
-        api.getTasksFromSource(taskSrcList, function(error, data) {
+    socket.on('getTasksFromSources', function(taskSrcList){
+        api.getTasksFromSources(taskSrcList, function(error, data) {
             var tasks_json = JSON.stringify(data);
             client.hmset(socketId, ['tasks', tasks_json], function(err, result) {
                 client.hget(socketId, 'tasks', function(err, result) {
@@ -414,7 +414,7 @@ module.exports = function(server, session) {
             } else {
               data = [];
             }
-            api.getTasksFromSource(data, function(error, tasks) {
+            api.getTasksFromSources(data, function(error, tasks) {
                 socket.emit('tasks', data);
             });
         });
@@ -463,7 +463,7 @@ module.exports = function(server, session) {
         //console.log(assignments);
         var assignTasksToSocket = function(socketId) {
             var socket = io.of("/client").connected[socketId];
-            api.getTasksFromSource(assignments[socketId], function(error, data) {
+            api.getTasksFromSources(assignments[socketId], function(error, data) {
                 var tasks_json = JSON.stringify(data);
                 client.hmset(socketId, ['tasks', tasks_json], function(err, result) {
                     client.hget(socketId, 'tasks', function(err, result) {
