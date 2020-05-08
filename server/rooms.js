@@ -228,18 +228,20 @@ function setupBoard(roomId, boardId, callback) {
       }
       if (reply) {
         storedBoard = JSON.parse(reply);
-        _.extend(rooms[roomId][boardId], storedBoard);
+        //_.extend(rooms[roomId][boardId], storedBoard);
+        _.extend(rooms[roomId][boardId].shapeStorage, storedBoard.shapeStorage);
       } else {
-        client.hmset(roomId, boardId, JSON.stringify({})); 
-        rooms[roomId][boardId] = {};
+        //rooms[roomId][boardId] = {};
+        rooms[roomId][boardId].shapeStorage = {};
+        client.hmset(roomId, boardId, rooms[roomId][boardId], function() {
+          console.log("Node.js process board data");
+          console.log(rooms[roomId][boardId]);
+          console.log("Setting up board "+boardId+" in room "+roomId);
+          console.log("Redis board data");
+          console.log(reply);
+          callback && callback(rooms[roomId][boardId]);
+        }); 
       }
-      console.log("Node.js process board data");
-      console.log(rooms[roomId][boardId]);
-      console.log("Setting up board "+boardId+" in room "+roomId);
-      console.log("Redis board data");
-      console.log(reply);
-      
-      callback && callback(rooms[roomId][boardId]);
     });
 }
 function setupBoardForSocket(socket, boardId, callback) {
@@ -280,6 +282,7 @@ function setTaskBoard(roomId, taskId, boardId) {
     });
 }
 */
+/*
 function setupBoards(socket, callback) {
   var boards = [];
   for (boardId in rooms[socket.room]) {
@@ -289,6 +292,7 @@ function setupBoards(socket, callback) {
   }
   callback && callback(boards)
 }
+*/
 function loadBoard(roomId, board, callback) {
   //roomId = socket.room;
   boardId = board.boardId;
@@ -372,7 +376,7 @@ var roomsManager = {
     return rooms[roomId];
   },
   getBoards: getBoards,
-  setupBoards: setupBoards,
+  //setupBoards: setupBoards,
 
   getBoard: getBoard,
   getBoardStorage: getBoardStorage,
