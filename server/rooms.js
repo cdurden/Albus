@@ -334,6 +334,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
       //var setTaskBoardPromise;
       var registeredTaskBoardPromise;
       if (board) { // task board already exists, return promise resolve to it.  FIXME: check this correctly
+          console.log("Task board exists in node");
           registeredTaskBoardPromise = Promise.resolve(board);
       } else { // task board not found in local DB.
           // create a task board and register it
@@ -353,7 +354,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
       }
       //setTaskBoardPromise.then(function() {
-      registerTaskBoardPromise.then(function(board) {
+      registeredTaskBoardPromise.then(function(board) {
           setupBoardForSocket(socket, boardId, function(board) {
               console.log("Task board registered and setup for socket");
               callback(null, board);

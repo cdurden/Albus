@@ -192,7 +192,7 @@ module.exports = function(server, session) {
                                         });
                                     });
                                 } else { // board was not received from the API
-                                    console.log("Creating task board in node process");
+                                    console.log("Getting or creating task board in node process");
                                     rooms.getOrCreateTaskBoard(socket, task.source, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
                                         board.task_id = task.id;
                                         resolve(board);
