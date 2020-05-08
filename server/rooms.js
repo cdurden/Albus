@@ -264,7 +264,7 @@ function getTaskBoard(roomId, taskSource) {
             if (boardId) {
                 getBoard(roomId, boardId, function(err, board) {
                     resolve(board);
-                }
+                });
             } else {
                 resolve(undefined);
             }
