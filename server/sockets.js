@@ -174,7 +174,7 @@ module.exports = function(server, session) {
                             board.i = i;
                             board.id = board.boardId; //FIXME: why is this here?
                             board.task_id = task.id;
-                            roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.id)
+                            roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId)
                             if (typeof roomBoard !== 'undefined') {
                                 board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
                                 board.apiBoard = board.shapeStorage;
@@ -198,7 +198,7 @@ module.exports = function(server, session) {
                         roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
                         resolve(roomBoards);
                     }).then(function(roomBoards) {
-                        var ids = boards.map(board => { return board.id });
+                        var ids = boards.map(board => { return board.boardId });
                         console.log("Got board from room");
                         console.log(roomBoards);
                         for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
@@ -694,7 +694,7 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('loadBoardFromApi', function(boardId) {
       api.getBoard(socket.handshake.session, boardId, function(err, board) {
-        if (typeof board.id === 'undefined') {
+        if (typeof board.boardId === 'undefined') {
           /*
             board = {
                 'boardId': boardId,

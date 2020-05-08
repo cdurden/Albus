@@ -9,7 +9,7 @@ angular.module('whiteboard.services.eventhandler', [])
     var board = BoardData.getBoardObj(boardId);
     data = {
         'taskId': board.task.id,
-        'boardId': board.id,
+        'boardId': board.boardId,
     };
     Broadcast.saveBoardToApi(data);
     /*
