@@ -177,6 +177,7 @@ module.exports = function(server, session) {
                         if (task) { //FIXME: correctly test whether this task was received
                             api.getLatestBoard(socket.handshake.session, task.id, function(err, board) { //new
                                 if (typeof (board || {}).id !== 'undefined') {
+                                    console.log("received a board from the api");
                                     board.taskSource = taskSource;
                                     //rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomStorage) {
                                     rooms.getBoard(rooms.getRoomId(socket), board.boardId).then(function(roomBoard) {
@@ -191,6 +192,7 @@ module.exports = function(server, session) {
                                         });
                                     });
                                 } else { // board was not received from the API
+                                    console.log("Creating task board in node process");
                                     rooms.getOrCreateTaskBoard(socket, task.source, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
                                         board.task_id = task.id;
                                         resolve(board);

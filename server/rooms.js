@@ -333,7 +333,11 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
   getTaskBoard(roomId, taskSource).then(function(board) {
       //var setTaskBoardPromise;
       var registeredTaskBoardPromise;
-      if (!board) { //FIXME: check this correctly
+      if (board) { // task board already exists, return promise resolve to it.  FIXME: check this correctly
+          registeredTaskBoardPromise = Promise.resolve(board);
+      } else { // task board not found in local DB.
+          // create a task board and register it
+          console.log("Generating a new task board");
           boardId = generateRandomId(5);
           setupBoard(roomId, boardId, function(board) {
               //resolve(shapeStorage);
@@ -347,12 +351,11 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
    //   } else {
    //     boardId = taskBoards[roomId][taskId];
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
-      } else { // task board already exists, return promise resolve to it
-          registeredTaskBoardPromise = Promise.resolve(board);
       }
       //setTaskBoardPromise.then(function() {
       registerTaskBoardPromise.then(function(board) {
           setupBoardForSocket(socket, boardId, function(board) {
+              console.log("Task board registered and setup for socket");
               callback(null, board);
           });
       });
