@@ -187,7 +187,7 @@ function placeSocketId(socketId, callback) {
 }
   */
 function getBoard(roomId, boardId) {
-    return((rooms[roomId] || {})[boardId]);
+    Promise.resolve((rooms[roomId] || {})[boardId]);
 }
 async function getBoardStorage(roomId, boardId) {
     return new Promise(resolve => {
@@ -265,7 +265,7 @@ function getTaskBoard(roomId, taskSource) {
             if (boardId) {
                 console.log("Board registered with task "+taskSource+" in room "+roomId);
                 console.log("Getting registered board");
-                getBoard(roomId, boardId, function(err, board) {
+                getBoard(roomId, boardId).then(function(board) {
                     resolve(board);
                 });
             } else {
