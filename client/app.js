@@ -75,7 +75,7 @@ angular.module('whiteboard', [
           'mode': function(Sockets, EventHandler, $location) {
               EventHandler.loadBoards();
               return('assignment');
-          }
+          },
           'resource': function (Sockets, EventHandler, $location) {
             return(undefined);
           }
