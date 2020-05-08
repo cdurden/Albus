@@ -712,6 +712,7 @@ function get_all_data_by_socket(socket, callback) {
         } else {
           rooms.loadBoard(socket, board, function(result) {
             console.log("Sending board to client");
+            console.log(board);
             socket.emit('board', board);
           });
         }
