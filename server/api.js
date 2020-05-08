@@ -256,11 +256,11 @@ function getTaskBoard(session, taskId, callback) {
   });
 }
 async function getLatestBoard(session, taskId, callback) {
-  console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
   data = { 
       'task_id': taskId,
   };
   data.lti_user_id = await getActingSessionUser(session);
+  console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
   request({
       url: `${scheme}://${host}:${port}/api/board/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
@@ -560,7 +560,7 @@ function getTasksFromSources(sources, callback) {
   function(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
-      //data = JSON.parse(body)
+      //data = JSON.parse(body) // I think body is already parsed if the json parameter is passed to request
       callback(null, body);
     } else {
       console.log(error);
