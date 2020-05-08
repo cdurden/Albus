@@ -14,7 +14,7 @@ const { promisify } = require("util");
 module.exports = function(server, session) {
 
   var room = {};
-  var board = {};
+  //var board = {};
 
   var io = socketio.listen(server);
   var sharedsession = require("express-socket.io-session");
