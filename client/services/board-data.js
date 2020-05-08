@@ -329,7 +329,9 @@ angular.module('whiteboard.services.boarddata', [])
   function joinTasksToBoards(tasks) {
       for(let [boardId, boardObj] of Object.entries(boards)) {
           //boardObj.task = tasks[boardObj.task_id];
-          boardObj.task = tasks[boardObj.task.source];
+          if (typeof tasks[boardObj.task.source] !== 'undefined') {
+              boardObj.task = tasks[boardObj.task.source];
+          }
       }
   }
     /*
