@@ -102,11 +102,11 @@ angular.module('whiteboard', [
         controller: 'whiteboardController',
         resolve: {
           'mode': function (Sockets, EventHandler, $location) {
-            EventHandler.loadBoardFromApi($location.path().slice(2));
+            EventHandler.loadBoardFromApi($location.path().slice(7));
             return('board')
           },
           'resource': function (Sockets, EventHandler, $location) {
-            return($location.path().slice(2));
+            return($location.path().slice(7));
           }
         },
       })
@@ -133,6 +133,19 @@ angular.module('whiteboard', [
           },
           'resource': function (Sockets, EventHandler, $location) {
             return($location.path().slice(12));
+          },
+        }
+      })
+      .when('/feedback/:id', {
+        templateUrl: './views/board.html',
+        controller: 'whiteboardController',
+        resolve: {
+          'mode': function (Sockets, EventHandler, $location) {
+            EventHandler.loadFeedback($location.path().slice(10));
+            return('feedback')
+          },
+          'resource': function (Sockets, EventHandler, $location) {
+            return($location.path().slice(10));
           },
         }
       })
