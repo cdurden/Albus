@@ -195,9 +195,11 @@ async function getBoardStorage(roomId, boardId) {
         if (nodeStorage) {
             resolve(nodeStorage)
         } else {
-            setupBoard(roomId, boardId);
+            setupBoard(roomId, boardId, function(shapeStorage) {
+                resolve(shapeStorage);
+            });
         }
-    return((rooms[roomId] || {})[boardId]);
+    });
 }
 function getBoards(roomId) {
     return(rooms[roomId]);
