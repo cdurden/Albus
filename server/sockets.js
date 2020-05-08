@@ -153,7 +153,7 @@ module.exports = function(server, session) {
   function loadBoards(socket, assignment) {
     console.log("Loading boards for assignment "+assignment);
     var assignmentPromise;
-    if (typeof assignment !== 'undefined') {
+    if (assignment) {
         assignmentPromise = new Promise(resolve => { resolve({ 'assignment': assignment }) });
     } else {
         assignmentPromise = getSocketData(socket.id);
