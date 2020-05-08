@@ -165,34 +165,37 @@ module.exports = function(server, session) {
         assets.getAssignmentObject(data.assignment).then(function(assignmentData) {
             var taskObjectsPromise = assets.getTaskObjects(assignmentData, false);
             //api.getTaskBoardsFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
-            api.getTasksFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
+            api.getTasksFromSource(socket.handshake.session, assignmentData, function(error, tasks) {//new
               console.log("Got tasks");
               console.log(tasks);
               if (tasks) {
                 Promise.all(tasks.map((task, i) => {
                     return new Promise(resolve => {
-                        var board = null;
-                        if (task.boards.length > 0) {
-                            board = task.boards[task.boards.length-1];
-                            board.i = i;
-                            board.task_id = task.id;
-                            rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomBoardStorage) {
-                                if (typeof roomBoardStorage !== 'undefined') {
-                                    board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
-                                    board.apiBoardStorage = board.shapeStorage;
-                                    board.shapeStorage = roomBoardStorage;
-                                }
-                                rooms.loadBoard(socket, board, function() {
+                        api.getLatestBoard(socket.handshake.session, task.id, function(err, board) { //new
+                            if (typeof (board || {}).id !== 'undefined') {
+                            //var board = null;
+                            //if (task.boards.length > 0) {
+                                board = task.boards[task.boards.length-1];
+                                board.i = i;
+                                board.task_id = task.id;
+                                rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomBoardStorage) {
+                                    if (typeof roomBoardStorage !== 'undefined') {
+                                        board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                                        board.apiBoardStorage = board.shapeStorage;
+                                        board.shapeStorage = roomBoardStorage;
+                                    }
+                                    rooms.loadBoard(socket, board, function() {
+                                        resolve(board);
+                                    });
+                                });
+                            } else {
+                                rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                                    board.task_id = task.id;
+                                    board.i = i;
                                     resolve(board);
                                 });
-                            });
-                        } else {
-                            rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
-                                board.task_id = task.id;
-                                board.i = i;
-                                resolve(board);
-                            });
-                        }
+                            }
+                        });
                     });
                 })).then(function(boards) {
                     console.log("Got boards from tasks");
