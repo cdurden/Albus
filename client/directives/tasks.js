@@ -15,7 +15,7 @@ angular.module('whiteboard')
       //$scope.taskData = TaskData.getData();
       //$scope.boards = BoardData.getBoards();
       $scope.maxBoardSelectorSize = 10;
-      $scope.boardIndex = 1;
+      $scope.numBoards = 0;
       $scope.boardData = BoardData.getBoardData();
       $scope.i = 0;
       $scope.uploader = new FileUploader();
@@ -137,7 +137,10 @@ angular.module('whiteboard')
       */
       scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         scope.board = scope.boardData.boards[scope.boardData.boardId];
-        scope.numBoards = Object.keys(scope.boardData.boards).length
+        scope.numBoards = scope.boardData.boardIdsList.length
+        if (scope.numBoards > 0 && typeof scope.boardIndex === 'undefined') {
+            scope.boardIndex = 1;
+        }
         if (typeof scope.boardData.boardId !== 'undefined' ) {
             EventHandler.loadBoard(scope.boardData.boardId);
         }
