@@ -38,14 +38,14 @@ app.enable('trust proxy')
 
 
 passport.serializeUser(function(user, done) {
-  console.log('serializing user...');
-  console.log(user);
-  console.log(user.user_id);
+  //console.log('serializing user...');
+  //console.log(user);
+  //console.log(user.user_id);
   done(null, user.user_id);
 });
 passport.deserializeUser(function(user_id, done) {
-  console.log("deserializing user");
-  console.log(user_id);
+  //console.log("deserializing user");
+  //console.log(user_id);
   user = {'user_id': user_id}
   done(null, user);
 });
