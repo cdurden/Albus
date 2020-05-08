@@ -145,6 +145,7 @@ angular.module('whiteboard')
         scope.numBoards = scope.boardData.boardIdsList.length
         if (scope.numBoards > 0 && typeof scope.boardIndex === 'undefined') {
             scope.boardIndex = 1;
+            scope.boardIndexChanged();
         }
         if (typeof scope.boardData.boardId !== 'undefined' ) {
             EventHandler.loadBoard(scope.boardData.boardId);
