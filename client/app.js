@@ -139,7 +139,7 @@ angular.module('whiteboard', [
       requireBase: false
     });
 }])
-.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', function($window, $document, FileUploader, $scope, BoardData, EventHandler) {
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', function($window, $document, FileUploader, $scope, BoardData, EventHandler, user, mode, assignment, board) {
     $scope.user = $scope.$resolve.user;
     $scope.mode = $scope.$resolve.mode;
     if ($scope.mode === 'assignment') {
