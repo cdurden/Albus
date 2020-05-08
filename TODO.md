@@ -14,3 +14,4 @@
 2. Set initial viewport so that it maps to image identically across devices?
 3. Set the viewport for boards without backgrounds
 4. Fix the whole authentication workflow. Requests are getting past the passport middleware without being authenticated.
+5. It seems that if I load submissions, the boards that I load get loaded into my room, so they get loaded as task boards later if I am in the same room when I open an assignment
