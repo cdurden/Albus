@@ -258,6 +258,7 @@ function setupBoardForSocket(socket, boardId, callback) {
 }
 //function getTaskBoard(roomId, taskId) {
 function getTaskBoard(roomId, taskSource) {
+    console.log("Trying to get a task board from node process");
     return new Promise(resolve => {
         //client.hget('taskBoards', roomId+taskId, function(err, boardId) {
         client.hget(roomId, taskSource, function(err, boardId) {
