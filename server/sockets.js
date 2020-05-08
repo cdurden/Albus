@@ -83,12 +83,14 @@ module.exports = function(server, session) {
     }
     return new Promise(resolve => {
       //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-      rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId).then(function(shapeStorage) {
-          console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
+      //rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId).then(function(shapeStorage) {
+      rooms.getBoard(rooms.getRoomId(socket), data.boardId).then(function(board) {
+          //console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
+          console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+board.boardId+")");
           console.log(shapeStorage);
-          data.boardId = saveAs;
-          data.shapeStorage = shapeStorage;
-          api.saveBoard(socket.handshake.session, data, undefined, function(err, data) {
+          board.boardId = saveAs;
+          //.shapeStorage = shapeStorage;
+          api.saveBoard(socket.handshake.session, board, undefined, function(err, data) {
               console.log("Board saved");
               console.log(data);
               resolve(data);
@@ -176,11 +178,13 @@ module.exports = function(server, session) {
                             api.getLatestBoard(socket.handshake.session, task.id, function(err, board) { //new
                                 if (typeof (board || {}).id !== 'undefined') {
                                     board.taskSource = taskSource;
-                                    rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomBoardStorage) {
-                                        if (typeof roomBoardStorage !== 'undefined') {
-                                            board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
-                                            board.apiBoardStorage = board.shapeStorage;
-                                            board.shapeStorage = roomBoardStorage;
+                                    //rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomStorage) {
+                                    rooms.getBoard(rooms.getRoomId(socket), board.boardId).then(function(roomBoard) {
+                                        if (typeof roomBoard !== 'undefined') {
+                                            board.roomShapeStorage = roomBoard.shapeStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                                            board.apiShapeStorage = board.shapeStorage;//FIXME: remove this to decrease data transfer
+                                            // load the board from the room instead of the api. FIXME: should check which is newer
+                                            board.shapeStorage = roomBoard.shapeStorage;
                                         }
                                         rooms.loadBoard(socket, board, function() {
                                             resolve(board);
