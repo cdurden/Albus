@@ -132,7 +132,7 @@ angular.module('whiteboard')
           var submission_id = board.submission_id;
           var data = { 'subject': 'Feedback on '+board.task.data.title, 'template': scope.feedbackTemplate };
 
-          Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId });
+          Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image });
           return false;
       });
     },
