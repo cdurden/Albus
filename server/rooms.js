@@ -187,7 +187,7 @@ function placeSocketId(socketId, callback) {
 }
   */
 function getBoard(roomId, boardId) {
-    Promise.resolve((rooms[roomId] || {})[boardId]);
+    return Promise.resolve((rooms[roomId] || {})[boardId]);
 }
 async function getBoardStorage(roomId, boardId) {
     return new Promise(resolve => {
