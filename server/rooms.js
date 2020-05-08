@@ -230,6 +230,7 @@ function setupBoard(roomId, boardId, callback) {
         storedBoard = JSON.parse(reply);
         //_.extend(rooms[roomId][boardId], storedBoard);
         _.extend(rooms[roomId][boardId].shapeStorage, storedBoard.shapeStorage);
+          callback && callback(rooms[roomId][boardId]);
       } else {
         //rooms[roomId][boardId] = {};
         rooms[roomId][boardId].shapeStorage = {};
