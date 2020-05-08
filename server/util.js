@@ -2,8 +2,6 @@ const api = require('./api');
 
 function submitBoards() {
     return new Promise(resolve => {
-        users = api.getUsers().then(function(users) {
-            usersObj = users.reduce((obj,user) => { obj[user.id] = user; return obj }, {});
         api.getBoards(function(err, boards) {
             session = { passport: { user: "86258941::65ea761411d6325962ddba010329193a" } };
             //console.log(boards);
@@ -21,7 +19,6 @@ function submitBoards() {
                 }
             }
         });
-        }
     });
 }
 submitBoards().then(process.exit);
