@@ -118,8 +118,8 @@ app.use(passport.authenticate('lti-spoof-strategy', {failureFlash: true}),  func
 app.use(express.static(__dirname + '/lib'));
 app.use('/lib/', express.static(__dirname + '/../node_modules'));
 app.use('/../client/app.js', passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res, next) {
-    //console.log("Passed lti-spoof-strategy middleware");
-    //console.log(req.session);
+    console.log("Passed lti-spoof-strategy middleware");
+    console.log(req.session);
     next();
 });
 app.use(express.static(__dirname + '/../client'));
