@@ -252,8 +252,8 @@ function setupBoardForSocket(socket, boardId, callback) {
               //shapeStorage[socket.id] = {};
               board.shapeStorage[socket.id] = {};
               //callback && callback(shapeStorage)
-              callback && callback(board)
           }
+          callback && callback(board)
       });
 }
 //function getTaskBoard(roomId, taskId) {
