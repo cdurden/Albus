@@ -171,7 +171,8 @@ module.exports = function(server, session) {
                 Promise.all(assignmentAsset.map((taskSource, i) => {
                     //Promise.all(tasks.map((task, i) => {
                     return new Promise(resolve => {
-                        if (tasks[i]) { //FIXME: correctly test whether this task was received
+                        var task = tasks[i];
+                        if (task) { //FIXME: correctly test whether this task was received
                             api.getLatestBoard(socket.handshake.session, task.id, function(err, board) { //new
                                 if (typeof (board || {}).id !== 'undefined') {
                                     board.taskSource = taskSource;
