@@ -165,7 +165,7 @@ module.exports = function(server, session) {
         assets.getAssignmentObject(data.assignment).then(function(assignmentData) {
             var taskObjectsPromise = assets.getTaskObjects(assignmentData, false);
             //api.getTaskBoardsFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
-            api.getTasksFromSources(socket.handshake.session, assignmentData, function(error, tasks) {//new
+            api.getTasksFromSources(assignmentData, function(error, tasks) {//new
               console.log("Got tasks");
               console.log(tasks);
               if (tasks) {
