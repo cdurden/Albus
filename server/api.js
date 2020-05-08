@@ -300,7 +300,7 @@ function updateAssignments(assignments, callback) {
 }
 async function saveBoard(session, data, backgroundImage, callback) {
   lti_user_id = await getActingSessionUser(session);
-  console.log(Object.keys(board));
+  console.log(Object.keys(data.shapeStorage));
   console.log("Saving board for lti_user_id: "+lti_user_id);
   shapeStorage_json = JSON.stringify(data.shapeStorage);
   console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
