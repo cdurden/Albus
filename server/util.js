@@ -22,11 +22,9 @@ async function getBoards() {
 }
 
 async function submitBoards() {
-    return new Promise(resolve => {
-        boards = await getBoards();
-        for (board of boards) {
-            await submitBoard(board);
-        }
-    });
+    boards = await getBoards();
+    for (board of boards) {
+        await submitBoard(board);
+    }
 }
 submitBoards().then(process.exit);
