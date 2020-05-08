@@ -191,12 +191,19 @@ function getBoard(roomId, boardId) {
 }
 async function getBoardStorage(roomId, boardId) {
     return new Promise(resolve => {
+        /*
         nodeStorage = (rooms[roomId] || {})[boardId]
         if (nodeStorage) {
             resolve(nodeStorage)
+            */
+        board = (rooms[roomId] || {})[boardId]
+        if (board) {
+            resolve(board)
         } else {
-            setupBoard(roomId, boardId, function(shapeStorage) {
-                resolve(shapeStorage);
+            //setupBoard(roomId, boardId, function(shapeStorage) {
+            setupBoard(roomId, boardId, function(board) {
+                //resolve(shapeStorage);
+                resolve(board);
             });
         }
     });
@@ -236,20 +243,35 @@ function setupBoard(roomId, boardId, callback) {
     });
 }
 function setupBoardForSocket(socket, boardId, callback) {
-      setupBoard(socket.room, boardId, function(shapeStorage) {
-          if (typeof shapeStorage[socket.id] === 'undefined') {
-              shapeStorage[socket.id] = {};
-              callback && callback(shapeStorage)
+      //setupBoard(socket.room, boardId, function(shapeStorage) {
+      setupBoard(socket.room, boardId, function(board) {
+          //if (typeof shapeStorage[socket.id] === 'undefined') {
+          if (typeof board.shapeStorage[socket.id] === 'undefined') {
+              //shapeStorage[socket.id] = {};
+              board.shapeStorage[socket.id] = {};
+              //callback && callback(shapeStorage)
+              callback && callback(board)
           }
       });
 }
-function getTaskBoard(roomId, taskId) {
+//function getTaskBoard(roomId, taskId) {
+function getTaskBoard(roomId, taskSource) {
     return new Promise(resolve => {
-        client.hget('taskBoards', roomId+taskId, function(err, boardId) {
+        //client.hget('taskBoards', roomId+taskId, function(err, boardId) {
+        client.hget('roomId', taskSource, function(err, boardId) {
             resolve(boardId);
         });
     });
 }
+function registerTaskBoard(roomId, taskSource, boardId) {
+    return new Promise(resolve => {
+        //client.hmset('taskBoardMap', [roomId+taskId, boardId], function(err, res) {
+        client.hmset(roomId, [taskSource, boardId], function(err, res) {
+            resolve(res);
+        });
+    });
+}
+/*
 function setTaskBoard(roomId, taskId, boardId) {
     return new Promise(resolve => {
         client.hmset('taskBoards', [roomId+taskId, boardId], function(err, res) {
@@ -257,6 +279,7 @@ function setTaskBoard(roomId, taskId, boardId) {
         });
     });
 }
+*/
 function setupBoards(socket, callback) {
   var boards = [];
   for (boardId in rooms[socket.room]) {
@@ -273,8 +296,12 @@ function loadBoard(roomId, board, callback) {
       //setupRoom(socket.room);
       setupRoom(roomId);
   }
-  rooms[roomId][boardId] = board['shapeStorage'];
-  client.hmset(roomId, boardId, JSON.stringify(board['shapeStorage'])); 
+  //rooms[roomId][boardId] = board['shapeStorage'];
+  rooms[roomId][boardId] = board;
+  //client.hmset(roomId, boardId, JSON.stringify(board['shapeStorage'])); 
+  client.hmset(roomId, boardId, JSON.stringify(board)); 
+
+    /* We don't need this if we store the taskSource in the board object
   if (board.task_id) {
       setTaskBoard(roomId, board.task_id, boardId).then(function() {
           callback(null, board);
@@ -282,20 +309,25 @@ function loadBoard(roomId, board, callback) {
   } else {
       callback(null, board);
   }
+  */
 }
-function getOrCreateTaskBoard(socket, taskId, callback) {
+//function getOrCreateTaskBoard(socket, taskId, callback) {
+function getOrCreateTaskBoard(socket, taskSource, callback) {
   var boardId;
   roomId = socket.room;
   if (typeof rooms[roomId] === 'undefined') {
       setupRoom(socket.room);
   }
   //if (typeof taskBoards[roomId][taskId] === 'undefined') {
-  getTaskBoard(roomId, taskId).then(function(boardId) {
-      var setTaskBoardPromise;
+  //getTaskBoard(roomId, taskId).then(function(boardId) {
+  getTaskBoard(roomId, taskSource).then(function(boardId) {
+      //var setTaskBoardPromise;
+      var registerTaskBoardPromise;
       if (!boardId) { //FIXME: check this correctly
           boardId = generateRandomId(5);
     //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
-          setTaskBoardPromise = setTaskBoard(roomId, taskId, boardId).then(function(res) {
+          //setTaskBoardPromise = setTaskBoard(roomId, taskId, boardId).then(function(res) {
+          registerTaskBoardPromise = registerTaskBoard(roomId, taskSource, boardId).then(function(res) {
               return(res);
           });
    //taskBoards[roomId][taskId] = boardId;
@@ -303,20 +335,22 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
    //     boardId = taskBoards[roomId][taskId];
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
       } else {
-          setTaskBoardPromise = Promise.resolve(boardId);
+          //setTaskBoardPromise = Promise.resolve(boardId);
+          registerTaskBoardPromise = Promise.resolve(boardId);
       }
-      setTaskBoardPromise.then(function() {
-          console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
+      //setTaskBoardPromise.then(function() {
+      registerTaskBoardPromise.then(function() {
+          console.log("Task board for roomId "+roomId+" and taskSource "+taskSource+" is "+boardId);
           if (typeof rooms[roomId][boardId] !== 'undefined') {
               callback(null, {
-                  'task': { 'id': taskId },
+                  'task': { 'source': taskSource },
                   'boardId': boardId,
                   'shapeStorage': rooms[roomId][boardId],
               });
           } else {
               setupBoardForSocket(socket, boardId, function(result) {
                   callback(null, {
-                      'task': { 'id': taskId },
+                      'task': { 'source': taskSource },
                       'boardId': boardId,
                       'shapeStorage': result,
                   });

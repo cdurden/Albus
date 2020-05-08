@@ -162,77 +162,85 @@ module.exports = function(server, session) {
         assignmentPromise = getSocketData(socket.id);
     }
     assignmentPromise.then(function(data) {
-        assets.getAssignmentObject(data.assignment).then(function(assignmentData) {
-            var taskObjectsPromise = assets.getTaskObjects(assignmentData, false);
+        assets.getAssignmentAsset(data.assignment).then(function(assignmentAsset) {
+            var taskAssetsPromise = assets.getTaskAssets(assignmentAsset, false);
             //api.getTaskBoardsFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
-            api.getTasksFromSources(assignmentData, function(error, tasks) {//new
-              console.log("Got tasks");
-              console.log(tasks);
-              if (tasks) {
-                Promise.all(tasks.map((task, i) => {
+            api.getTasksFromSources(assignmentAsset, function(error, tasks) {//new
+                console.log("Got tasks");
+                console.log(tasks);
+                Promise.all(assignmentAsset.map((taskSource, i) {
+                    //Promise.all(tasks.map((task, i) => {
                     return new Promise(resolve => {
-                        api.getLatestBoard(socket.handshake.session, task.id, function(err, board) { //new
-                            if (typeof (board || {}).id !== 'undefined') {
-                            //var board = null;
-                            //if (task.boards.length > 0) {
-                                //board = task.boards[task.boards.length-1];
-                                //board.i = i;
-                                //board.task_id = task.id;
-                                rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomBoardStorage) {
-                                    if (typeof roomBoardStorage !== 'undefined') {
-                                        board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
-                                        board.apiBoardStorage = board.shapeStorage;
-                                        board.shapeStorage = roomBoardStorage;
-                                    }
-                                    rooms.loadBoard(socket, board, function() {
+                        if (tasks[i]) { //FIXME: correctly test whether this task was received
+                            api.getLatestBoard(socket.handshake.session, task.id, function(err, board) { //new
+                                if (typeof (board || {}).id !== 'undefined') {
+                                    board.taskSource = taskSource;
+                                    rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomBoardStorage) {
+                                        if (typeof roomBoardStorage !== 'undefined') {
+                                            board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                                            board.apiBoardStorage = board.shapeStorage;
+                                            board.shapeStorage = roomBoardStorage;
+                                        }
+                                        rooms.loadBoard(socket, board, function() {
+                                            resolve(board);
+                                        });
+                                    });
+                                } else { // board was not received from the API
+                                    rooms.getOrCreateTaskBoard(socket, task.source, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                                        board.task_id = task.id;
                                         resolve(board);
                                     });
-                                });
-                            } else {
-                                rooms.getOrCreateTaskBoard(socket, task.id, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
-                                    board.task_id = task.id;
-                                    board.i = i;
-                                    resolve(board);
-                                });
-                            }
-                        });
+                                }
+                            });
+                        } else { //task was not received from API
+                            rooms.getOrCreateTaskBoard(socket, taskSource, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                                resolve(board);
+                            });
+                        }
                     });
-                })).then(function(boards) {
-                    console.log("Got boards from tasks");
-                    console.log(boards);
+                })).then(function(boards) { // we are going to add boards that have already been created in the room
+                    console.log("Got boards for the assigned tasks. Adding boards that have been created in the room.");
+                    //console.log(boards);
                     new Promise(resolve => {
                         roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
                         resolve(roomBoards);
                     }).then(function(roomBoards) {
                         var ids = boards.map(board => { return board.boardId });
-                        console.log("Got board from room");
-                        console.log(roomBoards);
-                        for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
+                        console.log("Got boards that have been created in this room");
+                        //console.log(roomBoards);
+                        //for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
+                        for (let [boardId, board] of Object.entries(roomBoards)) { // this changed now that boards are stored with metadata
                             if (!ids.includes(boardId)) {
+                                /*
                                 boards.push({
                                     'i': boards.length,
                                     'id': boardId,
                                     'data': boardStorage,
                                     'shapeStorage': boardStorage,
                                 });
+                                */
+                                boards.push(board)
                             }
                         }
                         console.log("emitting boards to socket "+socket.id);
                         console.log(boards);
                         //socket.emit('boards', boards);
-                        taskObjectsPromise.then(function(taskObjects) {
-                            tasksObj = tasks.reduce(function(obj, task) { task.data = taskObjects[task.source].data; obj[task.id] = task; return obj; }, {});
+                        taskAssetsPromise.then(function(taskAssets) {
+                            socket.emit('tasks', taskAssets);
+                        });
+                        /*
+                        taskAssetsPromise.then(function(taskAssets) {
+                            taskAssetsObject = taskAssets.reduce(function(obj, taskAsset) { taskAsset.data = taskAssets[task.source].data; obj[task.id] = task; return obj; }, {});
                             for (board in boards) {
-                                board.task = tasksObj[board.task.source]
+                                board.task = taskAssetsObject[board.task_id]
                             }
                             socket.emit('boards', boards);
-                            /*
                             socket.emit('tasks', tasksObj);
-                            */
                         });
+                    */
                     });
                 });
-              }
+                //}
             });
         });  
     });

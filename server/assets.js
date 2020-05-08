@@ -20,7 +20,7 @@ const agent = new http.Agent({
     rejectUnauthorized: false
 });
 
-function getAssignmentObject(assignment) {
+function getAssignmentAsset(assignment) {
     return new Promise( resolve => {
         request({
             method: 'GET',
@@ -41,19 +41,19 @@ function getAssignmentObject(assignment) {
         });
     });
 }
-function getTaskObjects(taskSrcList, asArray) {
+function getTaskAssets(taskSrcList, asArray) {
     return new Promise( (resolveTaskSrcObjs) => {
           var collections = [];
-          var taskObjs = [];
+          var taskAssets = [];
           var promises = [];
           for (taskSrc of taskSrcList) {
               console.log("Getting task from source: "+taskSrc);
-              var taskObj = {'src': taskSrc};
+              var taskAsset = {'src': taskSrc};
               var [_, collection, task] = taskSrc.split(":");
-              taskObj.src = taskSrc;
-              taskObj.task = task;
-              taskObj.collection = collection;
-              taskObjs.push(taskObj);
+              taskAsset.src = taskSrc;
+              taskAsset.task = task;
+              taskAsset.collection = collection;
+              taskAssets.push(taskAsset);
               if (!collections.includes(collection)) {
                   collections.push(collection);
                   promises.push(new Promise((resolve) => {
@@ -76,20 +76,21 @@ function getTaskObjects(taskSrcList, asArray) {
               console.log(collectionObjs);
               var collectionObjsHash = collectionObjs.reduce(function(out, obj, i) { out[collections[i]] = obj; return out; }, {});
               console.log(collectionObjsHash);
-              for (taskObj of taskObjs) {
-                  console.log(taskObj);
-                  taskObj.data = collectionObjsHash[taskObj.collection][taskObj.task];
+              for (taskAsset of taskAssets) {
+                  console.log(taskAsset);
+                  taskAsset.data = collectionObjsHash[taskAsset.collection][taskAsset.task];
               }
               if (asArray) {
-                  taskSrcObjs = taskObjs.map(taskObj => { return taskObj.data });
+                  taskAssetsArray = taskAssets.map(taskAsset => { return taskAsset.data });
+                  resolveTaskSrcObjs(taskAssetsArray);
               } else {
-                  taskSrcObjs = taskObjs.reduce(function(obj, taskObj) { obj[taskObj.src] = taskObj; return obj; }, {});
+                  taskAssetsObject = taskAssets.reduce(function(obj, taskAsset) { obj[taskAsset.src] = taskAsset; return obj; }, {});
+                  resolveTaskSrcObjs(taskAssetsObject);
               }
-              resolveTaskSrcObjs(taskSrcObjs);
           })
     });
 }
 module.exports = {
-    getAssignmentObject: getAssignmentObject,
-    getTaskObjects: getTaskObjects,
+    getAssignmentAsset: getAssignmentAsset,
+    getTaskAssets: getTaskAssets,
 }
