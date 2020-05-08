@@ -190,7 +190,7 @@ function getBoard(roomId, boardId) {
     return((rooms[roomId] || {})[boardId]);
 }
 async function getBoardStorage(roomId, boardId) {
-    new Promise(resolve => {
+    return new Promise(resolve => {
         nodeStorage = (rooms[roomId] || {})[boardId]
         if (nodeStorage) {
             resolve(nodeStorage)
