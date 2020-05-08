@@ -296,14 +296,14 @@ function getOrCreateTaskBoard(socket, taskId, callback) {
           if (typeof rooms[roomId][boardId] !== 'undefined') {
               callback(null, {
                   'task': { 'id': taskId },
-                  'id': boardId,
+                  'boardId': boardId,
                   'shapeStorage': rooms[roomId][boardId],
               });
           } else {
               setupBoard(socket, boardId, function(result) {
                   callback(null, {
                       'task': { 'id': taskId },
-                      'id': boardId,
+                      'boardId': boardId,
                       'shapeStorage': result,
                   });
               });

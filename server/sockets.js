@@ -172,13 +172,13 @@ module.exports = function(server, session) {
                         if (task.boards.length > 0) {
                             board = task.boards[task.boards.length-1];
                             board.i = i;
-                            board.id = board.boardId; //FIXME: why is this here?
+                            //board.id = board.boardId; //FIXME: why is this here?
                             board.task_id = task.id;
-                            roomBoard = rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId)
-                            if (typeof roomBoard !== 'undefined') {
-                                board.roomBoard = roomBoard;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
-                                board.apiBoard = board.shapeStorage;
-                                board.shapeStorage = roomBoard;
+                            roomBoardStorage = rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId)
+                            if (typeof roomBoardStorage !== 'undefined') {
+                                board.roomBoardStorage = roomBoardStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
+                                board.apiBoardStorage = board.shapeStorage;
+                                board.shapeStorage = roomBoardStorage;
                             }
                             rooms.loadBoard(socket, board, function() {
                                 resolve(board);
