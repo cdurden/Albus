@@ -158,14 +158,14 @@ angular.module('whiteboard', [
     $scope.user = user;
     $scope.mode = mode;
     if ($scope.mode === 'assignment') {
-        if ($scope.resolve.assignment) {
+        if (resource) {
             $scope.assignment = resource;
         } else {
-            $scope.assignment = resource;
+            $scope.assignment = user.assignment;
         } 
     }
     if ($scope.mode === 'board') {
-        $scope.board = $scope.resource;
+        $scope.board = resource;
     }
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
