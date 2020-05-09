@@ -251,7 +251,10 @@ function prepareBoard(roomId, boardId, callback) {
         prepareRoom(roomId);
     }
     if (typeof rooms[roomId][boardId] === 'undefined') {
-        rooms[roomId][boardId] = {};
+        rooms[roomId][boardId] = { 
+            'boardId': boardId,
+            'shapeStorage': {}
+        };
     }
 }
 
@@ -363,8 +366,9 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
           console.log("Generating a new task board");
           boardId = generateRandomId(5);
           registeredTaskBoardPromise = new Promise(resolve => {
-              loadBoardFromRedis(roomId, boardId, function(board) {
+              prepareBoard(roomId, boardId, function(board) {
                   //resolve(shapeStorage);
+                  board.taskSource = taskSource;
                   registerTaskBoard(roomId, taskSource, boardId).then(function(board) { 
                       resolve(board)
                   });
