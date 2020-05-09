@@ -318,7 +318,7 @@ async function saveBoard(session, data, backgroundImage, callback) {
   console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
   data = { 
       'lti_user_id': lti_user_id, 
-      'task_id': data.taskId,
+      'task_id': data.task_id,
       'boardId': data.boardId,
       'background_image': backgroundImage,
       'shapeStorage_json': shapeStorage_json,
