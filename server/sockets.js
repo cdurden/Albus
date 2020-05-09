@@ -130,7 +130,7 @@ module.exports = function(server, session) {
                       console.log("ERROR: board is null");
                       console.log(submission)
                   }
-                  board.i = i;
+                  //board.i = i;
                   board.submission_id = submission.id
                   //board.task = submission.task; //FIXME: I'm not sure why this is not already returned by the api
                   //board.id = board.boardId;
@@ -144,12 +144,15 @@ module.exports = function(server, session) {
               console.log("emitting boards to socket "+socket.id);
               socket.emit('boards', boards);
               taskAssetsPromise.then(function(taskAssets) {
+                  /*
                   console.log("Tasks");
                   console.log(tasks);
                   console.log("Objects for tasks");
                   console.log(taskAssets);
                   tasksObj = tasks.reduce(function(obj, task) { task.data = (taskAssets[task.source] || {}).data; obj[task.id] = task; return obj; }, {});
                   socket.emit('tasks', tasksObj);
+                  */
+                  socket.emit('tasks', tasksAssets);
               });
           });
         }
