@@ -556,7 +556,7 @@ module.exports = function(server, session) {
     }
     var userId = socket.handshake.session.passport.user;
     setSocketUser(socket.id, userId);
-    api.getApiUser(user, function(error, user) {
+    api.getApiUser(userId, function(error, user) {
       console.log("returning from getting Api user");
       if (data) {
         socketReadyPromise = new Promise(resolve => {
