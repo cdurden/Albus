@@ -122,7 +122,7 @@ module.exports = function(server, session) {
         console.log(submissions.length);
         if (submissions) {
         var tasks = Array.from(new Set(submissions.map(submission => { return submission.task })))
-        var taskObjectsPromise = assets.getTaskObjects(tasks.map(task => { return task.source }), false);
+        var taskAssetsPromise = assets.getTaskAssets(tasks.map(task => { return task.source }), false);
           Promise.all(submissions.map((submission, i) => {
               return new Promise(resolve => {
                   var board = submission.board;
@@ -143,12 +143,12 @@ module.exports = function(server, session) {
               console.log(boards.length);
               console.log("emitting boards to socket "+socket.id);
               socket.emit('boards', boards);
-              taskObjectsPromise.then(function(taskObjects) {
+              taskAssetsPromise.then(function(taskAssets) {
                   console.log("Tasks");
                   console.log(tasks);
                   console.log("Objects for tasks");
-                  console.log(taskObjects);
-                  tasksObj = tasks.reduce(function(obj, task) { task.data = (taskObjects[task.source] || {}).data; obj[task.id] = task; return obj; }, {});
+                  console.log(taskAssets);
+                  tasksObj = tasks.reduce(function(obj, task) { task.data = (taskAssets[task.source] || {}).data; obj[task.id] = task; return obj; }, {});
                   socket.emit('tasks', tasksObj);
               });
           });
