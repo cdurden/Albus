@@ -480,6 +480,7 @@ var roomsManager = {
   //  new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
+      }
 //          resolve();
 //        })
 //      } else {
@@ -521,6 +522,7 @@ var roomsManager = {
 //    new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
+      }
 //          resolve();
 //        })
 //      } else {
@@ -540,6 +542,7 @@ var roomsManager = {
 //    new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
+      }
 //          resolve();
 //        })
 //      } else {
@@ -561,6 +564,7 @@ var roomsManager = {
 //    new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
+      }
 //          resolve();
 //        })
 //      } else {
