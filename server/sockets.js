@@ -30,6 +30,7 @@ module.exports = function(server, session) {
       if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
           next();
       } else {
+          console.log('Socket not authenticated');
           next(new Error('Socket not authenticated'));
           //next();
       }
