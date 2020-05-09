@@ -363,8 +363,8 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
           registeredTaskBoardPromise = Promise.resolve(board);
       } else { // task board not found in local DB.
           // create a task board and register it
-          console.log("Generating a new task board");
           boardId = generateRandomId(5);
+          console.log("Generating a new task board with boardId "+boardId);
           registeredTaskBoardPromise = new Promise(resolve => {
               prepareBoard(roomId, boardId, function(board) {
                   //resolve(shapeStorage);
