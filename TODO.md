@@ -15,3 +15,4 @@
 3. Set the viewport for boards without backgrounds
 4. Fix the whole authentication workflow. Requests are getting past the passport middleware without being authenticated.
 5. It seems that if I load submissions, the boards that I load get loaded into my room, so they get loaded as task boards later if I am in the same room when I open an assignment
+6. If the server restarts after loading boards from the API, then the boards will be missing data when they are drawn to without reloading the client. One solution would be to set a flag indicating whether data has been loaded from Redis since the last restart (or just always load data from Redis in prepareBoard?).
