@@ -48,9 +48,9 @@ function getTaskAssets(taskSrcList, asArray) {
           var promises = [];
           for (taskSrc of taskSrcList) {
               console.log("Getting task from source: "+taskSrc);
-              var taskAsset = {'src': taskSrc};
+              var taskAsset = {'source': taskSrc};
               var [_, collection, task] = taskSrc.split(":");
-              taskAsset.src = taskSrc;
+              taskAsset.source = taskSrc;
               taskAsset.task = task;
               taskAsset.collection = collection;
               taskAssets.push(taskAsset);
@@ -84,7 +84,7 @@ function getTaskAssets(taskSrcList, asArray) {
                   taskAssetsArray = taskAssets.map(taskAsset => { return taskAsset.data });
                   resolveTaskSrcObjs(taskAssetsArray);
               } else {
-                  taskAssetsObject = taskAssets.reduce(function(obj, taskAsset) { obj[taskAsset.src] = taskAsset; return obj; }, {});
+                  taskAssetsObject = taskAssets.reduce(function(obj, taskAsset) { obj[taskAsset.source] = taskAsset; return obj; }, {});
                   resolveTaskSrcObjs(taskAssetsObject);
               }
           })
