@@ -4,7 +4,7 @@
         </div>
         <div class="modal-body" id="modal-body">
             <p>
-            Student name: <input type="text" ng-model="userFilter" typeahead-select-on-exact="true" typeahead-on-select="function($item) { $ctrl.selectedUser = $item; }" uib-typeahead="user as (user.firstname + ' ' + user.lastname) for user in $ctrl.users | filter:$viewValue |limitTo:8" autofocus/>
+            Student name: <input type="text" ng-model="userFilter" typeahead-select-on-exact="true" typeahead-on-select="setSelectedUser" uib-typeahead="user as (user.firstname + ' ' + user.lastname) for user in $ctrl.users | filter:$viewValue |limitTo:8" autofocus/>
             </p>
             <ul>
                 <li ng-repeat="user in $ctrl.users | filter:userFilter | limitTo:30">
