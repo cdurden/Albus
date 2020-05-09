@@ -65,8 +65,8 @@ angular.module('whiteboard', [
                   })
               }),
               new Promise(resolveActingUser => {
-                  Sockets.on('actingAsUser', function(data) {
-                      UserData.setActingUser(data);
+                  Sockets.on('actingAsUser', function(actingAsUser) {
+                      UserData.setActingUser(actingAsUser);
                       resolveActingUser(actingAsUser);
                   });
               }),
