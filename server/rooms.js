@@ -271,8 +271,8 @@ function prepareBoardForSocket(socket, boardId, callback) {
         if (typeof board.shapeStorage[socket.id] === 'undefined') {
             board.shapeStorage[socket.id] = {};
         }
-        return(board);
     }
+    return(board);
 }
 //function getTaskBoard(roomId, taskId) {
 function getTaskBoard(roomId, taskSource) {
