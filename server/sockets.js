@@ -732,7 +732,7 @@ function get_all_data_by_socket(socket, callback) {
           console.log(board);
           socket.emit('boardNotFound', boardId);
         } else {
-          rooms.loadBoard(socket.room, board, function(result) {
+          rooms.loadBoard(socket.room, board, function() {
             assets.getTasksFromSources([board.task.source]).then(function(taskAssets) {
                 socket.emit('tasks', taskAssets);
             });
@@ -764,7 +764,7 @@ function get_all_data_by_socket(socket, callback) {
         if (board) {
           console.log("Loading task board from API");
           console.log(board);
-          rooms.loadBoard(socket.room, board, function(err, result) {
+          rooms.loadBoard(socket.room, board, function() {
             socket.emit('board', board);
           });
         } else {
