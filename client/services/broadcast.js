@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.broadcast', [])
-.factory('Broadcast', 'Receive', function (Sockets, Receive) {
+.factory('Broadcast', ['Sockets', 'Receive', function (Sockets, Receive) {
 
   var socketUserId;
 
@@ -146,4 +146,4 @@ angular.module('whiteboard.services.broadcast', [])
     loadSubmissions: loadSubmissions,
   };
 
-});
+}]);
