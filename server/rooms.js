@@ -457,7 +457,8 @@ var roomsManager = {
 
   editShape: function (shape, socket) {
     //new Promise(resolve => {
-      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);
       }
          // , function() {
@@ -471,7 +472,7 @@ var roomsManager = {
      // }
     //}).then(function() {
       //if ( typeof rooms[socket.room][shape.boardId][socket.id][shape.myid] === 'undefined' ) {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] || {})[shape.myid] === 'undefined') {
+      if (typeof rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] === 'undefined') {
           return;
       }
       rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid]['mouseX'] = shape.mouseX;
@@ -485,7 +486,8 @@ var roomsManager = {
 
   moveShape: function (shape, socket) {
   //  new Promise(resolve => {
-      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
@@ -494,7 +496,7 @@ var roomsManager = {
 //        resolve();
 //      }
 //    }).then(function() {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] || {})[shape.myid] === 'undefined') {
+      if (typeof rooms[socket.room][shape.boardId].shapeStorage[socket.id] || {})[shape.myid] === 'undefined') {
           return;
       }
       var storedShape = rooms[socket.room][shape.boardId].shapeStorage[shape.socketId][shape.myid];
@@ -527,7 +529,8 @@ var roomsManager = {
 
   completePath: function (shape, socket) {
 //    new Promise(resolve => {
-      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
@@ -547,7 +550,8 @@ var roomsManager = {
 
   completeShape: function (shape, socket) {
 //    new Promise(resolve => {
-      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
@@ -569,7 +573,8 @@ var roomsManager = {
 
   deleteShape: function (shape, socket) {
 //    new Promise(resolve => {
-      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
