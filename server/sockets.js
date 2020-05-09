@@ -134,7 +134,7 @@ module.exports = function(server, session) {
                   board.submission_id = submission.id
                   //board.task = submission.task; //FIXME: I'm not sure why this is not already returned by the api
                   //board.id = board.boardId;
-                  rooms.loadBoard(socket, board, function() {
+                  rooms.loadBoard(socket.room, board, function() {
                      resolve(board);
                   });
               });
@@ -187,7 +187,7 @@ module.exports = function(server, session) {
                                             // load the board from the room instead of the api. FIXME: should check which is newer
                                             board.shapeStorage = roomBoard.shapeStorage;
                                         }
-                                        rooms.loadBoard(socket, board, function() {
+                                        rooms.loadBoard(socket.room, board, function() {
                                             resolve(board);
                                         });
                                     });
@@ -732,7 +732,7 @@ function get_all_data_by_socket(socket, callback) {
           console.log(board);
           socket.emit('boardNotFound', boardId);
         } else {
-          rooms.loadBoard(socket, board, function(result) {
+          rooms.loadBoard(socket.room, board, function(result) {
             console.log("Sending board to client");
             console.log(board);
             socket.emit('board', board);
@@ -761,7 +761,7 @@ function get_all_data_by_socket(socket, callback) {
         if (board) {
           console.log("Loading task board from API");
           console.log(board);
-          rooms.loadBoard(socket, board, function(err, result) {
+          rooms.loadBoard(socket.room, board, function(err, result) {
             socket.emit('board', board);
           });
         } else {
@@ -786,7 +786,7 @@ function get_all_data_by_socket(socket, callback) {
     });
     socket.on('getLatestBoardFromApi', function(taskId) {
       api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
-        rooms.loadBoard(socket, board['data'], function(result) {
+        rooms.loadBoard(socket.room, board['data'], function(result) {
           socket.emit('board', board);
         });
       });
