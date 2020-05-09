@@ -444,7 +444,7 @@ var roomsManager = {
 //      }
 //    }).then(function() {
       rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] = shape;
-    });
+    //});
     console.log("Adding shape to room, socket, board:");
     console.log(socket.room);
     console.log(shape.socketId);
