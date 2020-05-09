@@ -411,7 +411,7 @@ var roomsManager = {
   //setupBoards: setupBoards,
 
   getBoard: getBoard,
-  getBoardStorage: getBoardStorage,
+  //getBoardStorage: getBoardStorage,
   loadBoard: loadBoard,
   getOrCreateTaskBoard: getOrCreateTaskBoard,
 
