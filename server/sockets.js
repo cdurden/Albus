@@ -733,9 +733,12 @@ function get_all_data_by_socket(socket, callback) {
           socket.emit('boardNotFound', boardId);
         } else {
           rooms.loadBoard(socket.room, board, function(result) {
+            assets.getTasksFromSources([board.task.source]).then(function(taskAssets) {
+                socket.emit('tasks', taskAssets);
+            });
             console.log("Sending board to client");
             console.log(board);
-            socket.emit('board', board);
+            socket.emit('boards', [board]);
           });
         }
       });
