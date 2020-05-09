@@ -53,7 +53,7 @@ angular.module('whiteboard', [
     $routeProvider.when = function(path, route) {
         route.resolve || (route.resolve = {});
         angular.extend(route.resolve, {
-          'user': function (Sockets, EventHandler, $location) {
+          'user': function (Sockets, Receive, EventHandler, $location) {
                 return new Promise(resolve => {
                 Sockets.emit('getUser');
                 Sockets.emit('getUsers');
@@ -72,11 +72,11 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function(Sockets, EventHandler, $location) {
+          'mode': function(Sockets, Receive, EventHandler, $location) {
               EventHandler.loadBoards();
               return('assignment');
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function (Sockets, Receive, EventHandler, $location) {
             return(undefined);
           }
         }
@@ -86,7 +86,7 @@ angular.module('whiteboard', [
         controller: 'whiteboardController',
         //templateUrl: 'views/board+chat.html',
         resolve: {
-          'somethingElse': function (Sockets, EventHandler, $location) {
+          'somethingElse': function (Sockets, Receive, EventHandler, $location) {
             //BoardData.setBoardId($location.path().slice(1));
             EventHandler.loadBoards();
             Sockets.emit('getUsers');
@@ -101,11 +101,11 @@ angular.module('whiteboard', [
         templateUrl: '/views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
+          'mode': function (Sockets, Receive, EventHandler, $location) {
             EventHandler.loadBoardFromApi($location.path().slice(7));
             return('board')
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function (Sockets, Receive, EventHandler, $location) {
             return($location.path().slice(7));
           }
         },
@@ -114,11 +114,11 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
+          'mode': function (Sockets, Receive, EventHandler, $location) {
             EventHandler.loadSubmissions();
             return('submissions');
           },
-          'resource': function(Sockets, EventHandler, $location) {
+          'resource': function(Sockets, Receive, EventHandler, $location) {
               return(undefined);
           }
         }
@@ -127,11 +127,11 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
+          'mode': function (Sockets, Receive, EventHandler, $location) {
             EventHandler.loadBoards($location.path().slice(12));
             return('assignment')
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function (Sockets, Receive, EventHandler, $location) {
             return($location.path().slice(12));
           },
         }
@@ -140,11 +140,11 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
+          'mode': function (Sockets, Receive, EventHandler, $location) {
             EventHandler.loadFeedback($location.path().slice(10));
             return('feedback')
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function (Sockets, Receive, EventHandler, $location) {
             return($location.path().slice(10));
           },
         }
@@ -153,10 +153,10 @@ angular.module('whiteboard', [
         templateUrl: 'views/slides.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
+          'mode': function (Sockets, Receive, EventHandler, $location) {
               return('slides');
           },
-          'resource': function(Sockets, EventHandler, $location) {
+          'resource': function(Sockets, Receive, EventHandler, $location) {
               return(undefined);
           }
         }
