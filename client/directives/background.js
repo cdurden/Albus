@@ -83,6 +83,7 @@ angular.module('whiteboard')
                             backgroundRect = elmt.getBoundingClientRect();
                             dim = backgroundRect;
                             viewBox = calculateViewBox(dim);
+                            console.log(viewBox);
                             BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
                         }
                     })(container[0]);
@@ -102,6 +103,7 @@ angular.module('whiteboard')
                             w = img.naturalWidth;
                             h = img.naturalHeight;
                             aspect_ratio = w/h;
+                            console.log(w+", "+h);
                             canvas = BoardData.getCanvas().get(0)
                             boardRect = canvas.getBoundingClientRect();
                             viewBox = calculateViewBox(boardRect);
