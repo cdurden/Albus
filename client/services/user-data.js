@@ -15,11 +15,19 @@ angular.module('whiteboard.services.userdata', [])
   function getUsers() {
       return data.users;
   }
+  function setUser(user) {
+      data.user = user;
+  }
+  function getUser() {
+      return(data.user);
+  }
   function getDataObject() {
       return data;
   }
 
   return {
+    setUser: setUser,
+    getUser: getUser,
     setUsers: setUsers,
     getUsers: getUsers,
     getDataObject: getDataObject,
