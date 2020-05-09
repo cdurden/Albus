@@ -563,6 +563,9 @@ module.exports = function(server, session) {
               });
           });
         });
+        socket.on('idRequest', function () {
+          socket.emit('socketId', {socketId: socket.id});
+        });
         socketReadyPromise.then(function() {
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
    
@@ -593,9 +596,6 @@ module.exports = function(server, session) {
           });
       
           registerCommonListeners(socket);
-          socket.on('idRequest', function () {
-            socket.emit('socketId', {socketId: socket.id});
-          });
       
       /*
           socket.on('roomId', function (data) {
