@@ -116,6 +116,9 @@ angular.module('whiteboard.services.broadcast', [])
   var loadSubmissions = function (assignment) {
     Sockets.emit('loadSubmissions', assignment)
   };
+  var loadFeedback = function (feedback) {
+    Sockets.emit('loadFeedback', feedback)
+  };
   var getLatestBoardFromApi = function (data) {
     Sockets.emit('getLatestBoardFromApi', data)
   };
