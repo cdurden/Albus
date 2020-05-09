@@ -22,9 +22,12 @@ angular.module('whiteboard.services.shapebuilder', [])
   }
 
   function drawExistingPath (shape) {
+    /* This has to be removed to allow drawing shapes that were originally drawn on a different board.
     if (shape.boardId === BoardData.getBoardId()) {
       newShape(shape.myid, shape.socketId, shape.boardId, shape.tool, shape.initX, shape.initY);
     }
+    */
+    newShape(shape.myid, shape.socketId, shape.boardId, shape.tool, shape.initX, shape.initY);
     var existingPath = BoardData.getShapeById(shape.myid, shape.socketId, shape.boardId);
     existingPath.customSetPathD(shape.pathDProps);
     existingPath.pathDProps = shape.pathDProps;
