@@ -54,7 +54,7 @@ angular.module('whiteboard', [
     $routeProvider.when = function(path, route) {
         route.resolve || (route.resolve = {});
         angular.extend(route.resolve, {
-          'user': function (Sockets, Receive, EventHandler, $location) {
+          'user': function (Sockets, EventHandler, $location) {
                 return new Promise(resolve => {
                 Sockets.emit('getUser');
                 Sockets.emit('getUsers');
@@ -62,7 +62,14 @@ angular.module('whiteboard', [
                 Sockets.on('user', function(user) {
                     resolve(user);
                 })
+
             })
+          }
+          'socket': function(Sockets, EventHandler) {
+              Sockets.on('socketId', function (data) {
+                EventHandler.setSocketId(data.socketId);
+              });
+              Sockets.emit('idRequest');
           }
         });
 

@@ -10,11 +10,8 @@ angular.module('whiteboard.services.broadcast', [])
   var saveSocketId = function (id) {
     socketUserId = id;
   };
-  Sockets.on('socketId', function (data) {
-    EventHandler.setSocketId(data.socketId);
-  });
 
-  Sockets.emit('idRequest');
+ // Sockets.emit('idRequest');
 
   var getBoardStorage = function (boardId) {
     Sockets.emit('getBoardStorage', boardId);
