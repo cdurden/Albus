@@ -562,11 +562,11 @@ module.exports = function(server, session) {
     setSocketUserId(socket.id, userId);
     api.getApiUser(userId, function(error, user) {
       console.log("returning from getting Api user");
-      if (data) {
+      if (user) {
         socketReadyPromise = new Promise(resolve => {
           console.log("received data:");
-          console.log(data);
-          flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
+          console.log(user);
+          flat_data = Object.entries(user).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
               rooms.assignRoomToUser(userId).then(function() {
                   rooms.assignRoomToSocket(socket).then(function(roomId) {
