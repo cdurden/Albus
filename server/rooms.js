@@ -263,7 +263,7 @@ function prepareBoardForSocket(socket, boardId, callback) {
     //setupBoard(socket.room, boardId, function(shapeStorage) {
     //loadBoardFromRedis(socket.room, boardId, function(board) {
     console.log("Preparing board "+boardId+" for socket");
-    if (typeof (rooms[socket.room] || {})[boardId] === 'undefined) {
+    if (typeof (rooms[socket.room] || {})[boardId] === 'undefined') {
         board = prepareRoom(socket.room, boardId)
         if (typeof board.shapeStorage === 'undefined') { // FIXME: This should be unnecessary
             board.shapeStorage = {};
