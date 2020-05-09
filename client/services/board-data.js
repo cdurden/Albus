@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.boarddata', [])
-.factory('BoardData', ['Broadcast', '$rootScope', function (Broadcast, $rootScope) {
+.factory('BoardData', ['$rootScope', function ($rootScope) {
   //svgWidth/Height are the width and height of the DOM element
   var svgWidth = 1500; //sizeX
   var svgHeight = 1000; //sizeY
