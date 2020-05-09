@@ -554,9 +554,9 @@ module.exports = function(server, session) {
     if (typeof socket.handshake.session === 'undefined') {
         return;
     }
-    var user = socket.handshake.session.passport.user;
-    setSocketUser(socket.id, user);
-    api.getApiUser(user, function(error, data) {
+    var userId = socket.handshake.session.passport.user;
+    setSocketUser(socket.id, userId);
+    api.getApiUser(user, function(error, user) {
       console.log("returning from getting Api user");
       if (data) {
         socketReadyPromise = new Promise(resolve => {
@@ -564,11 +564,11 @@ module.exports = function(server, session) {
           console.log(data);
           flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
-              rooms.assignRoomToUser(user).then(function() {
+              rooms.assignRoomToUser(userId).then(function() {
                   rooms.assignRoomToSocket(socket).then(function(roomId) {
                       console.log("Setting up boards for socket "+socket.id);
                       console.log("emitting client data to admin");
-                      resolve();
+                      resolve(user);
                   });
               });
           });
@@ -579,7 +579,7 @@ module.exports = function(server, session) {
 
 
         socketReadyPromise.then(function() {
-          console.log("Socket is ready. Registering listeners.");
+          console.log("App is ready. Registering socket listeners.");
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
    
       
@@ -769,6 +769,7 @@ module.exports = function(server, session) {
               });
             });
           });
+          socket.emit('user', user);
         });
       }
     }); // end bind listeners

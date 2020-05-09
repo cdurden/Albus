@@ -81,6 +81,16 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
+          'user': function (Sockets, EventHandler, $location) {
+            return new Promise(resolve => {
+                Sockets.emit('getUser');
+                Sockets.emit('getUsers');
+                Sockets.emit('getActingUser');
+                Sockets.on('user', function(user) {
+                    resolve(user);
+                })
+            });
+          },
           'mode': function(Sockets, Receive, EventHandler, $location) {
               EventHandler.loadBoards();
               return('assignment');
