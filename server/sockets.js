@@ -573,15 +573,15 @@ module.exports = function(server, session) {
               });
           });
         });
+        setInterval(function() {
+          socket.emit('heartbeat');
+        }, 5000);
 
 
         socketReadyPromise.then(function() {
           console.log("Socket is ready. Registering listeners.");
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
    
-          setInterval(function() {
-            socket.emit('heartbeat');
-          }, 5000);
       
           socket.on('submit', function(data){
             //console.log(data);
