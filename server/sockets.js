@@ -533,6 +533,22 @@ module.exports = function(server, session) {
     socket.on('loadSubmissions', function(){
         loadSubmissions(socket);
     });
+    socket.on('loadFeedback', function(){
+        getFeedback(function(err, feedback) {
+            if (feedback) {
+                board = feedback.board
+                rooms.loadBoard(socket.room, board, function() {
+                  assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
+                      socket.emit('tasks', taskAssets);
+                  });
+                  console.log("Sending board to client");
+                  console.log(board);
+                  socket.emit('boards', [board]);
+                });
+                socket.emit('feedback', feedback);
+            }
+        });
+    });
     socket.on('getSubmissions', function(){
       api.getSubmissions(function(error, data) {
         //console.log(data)

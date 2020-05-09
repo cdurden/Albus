@@ -161,8 +161,7 @@ angular.module('whiteboard', [
         controller: 'whiteboardController',
         resolve: {
           'user': userPromiseMaker,
-          'mode': function (Sockets, Receive, EventHandler, $location) {
-            EventHandler.loadFeedback($location.path().slice(10));
+          'mode': function () {
             return('feedback')
           },
           'resource': function ($location) {
@@ -207,6 +206,10 @@ angular.module('whiteboard', [
     }
     if ($scope.mode === 'submissions') {
         EventHandler.loadSubmissions();
+    }
+    if ($scope.mode === 'feedback') {
+        $scope.feedback = resource;
+        EventHandler.loadFeedback($scope.feedback);
     }
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
