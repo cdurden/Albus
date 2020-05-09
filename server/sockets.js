@@ -766,8 +766,8 @@ function get_all_data_by_socket(socket, callback) {
           });
         } else {
           console.log("Creating new task board");
-          rooms.getOrCreateTaskBoard(socket, taskId, function(err, result) {
-            socket.emit('board', result);
+          rooms.getOrCreateTaskBoard(socket, taskId, function(error, board) {
+            socket.emit('board', board);
           });
         }
       });
