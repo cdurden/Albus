@@ -48,15 +48,15 @@ angular.module('whiteboard', [
 }]) 
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
-    function userPromise(Sockets, EventHandler, $location) {
-    return new Promise(resolve => {
-        Sockets.emit('getUser');
-        Sockets.emit('getUsers');
-        Sockets.emit('getActingUser');
-        Sockets.on('user', function(user) {
-            resolve(user);
-        })
-    });
+    function userPromiseMaker(Sockets, EventHandler, $location) {
+      return new Promise(resolve => {
+          Sockets.emit('getUser');
+          Sockets.emit('getUsers');
+          Sockets.emit('getActingUser');
+          Sockets.on('user', function(user) {
+              resolve(user);
+          })
+      });
   }
       /*
     var originalWhen = $routeProvider.when;
@@ -91,7 +91,7 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'user': userPromise,
+          'user': userPromiseMaker,
           'mode': function(Sockets, Receive, EventHandler, $location) {
               EventHandler.loadBoards();
               return('assignment');
