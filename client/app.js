@@ -205,7 +205,7 @@ angular.module('whiteboard', [
         $scope.board = resource;
         EventHandler.loadBoardFromApi($scope.board);
     }
-    if ($scope.mode === 'submissions) {
+    if ($scope.mode === 'submissions') {
         EventHandler.loadSubmissions();
     }
     $scope.uploader = new FileUploader();
