@@ -13,24 +13,18 @@ angular.module('whiteboard.services.broadcast', [])
 
   Sockets.emit('idRequest');
 
-  var getBoardStorage = function (boardId) {
-    Sockets.emit('getBoardStorage', boardId);
-  };
-
-  var newShape = function (myid, socketId, boardId, tool, initX, initY) {
+  var newShape = function (myid, socketId, tool, initX, initY) {
     Sockets.emit('newShape', {
       myid: myid,
       socketId: socketId,
-      boardId: boardId,
       tool: tool,
       initX: initX,
       initY: initY
     });
   };
 
-  var editShape = function (myid, socketId, boardId, currentTool, mouseX, mouseY) {
+  var editShape = function (myid, socketId, currentTool, mouseX, mouseY) {
     var data = {};
-    data.boardId = boardId;
     data.mouseX = mouseX;
     data.mouseY = mouseY;
     data.myid = myid;
@@ -39,46 +33,41 @@ angular.module('whiteboard.services.broadcast', [])
     Sockets.emit('editShape', data);
   };
 
-  var finishPath = function (myid, boardId, currentTool, pathDProps) {
+  var finishPath = function (myid, currentTool, pathDProps) {
     Sockets.emit('pathCompleted', {
       myid: myid,
       tool: currentTool,
-      boardId: boardId,
       pathDProps: pathDProps
     });
   };
 
-  var finishCopiedPath = function (myid, boardId, currentTool, pathDProps) {
+  var finishCopiedPath = function (myid, currentTool, pathDProps) {
     Sockets.emit('copiedPathCompleted', {
       myid: myid,
       tool: currentTool,
-      boardId: boardId,
       pathDProps: pathDProps
     });
   };
 
-  var finishShape = function (myid, boardId, currentTool) {
+  var finishShape = function (myid, currentTool) {
     Sockets.emit('shapeCompleted', {
       myid: myid,
-      boardId: boardId,
       tool: currentTool
     });
   };
 
-  var deleteShape = function (myid, socketId, boardId) {
+  var deleteShape = function (myid, socketId) {
     Sockets.emit('deleteShape', {
       myid: myid,
-      boardId: boardId,
       socketId: socketId
     })
   };
 
-  var moveShape = function (shape, boardId, x, y) {
+  var moveShape = function (shape, x, y) {
     var type = shape.type;
     Sockets.emit('moveShape', {
       myid: shape.myid,
       socketId: shape.socketId,
-      boardId: boardId,
       x: x,
       y: y,
       attr: shape.attr(),
@@ -86,11 +75,10 @@ angular.module('whiteboard.services.broadcast', [])
     });
   };
 
-  var finishMovingShape = function (shape, boardId) {
+  var finishMovingShape = function (shape) {
     Sockets.emit('finishMovingShape', {
       myid: shape.myid,
       socketId: shape.socketId,
-      boardId: boardId,
       attr: shape.attr()
     })
   };
@@ -110,18 +98,9 @@ angular.module('whiteboard.services.broadcast', [])
   var loadBoardFromApi = function (data) {
     Sockets.emit('loadBoardFromApi', data)
   };
-  var loadBoards = function (assignment) {
-    Sockets.emit('loadBoards', assignment)
-  };
-  var loadSubmissions = function (assignment) {
-    Sockets.emit('loadSubmissions', assignment)
-  };
   var getLatestBoardFromApi = function (data) {
     Sockets.emit('getLatestBoardFromApi', data)
   };
-  var getOrCreateTaskBoard = function(taskId) {
-    Sockets.emit('getOrCreateTaskBoard', taskId);
-  }
 
   return {
     getSocketId: getSocketId,
@@ -139,11 +118,7 @@ angular.module('whiteboard.services.broadcast', [])
     moveShape: moveShape,
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
-    loadBoards: loadBoards,
     getLatestBoardFromApi: getLatestBoardFromApi,
-    getOrCreateTaskBoard: getOrCreateTaskBoard,
-    getBoardStorage: getBoardStorage,
-    loadSubmissions: loadSubmissions,
   };
 
 });
