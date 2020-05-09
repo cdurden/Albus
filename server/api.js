@@ -308,7 +308,7 @@ function updateAssignments(assignments, callback) {
     }
   );
 }
-async function saveBoard(session, data, backgroundImage, callback) {
+async function saveBoard(session, data, callback) {
   console.log("Got request to save board with data:");
   console.log(data);
   lti_user_id = await getActingSessionUser(session);
