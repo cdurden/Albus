@@ -367,7 +367,8 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
           registeredTaskBoardPromise = new Promise(resolve => {
               board = prepareBoard(roomId, boardId);
               //resolve(shapeStorage);
-              board.taskSource = taskSource;
+              //board.taskSource = taskSource;
+              board.task = { 'source': taskSource };
               registerTaskBoard(roomId, taskSource, board.boardId).then(function() { 
                   resolve(board)
               });
