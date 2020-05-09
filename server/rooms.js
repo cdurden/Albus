@@ -359,7 +359,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
       //var setTaskBoardPromise;
       var registeredTaskBoardPromise;
       if (board) { // task board already exists, return promise resolve to it.  FIXME: check this correctly
-          console.log("Task board exists in node");
+          console.log("Task board "+board.boardId+" exists in node");
           registeredTaskBoardPromise = Promise.resolve(board);
       } else { // task board not found in local DB.
           // create a task board and register it
