@@ -403,10 +403,14 @@ angular.module('whiteboard')
     $scope.actingAsUser = data;
   });
   */
-
+  
   var $ctrl = this;
   $ctrl.animationsEnabled = true;
-
+  $scope.setSelectedUser = function($item, $model) {
+      console.log($item);
+      console.log($model);
+      $ctrl.selectedUser = $item;
+  }
 
   $ctrl.open = function (size, parentSelector) {
     //Sockets.emit('getUsers');
