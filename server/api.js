@@ -631,6 +631,7 @@ module.exports = {
     updateAssignments: updateAssignments,
     createFeedback: createFeedback,
     getFeedback: getFeedback,
+    getFeedbackById: getFeedbackById,
     getBoard: getBoard,
     getBoards: getBoards,
     //actAsUser: actAsUser,
