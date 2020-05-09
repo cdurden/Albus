@@ -48,6 +48,7 @@ angular.module('whiteboard', [
 }]) 
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
+      /*
     var originalWhen = $routeProvider.when;
 
     $routeProvider.when = function(path, route) {
@@ -67,6 +68,7 @@ angular.module('whiteboard', [
 
         return originalWhen.call($routeProvider, path, route);
     };
+    */
     $routeProvider
       .when('/', {
         templateUrl: './views/board.html',
@@ -175,7 +177,8 @@ angular.module('whiteboard', [
         if (resource) {
             $scope.assignment = resource;
         } else {
-            $scope.assignment = user.assignment;
+            //$scope.assignment = user.assignment;
+            $scope.assignment = "NegativeExponents";
         } 
     }
     if ($scope.mode === 'board') {
