@@ -349,7 +349,6 @@ function loadBoard(roomId, board, callback) {
 }
 //function getOrCreateTaskBoard(socket, taskId, callback) {
 function getOrCreateTaskBoard(socket, taskSource, callback) {
-  var boardId;
   var roomId = socket.room;
   if (typeof rooms[roomId] === 'undefined') {
       prepareRoom(socket.room);
@@ -358,6 +357,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
   //getTaskBoard(roomId, taskId).then(function(boardId) {
   getTaskBoard(roomId, taskSource).then(function(board) {
       //var setTaskBoardPromise;
+      var boardId;
       var registeredTaskBoardPromise;
       if (board) { // task board already exists, return promise resolve to it.  FIXME: check this correctly
           console.log("Task board "+board.boardId+" exists in node");
@@ -370,7 +370,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
               prepareBoard(roomId, boardId, function(board) {
                   //resolve(shapeStorage);
                   board.taskSource = taskSource;
-                  registerTaskBoard(roomId, taskSource, boardId).then(function(board) { 
+                  registerTaskBoard(roomId, taskSource, board.boardId).then(function(board) { 
                       resolve(board)
                   });
               });
