@@ -625,9 +625,11 @@ module.exports = function(server, session) {
                     console.log("Reassigning room to socket");
                     rooms.assignRoomToSocket(socket);
                     api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
+                        console.log("Got acting user data from API");
+                        console.log(data);
                         socket.emit('actingAsUser', data);
                     });
-                    loadBoards(socket);
+                    //loadBoards(socket);
                 }
             });
           });

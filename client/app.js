@@ -218,10 +218,16 @@ angular.module('whiteboard', [
             $scope.assignment = userData.user.assignment;
         } 
         EventHandler.loadBoards($scope.assignment);
+        Sockets.on('actingAsUser', function(actingAsUser) {
+            EventHandler.loadBoards($scope.assignment);
+        });
     }
     if ($scope.mode === 'board') {
         $scope.board = resource;
         EventHandler.loadBoardFromApi($scope.board);
+        Sockets.on('actingAsUser', function(actingAsUser) {
+            EventHandler.loadBoardFromApi($scope.board);
+        });
     }
     if ($scope.mode === 'submissions') {
         EventHandler.loadSubmissions();
