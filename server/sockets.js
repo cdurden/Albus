@@ -723,6 +723,7 @@ module.exports = function(server, session) {
           });
           */
           socket.on('loadBoards', function(assignment) {
+            console.log("Got loadBoards");
             loadBoards(socket, assignment);
             // load assignment
           });
