@@ -258,6 +258,7 @@ function prepareBoard(roomId, boardId, callback) {
 function prepareBoardForSocket(socket, boardId, callback) {
       //setupBoard(socket.room, boardId, function(shapeStorage) {
       //loadBoardFromRedis(socket.room, boardId, function(board) {
+      console.log("Preparing board "+boardId+" for socket");
       getBoard(socket.room, boardId, function(board) {
           //if (typeof shapeStorage[socket.id] === 'undefined') {
           //FIXME: handle the case that the board is not defined
@@ -377,7 +378,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
       //setTaskBoardPromise.then(function() {
       registeredTaskBoardPromise.then(function(board) {
-          console.log("Task board registered. Setting it up for socket");
+          console.log("Task board "+board.id+" registered with "+taskSource+". Setting it up for socket");
           prepareBoardForSocket(socket, board.id, function(board) {
               console.log("Task board registered and setup for socket");
               callback(null, board);
