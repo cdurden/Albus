@@ -256,6 +256,7 @@ function prepareBoard(roomId, boardId, callback) {
             'shapeStorage': {}
         };
     }
+    callback && callback(rooms[roomId][boardId])
 }
 
 function prepareBoardForSocket(socket, boardId, callback) {
