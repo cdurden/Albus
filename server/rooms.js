@@ -430,18 +430,19 @@ var roomsManager = {
   assignRoomToSocketId: assignRoomToSocketId,
 
   addShape: function (shape, socket) {
-    new Promise(resolve => {
+//    new Promise(resolve => {
       if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
-        prepareBoardForSocket(socket, shape.boardId, function() {
+        prepareBoardForSocket(socket, shape.boardId);//, function() {
+      }
     //it seems that the client was setting the socketId of the shape
     //rooms[socket.room][boardId][shape.socketId][shape.myid] = shape;
     //here the line has been modified to use the id of the current socket.
-          resolve();
-        })
-      } else {
-        resolve();
-      }
-    }).then(function() {
+//          resolve();
+//        })
+//      } else {
+//        resolve();
+//      }
+//    }).then(function() {
       rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] = shape;
     });
     console.log("Adding shape to room, socket, board:");
