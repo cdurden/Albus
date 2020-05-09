@@ -251,10 +251,11 @@ angular.module('whiteboard.services.eventhandler', [])
     loadBoard: loadBoard,
     loadBoardFromApi: loadBoardFromApi,
     loadBoards: loadBoards,
+    loadSubmissions: loadSubmissions,
+    loadFeedback: loadFeedback,
     saveBoardToApi: saveBoardToApi,
     screenshot: screenshot,
     activateNav: activateNav,
     activateDraw: activateDraw,
-    loadSubmissions: loadSubmissions,
   };
 }]);
