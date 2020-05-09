@@ -560,7 +560,7 @@ var roomsManager = {
 //        resolve();
 //      }
 //    }).then(function() {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] || {})[shape.myid] === 'undefined') {
+      if (typeof rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] === 'undefined') {
           return;
       }
       if (shape.tool && shape.tool.text) {
