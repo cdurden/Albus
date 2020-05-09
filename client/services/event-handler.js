@@ -33,6 +33,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function loadSubmissions() {
     Broadcast.loadSubmissions();
   }
+  function loadFeedback(feedback_id) {
+    Broadcast.loadFeedback(feedback_id);
+  }
   function loadBoardFromApi(id) {
     Broadcast.loadBoardFromApi(id);
   }
@@ -248,11 +251,12 @@ angular.module('whiteboard.services.eventhandler', [])
     loadBoard: loadBoard,
     loadBoardFromApi: loadBoardFromApi,
     loadBoards: loadBoards,
+    loadSubmissions: loadSubmissions,
+    loadFeedback: loadFeedback,
     saveBoardToApi: saveBoardToApi,
     */
     screenshot: screenshot,
     activateNav: activateNav,
     activateDraw: activateDraw,
-    loadSubmissions: loadSubmissions,
   };
 }]);

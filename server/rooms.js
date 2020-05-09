@@ -61,22 +61,22 @@ function assignRoomToUser(user, roomId) {
     });
 }
 
-function getUserFromSocket(socket) {
+function getUserIdFromSocket(socket) {
     return(socket.handshake.session.passport.user);
 }
 function getActingUserFromSocket(socket) {
-    var user = socket.handshake.session.actingAsUser;
+    var userId = socket.handshake.session.actingAsUser;
     //if (typeof user === 'undefined') {
-    if (!user) {
-        user = getUserFromSocket(socket);
+    if (!userId) {
+        userId = getUserIdFromSocket(socket);
     }
-    console.log("Got acting user: "+user);
-    return(user);
+    console.log("Got acting user: "+userId);
+    return(userId);
 }
-function getUserFromSocketId(socketId) {
+function getUserIdFromSocketId(socketId) {
     return new Promise(resolve => {
-        client.hget(socketId, 'user', function(err, user) {
-            resolve(user);
+        client.hget(socketId, 'userId', function(err, userId) {
+            resolve(userId);
         });
     });
 }
@@ -85,7 +85,7 @@ function getActingUserFromSocketId(socketId) {
         client.hget(socketId, 'actingAsUser', function(err, actingAsUser) {
             //if (typeof actingAsUser === 'undefined') {
             if (!actingAsUser) {
-                getUserFromSocketId(socketId).then(function(user) {
+                getUserIdFromSocketId(socketId).then(function(user) {
                     console.log("Got acting user: "+user);
                     if (typeof user === 'undefined') {
                         console.log("WARNING: This is the last fallback to get user information. Since this failed, user assignments will not be tied to this socket. This could mean that you did not call setSocketUser when making the socket connection.");
@@ -191,9 +191,11 @@ function getBoard(roomId, boardId) {
     return new Promise(resolve => {
         var board = (rooms[roomId] || {})[boardId];
         if (board) {
+            console.log("Got board from node storage");
             resolve(board);
         } else {
             loadBoardFromRedis(roomId, boardId, function(board) {
+                console.log("Got board from Redis");
                 resolve(board);
             });
         }
@@ -260,6 +262,7 @@ function prepareBoard(roomId, boardId) {
 }
 
 function prepareBoardForSocket(socket, boardId) {
+    var userId = getUserIdFromSocket(socket);
     //setupBoard(socket.room, boardId, function(shapeStorage) {
     //loadBoardFromRedis(socket.room, boardId, function(board) {
     console.log("Preparing board "+boardId+" for socket");
@@ -270,8 +273,8 @@ function prepareBoardForSocket(socket, boardId) {
     if (typeof board.shapeStorage === 'undefined') { // FIXME: This should be unnecessary
         board.shapeStorage = {};
     }
-    if (typeof board.shapeStorage[socket.id] === 'undefined') { //FIXME: this should always be true
-        board.shapeStorage[socket.id] = {};
+    if (typeof board.shapeStorage[userId] === 'undefined') { //FIXME: this should always be true
+        board.shapeStorage[userId] = {};
     }
     console.log("board prepared");
     console.log(board);
@@ -434,8 +437,9 @@ var roomsManager = {
   assignRoomToSocketId: assignRoomToSocketId,
 
   addShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
     //it seems that the client was setting the socketId of the shape
@@ -447,7 +451,7 @@ var roomsManager = {
 //        resolve();
 //      }
 //    }).then(function() {
-      rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] = shape;
+      rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid] = shape;
     //});
     console.log("Adding shape to room, socket, board:");
     console.log(socket.room);
@@ -456,9 +460,10 @@ var roomsManager = {
   },
 
   editShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
     //new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);
       }
          // , function() {
@@ -472,11 +477,11 @@ var roomsManager = {
      // }
     //}).then(function() {
       //if ( typeof rooms[socket.room][shape.boardId][socket.id][shape.myid] === 'undefined' ) {
-      if (typeof rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] === 'undefined') {
+      if (typeof rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid] === 'undefined') {
           return;
       }
-      rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid]['mouseX'] = shape.mouseX;
-      rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid]['mouseY'] = shape.mouseY;   
+      rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid]['mouseX'] = shape.mouseX;
+      rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid]['mouseY'] = shape.mouseY;   
     //});
     console.log(rooms);
     console.log(socket.room);
@@ -485,9 +490,10 @@ var roomsManager = {
   },
 
   moveShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
   //  new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
@@ -496,7 +502,7 @@ var roomsManager = {
 //        resolve();
 //      }
 //    }).then(function() {
-      if (typeof rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] === 'undefined') {
+      if (typeof rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid] === 'undefined') {
           return;
       }
       var storedShape = rooms[socket.room][shape.boardId].shapeStorage[shape.socketId][shape.myid];
@@ -528,9 +534,10 @@ var roomsManager = {
   },
 
   completePath: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
@@ -539,19 +546,20 @@ var roomsManager = {
 //        resolve();
 //      }
 //    }).then(function() {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] || {})[shape.myid] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[userId] || {})[shape.myid] === 'undefined') {
           return;
       }
-      rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid]['pathDProps'] = shape.pathDProps;
+      rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid]['pathDProps'] = shape.pathDProps;
       //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
       client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
     //});
   },
 
   completeShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
@@ -560,11 +568,11 @@ var roomsManager = {
 //        resolve();
 //      }
 //    }).then(function() {
-      if (typeof rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid] === 'undefined') {
+      if (typeof rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid] === 'undefined') {
           return;
       }
       if (shape.tool && shape.tool.text) {
-        rooms[socket.room][shape.boardId].shapeStorage[socket.id][shape.myid]['tool'] = shape.tool;
+        rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid]['tool'] = shape.tool;
       }
       //client.set(socket.room, JSON.stringify(rooms[socket.room][boardId]));
       client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId]));
@@ -572,9 +580,10 @@ var roomsManager = {
   },
 
   deleteShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
 //          resolve();
@@ -583,7 +592,7 @@ var roomsManager = {
 //        resolve();
 //      }
 //    }).then(function() {
-      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] || {})[shape.myid] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[userId] || {})[shape.myid] === 'undefined') {
           return; //FIXME: add some warning messages to figure out why this is happening
       }
       console.log("deleting shape "+shape.myid);

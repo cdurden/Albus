@@ -11,7 +11,7 @@ angular.module('whiteboard.services.broadcast', [])
     socketUserId = id;
   };
 
-  Sockets.emit('idRequest');
+ // Sockets.emit('idRequest');
 
   var newShape = function (myid, socketId, tool, initX, initY) {
     Sockets.emit('newShape', {
@@ -98,6 +98,15 @@ angular.module('whiteboard.services.broadcast', [])
   var loadBoardFromApi = function (data) {
     Sockets.emit('loadBoardFromApi', data)
   };
+  var loadBoards = function (assignment) {
+    Sockets.emit('loadBoards', assignment)
+  };
+  var loadSubmissions = function (assignment) {
+    Sockets.emit('loadSubmissions', assignment)
+  };
+  var loadFeedback = function (feedback) {
+    Sockets.emit('loadFeedback', feedback)
+  };
   var getLatestBoardFromApi = function (data) {
     Sockets.emit('getLatestBoardFromApi', data)
   };
@@ -118,7 +127,12 @@ angular.module('whiteboard.services.broadcast', [])
     moveShape: moveShape,
     saveBoardToApi: saveBoardToApi,
     loadBoardFromApi: loadBoardFromApi,
+    loadBoards: loadBoards,
+    loadSubmissions: loadSubmissions,
+    loadFeedback: loadFeedback,
     getLatestBoardFromApi: getLatestBoardFromApi,
+    getOrCreateTaskBoard: getOrCreateTaskBoard,
+    getBoardStorage: getBoardStorage,
   };
 
 });

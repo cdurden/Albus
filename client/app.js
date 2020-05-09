@@ -48,6 +48,18 @@ angular.module('whiteboard', [
 }]) 
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
+    function userPromiseMaker(Sockets, BoardData, $location) {
+      return new Promise(resolve => {
+          Sockets.emit('getUser');
+          Sockets.emit('getUsers');
+          Sockets.emit('getActingUser');
+          Sockets.on('user', function(user) {
+              BoardData.setSocketId(user.lti_user_id);
+              resolve(user);
+          })
+      });
+  }
+      /*
     var originalWhen = $routeProvider.when;
 
     $routeProvider.when = function(path, route) {
@@ -61,22 +73,30 @@ angular.module('whiteboard', [
                 Sockets.on('user', function(user) {
                     resolve(user);
                 })
+
             })
+          }
+          'socket': function(Sockets, EventHandler) {
+              Sockets.on('socketId', function (data) {
+                EventHandler.setSocketId(data.socketId);
+              });
+              Sockets.emit('idRequest');
           }
         });
 
         return originalWhen.call($routeProvider, path, route);
     };
+    */
     $routeProvider
       .when('/', {
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function(Sockets, EventHandler, $location) {
-              EventHandler.loadBoards();
+          'user': userPromiseMaker,
+          'mode': function() {
               return('assignment');
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function () {
             return(undefined);
           }
         }
@@ -101,11 +121,11 @@ angular.module('whiteboard', [
         templateUrl: '/views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
-            EventHandler.loadBoardFromApi($location.path().slice(7));
+          'user': userPromiseMaker,
+          'mode': function () {
             return('board')
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function ($location) {
             return($location.path().slice(7));
           }
         },
@@ -114,11 +134,11 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
-            EventHandler.loadSubmissions();
+          'user': userPromiseMaker,
+          'mode': function () {
             return('submissions');
           },
-          'resource': function(Sockets, EventHandler, $location) {
+          'resource': function($location) {
               return(undefined);
           }
         }
@@ -127,11 +147,11 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
-            EventHandler.loadBoards($location.path().slice(12));
+          'user': userPromiseMaker,
+          'mode': function () {
             return('assignment')
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function ($location) {
             return($location.path().slice(12));
           },
         }
@@ -140,11 +160,11 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
-            EventHandler.loadFeedback($location.path().slice(10));
+          'user': userPromiseMaker,
+          'mode': function () {
             return('feedback')
           },
-          'resource': function (Sockets, EventHandler, $location) {
+          'resource': function ($location) {
             return($location.path().slice(10));
           },
         }
@@ -153,10 +173,11 @@ angular.module('whiteboard', [
         templateUrl: 'views/slides.html',
         controller: 'whiteboardController',
         resolve: {
-          'mode': function (Sockets, EventHandler, $location) {
+          'user': userPromiseMaker,
+          'mode': function () {
               return('slides');
           },
-          'resource': function(Sockets, EventHandler, $location) {
+          'resource': function($location) {
               return(undefined);
           }
         }
@@ -168,6 +189,7 @@ angular.module('whiteboard', [
     });
 }])
 .controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'user', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, user, mode, resource) {
+//.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
     $scope.user = user;
     $scope.mode = mode;
     if ($scope.mode === 'assignment') {
@@ -176,9 +198,18 @@ angular.module('whiteboard', [
         } else {
             $scope.assignment = user.assignment;
         } 
+        EventHandler.loadBoards($scope.assignment);
     }
     if ($scope.mode === 'board') {
         $scope.board = resource;
+        EventHandler.loadBoardFromApi($scope.board);
+    }
+    if ($scope.mode === 'submissions') {
+        EventHandler.loadSubmissions();
+    }
+    if ($scope.mode === 'feedback') {
+        $scope.feedback = resource;
+        EventHandler.loadFeedback($scope.feedback);
     }
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {

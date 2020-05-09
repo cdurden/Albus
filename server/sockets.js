@@ -30,15 +30,16 @@ module.exports = function(server, session) {
       if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
           next();
       } else {
+          console.log('Socket not authenticated');
           next(new Error('Socket not authenticated'));
           //next();
       }
   });
 
   // IMPORTANT: this must be called as soom as the connection is established to that information about the user can be used to control the socket
-  function setSocketUser(socketId, user) {
+  function setSocketUserId(socketId, userId) {
       return new Promise((resolve) => {
-          client.hmset(socketId, ['user', user], function(err, result) {
+          client.hmset(socketId, ['userId', userId], function(err, result) {
               resolve(result);
           });
       });
@@ -84,13 +85,16 @@ module.exports = function(server, session) {
     return new Promise(resolve => {
       //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
       //rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId).then(function(shapeStorage) {
+      console.log("Getting board for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
       rooms.getBoard(rooms.getRoomId(socket), data.boardId).then(function(board) {
           //console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
-          console.log("Getting board for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+board.boardId+")");
+          console.log(board);
+          console.log("Background image:");
+          console.log(board.background_image);
           //console.log(shapeStorage);
           board.boardId = saveAs;
           //.shapeStorage = shapeStorage;
-          api.saveBoard(socket.handshake.session, board, undefined, function(err, data) {
+          api.saveBoard(socket.handshake.session, board, function(err, data) {
               console.log("Board saved");
               console.log(data);
               resolve(data);
@@ -554,33 +558,34 @@ module.exports = function(server, session) {
     if (typeof socket.handshake.session === 'undefined') {
         return;
     }
-    var user = socket.handshake.session.passport.user;
-    setSocketUser(socket.id, user);
-    api.getApiUser(user, function(error, data) {
+    var userId = socket.handshake.session.passport.user;
+    setSocketUserId(socket.id, userId);
+    api.getApiUser(userId, function(error, user) {
       console.log("returning from getting Api user");
-      if (data) {
+      if (user) {
         socketReadyPromise = new Promise(resolve => {
           console.log("received data:");
-          console.log(data);
-          flat_data = Object.entries(data).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
+          console.log(user);
+          flat_data = Object.entries(user).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
-              rooms.assignRoomToUser(user).then(function() {
+              rooms.assignRoomToUser(userId).then(function() {
                   rooms.assignRoomToSocket(socket).then(function(roomId) {
                       console.log("Setting up boards for socket "+socket.id);
                       console.log("emitting client data to admin");
-                      resolve();
+                      resolve(user);
                   });
               });
           });
         });
+        setInterval(function() {
+          socket.emit('heartbeat');
+        }, 5000);
 
 
         socketReadyPromise.then(function() {
+          console.log("App is ready. Registering socket listeners.");
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
    
-          setInterval(function() {
-            socket.emit('heartbeat');
-          }, 5000);
       
           socket.on('submit', function(data){
             //console.log(data);
@@ -723,6 +728,7 @@ module.exports = function(server, session) {
           });
           */
           socket.on('loadBoards', function(assignment) {
+            console.log("Got loadBoards");
             loadBoards(socket, assignment);
             // load assignment
           });
@@ -731,6 +737,25 @@ module.exports = function(server, session) {
             loadSubmissions(socket);
             //});
             // load assignment
+          });
+          socket.on('loadFeedback', function(feedback_id){
+              console.log("Loading feedback (feedback_id: "+feedback_id+")");
+              api.getFeedbackById(feedback_id, function(err, feedback) {
+                  console.log("Got feedback");
+                  console.log(feedback);
+                  if (feedback) {
+                      board = feedback.board
+                      rooms.loadBoard(socket.room, board, function() {
+                        assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
+                            socket.emit('tasks', taskAssets);
+                        });
+                        console.log("Sending board to client");
+                        console.log(board);
+                        socket.emit('boards', [board]);
+                      });
+                      socket.emit('feedback', feedback);
+                  }
+              });
           });
           socket.on('getOrCreateTaskBoard', function(taskId) {
             api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
@@ -760,6 +785,7 @@ module.exports = function(server, session) {
                 });
             });
           });
+            /*
           socket.on('getLatestBoardFromApi', function(taskId) {
             api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
               rooms.loadBoard(socket.room, board['data'], function(result) {
@@ -767,6 +793,8 @@ module.exports = function(server, session) {
               });
             });
           });
+          */
+          socket.emit('user', user);
         });
       }
     }); // end bind listeners

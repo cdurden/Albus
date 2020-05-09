@@ -308,7 +308,7 @@ function updateAssignments(assignments, callback) {
     }
   );
 }
-async function saveBoard(session, data, backgroundImage, callback) {
+async function saveBoard(session, data, callback) {
   console.log("Got request to save board with data:");
   console.log(data);
   lti_user_id = await getActingSessionUser(session);
@@ -320,7 +320,7 @@ async function saveBoard(session, data, backgroundImage, callback) {
       'lti_user_id': lti_user_id, 
       'task_id': data.task_id,
       'boardId': data.boardId,
-      'background_image': backgroundImage,
+      'background_image': data.background_image,
       'shapeStorage_json': shapeStorage_json,
   };
   request.post(`${scheme}://${host}:${port}/api/boards/`,
@@ -345,6 +345,25 @@ async function saveBoard(session, data, backgroundImage, callback) {
         //console.log(body)
         //data = JSON.parse(body)
         callback(null, body);
+      } else {
+        console.log(error);
+        callback(error, null);
+      }
+    }
+  );
+}
+function getFeedbackById(feedback_id, callback) {
+  request(
+    {
+      url: `${scheme}://${host}:${port}/api/feedback/${feedback_id}`,
+      headers : { 
+        "Authorization" : "Bearer " + auth.api_auth_token,
+      },
+    },
+    function(error, response, body) {
+      if (!error && response.statusCode == 201) {
+        data = JSON.parse(body) //FIXME: handle exception
+        callback(null, data);
       } else {
         console.log(error);
         callback(error, null);
@@ -612,6 +631,7 @@ module.exports = {
     updateAssignments: updateAssignments,
     createFeedback: createFeedback,
     getFeedback: getFeedback,
+    getFeedbackById: getFeedbackById,
     getBoard: getBoard,
     getBoards: getBoards,
     //actAsUser: actAsUser,
