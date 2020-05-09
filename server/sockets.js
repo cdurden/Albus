@@ -544,6 +544,16 @@ module.exports = function(server, session) {
     if (typeof socket.handshake.session === 'undefined') {
         return;
     }
+    socket.on('idRequest', function () {
+      console.log("Got socket id request (socket id: "+socket.id+")");
+      socket.emit('socketId', {socketId: socket.id});
+    });
+    socket.on('heartbeat', function () {
+    })
+    socket.on('disconnect', function () {
+      console.log("disconnect from socket "+socket.id);
+      getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
+    });
     var user = socket.handshake.session.passport.user;
     setSocketUser(socket.id, user);
     api.getApiUser(user, function(error, data) {
@@ -564,16 +574,6 @@ module.exports = function(server, session) {
           });
         });
 
-        socket.on('idRequest', function () {
-          console.log("Got socket id request (socket id: "+socket.id+")");
-          socket.emit('socketId', {socketId: socket.id});
-        });
-        socket.on('heartbeat', function () {
-        })
-        socket.on('disconnect', function () {
-          console.log("disconnect from socket "+socket.id);
-          getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
-        });
 
         socketReadyPromise.then(function() {
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
