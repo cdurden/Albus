@@ -283,6 +283,7 @@ function getTaskBoard(roomId, taskSource) {
                 console.log("Board "+boardId+" registered with task "+taskSource+" in room "+roomId);
                 console.log("Getting registered board");
                 getBoard(roomId, boardId).then(function(board) {
+                    console.log("Got board "+boardId);
                     resolve(board);
                 });
             } else {
@@ -378,8 +379,8 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
         //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
       //setTaskBoardPromise.then(function() {
       registeredTaskBoardPromise.then(function(board) {
-          console.log("Task board "+board.id+" registered with "+taskSource+". Setting it up for socket");
-          prepareBoardForSocket(socket, board.id, function(board) {
+          console.log("Task board "+board.boardId+" registered with "+taskSource+". Setting it up for socket");
+          prepareBoardForSocket(socket, board.boardId, function(board) {
               console.log("Task board registered and setup for socket");
               callback(null, board);
           });
