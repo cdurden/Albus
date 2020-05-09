@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.broadcast', [])
-.factory('Broadcast', ['Sockets', 'Receive', function (Sockets, Receive) {
+.factory('Broadcast', ['Sockets', function (Sockets) {
 
   var socketUserId;
 
