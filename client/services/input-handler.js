@@ -490,7 +490,7 @@ angular.module('whiteboard.services.inputhandler', [])
     mousedown: mouseDown,
     mousemove: mouseMove,
     mouseup: mouseUp,
-    keypress: keyPress
+    keypress: keyPress,
     loadBoard: loadBoard,
     loadBoardFromApi: loadBoardFromApi,
     loadBoards: loadBoards,
