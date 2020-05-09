@@ -226,6 +226,7 @@ function loadBoardFromRedis(roomId, boardId, callback) {
     if (typeof rooms[roomId] === 'undefined') {
       prepareRoom(roomId);
     }
+    console.log("Loading board "+boardId+" in room "+roomId+" from redis");
     client.hget(roomId, boardId, function (err, reply) {
       if (typeof rooms[roomId] === 'undefined') {
           prepareRoom(roomId)
