@@ -563,10 +563,18 @@ module.exports = function(server, session) {
               });
           });
         });
+
         socket.on('idRequest', function () {
-          console.log("Got socket id requestion (socket id: "+socket.id);
+          console.log("Got socket id request (socket id: "+socket.id+")");
           socket.emit('socketId', {socketId: socket.id});
         });
+        socket.on('heartbeat', function () {
+        })
+        socket.on('disconnect', function () {
+          console.log("disconnect from socket "+socket.id);
+          getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
+        });
+
         socketReadyPromise.then(function() {
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
    
@@ -574,8 +582,6 @@ module.exports = function(server, session) {
             socket.emit('heartbeat');
           }, 5000);
       
-          socket.on('heartbeat', function () {
-          })
           socket.on('submit', function(data){
             //console.log(data);
             saveBoardToApi(socket, data).then(function(board) {
@@ -681,33 +687,7 @@ module.exports = function(server, session) {
             socket.to(this.room).emit('shapeDeleted', {myid: data.myid, socketId: data.socketId, boardId: data.boardId});
           });
       
-          socket.on('disconnect', function () {
-            console.log("disconnect from socket "+socket.id);
-            getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
-          });
       
-            // ----------------- 
-            /*
-      const getAsync = promisify(client.get).bind(client);
-      const setAsync = promisify(client.set).bind(client);
-      const hmgetAsync = promisify(client.hmget).bind(client);
-      const hmsetAsync = promisify(client.hmset).bind(client);
-      
-      function get_data_by_socket(socket, keys, callback) {
-        client.hmget(socket, keys, function(err, results) {
-          var student_data = {};
-          keys.forEach((elmt, i) => { student_data[elmt] = results[i]; });
-          callback(err, student_data);
-        });
-      }
-      function get_all_data_by_socket(socket, callback) {
-        client.hgetall(socket, function(err, results) {
-          var data = {};
-          keys.forEach((elmt, i) => { student_data[elmt] = results[i]; });
-          callback(err, student_data);
-        });
-      }
-            */
           socket.on('chat message', function(msg){
             io.of('/client').emit('chat message', msg);
             console.log(msg);
@@ -720,12 +700,6 @@ module.exports = function(server, session) {
           socket.on('loadBoardFromApi', function(boardId) {
             api.getBoard(socket.handshake.session, boardId, function(err, board) {
               if (typeof (board || {}).boardId === 'undefined') {
-                /*
-                  board = {
-                      'boardId': boardId,
-                      'data': {}
-                  }
-              */
                 console.log("Board not found");
                 console.log(board);
                 socket.emit('boardNotFound', boardId);
@@ -741,12 +715,13 @@ module.exports = function(server, session) {
               }
             });
           });
+            /*
           socket.on('getBoardStorage', function(boardId) {
-            //var boardStorage = rooms.getBoardStorage(socket.room, boardId);
             rooms.getBoardStorage(socket.room, boardId).then(function(boardStorage) {
                 socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
             });
           });
+          */
           socket.on('loadBoards', function(assignment) {
             loadBoards(socket, assignment);
             // load assignment
