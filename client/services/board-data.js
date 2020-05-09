@@ -174,6 +174,9 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function getShapeStorage(boardId) {
     var _shapeStorage;
+    if (typeof boardId === 'undefined') {
+        boardId = boardData.boardId;
+    }
     if (typeof boards[boardId] === 'undefined') {
         _shapeStorage = shapeStorage;
     } else {
@@ -195,7 +198,8 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function getShapeById (id, socketId, boardId) {
-    var _shapeStorage = getShapeStorage(boardId);
+    //var _shapeStorage = getShapeStorage(boardId);
+    var _shapeStorage = getShapeStorage(); //This is to enable loading copied boards without having to rewrite the boardId data. FIXME: It makes sense to remove the boardId property that is added to each shape.
     return _shapeStorage[socketId][id];
   }
   function removeShape (shape) {
