@@ -61,14 +61,14 @@ function assignRoomToUser(user, roomId) {
     });
 }
 
-function getUserFromSocket(socket) {
+function getUserIdFromSocket(socket) {
     return(socket.handshake.session.passport.user);
 }
 function getActingUserFromSocket(socket) {
     var user = socket.handshake.session.actingAsUser;
     //if (typeof user === 'undefined') {
     if (!user) {
-        user = getUserFromSocket(socket);
+        user = getUserIdFromSocket(socket);
     }
     console.log("Got acting user: "+user);
     return(user);
@@ -85,7 +85,7 @@ function getActingUserFromSocketId(socketId) {
         client.hget(socketId, 'actingAsUser', function(err, actingAsUser) {
             //if (typeof actingAsUser === 'undefined') {
             if (!actingAsUser) {
-                getUserFromSocketId(socketId).then(function(user) {
+                getUserIdFromSocketId(socketId).then(function(user) {
                     console.log("Got acting user: "+user);
                     if (typeof user === 'undefined') {
                         console.log("WARNING: This is the last fallback to get user information. Since this failed, user assignments will not be tied to this socket. This could mean that you did not call setSocketUser when making the socket connection.");
