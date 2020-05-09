@@ -386,7 +386,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
           console.log("Task board "+board.boardId+" registered with "+taskSource+". Setting it up for socket");
           board = prepareBoardForSocket(socket, board.boardId)
           console.log("Task board registered and setup for socket");
-          callback(board);
+          callback(err, board);
       });
           /*
           console.log("Task board for roomId "+roomId+" and taskSource "+taskSource+" is "+board.boardId);
