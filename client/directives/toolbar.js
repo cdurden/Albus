@@ -397,7 +397,7 @@ angular.module('whiteboard')
     replace: false,
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData, EventHandler, Sockets, UserData, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
-    $scope.userData = UserData.getDataObject();
+    //$scope.userData = UserData.getDataObject();
         /*
   Sockets.on('actingAsUser', function(data) {
     $scope.actingAsUser = data;
@@ -406,7 +406,6 @@ angular.module('whiteboard')
   
   var $ctrl = this;
   $ctrl.animationsEnabled = true;
-  $ctrl.scope = $scope;
 
   $ctrl.open = function (size, parentSelector) {
     //Sockets.emit('getUsers');
@@ -720,9 +719,10 @@ angular.module('whiteboard')
     }
   };
 })
-.controller('ModalInstanceCtrl', function ($uibModalInstance, users) {
+.controller('ModalInstanceCtrl', function ($uibModalInstance, users, $scope) {
   var $ctrl = this;
   $ctrl.users = users;
+  $ctrl.scope = $scope;
   $ctrl.selected = {
     users: $ctrl.users[0]
   };

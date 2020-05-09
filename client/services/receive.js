@@ -101,12 +101,14 @@ angular.module('whiteboard.services.receive', [])
     console.log(data);
     EventHandler.confirmTaskSubmission(data);
   });
+    /*
   Sockets.on('users', function(users) {
       UserData.setUsers(users);
   });
   Sockets.on('actingAsUser', function(data) {
     UserData.setActingUser(data);
   });
+  */
 
   return {};
 

@@ -48,15 +48,34 @@ angular.module('whiteboard', [
 }]) 
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
-    function userPromiseMaker(Sockets, BoardData, $location) {
+    function userPromiseMaker(Sockets, BoardData, UserData, $location) {
       return new Promise(resolve => {
+          Promise.all([
+              new Promise(resolveUser => {
+                      Sockets.on('user', function(user) {
+                      BoardData.setSocketId(user.lti_user_id);
+                      UserData.setUser(user);
+                      resolveUser(user);
+                  })
+              }),
+              new Promise(resolveUsers => {
+                  Sockets.on('users', function(users) {
+                      UserData.setUsers(users);
+                      resolveUsers();
+                  })
+              }),
+              new Promise(resolveActingUser => {
+                  Sockets.on('actingAsUser', function(data) {
+                      UserData.setActingUser(data);
+                      resolveActingUser();
+                  });
+              }),
+          ]).then(function(results) {
+              resolve(results[0]);
+          });
           Sockets.emit('getUser');
           Sockets.emit('getUsers');
           Sockets.emit('getActingUser');
-          Sockets.on('user', function(user) {
-              BoardData.setSocketId(user.lti_user_id);
-              resolve(user);
-          })
       });
   }
       /*
@@ -192,6 +211,7 @@ angular.module('whiteboard', [
 //.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
     $scope.user = user;
     $scope.mode = mode;
+    $scope.userData = UserData.getDataObject();
     if ($scope.mode === 'assignment') {
         if (resource) {
             $scope.assignment = resource;
