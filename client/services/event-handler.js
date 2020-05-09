@@ -1,21 +1,11 @@
 angular.module('whiteboard.services.eventhandler', [])
-.factory('EventHandler', ['BoardData', 'FeedData', 'TaskData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', 'Broadcast', 'Screenshot', function (BoardData, FeedData, TaskData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap, Broadcast, Screenshot) {
+.factory('EventHandler', ['BoardData', 'FeedData', 'TaskData', 'ShapeBuilder', 'ShapeEditor', 'ShapeManipulation', 'Snap', 'Screenshot', function (BoardData, FeedData, TaskData, ShapeBuilder, ShapeEditor, ShapeManipulation, Snap, Screenshot) {
 
   function clearBoard() {
     //shapeStorage = {};
     BoardData.getCanvas() && BoardData.getCanvas().empty();
   }
-  function saveBoardToApi(boardId) {
-    var board = BoardData.getBoardObj(boardId);
-    data = {
-        'taskId': board.task.id,
-        'boardId': board.boardId,
-    };
-    Broadcast.saveBoardToApi(data);
     /*
-    Broadcast.saveBoardToApi(BoardData.getBoardObj(boardId));
-    */
-  }
   function loadBoard(id) {
     if (id !== BoardData.getBoardId()) {
         clearBoard();
@@ -29,6 +19,14 @@ angular.module('whiteboard.services.eventhandler', [])
     }
   }
 
+  function saveBoardToApi(boardId) {
+    var board = BoardData.getBoardObj(boardId);
+    data = {
+        'taskId': board.task.id,
+        'boardId': board.boardId,
+    };
+    Broadcast.saveBoardToApi(data);
+  }
   function loadBoards(assignment) {
     Broadcast.loadBoards(assignment);
   }
@@ -38,6 +36,7 @@ angular.module('whiteboard.services.eventhandler', [])
   function loadBoardFromApi(id) {
     Broadcast.loadBoardFromApi(id);
   }
+  */
 
 
   function setSocketId (socketId) {
@@ -245,10 +244,12 @@ angular.module('whiteboard.services.eventhandler', [])
     drawBoard: drawBoard,
     updateBoardStorage: updateBoardStorage,
     updateBoards: updateBoards,
+      /*
     loadBoard: loadBoard,
     loadBoardFromApi: loadBoardFromApi,
     loadBoards: loadBoards,
     saveBoardToApi: saveBoardToApi,
+    */
     screenshot: screenshot,
     activateNav: activateNav,
     activateDraw: activateDraw,

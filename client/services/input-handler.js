@@ -449,6 +449,39 @@ angular.module('whiteboard.services.inputhandler', [])
 	  actions[key].touchEnd = actions[key].mouseUp;
   });
   */
+  function loadBoard(id) {
+    if (id !== BoardData.getBoardId()) {
+        clearBoard();
+    }
+    BoardData.setBoardById(id); //FIXME: this is probably not needed here
+    if (BoardData.getBoardObj(id).needsUpdate) {
+        Broadcast.getBoardStorage(id);
+    } else {
+        BoardData.getBoardData().boardId = id;
+        drawBoard();
+    }
+  }
+
+  function saveBoardToApi(boardId) {
+    var board = BoardData.getBoardObj(boardId);
+    data = {
+        'taskId': board.task.id,
+        'boardId': board.boardId,
+    };
+    Broadcast.saveBoardToApi(data);
+    /*
+    Broadcast.saveBoardToApi(BoardData.getBoardObj(boardId));
+    */
+  }
+  function loadBoards(assignment) {
+    Broadcast.loadBoards(assignment);
+  }
+  function loadSubmissions() {
+    Broadcast.loadSubmissions();
+  }
+  function loadBoardFromApi(id) {
+    Broadcast.loadBoardFromApi(id);
+  }
 
   return {
     touchstart: touchStart,
@@ -458,5 +491,9 @@ angular.module('whiteboard.services.inputhandler', [])
     mousemove: mouseMove,
     mouseup: mouseUp,
     keypress: keyPress
+    loadBoard: loadBoard,
+    loadBoardFromApi: loadBoardFromApi,
+    loadBoards: loadBoards,
+    saveBoardToApi: saveBoardToApi,
   };
 }]);
