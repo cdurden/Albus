@@ -236,7 +236,6 @@ function loadBoardFromRedis(roomId, boardId, callback) {
           callback && callback(rooms[roomId][boardId]);
       } else {
           callback && callback(false);
-        }); 
       }
     });
 }
