@@ -65,22 +65,22 @@ function getUserIdFromSocket(socket) {
     return(socket.handshake.session.passport.user);
 }
 function getActingUserFromSocket(socket) {
-    var user = socket.handshake.session.actingAsUser;
+    var userId = socket.handshake.session.actingAsUser;
     //if (typeof user === 'undefined') {
-    if (!user) {
-        user = getUserIdFromSocket(socket);
+    if (!userId) {
+        userId = getUserIdFromSocket(socket);
     }
-    console.log("Got acting user: "+user);
-    return(user);
+    console.log("Got acting user: "+userId);
+    return(userId);
 }
-async function getUserIdFromSocketId(socketId) {
+function getUserIdFromSocketId(socketId) {
     return new Promise(resolve => {
         client.hget(socketId, 'userId', function(err, userId) {
             resolve(userId);
         });
     });
 }
-async function getActingUserFromSocketId(socketId) {
+function getActingUserFromSocketId(socketId) {
     return new Promise(resolve => {
         client.hget(socketId, 'actingAsUser', function(err, actingAsUser) {
             //if (typeof actingAsUser === 'undefined') {
@@ -259,8 +259,8 @@ function prepareBoard(roomId, boardId) {
     return(rooms[roomId][boardId])
 }
 
-async function prepareBoardForSocket(socket, boardId) {
-    var userId = await getUserIdFromSocketId(socket.id);
+function prepareBoardForSocket(socket, boardId) {
+    var userId = getUserIdFromSocket(socket);
     //setupBoard(socket.room, boardId, function(shapeStorage) {
     //loadBoardFromRedis(socket.room, boardId, function(board) {
     console.log("Preparing board "+boardId+" for socket");
@@ -434,8 +434,8 @@ var roomsManager = {
   assignRoomToSocket: assignRoomToSocket,
   assignRoomToSocketId: assignRoomToSocketId,
 
-  addShape: async function (shape, socket) {
-    var userId = await getUserIdFromSocketId(socket.id);
+  addShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
       if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
@@ -457,8 +457,8 @@ var roomsManager = {
     console.log(shape.boardId);
   },
 
-  editShape: async function (shape, socket) {
-    var userId = await getUserIdFromSocketId(socket.id);
+  editShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
     //new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
       if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
@@ -487,8 +487,8 @@ var roomsManager = {
     console.log(shape.myid);
   },
 
-  moveShape: async function (shape, socket) {
-    var userId = await getUserIdFromSocketId(socket.id);
+  moveShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
   //  new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
       if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
@@ -531,8 +531,8 @@ var roomsManager = {
 //    });
   },
 
-  completePath: async function (shape, socket) {
-    var userId = await getUserIdFromSocketId(socket.id);
+  completePath: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
       if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
@@ -553,8 +553,8 @@ var roomsManager = {
     //});
   },
 
-  completeShape: async function (shape, socket) {
-    var userId = await getUserIdFromSocketId(socket.id);
+  completeShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
       if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
@@ -577,8 +577,8 @@ var roomsManager = {
 //    });
   },
 
-  deleteShape: async function (shape, socket) {
-    var userId = await getUserIdFromSocketId(socket.id);
+  deleteShape: function (shape, socket) {
+    var userId = getUserIdFromSocket(socket);
 //    new Promise(resolve => {
       //if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
       if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[userId] === 'undefined') {
