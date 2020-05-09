@@ -576,6 +576,7 @@ module.exports = function(server, session) {
 
 
         socketReadyPromise.then(function() {
+          console.log("Socket is ready. Registering listeners.");
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
    
           setInterval(function() {
