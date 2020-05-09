@@ -88,6 +88,9 @@ module.exports = function(server, session) {
       rooms.getBoard(rooms.getRoomId(socket), data.boardId).then(function(board) {
           //console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
           console.log("Getting board for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+board.boardId+")");
+          console.log(board);
+          console.log("Background image in board found");
+          console.log(board.background_image);
           //console.log(shapeStorage);
           board.boardId = saveAs;
           //.shapeStorage = shapeStorage;
