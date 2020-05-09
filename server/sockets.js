@@ -564,6 +564,7 @@ module.exports = function(server, session) {
           });
         });
         socket.on('idRequest', function () {
+          console.log("Got socket id requestion");
           socket.emit('socketId', {socketId: socket.id});
         });
         socketReadyPromise.then(function() {
