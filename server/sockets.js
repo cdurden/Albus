@@ -758,7 +758,8 @@ module.exports = function(server, session) {
               });
           });
           socket.on('getOrCreateTaskBoard', function(taskId) {
-            api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
+            //api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
+            api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
               if (board) {
                 console.log("Loading task board from API");
                 console.log(board);

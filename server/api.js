@@ -246,7 +246,9 @@ async function getBoard(session, boardId, callback) {
     }
   });
 }
+/*
 function getTaskBoard(session, taskId, callback) {
+  data.lti_user_id = await getActingSessionUser(session);
   console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
   request({
       url: `${scheme}://${host}:${port}/api/task/${taskId}/board/`,
@@ -261,6 +263,7 @@ function getTaskBoard(session, taskId, callback) {
     }
   });
 }
+*/
 async function getLatestBoard(session, taskId, callback) {
   var data = { 
       'task_id': taskId,
