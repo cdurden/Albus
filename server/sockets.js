@@ -766,6 +766,7 @@ module.exports = function(server, session) {
                 });
             });
           });
+            /*
           socket.on('getLatestBoardFromApi', function(taskId) {
             api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
               rooms.loadBoard(socket.room, board['data'], function(result) {
@@ -773,6 +774,7 @@ module.exports = function(server, session) {
               });
             });
           });
+          */
           socket.emit('user', user);
         });
       }
