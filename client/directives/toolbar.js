@@ -406,11 +406,6 @@ angular.module('whiteboard')
   
   var $ctrl = this;
   $ctrl.animationsEnabled = true;
-  $scope.setSelectedUser = function($item, $model) {
-      console.log($item);
-      console.log($model);
-      $ctrl.selectedUser = $item;
-  }
 
   $ctrl.open = function (size, parentSelector) {
     //Sockets.emit('getUsers');
@@ -738,4 +733,11 @@ angular.module('whiteboard')
   $ctrl.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
+
+  $ctrl.setSelectedUser = function($item, $model) {
+      console.log($item);
+      console.log($model);
+      $ctrl.selectedUser = $item;
+  }
+
 })
