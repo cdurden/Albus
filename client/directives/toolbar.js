@@ -406,6 +406,7 @@ angular.module('whiteboard')
   
   var $ctrl = this;
   $ctrl.animationsEnabled = true;
+  $ctrl.scope = $scope;
 
   $ctrl.open = function (size, parentSelector) {
     //Sockets.emit('getUsers');
@@ -728,10 +729,12 @@ angular.module('whiteboard')
 
   $ctrl.ok = function () {
     $uibModalInstance.close($ctrl.selectedUser);
+    $ctrl.scope.$emit('activateMenu', 'hide');
   };
 
   $ctrl.cancel = function () {
     $uibModalInstance.dismiss('cancel');
+    $ctrl.scope.$emit('activateMenu', 'hide');
   };
 
   $ctrl.setSelectedUser = function($item, $model) {
