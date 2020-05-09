@@ -541,9 +541,6 @@ module.exports = function(server, session) {
     console.log("Handling client connection from socket "+socket.id);
     console.log(socket.handshake.session);
   //if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
-    if (typeof socket.handshake.session === 'undefined') {
-        return;
-    }
     socket.on('idRequest', function () {
       console.log("Got socket id request (socket id: "+socket.id+")");
       socket.emit('socketId', {socketId: socket.id});
@@ -554,6 +551,9 @@ module.exports = function(server, session) {
       console.log("disconnect from socket "+socket.id);
       getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
     });
+    if (typeof socket.handshake.session === 'undefined') {
+        return;
+    }
     var user = socket.handshake.session.passport.user;
     setSocketUser(socket.id, user);
     api.getApiUser(user, function(error, data) {
