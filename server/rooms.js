@@ -266,12 +266,12 @@ function prepareBoardForSocket(socket, boardId) {
     var board = (rooms[socket.room] || {})[boardId];
     if (typeof board === 'undefined') {
         board = prepareBoard(socket.room, boardId);
-        if (typeof board.shapeStorage === 'undefined') { // FIXME: This should be unnecessary
-            board.shapeStorage = {};
-        }
-        if (typeof board.shapeStorage[socket.id] === 'undefined') { //FIXME: this should always be true
-            board.shapeStorage[socket.id] = {};
-        }
+    }
+    if (typeof board.shapeStorage === 'undefined') { // FIXME: This should be unnecessary
+        board.shapeStorage = {};
+    }
+    if (typeof board.shapeStorage[socket.id] === 'undefined') { //FIXME: this should always be true
+        board.shapeStorage[socket.id] = {};
     }
     console.log("board prepared");
     console.log(board);
