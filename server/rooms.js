@@ -280,7 +280,7 @@ function getTaskBoard(roomId, taskSource) {
         //client.hget('taskBoards', roomId+taskId, function(err, boardId) {
         client.hget(roomId, taskSource, function(err, boardId) {
             if (boardId) {
-                console.log("Board registered with task "+taskSource+" in room "+roomId);
+                console.log("Board "+boardId+" registered with task "+taskSource+" in room "+roomId);
                 console.log("Getting registered board");
                 getBoard(roomId, boardId).then(function(board) {
                     resolve(board);
