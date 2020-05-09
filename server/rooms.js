@@ -378,7 +378,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
       //setTaskBoardPromise.then(function() {
       registeredTaskBoardPromise.then(function(board) {
           console.log("Task board registered. Setting it up for socket");
-          prepareBoardForSocket(socket, boardId, function(board) {
+          prepareBoardForSocket(socket, board.id, function(board) {
               console.log("Task board registered and setup for socket");
               callback(null, board);
           });
