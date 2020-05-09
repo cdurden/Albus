@@ -112,7 +112,7 @@ angular.module('whiteboard')
     },
     link: function (scope, element, attrs, ctrls) {
 
-      if (scope.user.role == 'teacher') {
+      if (scope.userData.user.role == 'teacher') {
           scope.menuStructure[3] = ['Admin', ['Student View', 'Dashboard', 'Screenshot']]
       }
       // var $colorIcon = element.find('.icon-color');
