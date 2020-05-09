@@ -259,7 +259,7 @@ function prepareBoard(roomId, boardId) {
     return(rooms[roomId][boardId])
 }
 
-function prepareBoardForSocket(socket, boardId, callback) {
+function prepareBoardForSocket(socket, boardId) {
     //setupBoard(socket.room, boardId, function(shapeStorage) {
     //loadBoardFromRedis(socket.room, boardId, function(board) {
     console.log("Preparing board "+boardId+" for socket");
@@ -273,6 +273,8 @@ function prepareBoardForSocket(socket, boardId, callback) {
             board.shapeStorage[socket.id] = {};
         }
     }
+    console.log("board prepared");
+    console.log(board);
     return(board);
 }
 //function getTaskBoard(roomId, taskId) {
@@ -431,7 +433,7 @@ var roomsManager = {
 
   addShape: function (shape, socket) {
 //    new Promise(resolve => {
-      if (typeof ((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[socket.id] === 'undefined') {
+      if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage || {})[socket.id] === 'undefined') {
         prepareBoardForSocket(socket, shape.boardId);//, function() {
       }
     //it seems that the client was setting the socketId of the shape
