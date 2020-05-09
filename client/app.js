@@ -61,17 +61,17 @@ angular.module('whiteboard', [
               new Promise(resolveUsers => {
                   Sockets.on('users', function(users) {
                       UserData.setUsers(users);
-                      resolveUsers();
+                      resolveUsers(users);
                   })
               }),
               new Promise(resolveActingUser => {
                   Sockets.on('actingAsUser', function(data) {
                       UserData.setActingUser(data);
-                      resolveActingUser();
+                      resolveActingUser(actingAsUser);
                   });
               }),
           ]).then(function(results) {
-              resolve(results[0]);
+              resolve(UserData.getDataObject());
           });
           Sockets.emit('getUser');
           Sockets.emit('getUsers');
@@ -111,7 +111,7 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'user': userPromiseMaker,
+          'userData': userPromiseMaker,
           'mode': function() {
               return('assignment');
           },
@@ -140,7 +140,7 @@ angular.module('whiteboard', [
         templateUrl: '/views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'user': userPromiseMaker,
+          'userData': userPromiseMaker,
           'mode': function () {
             return('board')
           },
@@ -153,7 +153,7 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'user': userPromiseMaker,
+          'userData': userPromiseMaker,
           'mode': function () {
             return('submissions');
           },
@@ -166,7 +166,7 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'user': userPromiseMaker,
+          'userData': userPromiseMaker,
           'mode': function () {
             return('assignment')
           },
@@ -179,7 +179,7 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'user': userPromiseMaker,
+          'userData': userPromiseMaker,
           'mode': function () {
             return('feedback')
           },
@@ -192,7 +192,7 @@ angular.module('whiteboard', [
         templateUrl: 'views/slides.html',
         controller: 'whiteboardController',
         resolve: {
-          'user': userPromiseMaker,
+          'userData': userPromiseMaker,
           'mode': function () {
               return('slides');
           },
@@ -207,16 +207,15 @@ angular.module('whiteboard', [
       requireBase: false
     });
 }])
-.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'user', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, user, mode, resource) {
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'userData', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, userData, mode, resource) {
 //.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
-    $scope.user = user;
+    $scope.userData = userData;
     $scope.mode = mode;
-    $scope.userData = UserData.getDataObject();
     if ($scope.mode === 'assignment') {
         if (resource) {
             $scope.assignment = resource;
         } else {
-            $scope.assignment = user.assignment;
+            $scope.assignment = userData.user.assignment;
         } 
         EventHandler.loadBoards($scope.assignment);
     }
