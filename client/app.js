@@ -48,12 +48,13 @@ angular.module('whiteboard', [
 }]) 
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
-    function userPromiseMaker(Sockets, EventHandler, $location) {
+    function userPromiseMaker(Sockets, BoardData, $location) {
       return new Promise(resolve => {
           Sockets.emit('getUser');
           Sockets.emit('getUsers');
           Sockets.emit('getActingUser');
           Sockets.on('user', function(user) {
+              BoardData.setSocketId(user.lti_user_id);
               resolve(user);
           })
       });
