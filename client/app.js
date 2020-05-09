@@ -170,7 +170,8 @@ angular.module('whiteboard', [
     });
 }])
 .controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'user', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, user, mode, resource) {
-    $scope.user = user;
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
+    //$scope.user = user;
     $scope.mode = mode;
     if ($scope.mode === 'assignment') {
         if (resource) {
