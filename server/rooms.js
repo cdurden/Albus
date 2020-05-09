@@ -187,6 +187,7 @@ function placeSocketId(socketId, callback) {
 }
   */
 function getBoard(roomId, boardId) {
+    console.log("Getting board "+boardId+" from room "+roomId);
     return Promise.resolve((rooms[roomId] || {})[boardId]);
 }
 async function getBoardStorage(roomId, boardId) {
@@ -201,7 +202,7 @@ async function getBoardStorage(roomId, boardId) {
             resolve(board)
         } else {
             //setupBoard(roomId, boardId, function(shapeStorage) {
-            setupBoard(roomId, boardId, function(board) {
+            loadBoardFromRedis(roomId, boardId, function(board) {
                 //resolve(shapeStorage);
                 resolve(board);
             });
@@ -215,7 +216,7 @@ function setupRoom(roomId, callback) {
     rooms[roomId] = {};
     callback && callback(rooms[roomId]);
 }
-function setupBoard(roomId, boardId, callback) {
+function loadBoardFromRedis(roomId, boardId, callback) {
     if (typeof rooms[roomId] === 'undefined') {
       setupRoom(roomId);
     }
@@ -228,26 +229,20 @@ function setupBoard(roomId, boardId, callback) {
       }
       if (reply) {
         storedBoard = JSON.parse(reply);
-        //_.extend(rooms[roomId][boardId], storedBoard);
-        _.extend(rooms[roomId][boardId].shapeStorage, storedBoard.shapeStorage);
-          callback && callback(rooms[roomId][boardId]);
+        rooms.[roomId][boardId].shapeStorage = storedBoard;
+        //_.extend(rooms[roomId][boardId].shapeStorage, storedBoard.shapeStorage);
+          //callback && callback(rooms[roomId][boardId]);
+          callback && callback(true);
       } else {
-        //rooms[roomId][boardId] = {};
-        rooms[roomId][boardId].shapeStorage = {};
-        client.hmset(roomId, boardId, JSON.stringify(rooms[roomId][boardId]), function() {
-          console.log("Node.js process board data");
-          console.log(rooms[roomId][boardId]);
-          console.log("Setting up board "+boardId+" in room "+roomId);
-          console.log("Redis board data");
-          console.log(reply);
-          callback && callback(rooms[roomId][boardId]);
+          callback && callback(false);
         }); 
       }
     });
 }
+
 function setupBoardForSocket(socket, boardId, callback) {
       //setupBoard(socket.room, boardId, function(shapeStorage) {
-      setupBoard(socket.room, boardId, function(board) {
+      loadBoardFromRedis(socket.room, boardId, function(board) {
           //if (typeof shapeStorage[socket.id] === 'undefined') {
           if (typeof board.shapeStorage[socket.id] === 'undefined') {
               //shapeStorage[socket.id] = {};
@@ -329,7 +324,7 @@ function loadBoard(roomId, board, callback) {
 //function getOrCreateTaskBoard(socket, taskId, callback) {
 function getOrCreateTaskBoard(socket, taskSource, callback) {
   var boardId;
-  roomId = socket.room;
+  var roomId = socket.room;
   if (typeof rooms[roomId] === 'undefined') {
       setupRoom(socket.room);
   }
@@ -346,7 +341,7 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
           console.log("Generating a new task board");
           boardId = generateRandomId(5);
           registeredTaskBoardPromise = new Promise(resolve => {
-              setupBoard(roomId, boardId, function(board) {
+              loadBoardFromRedis(roomId, boardId, function(board) {
                   //resolve(shapeStorage);
                   registerTaskBoard(roomId, taskSource, boardId).then(function(board) { 
                       resolve(board)
