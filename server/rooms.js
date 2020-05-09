@@ -335,7 +335,9 @@ function loadBoard(roomId, board, callback) {
   //rooms[roomId][boardId] = board['shapeStorage'];
   rooms[roomId][boardId] = board;
   //client.hmset(roomId, boardId, JSON.stringify(board['shapeStorage'])); 
-  client.hmset(roomId, boardId, JSON.stringify(board)); 
+  client.hmset(roomId, boardId, JSON.stringify(board), function() {
+      callback && callback(board);
+  }); 
 
     /* We don't need this if we store the taskSource in the board object
   if (board.task_id) {
