@@ -534,7 +534,7 @@ module.exports = function(server, session) {
         loadSubmissions(socket);
     });
     socket.on('loadFeedback', function(feedback_id){
-        console.log("Loading feedback (feedback_id: "+feedback_id")");
+        console.log("Loading feedback (feedback_id: "+feedback_id+")");
         api.getFeedbackById(feedback_id, function(err, feedback) {
             if (feedback) {
                 board = feedback.board
