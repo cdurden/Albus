@@ -218,9 +218,9 @@ async function getBoardStorage(roomId, boardId) {
 function getBoards(roomId) {
     return(rooms[roomId]);
 }
-function prepareRoom(roomId, callback) {
+function prepareRoom(roomId) {
     rooms[roomId] = {};
-    callback && callback(rooms[roomId]);
+    return(rooms[roomId]);
 }
 function loadBoardFromRedis(roomId, boardId, callback) {
     if (typeof rooms[roomId] === 'undefined') {
@@ -246,7 +246,7 @@ function loadBoardFromRedis(roomId, boardId, callback) {
       }
     });
 }
-function prepareBoard(roomId, boardId, callback) {
+function prepareBoard(roomId, boardId) {
     if (typeof rooms[roomId] === 'undefined') {
         prepareRoom(roomId);
     }
@@ -256,7 +256,7 @@ function prepareBoard(roomId, boardId, callback) {
             'shapeStorage': {}
         };
     }
-    callback && callback(rooms[roomId][boardId])
+    return(rooms[roomId][boardId])
 }
 
 function prepareBoardForSocket(socket, boardId, callback) {
@@ -367,12 +367,11 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
           boardId = generateRandomId(5);
           console.log("Generating a new task board with boardId "+boardId);
           registeredTaskBoardPromise = new Promise(resolve => {
-              prepareBoard(roomId, boardId, function(board) {
-                  //resolve(shapeStorage);
-                  board.taskSource = taskSource;
-                  registerTaskBoard(roomId, taskSource, board.boardId).then(function(board) { 
-                      resolve(board)
-                  });
+              board = prepareBoard(roomId, boardId);
+              //resolve(shapeStorage);
+              board.taskSource = taskSource;
+              registerTaskBoard(roomId, taskSource, board.boardId).then(function() { 
+                  resolve(board)
               });
           });
       }
