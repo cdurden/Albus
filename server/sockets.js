@@ -85,7 +85,7 @@ module.exports = function(server, session) {
     return new Promise(resolve => {
       //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
       //rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId).then(function(shapeStorage) {
-      console.log("Getting board for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+board.boardId+")");
+      console.log("Getting board for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
       rooms.getBoard(rooms.getRoomId(socket), data.boardId).then(function(board) {
           //console.log("Getting shapeStorage for saveBoardToApi handler (socketId: "+socket.id+", roomId: "+rooms.getRoomId(socket)+", boardId: "+data.boardId+")");
           console.log(board);
