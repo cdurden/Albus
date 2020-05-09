@@ -282,7 +282,7 @@ function getTaskBoard(roomId, taskSource) {
     console.log("Trying to get a task board from node process");
     return new Promise(resolve => {
         //client.hget('taskBoards', roomId+taskId, function(err, boardId) {
-        client.hget(roomId, taskSource, function(err, boardId) {
+        client.get(roomId+taskSource, function(err, boardId) {
             if (boardId) {
                 console.log("Board "+boardId+" registered with task "+taskSource+" in room "+roomId);
                 console.log("Getting registered board");
@@ -300,7 +300,7 @@ function getTaskBoard(roomId, taskSource) {
 function registerTaskBoard(roomId, taskSource, boardId) {
     return new Promise(resolve => {
         //client.hmset('taskBoardMap', [roomId+taskId, boardId], function(err, res) {
-        client.hmset(roomId, [taskSource, boardId], function(err, res) {
+        client.set(roomId+taskSource, boardId, function(err, res) {
             resolve(res);
         });
     });
