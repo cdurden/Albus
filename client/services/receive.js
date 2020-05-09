@@ -53,9 +53,12 @@ angular.module('whiteboard.services.receive', [])
     Sockets.emit('heartbeat');
   })
 
+    /*
+     * moved to broadcast because it needs to be called before the emit, but loading all of receive introduces circular dependency 
   Sockets.on('socketId', function (data) {
     EventHandler.setSocketId(data.socketId);
   });
+  */
 
   Sockets.on('shapeEdited', function (data) {
     EventHandler.editShape(data.myid, data.socketId, data.boardId, data.tool, data.mouseX, data.mouseY);
