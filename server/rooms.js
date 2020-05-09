@@ -229,10 +229,11 @@ function loadBoardFromRedis(roomId, boardId, callback) {
       }
       if (reply) {
         storedBoard = JSON.parse(reply);
-        rooms[roomId][boardId].shapeStorage = storedBoard;
+        //rooms[roomId][boardId].shapeStorage = storedBoard;
+        rooms[roomId][boardId] = storedBoard;
         //_.extend(rooms[roomId][boardId].shapeStorage, storedBoard.shapeStorage);
           //callback && callback(rooms[roomId][boardId]);
-          callback && callback(true);
+          callback && callback(rooms[roomId][boardId]);
       } else {
           callback && callback(false);
         }); 
