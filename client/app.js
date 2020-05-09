@@ -155,7 +155,8 @@ angular.module('whiteboard', [
               return(undefined);
           }
         }
-      });
+      })
+      .otherwise({ redirectTo: '/'});
 
     $locationProvider.html5Mode({
       enabled: true,
