@@ -91,7 +91,7 @@ module.exports = function(server, session) {
           //console.log(shapeStorage);
           board.boardId = saveAs;
           //.shapeStorage = shapeStorage;
-          api.saveBoard(socket.handshake.session, board, undefined, function(err, data) {
+          api.saveBoard(socket.handshake.session, board, function(err, data) {
               console.log("Board saved");
               console.log(data);
               resolve(data);

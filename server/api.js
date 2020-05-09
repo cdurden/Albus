@@ -320,7 +320,7 @@ async function saveBoard(session, data, backgroundImage, callback) {
       'lti_user_id': lti_user_id, 
       'task_id': data.task_id,
       'boardId': data.boardId,
-      'background_image': backgroundImage,
+      'background_image': data.background_image,
       'shapeStorage_json': shapeStorage_json,
   };
   request.post(`${scheme}://${host}:${port}/api/boards/`,
