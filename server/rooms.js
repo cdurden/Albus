@@ -191,9 +191,11 @@ function getBoard(roomId, boardId) {
     return new Promise(resolve => {
         var board = (rooms[roomId] || {})[boardId];
         if (board) {
+            console.log("Got board from node storage");
             resolve(board);
         } else {
             loadBoardFromRedis(roomId, boardId, function(board) {
+                console.log("Got board from Redis");
                 resolve(board);
             });
         }
