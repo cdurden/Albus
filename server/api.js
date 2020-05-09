@@ -353,17 +353,17 @@ async function saveBoard(session, data, callback) {
   );
 }
 function getFeedbackById(feedback_id, callback) {
-  request.get(`${scheme}://${host}:${port}/api/feedback/${feedback_id}`,
+  request(
     {
+      url: `${scheme}://${host}:${port}/api/feedback/${feedback_id}`,
       headers : { 
         "Authorization" : "Bearer " + auth.api_auth_token,
       },
-      agent: agent,
-      json: {},
     },
     function(error, response, body) {
       if (!error && response.statusCode == 201) {
-        callback(null, body);
+        data = JSON.parse(body) //FIXME: handle exception
+        callback(null, data);
       } else {
         console.log(error);
         callback(error, null);
