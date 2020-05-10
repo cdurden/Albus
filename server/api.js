@@ -120,7 +120,7 @@ async function uploadBoard(lti_user_id, boardId, taskSource, taskId, shapeStorag
         var formData = {
             'lti_user_id': lti_user_id,
             'boardId': boardId,
-            'taskSource': taskSource
+            'taskSource': taskSource,
             'shapeStorage_json': shapeStorage_json,
             'file': fs.createReadStream(file.tempFilePath),
         }
