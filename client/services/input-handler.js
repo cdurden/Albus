@@ -234,6 +234,12 @@ angular.module('whiteboard.services.inputhandler', [])
             Broadcast.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
           }
         }
+        if (ev.which === 39) {
+            BoardData.setBoardIndex(BoardData.getBoardIndex+1);
+        }
+        if (ev.which === 37) {
+            BoardData.setBoardIndex(BoardData.getBoardIndex-1);
+        }
       }
 
     },

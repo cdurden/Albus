@@ -353,6 +353,16 @@ angular.module('whiteboard.services.boarddata', [])
     Broadcast.getLatestBoardFromApi(taskId);
   }
   */
+  function getBoardIndex() {
+      return boardData.boardIndex;
+  }
+      function setBoardIndex(i, $event) {
+          boardData.boardIndex = i;
+          boardId = boardData.boardIdsList[i-1];
+          boardData.boardId = boardId;
+          $event && $event.preventDefault() && $event.stopPropagation();
+          return(false);
+      }
 
 
   return {
@@ -409,5 +419,7 @@ angular.module('whiteboard.services.boarddata', [])
     getBoardData: getBoardData,
     joinTasksToBoards: joinTasksToBoards,
     removeShape: removeShape,
+    setBoardIndex: setBoardIndex,
+    getBoardIndex: getBoardIndex,
   }
 }]);

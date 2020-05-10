@@ -34,24 +34,26 @@ angular.module('whiteboard')
       }
       */
       $scope.boardIndexChanged = function() {
-          $scope.setBoardIndex($scope.boardIndex);
+          BoardData.setBoardIndex($scope.boardIndex);
       }
+        /*
       $scope.setBoardIndex = function(i, $event) {
           boardId = $scope.boardData.boardIdsList[i-1];
           $scope.boardData.boardId = boardId;
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
       }
+      */
       $scope.navigateNext = function($event) {
           if ($scope.i<Object.keys($scope.boardData.boards).length-1) {
-              $scope.setBoardIndex($scope.i+1);
+              BoardData.setBoardIndex($scope.i+1);
           }
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
       }
       $scope.navigatePrev = function($event) {
           if ($scope.i>0) {
-              $scope.setBoardIndex($scope.i-1);
+              BoardData.setBoardIndex($scope.i-1);
           }
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
