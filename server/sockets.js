@@ -564,161 +564,206 @@ module.exports = function(server, session) {
         return;
     }
     var userId = socket.handshake.session.passport.user;
-    setSocketUserId(socket.id, userId);
-    api.getApiUser(userId, function(error, user) {
-      console.log("returning from getting Api user");
-      if (user) {
-        socketReadyPromise = new Promise(resolve => {
-          console.log("received data:");
-          console.log(user);
-          flat_data = Object.entries(user).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
-          client.hmset(socket.id, flat_data, function(err, result) {
-              var actingAsUser = socket.handshake.session.actingAsUser;
-              actAsUser(socket, actingAsUser).then(function(success) {
-                  rooms.assignRoomToUser(userId).then(function() {
-                      rooms.assignRoomToSocket(socket).then(function(roomId) {
-                          var actingAsUser = socket.handshake.session.actingAsUser
-                          resolve(user);
-                      });
-                  });
-              });
-          });
-        });
-        setInterval(function() {
-          socket.emit('heartbeat');
-        }, 5000);
-
-
-        socketReadyPromise.then(function() {
-          console.log("App is ready.");
-          registerCommonListeners(socket);
-          console.log("Emitting client data to admin");
-          getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
-          console.log("Registering socket listeners.");
-   
-      
-          socket.on('submit', function(data){
-            //console.log(data);
-            saveBoardToApi(socket, data).then(function(board) {
-                console.log(board);
-                data.board_id = board[0].id; //FIXME: why is board an array?
-                api.submit(socket.handshake.session, data, function(error, data) {
-                  console.log(data)
-                  io.of('/admin').emit('submission', data);
-                  //socket.emit('confirmSubmission', data);
+    socketReadyPromise = new Promise(resolve => {
+      setSocketUserId(socket.id, userId);
+      api.getApiUser(userId, function(error, user) {
+        console.log("returning from getting Api user");
+        if (user) {
+            console.log("received data:");
+            console.log(user);
+            flat_data = Object.entries(user).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
+            client.hmset(socket.id, flat_data, function(err, result) {
+                var actingAsUser = socket.handshake.session.actingAsUser;
+                actAsUser(socket, actingAsUser).then(function(success) {
+                    rooms.assignRoomToUser(userId).then(function() {
+                        rooms.assignRoomToSocket(socket).then(function(roomId) {
+                            var actingAsUser = socket.handshake.session.actingAsUser
+                            resolve(user);
+                        });
+                    });
                 });
             });
+        }
+      });
+    }); // end bind listeners
+
+    (function() {
+      var $emit = socket.$emit;
+      socket.$emit = function() {
+        console.log('***','on',Array.prototype.slice.call(arguments));
+        socketReadyPromise.then(function() {
+          $emit.apply(socket, arguments);
+        });
+      };
+    })();
+    setInterval(function() {
+      socket.emit('heartbeat');
+    }, 5000);
+
+    console.log("Registering socket listeners.");
+    registerCommonListeners(socket);
+    console.log("Emitting client data to admin");
+    getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
+   
+  
+    socket.on('submit', function(data){
+      //console.log(data);
+      saveBoardToApi(socket, data).then(function(board) {
+          console.log(board);
+          data.board_id = board[0].id; //FIXME: why is board an array?
+          api.submit(socket.handshake.session, data, function(error, data) {
+            console.log(data)
+            io.of('/admin').emit('submission', data);
+            //socket.emit('confirmSubmission', data);
           });
-          socket.on('getTask', function(){
-            client.get('task', function(err, result) {
-              api.getTask(result, function(error, data) {
-                socket.emit('task', data);
+      });
+    });
+    socket.on('getTask', function(){
+      client.get('task', function(err, result) {
+        api.getTask(result, function(error, data) {
+          socket.emit('task', data);
+        });
+      });
+    });
+
+/*
+    socket.on('roomId', function (data) {
+      rooms.addMember(socket, data.roomId);
+    });
+    socket.on('get_assignment', function (data) {
+    });
+*/
+
+    socket.on('actAsUser', function (data) {
+      actAsUser(socket, data.lti_user_id).then(function(success) {
+          if (success) {
+              console.log("Acting as user");
+              console.log(socket.handshake.session.actingAsUser);
+              console.log("Reassigning room to socket");
+              rooms.assignRoomToSocket(socket);
+              api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
+                  console.log("Got acting user data from API");
+                  console.log(data);
+                  socket.emit('actingAsUser', data);
               });
+              //loadBoards(socket);
+          }
+      });
+    });
+    socket.on('newShape', function (data) {
+      console.log("new shape");
+      console.log(this.room);
+      socket.to(this.room).emit('shapeCreated', data);
+      console.log(data);
+      rooms.addShape(data, socket);
+    });
+
+    socket.on('editShape', function (data) {
+      socket.to(this.room).emit('shapeEdited', data);
+      if (data.tool.name !== 'text') {
+        rooms.editShape(data, socket);
+      }
+    });
+
+    socket.on('shapeCompleted', function (data) {
+      socket.to(this.room).emit('shapeCompleted', {
+        socketId: socket.id,
+        myid: data.myid,
+        tool: data.tool,
+        boardId: data.boardId,
+      });
+      rooms.completeShape(data, socket);
+    });
+
+    socket.on('pathCompleted', function (data) {
+      socket.to(this.room).emit('shapeCompleted', {
+        socketId: socket.id,
+        boardId: data.boardId,
+        myid: data.myid,
+        tool: data.tool
+      });
+      rooms.completePath(data, socket);
+    });
+
+    socket.on('copiedPathCompleted', function (data) {
+      socket.to(this.room).emit('copiedPathCompleted', {
+        socketId: socket.id,
+        myid: data.myid,
+        tool: data.tool,
+        boardId: data.boardId,
+        pathDProps: data.pathDProps
+      });
+      rooms.completePath(data, socket);
+    })
+
+    socket.on('moveShape', function (data) {
+      rooms.moveShape(data, socket);
+      socket.to(this.room).emit('shapeMoved', data);
+    });
+
+    socket.on('finishMovingShape', function (data) {
+      rooms.completeShape(data, socket);
+      socket.to(this.room).emit('shapeFinishedMoving', data);
+    });
+
+    socket.on('deleteShape', function (data) {
+      rooms.deleteShape(data, socket);
+      socket.to(this.room).emit('shapeDeleted', {myid: data.myid, socketId: data.socketId, boardId: data.boardId});
+    });
+
+
+    socket.on('chat message', function(msg){
+      io.of('/client').emit('chat message', msg);
+      console.log(msg);
+    });
+    socket.on('saveBoardToApi', function(data) {
+      saveBoardToApi(socket, data.boardId).then(function() {
+          socket.emit('saved');
+      });
+    });
+    socket.on('loadBoardFromApi', function(boardId) {
+      api.getBoard(socket.handshake.session, boardId, function(err, board) {
+        if (typeof (board || {}).boardId === 'undefined') {
+          console.log("Board not found");
+          console.log(board);
+          socket.emit('boardNotFound', boardId);
+        } else {
+          rooms.loadBoard(socket.room, board, function() {
+            assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
+                socket.emit('tasks', taskAssets);
             });
+            console.log("Sending board to client");
+            console.log(board);
+            socket.emit('boards', [board]);
           });
-      
+        }
+      });
+    });
       /*
-          socket.on('roomId', function (data) {
-            rooms.addMember(socket, data.roomId);
-          });
-          socket.on('get_assignment', function (data) {
-          });
-      */
-      
-          socket.on('actAsUser', function (data) {
-            actAsUser(socket, data.lti_user_id).then(function(success) {
-                if (success) {
-                    console.log("Acting as user");
-                    console.log(socket.handshake.session.actingAsUser);
-                    console.log("Reassigning room to socket");
-                    rooms.assignRoomToSocket(socket);
-                    api.getActingApiUserFromSession(socket.handshake.session, function(error, data) {
-                        console.log("Got acting user data from API");
-                        console.log(data);
-                        socket.emit('actingAsUser', data);
-                    });
-                    //loadBoards(socket);
-                }
-            });
-          });
-          socket.on('newShape', function (data) {
-            console.log("new shape");
-            console.log(this.room);
-            socket.to(this.room).emit('shapeCreated', data);
-            console.log(data);
-            rooms.addShape(data, socket);
-          });
-      
-          socket.on('editShape', function (data) {
-            socket.to(this.room).emit('shapeEdited', data);
-            if (data.tool.name !== 'text') {
-              rooms.editShape(data, socket);
-            }
-          });
-      
-          socket.on('shapeCompleted', function (data) {
-            socket.to(this.room).emit('shapeCompleted', {
-              socketId: socket.id,
-              myid: data.myid,
-              tool: data.tool,
-              boardId: data.boardId,
-            });
-            rooms.completeShape(data, socket);
-          });
-      
-          socket.on('pathCompleted', function (data) {
-            socket.to(this.room).emit('shapeCompleted', {
-              socketId: socket.id,
-              boardId: data.boardId,
-              myid: data.myid,
-              tool: data.tool
-            });
-            rooms.completePath(data, socket);
-          });
-      
-          socket.on('copiedPathCompleted', function (data) {
-            socket.to(this.room).emit('copiedPathCompleted', {
-              socketId: socket.id,
-              myid: data.myid,
-              tool: data.tool,
-              boardId: data.boardId,
-              pathDProps: data.pathDProps
-            });
-            rooms.completePath(data, socket);
-          })
-      
-          socket.on('moveShape', function (data) {
-            rooms.moveShape(data, socket);
-            socket.to(this.room).emit('shapeMoved', data);
-          });
-      
-          socket.on('finishMovingShape', function (data) {
-            rooms.completeShape(data, socket);
-            socket.to(this.room).emit('shapeFinishedMoving', data);
-          });
-      
-          socket.on('deleteShape', function (data) {
-            rooms.deleteShape(data, socket);
-            socket.to(this.room).emit('shapeDeleted', {myid: data.myid, socketId: data.socketId, boardId: data.boardId});
-          });
-      
-      
-          socket.on('chat message', function(msg){
-            io.of('/client').emit('chat message', msg);
-            console.log(msg);
-          });
-          socket.on('saveBoardToApi', function(data) {
-            saveBoardToApi(socket, data.boardId).then(function() {
-                socket.emit('saved');
-            });
-          });
-          socket.on('loadBoardFromApi', function(boardId) {
-            api.getBoard(socket.handshake.session, boardId, function(err, board) {
-              if (typeof (board || {}).boardId === 'undefined') {
-                console.log("Board not found");
-                console.log(board);
-                socket.emit('boardNotFound', boardId);
-              } else {
+    socket.on('getBoardStorage', function(boardId) {
+      rooms.getBoardStorage(socket.room, boardId).then(function(boardStorage) {
+          socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
+      });
+    });
+    */
+    socket.on('loadBoards', function(assignment) {
+      console.log("Got loadBoards");
+      loadBoards(socket, assignment);
+      // load assignment
+    });
+    socket.on('loadSubmissions', function(state) {
+      //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
+      loadSubmissions(socket, state);
+      //});
+      // load assignment
+    });
+    socket.on('loadFeedback', function(feedback_id){
+        console.log("Loading feedback (feedback_id: "+feedback_id+")");
+        api.getFeedbackById(feedback_id, function(err, feedback) {
+            console.log("Got feedback");
+            console.log(feedback);
+            if (feedback) {
+                board = feedback.board
                 rooms.loadBoard(socket.room, board, function() {
                   assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
                       socket.emit('tasks', taskAssets);
@@ -727,88 +772,40 @@ module.exports = function(server, session) {
                   console.log(board);
                   socket.emit('boards', [board]);
                 });
-              }
-            });
-          });
-            /*
-          socket.on('getBoardStorage', function(boardId) {
-            rooms.getBoardStorage(socket.room, boardId).then(function(boardStorage) {
-                socket.emit('boardStorage', {'boardId': boardId, 'shapeStorage': boardStorage});
-            });
-          });
-          */
-          socket.on('loadBoards', function(assignment) {
-            console.log("Got loadBoards");
-            loadBoards(socket, assignment);
-            // load assignment
-          });
-          socket.on('loadSubmissions', function(state) {
-            //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
-            loadSubmissions(socket, state);
-            //});
-            // load assignment
-          });
-          socket.on('loadFeedback', function(feedback_id){
-              console.log("Loading feedback (feedback_id: "+feedback_id+")");
-              api.getFeedbackById(feedback_id, function(err, feedback) {
-                  console.log("Got feedback");
-                  console.log(feedback);
-                  if (feedback) {
-                      board = feedback.board
-                      rooms.loadBoard(socket.room, board, function() {
-                        assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
-                            socket.emit('tasks', taskAssets);
-                        });
-                        console.log("Sending board to client");
-                        console.log(board);
-                        socket.emit('boards', [board]);
-                      });
-                      socket.emit('feedback', feedback);
-                  }
-              });
-          });
-          socket.on('getOrCreateTaskBoard', function(taskId) {
-            //api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
-            api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
-              if (board) {
-                console.log("Loading task board from API");
-                console.log(board);
-                rooms.loadBoard(socket.room, board, function() {
-                  socket.emit('board', board);
-                });
-              } else {
-                console.log("Creating new task board");
-                rooms.getOrCreateTaskBoard(socket, taskId, function(error, board) {
-                  socket.emit('board', board);
-                });
-              }
-            });
-          });
-          socket.on('createFeedback', function(data){
-            //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
-            newBoardId = util.generateRandomId(6);
-            saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
-                data.boardId = newBoardId;
-                api.createFeedback(socket.handshake.session, data, function(error, result) {
-                  //console.log(data)
-                  io.of('/admin').emit('feedbackCreated', result);
-                  //socket.emit('confirmSubmission', data);
-                });
-            });
-          });
-            /*
-          socket.on('getLatestBoardFromApi', function(taskId) {
-            api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
-              rooms.loadBoard(socket.room, board['data'], function(result) {
-                socket.emit('board', board);
-              });
-            });
-          });
-          */
-          socket.emit('user', user);
+                socket.emit('feedback', feedback);
+            }
         });
-      }
-    }); // end bind listeners
+    });
+    socket.on('getOrCreateTaskBoard', function(taskId) {
+      //api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
+      api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
+        if (board) {
+          console.log("Loading task board from API");
+          console.log(board);
+          rooms.loadBoard(socket.room, board, function() {
+            socket.emit('board', board);
+          });
+        } else {
+          console.log("Creating new task board");
+          rooms.getOrCreateTaskBoard(socket, taskId, function(error, board) {
+            socket.emit('board', board);
+          });
+        }
+      });
+    });
+    socket.on('createFeedback', function(data){
+      //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
+      newBoardId = util.generateRandomId(6);
+      saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
+          data.boardId = newBoardId;
+          api.createFeedback(socket.handshake.session, data, function(error, result) {
+            //console.log(data)
+            io.of('/admin').emit('feedbackCreated', result);
+            //socket.emit('confirmSubmission', data);
+          });
+      });
+    });
+    socket.emit('user', user);
   });
 
   return io;
