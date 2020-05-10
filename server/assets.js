@@ -20,11 +20,11 @@ const agent = new http.Agent({
     rejectUnauthorized: false
 });
 
-function getAsset(path, type) {
+function getAsset(resource_path, type) {
     return new Promise( resolve => {
         request({
             method: 'GET',
-            url: `${scheme}://${host}:${port}${path}/${path}`,
+            url: `${scheme}://${host}:${port}${path}/${resource_path}`,
         }, function(error, response, body) {
             if(!error && response.statusCode == 200) {
               if (type === 'json') {
