@@ -166,6 +166,15 @@ module.exports = function(server, session) {
         }
       });
   }
+  function getFeedbackReceived(socket, board_ids) {
+      api.getFeedbackReceived(socket.handshake.session, board_ids, function(err, feedbackList) {
+          console.log("Got feedback");
+          console.log(feedbackList);
+          if (feedbackList) {
+              socket.emit('feedbackList', feedbackList);
+          }
+      });
+  }
   function loadBoards(socket, assignment) {
     console.log("Loading boards for assignment "+assignment);
     var assignmentPromise;
@@ -755,6 +764,10 @@ module.exports = function(server, session) {
       loadSubmissions(socket, state);
       //});
       // load assignment
+    });
+    socket.on('getFeedbackReceived', function(board_ids){
+        console.log("Loading feedback (feedback_id: "+feedback_id+")");
+        getFeedbackReceived(socket, board_ids);
     });
     socket.on('loadFeedback', function(feedback_id){
         console.log("Loading feedback (feedback_id: "+feedback_id+")");

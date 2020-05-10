@@ -13,6 +13,7 @@ angular.module('whiteboard.services.boarddata', [])
   var board;
   var boards = {};
   var boardData = {'boards': boards, boardIdsList: []};
+  var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
   //canvasMarginX/Y are the left and top margin of the SVG in the browser
@@ -288,6 +289,9 @@ angular.module('whiteboard.services.boarddata', [])
       var boardId = generateRandomId(5);
       return addBoard({'id': boardId, 'shapeStorage': {}});
   }
+  function updateFeedback(feedbackList) {
+    boardData.feedbackList = feedbackList;
+  }
   function updateBoards(newBoards) {
     boardData.boardIdsList = [];
     var board;
@@ -302,6 +306,9 @@ angular.module('whiteboard.services.boarddata', [])
             }
         }
         boardData.boardIdsList.push(board.boardId);
+        if (typeof board.id !== 'undefined') {
+            boardIdsObject[board.id] = board.boardId;
+        }
     }
     for (let [boardId,board] of Object.entries(boards)){
         if (!boardData.boardIdsList.includes(board.boardId)) {
@@ -332,6 +339,16 @@ angular.module('whiteboard.services.boarddata', [])
           id = boardId;
       }
       return(boards[id]);
+  }
+  function joinFeedbackToBoards() {
+      var feedbackList = boardData.feedbackList
+      var board_id;
+      for(feedbackObj of feedbackList) {
+          board_id = feedbackObj.submission.board_id;
+          if (typeof boardData.boards[boardIdsObject[board_id]] !== 'undefined') {
+              boardData.boards[boardId].feedback.push(feedbackObj)
+          }
+      }
   }
   function joinTasksToBoards(tasks) {
       for(let [boardId, boardObj] of Object.entries(boards)) {
@@ -421,5 +438,7 @@ angular.module('whiteboard.services.boarddata', [])
     removeShape: removeShape,
     setBoardIndex: setBoardIndex,
     getBoardIndex: getBoardIndex,
+    updateFeedback: updateFeedback,
+    joinFeedbackToBoards: joinFeedbackToBoards,
   }
 }]);

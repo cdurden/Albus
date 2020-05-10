@@ -156,6 +156,11 @@ angular.module('whiteboard.services.eventhandler', [])
   function updateBoards(boards) {
     BoardData.updateBoards(boards);
     BoardData.joinTasksToBoards(TaskData.getTasks());
+    BoardData.joinFeedbackToBoards();
+  };
+  function updateFeedback(feedbackList) {
+    BoardData.updateFeedback(feedbackList);
+    BoardData.joinFeedbackToBoards();
   };
   function setTaskBoard(boardId, taskId) {
     BoardData.setTaskBoard(boardId, taskId);
@@ -257,5 +262,6 @@ angular.module('whiteboard.services.eventhandler', [])
     screenshot: screenshot,
     activateNav: activateNav,
     activateDraw: activateDraw,
+    updateFeedback: updateFeedback,
   };
 }]);

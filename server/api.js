@@ -392,18 +392,19 @@ function getFeedbackById(feedback_id, callback) {
     }
   );
 }
-function getFeedback(callback) {
-  request.get(`${scheme}://${host}:${port}/api/feedback/`,
+function getFeedbackReceived(session, board_ids, callback) {
+  lti_user_id = await getActingSessionUser(session);
+  request.get(`${scheme}://${host}:${port}/api/user/${lti_user_id}/feedback/`,
     {
       headers : { 
         "Authorization" : "Bearer " + auth.api_auth_token,
       },
       agent: agent,
-      json: data,
+      json: board_ids,
     },
-    function(error, response, body) {
+    function(error, response, data) {
       if (!error && response.statusCode == 201) {
-        callback(null, body);
+        callback(null, data);
       } else {
         console.log(error);
         callback(error, null);
