@@ -149,7 +149,7 @@ angular.module('whiteboard', [
           }
         },
       })
-      .when('/submissions', {
+      .when('/submissions/:id', {
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
