@@ -305,6 +305,9 @@ angular.module('whiteboard.services.boarddata', [])
     }
     for (let [boardId,board] of Object.entries(boards)){
         if (!boardData.boardIdsList.includes(board.boardId)) {
+            if (boardId = boardData.boardId) {
+                boardData.boardId = undefined;
+            }
             delete boards[boardId]; //FIXME: prompt user to save changes
         }
     }
