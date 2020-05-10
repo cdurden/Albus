@@ -537,8 +537,8 @@ module.exports = function(server, session) {
     socket.on('loadSubmissions', function(state){
         loadSubmissions(socket, state);
     });
-    socket.on('getSubmissions', function(){
-      api.getSubmissions(function(error, data) {
+    socket.on('getSubmissions', function(state){
+      api.getSubmissions(state, function(error, data) {
         //console.log(data)
         io.of('/admin').emit('submissions', data);
         //socket.emit('confirmSubmission', data);
