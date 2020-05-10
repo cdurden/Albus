@@ -510,7 +510,7 @@ angular.module('whiteboard')
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.saveBoard();
         } else if (attrs.wbTool && attrs.wbTool === 'student view') {
-          submenuItemsCtrl.open('sm', 'body');
+          submenuItemsCtrl.open('lg', 'body');
         } else if (attrs.wbTool && attrs.wbTool === 'screenshot') {
           submenuItemsCtrl.screenshot();
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
