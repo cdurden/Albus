@@ -74,6 +74,7 @@ angular.module('whiteboard', [
               resolve(UserData.getDataObject());
           });
           Socket.on("goAhead", function() {
+              console.log("Received go ahead from server. Emitting socket requests...");
               Sockets.emit('getUser');
               Sockets.emit('getUsers');
               Sockets.emit('getActingUser');
