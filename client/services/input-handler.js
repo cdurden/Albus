@@ -473,7 +473,7 @@ angular.module('whiteboard.services.inputhandler', [])
     mousedown: mouseDown,
     mousemove: mouseMove,
     mouseup: mouseUp,
-    keypress: keyPress
+    keypress: keyPress,
     keydown: keyDown
   };
 }]);
