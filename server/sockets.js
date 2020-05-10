@@ -103,8 +103,12 @@ module.exports = function(server, session) {
     });
   }
   function actAsUser(socket, lti_user_id) {
-      var session = socket.handshake.session;
       return new Promise( (resolve) => {
+          var session;
+          if (typeof lti_user_id === 'undefined') {
+              resolve(false);
+          }
+          session = socket.handshake.session;
           api.getApiUser(session.passport.user, function(error, api_user) {
               if(api_user.role === 'teacher') {
                   session.actingAsUser = lti_user_id
@@ -568,11 +572,12 @@ module.exports = function(server, session) {
           console.log(user);
           flat_data = Object.entries(user).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
-              rooms.assignRoomToUser(userId).then(function() {
-                  rooms.assignRoomToSocket(socket).then(function(roomId) {
-                      console.log("Setting up boards for socket "+socket.id);
-                      console.log("emitting client data to admin");
-                      resolve(user);
+              actAsUser(socket, actingAsUser).then(function(success) {
+                  rooms.assignRoomToUser(userId).then(function() {
+                      rooms.assignRoomToSocket(socket).then(function(roomId) {
+                          var actingAsUser = socket.handshake.session.actingAsUser
+                          resolve(user);
+                      });
                   });
               });
           });
@@ -583,8 +588,10 @@ module.exports = function(server, session) {
 
 
         socketReadyPromise.then(function() {
-          console.log("App is ready. Registering socket listeners.");
+          console.log("App is ready.");
+          console.log("Emitting client data to admin");
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
+          console.log("Registering socket listeners.");
    
       
           socket.on('submit', function(data){
