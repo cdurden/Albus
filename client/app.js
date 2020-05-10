@@ -73,9 +73,11 @@ angular.module('whiteboard', [
           ]).then(function(results) {
               resolve(UserData.getDataObject());
           });
-          Sockets.emit('getUser');
-          Sockets.emit('getUsers');
-          Sockets.emit('getActingUser');
+          Socket.on("goAhead", function() {
+              Sockets.emit('getUser');
+              Sockets.emit('getUsers');
+              Sockets.emit('getActingUser');
+          });
       });
   }
       /*

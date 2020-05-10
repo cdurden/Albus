@@ -331,6 +331,7 @@ module.exports = function(server, session) {
       });
       */
     });
+    socket.emit("goAhead");
   }
 
 
@@ -590,6 +591,7 @@ module.exports = function(server, session) {
 
         socketReadyPromise.then(function() {
           console.log("App is ready.");
+          registerCommonListeners(socket);
           console.log("Emitting client data to admin");
           getAllClientData(function(results) { io.of('/admin').emit("allClientData", results) });
           console.log("Registering socket listeners.");
@@ -614,8 +616,6 @@ module.exports = function(server, session) {
               });
             });
           });
-      
-          registerCommonListeners(socket);
       
       /*
           socket.on('roomId', function (data) {
