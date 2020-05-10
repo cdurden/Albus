@@ -73,6 +73,7 @@ angular.module('whiteboard', [
           ]).then(function(results) {
               resolve(UserData.getDataObject());
           });
+          console.log("Emitting ping");
           Sockets.emit('ping');
           Socket.on("goAhead", function() {
               console.log("Received go ahead from server. Emitting socket requests...");
