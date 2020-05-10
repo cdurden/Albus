@@ -197,7 +197,7 @@ async function getActingSessionUser(session) {
                     } else {
                         //resolve(((session || {}).passport || {}).user);
                         var user = ((session || {}).passport   || {}).user; 
-                        console.log("API user not authorized to act as user "+session.actingAsUser+". Acting as "+);
+                        console.log("API user not authorized to act as user "+session.actingAsUser+". Acting as "+user);
                         return(user);
                     }
                 } else {
