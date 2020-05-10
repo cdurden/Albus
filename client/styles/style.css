@@ -1,4 +1,5 @@
 ul.user-list {
+  padding: 0;
   list-style-type: none;
   columns: 4;
   -webkit-columns: 4;
