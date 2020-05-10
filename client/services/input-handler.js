@@ -407,6 +407,10 @@ angular.module('whiteboard.services.inputhandler', [])
   function mouseDown (ev) {
     //console.log('mousedown');
     var toolName = parseToolName(BoardData.getCurrentTool().name);
+    if ( ev.which==3 ) {
+        ev.preventDefault();
+        return false;
+    }
 
     toggle(toolName);
     actions[toolName].mouseDown(ev);
