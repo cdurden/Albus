@@ -402,8 +402,13 @@ async function getFeedback(session, board_ids, callback) {
       agent: agent,
       json: board_ids,
     },
-    function(error, response, data) {
+    function(error, response, body) {
       if (!error && response.statusCode == 200) {
+        if (typeof board_ids === 'undefined') {
+          data = JSON.parse(body) //FIXME: handle exception
+        } else {
+          data = body;
+        }
         callback(null, data);
       } else {
         console.log(error);
@@ -422,8 +427,13 @@ async function getFeedbackReceived(session, board_ids, callback) {
       agent: agent,
       json: board_ids,
     },
-    function(error, response, data) {
+    function(error, response, body) {
       if (!error && response.statusCode == 201) {
+        if (typeof board_ids === 'undefined') {
+          data = JSON.parse(body) //FIXME: handle exception
+        } else {
+          data = body;
+        }
         callback(null, data);
       } else {
         console.log(error);
