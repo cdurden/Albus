@@ -1,6 +1,6 @@
 var request = require('request').defaults({ rejectUnauthorized: false }) // TODO: remove option
 //const { createProxyMiddleware } = require('http-proxy-middleware');
-var rooms = require('./rooms');
+//var rooms = require('./rooms');
 var fs = require('fs');
 
 var auth = require('./auth');
@@ -115,6 +115,21 @@ function uploadHandler(req, res) {
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
 */
+async function uploadBoard(lti_user_id, boardId, taskSource, taskId, shapeStorage_json, file) {
+    return new Promise(resolve => {
+        var formData = {
+            'lti_user_id': lti_user_id,
+            'boardId': boardId,
+            'taskSource': taskSource
+            'shapeStorage_json': shapeStorage_json,
+            'file': fs.createReadStream(file.tempFilePath),
+        }
+        var url =`${scheme}://${host}:${port}/api/boards/`;
+        request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
+            resolve(res);
+        });
+    });
+}
 
 async function uploadHandler(creq, cres, next){
     //var user = creq.session.passport.user;
@@ -131,7 +146,7 @@ async function uploadHandler(creq, cres, next){
         //var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
         rooms.getBoardStorage(creq.roomId, boardId).then(function(shapeStorage) {
             var shapeStorage_json = JSON.stringify(shapeStorage);
-            console.log("shapeStorage: "+data_json);
+            console.log("shapeStorage: "+shapeStorage_json);
             console.log("boardId: "+boardId);
             console.log("lti_user_id: "+lti_user_id);
             console.log("file: "+creq.files.file.tempFilePath);
@@ -149,6 +164,14 @@ async function uploadHandler(creq, cres, next){
             formData.append('file', fs.createReadStream(file.tempFilePath), options);
             */
             var file = creq.files.file;
+            var task_id;
+            if (typeof creq.body.task_id !== 'undefined') {
+                task_id = creq.body.task_id;
+            }
+            uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStorage_json, file).then(function(res) {
+                cres.send(res);
+            });
+            /*
             var formData = {
                 'lti_user_id': lti_user_id,
                 'boardId': boardId,
@@ -164,6 +187,7 @@ async function uploadHandler(creq, cres, next){
             request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
                 cres.send(res);
             });
+            */
         });
     }
 }

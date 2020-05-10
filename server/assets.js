@@ -20,6 +20,26 @@ const agent = new http.Agent({
     rejectUnauthorized: false
 });
 
+function getAsset(path, type) {
+    return new Promise( resolve => {
+        request({
+            method: 'GET',
+            url: `${scheme}://${host}:${port}${path}/${path}`,
+        }, function(error, response, body) {
+            if(!error && response.statusCode == 200) {
+              if (type === 'json') {
+                  data = JSON.parse(body);
+              }
+              if (typeof type === 'undefined') {
+                  data = body;
+              }
+            } else {
+              data = null;
+            }
+            resolve(data);
+        });
+    });
+}
 function getAssignmentAsset(assignment) {
     return new Promise( resolve => {
         request({
