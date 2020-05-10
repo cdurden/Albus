@@ -185,33 +185,35 @@ function actAsUser(session, lti_user_id) {
 */
 async function getActingSessionUser(session) {
     console.log("getActingSessionUser called");
-    //return new Promise( (resolve) => {
+    new Promise( (resolve) => {
         if (typeof session.actingAsUser !== 'undefined') {
             console.log("Session says acting user is "+session.actingAsUser+". Checking if authorized.");
             getApiUser(getSessionUser(session), function(error, api_user) {
                 if (!error) {
                     if(api_user.role === 'teacher') {
                         console.log("API user role is teacher. Authorizing to act as user "+session.actingAsUser);
-                        //resolve(session.actingAsUser);
-                        return(session.actingAsUser);
+                        resolve(session.actingAsUser);
+                        //return(session.actingAsUser);
                     } else {
                         //resolve(((session || {}).passport || {}).user);
                         var user = ((session || {}).passport   || {}).user; 
                         console.log("API user not authorized to act as user "+session.actingAsUser+". Acting as "+user);
-                        return(user);
+                        resolve(user);
                     }
                 } else {
-                    //resolve(null);
-                    return(null);
+                    resolve(null);
+                    //return(null);
                 }
             });
         } else {
           console.log("User not acting. Returning API user.");
           console.log(((session || {}).passport || {}));
-          //resolve(((session || {}).passport || {}).user);
-          return(((session || {}).passport || {}).user);
+          resolve(((session || {}).passport || {}).user);
+          //return(((session || {}).passport || {}).user);
         }
-    //});
+    }).then(function(actingUser) {
+        return(actingUser);
+    })
 }
 async function getBoards(callback) {
   console.log("Getting all boards from API");
