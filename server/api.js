@@ -392,7 +392,7 @@ function getFeedbackById(feedback_id, callback) {
     }
   );
 }
-function getFeedbackReceived(session, board_ids, callback) {
+async function getFeedbackReceived(session, board_ids, callback) {
   lti_user_id = await getActingSessionUser(session);
   request.get(`${scheme}://${host}:${port}/api/user/${lti_user_id}/feedback/`,
     {
