@@ -10,6 +10,8 @@ ul.user-list {
 }
 .feed-container {
     position: absolute;
+    overflow-y: scroll;
+    height: 100%;
 }
 #task-container, .feed-container, #board-selector-container, #task-view-container, .gutter {
     pointer-events: all;

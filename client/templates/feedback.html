@@ -1,19 +1,19 @@
 <div class="feed-container" nv-file-drop uploader="uploader" options="{url: '/upload'}">
- <div class="container">
-  <div class="row">
+ <div>
+  <div class="myrow">
    <div class="dropzone col-12">
     <input ng-model="feedbackTemplateCollection" type="text"
           placeholder="Feedback template collection" autofocus>
      <button ng-click="getFeedbackTemplates(); ev.preventDefault();">Update</button>
    </div>
   </div>
-  <div class="row">
+  <div class="myrow">
    <div class="col-12">
     <input ng-model="query" type="text"
          placeholder="Filter by" autofocus>
    </div>
   </div>
-  <div class="row">
+  <div class="myrow">
    <div class="dropzone col-12">
     <ul dnd-list="feedbackTemplates" 
         dnd-dragover="dragoverCallback(index, external, type)"
@@ -40,7 +40,7 @@
 -->
    </div>
   </div>
-  <div class="row">
+  <div class="myrow">
    <div
         dnd-drop="dropCallback(index, item, external, type)"
         class="dropzone col-12">
@@ -48,21 +48,21 @@
    </div>
   </div>
   <form action="" id="create-feedback-form" class="form-container">
-   <div class="row">
+   <div class="myrow">
     <div class="dropzone col-12">
      Student: {{boardData.boards[boardData.boardId].user.firstname}}
      Feedback: {{submissions[boardData.boards[boardData.boardId].submission_id].feedback.join()}}
     </div>
    </div>
 
-   <div class="row">
+   <div class="myrow">
     <div class="dropzone col-12">
      <textarea id="feedback-textarea" style="min-height: 150px; font-size: 10pt; width: 100%;" placeholder="Type feedback" id="m" ng-model="feedbackTemplate" autocomplete="off" ondragenter="dragenterCallback(event);"/>
     </div>
    </div>
    </fieldset>
    <!--
-   <div class="row">
+   <div class="myrow">
     <div class="col-12">
      <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'task_json': task_json, 'selectedUsers': selectedUsers}] }"/><br/>
      <ul>
