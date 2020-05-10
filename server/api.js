@@ -382,7 +382,7 @@ function getFeedbackById(feedback_id, callback) {
       },
     },
     function(error, response, body) {
-      if (!error && response.statusCode == 201) {
+      if (!error && response.statusCode == 200) {
         data = JSON.parse(body) //FIXME: handle exception
         callback(null, data);
       } else {
@@ -403,7 +403,7 @@ async function getFeedback(session, board_ids, callback) {
       json: board_ids,
     },
     function(error, response, data) {
-      if (!error && response.statusCode == 201) {
+      if (!error && response.statusCode == 200) {
         callback(null, data);
       } else {
         console.log(error);
