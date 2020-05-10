@@ -126,9 +126,7 @@ async function uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStora
         }
         var url =`${scheme}://${host}:${port}/api/boards/`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
-            board = JSON.parse(body);
-            console.log(board);
-            console.log(board[0]);
+            board = JSON.parse(body)[0]; // FIXME: for some reason we get an array here, even though the API returns a dict.
             resolve(board);
         });
     });
@@ -360,24 +358,14 @@ async function saveBoard(session, data, callback) {
     {
       headers : { 
         "Authorization" : "Bearer " + auth.api_auth_token,
-//        "Content-Type" : "application/json",
       },
       agent: agent,
       json: data,
-      /*
-    json: true,
-    body: { 'lti_user_id': lti_user_id, 
-            'task_id': data.task_id,
-            'data': board,
     },
-    */
-    },
-    function(error, response, body) {
-      //console.log(response)
+    function(error, response, data) {
       if (!error && response.statusCode == 201) {
-        //console.log(body)
-        //data = JSON.parse(body)
-        callback(null, body);
+        board = data[0]; //FIXME: for some reason data is an array, even though the API returns a dictionary
+        callback(null, board);
       } else {
         console.log(error);
         callback(error, null);
