@@ -124,8 +124,8 @@ module.exports = function(server, session) {
           });
       });
   }
-  function loadSubmissions(socket) {
-      api.getSubmissions(function(error, submissions) {
+  function loadSubmissions(socket, state) {
+      api.getSubmissions(state, function(error, submissions) {
         console.log("Got submissions");
         console.log(submissions.length);
         if (submissions) {
@@ -534,8 +534,8 @@ module.exports = function(server, session) {
       });
     });
     */
-    socket.on('loadSubmissions', function(){
-        loadSubmissions(socket);
+    socket.on('loadSubmissions', function(state){
+        loadSubmissions(socket, state);
     });
     socket.on('getSubmissions', function(){
       api.getSubmissions(function(error, data) {
@@ -742,9 +742,9 @@ module.exports = function(server, session) {
             loadBoards(socket, assignment);
             // load assignment
           });
-          socket.on('loadSubmissions', function() {
+          socket.on('loadSubmissions', function(state) {
             //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
-            loadSubmissions(socket);
+            loadSubmissions(socket, state);
             //});
             // load assignment
           });

@@ -158,7 +158,7 @@ angular.module('whiteboard', [
             return('submissions');
           },
           'resource': function($location) {
-              return(undefined);
+            return($location.path().slice(12));
           }
         }
       })
@@ -230,7 +230,8 @@ angular.module('whiteboard', [
         });
     }
     if ($scope.mode === 'submissions') {
-        EventHandler.loadSubmissions();
+        $scope.submission_state = resource;
+        EventHandler.loadSubmissions($scope.submission_state);
     }
     if ($scope.mode === 'feedback') {
         $scope.feedback = resource;

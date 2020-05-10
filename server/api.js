@@ -450,9 +450,9 @@ async function submit(session, data, callback) {
     }
   });
 }
-function getSubmissions(callback) {
+function getSubmissions(state, callback) {
   request({
-      url: `${scheme}://${host}:${port}/api/submissions/`,
+      url: `${scheme}://${host}:${port}/api/submissions/${state}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
   },
     function(error, response, body) {
