@@ -34,6 +34,9 @@ angular.module('whiteboard')
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
       });
+      $('body').on('keydown', function (ev) {
+        boardCtrl.handleEvent(ev);
+      });
     }
   }
 }]);

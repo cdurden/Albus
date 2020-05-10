@@ -444,6 +444,12 @@ angular.module('whiteboard.services.inputhandler', [])
       if (ev.keyCode === 109) {
         console.log('m has been typed');
       }
+    }
+  }
+  function keyDown (ev) {
+    var toolName = parseToolName(BoardData.getCurrentTool().name);
+
+    if (toolName !== 'text') {
       if (ev.keyCode === 39) {
           BoardData.setBoardIndex(BoardData.getBoardIndex+1);
       }
@@ -468,5 +474,6 @@ angular.module('whiteboard.services.inputhandler', [])
     mousemove: mouseMove,
     mouseup: mouseUp,
     keypress: keyPress
+    keydown: keyDown
   };
 }]);
