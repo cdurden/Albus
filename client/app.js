@@ -171,7 +171,7 @@ angular.module('whiteboard', [
             return('submissions');
           },
           'resource': function($location) {
-            return($location.path().slice(12));
+            return($location.path().slice(13));
           }
         }
       })
