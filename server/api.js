@@ -127,6 +127,8 @@ async function uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStora
         var url =`${scheme}://${host}:${port}/api/boards/`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             board = JSON.parse(body);
+            console.log(board);
+            console.log(board[0]);
             resolve(board);
         });
     });
