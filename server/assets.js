@@ -113,4 +113,5 @@ function getTaskAssets(taskSrcList, asArray) {
 module.exports = {
     getAssignmentAsset: getAssignmentAsset,
     getTaskAssets: getTaskAssets,
+    getAsset: getAsset,
 }
