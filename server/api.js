@@ -669,5 +669,6 @@ module.exports = {
     getBoards: getBoards,
     //actAsUser: actAsUser,
     uploadHandler: uploadHandler,
+    uploadBoard: uploadBoard,
 //    uploadProxy: uploadProxy,
 }
