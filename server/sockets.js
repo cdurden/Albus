@@ -572,7 +572,7 @@ module.exports = function(server, session) {
           console.log(user);
           flat_data = Object.entries(user).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
           client.hmset(socket.id, flat_data, function(err, result) {
-              actingAsUser = socket.handshake.session.actingAsUser;
+              var actingAsUser = socket.handshake.session.actingAsUser;
               actAsUser(socket, actingAsUser).then(function(success) {
                   rooms.assignRoomToUser(userId).then(function() {
                       rooms.assignRoomToSocket(socket).then(function(roomId) {
