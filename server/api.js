@@ -451,6 +451,7 @@ async function submit(session, data, callback) {
   });
 }
 function getSubmissions(state, callback) {
+  console.log("Getting submissions with state '"+state+"'");
   request({
       url: `${scheme}://${host}:${port}/api/submissions/${state}`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
