@@ -185,7 +185,7 @@ function actAsUser(session, lti_user_id) {
 */
 async function getActingSessionUser(session) {
     console.log("getActingSessionUser called");
-    new Promise( (resolve) => {
+    return new Promise( (resolve) => {
         if (typeof session.actingAsUser !== 'undefined') {
             console.log("Session says acting user is "+session.actingAsUser+". Checking if authorized.");
             getApiUser(getSessionUser(session), function(error, api_user) {
@@ -211,8 +211,6 @@ async function getActingSessionUser(session) {
           resolve(((session || {}).passport || {}).user);
           //return(((session || {}).passport || {}).user);
         }
-    }).then(function(actingUser) {
-        return(actingUser);
     })
 }
 async function getBoards(callback) {
