@@ -51,7 +51,7 @@
    <div class="myrow">
     <div class="dropzone col-12">
      Student: {{boardData.boards[boardData.boardId].user.firstname}}
-     Feedback: <button ng-repeat="feedback in boardData.boards[boardData.boardId].feedback" uib-popover="<p>{{ feedback.template }}</p>" popover-title="{{feedback.title}}" popover-trigger="mouseenter" type="button" class="btn btn-default">{{ $index }}</button>
+     Feedback: <div ng-repeat="feedback in boardData.boards[boardData.boardId].feedback"><button uib-popover="<p>{{ feedback.template }}</p>" popover-title="{{feedback.title}}" popover-trigger="mouseenter" type="button" class="btn btn-default">{{ $index }}</button></div>
     </div>
    </div>
 
