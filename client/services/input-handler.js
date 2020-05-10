@@ -234,12 +234,6 @@ angular.module('whiteboard.services.inputhandler', [])
             Broadcast.editShape(id, socketId, boardId, currentTool, editorShape.initX, editorShape.initY);
           }
         }
-        if (ev.which === 39) {
-            BoardData.setBoardIndex(BoardData.getBoardIndex+1);
-        }
-        if (ev.which === 37) {
-            BoardData.setBoardIndex(BoardData.getBoardIndex-1);
-        }
       }
 
     },
@@ -449,6 +443,12 @@ angular.module('whiteboard.services.inputhandler', [])
       // keycode value for lowercase m
       if (ev.keyCode === 109) {
         console.log('m has been typed');
+      }
+      if (ev.keyCode === 39) {
+          BoardData.setBoardIndex(BoardData.getBoardIndex+1);
+      }
+      if (ev.keyCode === 37) {
+          BoardData.setBoardIndex(BoardData.getBoardIndex-1);
       }
     }
   }
