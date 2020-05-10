@@ -775,9 +775,9 @@ module.exports = function(server, session) {
             }
         });
     });
-    socket.on('getOrCreateTaskBoard', function(taskId) {
-      //api.getTaskBoard(socket.handshake.session, taskId, function(err, board) {
-      api.getLatestBoard(socket.handshake.session, taskId, function(err, board) {
+    socket.on('getOrCreateTaskBoard', function(task_id) {
+      //api.getTaskBoard(socket.handshake.session, task_id, function(err, board) {
+      api.getLatestBoard(socket.handshake.session, task_id, function(err, board) {
         if (board) {
           console.log("Loading task board from API");
           console.log(board);
@@ -786,7 +786,7 @@ module.exports = function(server, session) {
           });
         } else {
           console.log("Creating new task board");
-          rooms.getOrCreateTaskBoard(socket, taskId, function(error, board) {
+          rooms.getOrCreateTaskBoard(socket, task_id, function(error, board) {
             socket.emit('board', board);
           });
         }

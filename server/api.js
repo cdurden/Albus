@@ -115,7 +115,7 @@ function uploadHandler(req, res) {
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
 */
-async function uploadBoard(lti_user_id, boardId, taskSource, taskId, shapeStorage_json, filepath) {
+async function uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStorage_json, filepath) {
     return new Promise(resolve => {
         var formData = {
             'lti_user_id': lti_user_id,
@@ -275,11 +275,11 @@ async function getBoard(session, boardId, callback) {
   });
 }
 /*
-function getTaskBoard(session, taskId, callback) {
+function getTaskBoard(session, task_id, callback) {
   data.lti_user_id = await getActingSessionUser(session);
-  console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
+  console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+task_id);
   request({
-      url: `${scheme}://${host}:${port}/api/task/${taskId}/board/`,
+      url: `${scheme}://${host}:${port}/api/task/${task_id}/board/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
   },
     function(error, response, body) {
@@ -292,13 +292,13 @@ function getTaskBoard(session, taskId, callback) {
   });
 }
 */
-async function getLatestBoard(session, taskId, callback) {
+async function getLatestBoard(session, task_id, callback) {
   var data = { 
-      'task_id': taskId,
+      'task_id': task_id,
   };
   console.log("Calling getActingSessionUser")
   data.lti_user_id = await getActingSessionUser(session);
-  console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+taskId);
+  console.log("Getting latest board for lti_user_id: "+data.lti_user_id+" and task_id "+task_id);
   request({
       url: `${scheme}://${host}:${port}/api/board/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
@@ -365,7 +365,7 @@ async function saveBoard(session, data, callback) {
       /*
     json: true,
     body: { 'lti_user_id': lti_user_id, 
-            'task_id': data.taskId,
+            'task_id': data.task_id,
             'data': board,
     },
     */
@@ -436,7 +436,7 @@ async function createFeedback(session, data, callback) {
       /*
     json: true,
     body: { 'lti_user_id': lti_user_id, 
-            'task_id': data.taskId,
+            'task_id': data.task_id,
             'data': board,
     },
     */
@@ -455,7 +455,7 @@ async function createFeedback(session, data, callback) {
   );
 }
 async function submit(session, data, callback) {
-  data.task_id = data.taskId;
+  data.task_id = data.task_id;
   data.lti_user_id = await getActingSessionUser(session);
   console.log("Submitting a task response for lti_user_id: "+data.lti_user_id);
   request.post(`${scheme}://${host}:${port}/api/task/${data.task_id}/submissions/`, {

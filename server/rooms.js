@@ -280,11 +280,11 @@ function prepareBoardForSocket(socket, boardId) {
     console.log(board);
     return(board);
 }
-//function getTaskBoard(roomId, taskId) {
+//function getTaskBoard(roomId, task_id) {
 function getTaskBoard(roomId, taskSource) {
     console.log("Trying to get a task board from node process");
     return new Promise(resolve => {
-        //client.hget('taskBoards', roomId+taskId, function(err, boardId) {
+        //client.hget('taskBoards', roomId+task_id, function(err, boardId) {
         client.get(roomId+taskSource, function(err, boardId) {
             if (boardId) {
                 console.log("Board "+boardId+" registered with task "+taskSource+" in room "+roomId);
@@ -302,16 +302,16 @@ function getTaskBoard(roomId, taskSource) {
 }
 function registerTaskBoard(roomId, taskSource, boardId) {
     return new Promise(resolve => {
-        //client.hmset('taskBoardMap', [roomId+taskId, boardId], function(err, res) {
+        //client.hmset('taskBoardMap', [roomId+task_id, boardId], function(err, res) {
         client.set(roomId+taskSource, boardId, function(err, res) {
             resolve(res);
         });
     });
 }
 /*
-function setTaskBoard(roomId, taskId, boardId) {
+function setTaskBoard(roomId, task_id, boardId) {
     return new Promise(resolve => {
-        client.hmset('taskBoards', [roomId+taskId, boardId], function(err, res) {
+        client.hmset('taskBoards', [roomId+task_id, boardId], function(err, res) {
             resolve(res);
         });
     });
@@ -352,14 +352,14 @@ function loadBoard(roomId, board, callback) {
   }
   */
 }
-//function getOrCreateTaskBoard(socket, taskId, callback) {
+//function getOrCreateTaskBoard(socket, task_id, callback) {
 function getOrCreateTaskBoard(socket, taskSource, callback) {
   var roomId = socket.room;
   if (typeof rooms[roomId] === 'undefined') {
       prepareRoom(socket.room);
   }
-  //if (typeof taskBoards[roomId][taskId] === 'undefined') {
-  //getTaskBoard(roomId, taskId).then(function(boardId) {
+  //if (typeof taskBoards[roomId][task_id] === 'undefined') {
+  //getTaskBoard(roomId, task_id).then(function(boardId) {
   getTaskBoard(roomId, taskSource).then(function(board) {
       //var setTaskBoardPromise;
       var boardId;
@@ -381,12 +381,12 @@ function getOrCreateTaskBoard(socket, taskSource, callback) {
               });
           });
       }
-    //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" does not exist. Creating it.");
-          //setTaskBoardPromise = setTaskBoard(roomId, taskId, boardId).then(function(res) {
-   //taskBoards[roomId][taskId] = boardId;
+    //console.log("Task board for roomId "+roomId+" and task_id "+task_id+" does not exist. Creating it.");
+          //setTaskBoardPromise = setTaskBoard(roomId, task_id, boardId).then(function(res) {
+   //taskBoards[roomId][task_id] = boardId;
    //   } else {
-   //     boardId = taskBoards[roomId][taskId];
-        //console.log("Task board for roomId "+roomId+" and taskId "+taskId+" is "+boardId);
+   //     boardId = taskBoards[roomId][task_id];
+        //console.log("Task board for roomId "+roomId+" and task_id "+task_id+" is "+boardId);
       //setTaskBoardPromise.then(function() {
       registeredTaskBoardPromise.then(function(board) {
           console.log("Task board "+board.boardId+" registered with "+taskSource+". Setting it up for socket");
