@@ -127,7 +127,6 @@ module.exports = function(server, session) {
   function loadSubmissions(socket, state) {
       api.getSubmissions(state, function(error, submissions) {
         console.log("Got submissions");
-        console.log(submissions.length);
         if (submissions) {
         //var tasks = Array.from(new Set(submissions.map(submission => { return submission.task })))
         var taskSources = Array.from(new Set(submissions.map(submission => { return submission.task.source })))
