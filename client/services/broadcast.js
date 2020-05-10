@@ -16,6 +16,12 @@ angular.module('whiteboard.services.broadcast', [])
   var getBoardStorage = function (boardId) {
     Sockets.emit('getBoardStorage', boardId);
   };
+  var getFeedback = function (board_ids) {
+    Sockets.emit('getFeedback', board_ids);
+  };
+  var getFeedbackReceived = function (board_ids) {
+    Sockets.emit('getFeedbackReceived', board_ids);
+  };
 
   var newShape = function (myid, socketId, boardId, tool, initX, initY) {
     Sockets.emit('newShape', {
