@@ -8,9 +8,12 @@ ul.user-list {
 .pagination {
     margin: 0 !important;
 }
-.container {
+.feed-container {
     position: absolute;
-    width: unset;
+}
+#task-container, .feed-container, #board-selector-container, #task-view-container, .gutter {
+    pointer-events: all;
+    z-index: 50;
 }
 #screenshot-container {
     display: none;
@@ -230,10 +233,6 @@ h1.title {
 }
 #task-space {
     height: 100%;
-}
-#task-container, .feed-container, #board-selector-container, #task-view-container, .gutter {
-    pointer-events: all;
-    z-index: 50;
 }
 #task-view-container {
     position: absolute;
