@@ -250,6 +250,7 @@ h1.title {
 }
 
 #board-container svg {
+  width: 100%;
   position: absolute;
   cursor: url('../assets/images/cursors/path.png'), auto;
 }
