@@ -462,9 +462,11 @@ function getSubmissions(callback) {
   });
 }
 async function getApiUserFromSession(session, callback) {
+    console.log("Getting API user");
     return await getApiUser(getSessionUser(session), callback);
 }
 async function getActingApiUserFromSession(session, callback) {
+    console.log("Getting acting API user");
     return await getApiUser(await getActingSessionUser(session), callback);
 }
 async function getApiUser(lti_user_id, callback) {
