@@ -113,8 +113,8 @@ angular.module('whiteboard.services.broadcast', [])
   var loadBoards = function (assignment) {
     Sockets.emit('loadBoards', assignment)
   };
-  var loadSubmissions = function (assignment) {
-    Sockets.emit('loadSubmissions', assignment)
+  var loadSubmissions = function (state) {
+    Sockets.emit('loadSubmissions', state)
   };
   var loadFeedback = function (feedback) {
     Sockets.emit('loadFeedback', feedback)

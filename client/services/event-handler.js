@@ -32,8 +32,8 @@ angular.module('whiteboard.services.eventhandler', [])
   function loadBoards(assignment) {
     Broadcast.loadBoards(assignment);
   }
-  function loadSubmissions() {
-    Broadcast.loadSubmissions();
+  function loadSubmissions(state) {
+    Broadcast.loadSubmissions(state);
   }
   function loadFeedback(feedback_id) {
     Broadcast.loadFeedback(feedback_id);
