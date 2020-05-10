@@ -149,6 +149,19 @@ angular.module('whiteboard', [
           }
         },
       })
+      .when('/submissions', {
+        templateUrl: './views/board.html',
+        controller: 'whiteboardController',
+        resolve: {
+          'userData': userPromiseMaker,
+          'mode': function () {
+            return('submissions');
+          },
+          'resource': function($location) {
+            return('');
+          }
+        }
+      })
       .when('/submissions/:id', {
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
