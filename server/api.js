@@ -404,7 +404,8 @@ async function getFeedback(session, board_ids, callback) {
     },
     function(error, response, body) {
       if (!error && response.statusCode == 200) {
-        if (typeof board_ids === 'undefined') {
+        var data;
+        if (typeof body === 'string') {
           data = JSON.parse(body) //FIXME: handle exception
         } else {
           data = body;
@@ -428,8 +429,9 @@ async function getFeedbackReceived(session, board_ids, callback) {
       json: board_ids,
     },
     function(error, response, body) {
-      if (!error && response.statusCode == 201) {
-        if (typeof board_ids === 'undefined') {
+      if (!error && response.statusCode == 200) {
+        var data;
+        if (typeof body === 'string') {
           data = JSON.parse(body) //FIXME: handle exception
         } else {
           data = body;
