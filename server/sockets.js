@@ -766,11 +766,11 @@ module.exports = function(server, session) {
       // load assignment
     });
     socket.on('getFeedbackReceived', function(board_ids){
-        console.log("Loading feedback (feedback_id: "+feedback_id+")");
+        console.log("Loading feedback received for board_ids: "+(board_ids || []).join());
         getFeedbackReceived(socket, board_ids);
     });
     socket.on('getFeedback', function(board_ids){
-        console.log("Loading feedback (feedback_id: "+feedback_id+")");
+        console.log("Loading feedback for board_ids"+(board_ids || []).join());
         getFeedback(socket, board_ids);
     });
     socket.on('loadFeedback', function(feedback_id){
