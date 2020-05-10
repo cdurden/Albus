@@ -805,7 +805,6 @@ module.exports = function(server, session) {
           });
       });
     });
-    socket.emit('user', user);
   });
 
   return io;
