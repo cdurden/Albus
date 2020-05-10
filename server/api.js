@@ -191,11 +191,14 @@ async function getActingSessionUser(session) {
             getApiUser(getSessionUser(session), function(error, api_user) {
                 if (!error) {
                     if(api_user.role === 'teacher') {
+                        console.log("API user role is teacher. Authorizing to act as user "+session.actingAsUser);
                         //resolve(session.actingAsUser);
                         return(session.actingAsUser);
                     } else {
                         //resolve(((session || {}).passport || {}).user);
-                        return(((session || {}).passport || {}).user);
+                        var user = ((session || {}).passport   || {}).user; 
+                        console.log("API user not authorized to act as user "+session.actingAsUser+". Acting as "+);
+                        return(user);
                     }
                 } else {
                     //resolve(null);
@@ -203,7 +206,7 @@ async function getActingSessionUser(session) {
                 }
             });
         } else {
-          console.log("Resolving actingSessionUser");
+          console.log("User not acting. Returning API user.");
           console.log(((session || {}).passport || {}));
           //resolve(((session || {}).passport || {}).user);
           return(((session || {}).passport || {}).user);
