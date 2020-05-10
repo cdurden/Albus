@@ -1,3 +1,8 @@
+ul.user-list {
+  columns: 4;
+  -webkit-columns: 4;
+  -moz-columns: 4;
+}
 .pagination {
     margin: 0 !important;
 }

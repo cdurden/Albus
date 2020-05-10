@@ -6,7 +6,7 @@
             <p>
             Student name: <input type="text" ng-model="userFilter" ng-keyup="$event.keyCode == 13 && $ctrl.ok();" uib-typeahead="user as (user.firstname + ' ' + user.lastname) for user in $ctrl.users | filter:$viewValue |limitTo:25" typeahead-select-on-exact="true" typeahead-on-select="$ctrl.setSelectedUser($item, $model);" autofocus/>
             </p>
-            <ul>
+            <ul class="user-list">
                 <li ng-repeat="user in $ctrl.users | filter:userFilter | limitTo:30">
                     <a href="#" ng-click="$event.preventDefault(); userFilter = user; $ctrl.selectedUser = user">{{ user.firstname }} {{user.lastname }}</a>
                 </li>
