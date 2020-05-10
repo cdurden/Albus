@@ -166,7 +166,7 @@ angular.module('whiteboard', [
         templateUrl: './views/board.html',
         controller: 'whiteboardController',
         resolve: {
-          'userData': userPromiseMaker,
+          //'userData': userPromiseMaker,
           'mode': function () {
             return('submissions');
           },
