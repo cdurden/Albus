@@ -771,7 +771,11 @@ module.exports = function(server, session) {
     });
     socket.on('getFeedback', function(board_ids){
         console.log("Loading feedback for board_ids"+(board_ids || []).join());
-        getFeedback(socket, board_ids);
+        api.getFeedback(socket, board_ids, function(err, feedbackList) {
+            console.log("Got feedback:");
+            console.log(feedbackList);
+            socket.emit('feedbackList', feedbackList);
+        });
     });
     socket.on('loadFeedback', function(feedback_id){
         console.log("Loading feedback (feedback_id: "+feedback_id+")");
