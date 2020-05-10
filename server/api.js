@@ -392,6 +392,26 @@ function getFeedbackById(feedback_id, callback) {
     }
   );
 }
+async function getFeedback(session, board_ids, callback) {
+  lti_user_id = await getActingSessionUser(session);
+  request.get(`${scheme}://${host}:${port}/api/feedback/`,
+    {
+      headers : { 
+        "Authorization" : "Bearer " + auth.api_auth_token,
+      },
+      agent: agent,
+      json: board_ids,
+    },
+    function(error, response, data) {
+      if (!error && response.statusCode == 201) {
+        callback(null, data);
+      } else {
+        console.log(error);
+        callback(error, null);
+      }
+    }
+  );
+}
 async function getFeedbackReceived(session, board_ids, callback) {
   lti_user_id = await getActingSessionUser(session);
   request.get(`${scheme}://${host}:${port}/api/user/${lti_user_id}/feedback/`,
