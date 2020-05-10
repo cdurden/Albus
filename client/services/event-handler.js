@@ -16,6 +16,12 @@ angular.module('whiteboard.services.eventhandler', [])
     Broadcast.saveBoardToApi(BoardData.getBoardObj(boardId));
     */
   }
+  function getFeedback(board_ids) {
+    Broadcast.getFeedback(board_ids);
+  };
+  function getFeedbackReceived(board_ids) {
+    Broadcast.getFeedbackReceived(board_ids);
+  };
   function loadBoard(id) {
     if (id !== BoardData.getBoardId()) {
         clearBoard();
@@ -263,5 +269,8 @@ angular.module('whiteboard.services.eventhandler', [])
     activateNav: activateNav,
     activateDraw: activateDraw,
     updateFeedback: updateFeedback,
+    getFeedback: getFeedback,
+    getFeedbackReceived: getFeedbackReceived,
+
   };
 }]);

@@ -769,6 +769,10 @@ module.exports = function(server, session) {
         console.log("Loading feedback (feedback_id: "+feedback_id+")");
         getFeedbackReceived(socket, board_ids);
     });
+    socket.on('getFeedback', function(board_ids){
+        console.log("Loading feedback (feedback_id: "+feedback_id+")");
+        getFeedback(socket, board_ids);
+    });
     socket.on('loadFeedback', function(feedback_id){
         console.log("Loading feedback (feedback_id: "+feedback_id+")");
         api.getFeedbackById(feedback_id, function(err, feedback) {

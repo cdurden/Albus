@@ -233,6 +233,7 @@ angular.module('whiteboard', [
         EventHandler.loadBoards($scope.assignment);
         Sockets.on('actingAsUser', function(actingAsUser) {
             EventHandler.loadBoards($scope.assignment);
+            EventHandler.getFeedbackReceived(); //FIXME: this is requesting extra data
         });
     }
     if ($scope.mode === 'board') {
@@ -240,11 +241,13 @@ angular.module('whiteboard', [
         EventHandler.loadBoardFromApi($scope.board);
         Sockets.on('actingAsUser', function(actingAsUser) {
             EventHandler.loadBoardFromApi($scope.board);
+            //EventHandler.getFeedbackReceived();
         });
     }
     if ($scope.mode === 'submissions') {
         $scope.submission_state = resource;
         EventHandler.loadSubmissions($scope.submission_state);
+        EventHandler.getFeedback(board_ids);
     }
     if ($scope.mode === 'feedback') {
         $scope.feedback = resource;
