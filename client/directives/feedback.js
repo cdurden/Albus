@@ -86,6 +86,9 @@ angular.module('whiteboard')
       $scope.model[i % $scope.model.length].push(container);
     });
 
+    $scope.$watch('boardData.boardId', function(model) {
+        $scope.clearFeedbackForm();
+    });
     $scope.$watch('model', function(model) {
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
