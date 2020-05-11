@@ -713,6 +713,7 @@ module.exports = {
     uploadBoard: uploadBoard,
     getFeedback: getFeedback,
     getFeedbackReceived: getFeedbackReceived,
+    gradeSubmission: gradeSubmission,
 
 //    uploadProxy: uploadProxy,
 }
