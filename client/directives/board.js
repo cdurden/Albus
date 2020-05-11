@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbBoard', ['BoardData', 'EventHandler', 'Receive', function (BoardData, EventHandler) {
+.directive('wbBoard', ['BoardData', 'EventHandler', 'Receive','$document', function (BoardData, EventHandler, $document) {
   return {
     restrict: 'A',
     require: ['wbBoard'],
@@ -34,7 +34,7 @@ angular.module('whiteboard')
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
       });
-      $('body').on('keydown', function (ev) {
+      $document.keydown(function (ev) {
         boardCtrl.handleEvent(ev);
       });
     }
