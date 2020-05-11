@@ -385,6 +385,11 @@ module.exports = function(server, session) {
         */
       }
     });
+    socket.on('gradeSubmission', function(data){
+      api.gradeSubmission(submission_id, grade, function(error, result) {
+        io.of('/admin').emit('submissionGraded', data);
+      });
+    });
     socket.on('updateAssignments', function(data) {
       console.log("assigning assignments to users");
       assignments = Object.entries(data).reduce(function(p,ua) { p[ua[0]] = ua[1].assignment; return p;}, {});

@@ -159,7 +159,7 @@ angular.module('whiteboard')
           var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.feedback, 'feedbackTags': scope.feedbackTags };
 
           Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
-          Sockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': scope.grade });
+          AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': scope.grade });
           scope.clearFeedbackForm();
           return false;
       });
