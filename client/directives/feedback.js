@@ -12,7 +12,7 @@ angular.module('whiteboard')
       $scope.submissions = {};
       //$scope.sockets = {};
       $scope.users = [];
-      $scope.student = $scope.boardData.board.user;
+      $scope.templateContext = {};
       $scope.draggedTemplateObject;
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
@@ -131,7 +131,8 @@ angular.module('whiteboard')
         element.find("#feedback-textarea").bind("drop", function(event) {
             event.preventDefault();
             //scope.feedbackTemplate += "\n\n"+scope.draggedTemplateObject.template;
-            scope.feedback += "\n\n"+$interpolate(scope.draggedTemplateObject.template)(scope);
+            scope.templateContext.student = scope.boardData.boards[scope.boardData.boardId].user; //FIXME: Setup the template context (e.g. in a service) so that it is updated appropriately. 
+            scope.feedback += "\n\n"+$interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
             scope.feedbackTags.push(scope.draggedTemplateObject.tag);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
