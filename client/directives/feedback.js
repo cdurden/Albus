@@ -132,7 +132,10 @@ angular.module('whiteboard')
             event.preventDefault();
             //scope.feedbackTemplate += "\n\n"+scope.draggedTemplateObject.template;
             scope.templateContext.student = scope.boardData.boards[scope.boardData.boardId].user; //FIXME: Setup the template context (e.g. in a service) so that it is updated appropriately. 
-            scope.feedback += "\n\n"+$interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
+            if (scope.feedback.length > 0) {
+                scope.feedback += "\n\n";
+            }
+            scope.feedback += $interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
             scope.feedbackTags.push(scope.draggedTemplateObject.tag);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
