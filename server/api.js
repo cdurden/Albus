@@ -343,7 +343,7 @@ async function saveBoard(session, data, callback) {
   console.log("Got request to save board with data:");
   console.log(data);
   lti_user_id = await getActingSessionUser(session);
-  console.log(Object.keys(data.shapeStorage));
+  //console.log(Object.keys(data.shapeStorage));
   console.log("Saving board for lti_user_id: "+lti_user_id);
   shapeStorage_json = JSON.stringify(data.shapeStorage);
   console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
