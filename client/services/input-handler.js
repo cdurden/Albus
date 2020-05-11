@@ -451,10 +451,10 @@ angular.module('whiteboard.services.inputhandler', [])
 
     if (toolName !== 'text') {
       if (ev.keyCode === 39) {
-          BoardData.setBoardIndex(BoardData.getBoardIndex+1);
+          BoardData.setBoardIndex(BoardData.getBoardIndex()+1);
       }
       if (ev.keyCode === 37) {
-          BoardData.setBoardIndex(BoardData.getBoardIndex-1);
+          BoardData.setBoardIndex(BoardData.getBoardIndex()-1);
       }
     }
   }
