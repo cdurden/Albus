@@ -143,7 +143,7 @@ angular.module('whiteboard')
             }
             scope.feedback += $interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
             scope.feedback_tags.push(scope.feedbackTemplateCollection+":"+scope.draggedTemplateObject.tag);
-            scope.file_attachments = [].concat(scope.file_attachments, scope.draggedTemplateObject.file_attachments);
+            scope.file_attachments = [].concat(scope.file_attachments, scope.draggedTemplateObject.file_attachments || []);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
             console.log(event);
