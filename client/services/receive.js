@@ -101,6 +101,10 @@ angular.module('whiteboard.services.receive', [])
     console.log(feedbackList);
     EventHandler.updateFeedback(feedbackList);
   });
+  Sockets.on('feedbackCreated', function (feedback) {
+    console.log(feedback);
+    EventHandler.updateFeedback([feedback]);
+  });
   Sockets.on('submissionConfirmation', function (data) {
     console.log(data);
     EventHandler.confirmTaskSubmission(data);
