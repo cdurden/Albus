@@ -819,8 +819,10 @@ module.exports = function(server, session) {
     socket.on('createFeedback', function(data){
       //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
       newBoardId = util.generateRandomId(6);
-      saveBoardToApi(socket, data, saveAs=newBoardId).then(function() {
-          data.boardId = newBoardId;
+      saveBoardToApi(socket, data, saveAs=newBoardId).then(function(board) {
+          console.log("Saved board. (board_id: "+board.id+")");
+          data.board_id = board.id;
+          //data.boardId = newBoardId;
           api.createFeedback(socket.handshake.session, data, function(error, result) {
             //console.log(data)
             io.of('/admin').emit('feedbackCreated', result);
