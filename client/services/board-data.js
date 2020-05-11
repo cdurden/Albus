@@ -343,12 +343,12 @@ angular.module('whiteboard.services.boarddata', [])
   function joinFeedbackToBoards() {
       var feedbackList = boardData.feedbackList
       var board_id;
-      var boardId;
+      var board;
       for(feedbackObj of feedbackList) {
           board_id = feedbackObj.submission.board_id;
-          boardId = boardData.boards[boardIdsObject[board_id]];
-          if (typeof boardId !== 'undefined') {
-              boardData.boards[boardId].feedback.push(feedbackObj)
+          board = boardData.boards[boardIdsObject[board_id]];
+          if (typeof board !== 'undefined') {
+              board.feedback.push(feedbackObj)
           }
       }
   }
