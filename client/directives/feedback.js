@@ -12,11 +12,13 @@ angular.module('whiteboard')
       $scope.submissions = {};
       //$scope.sockets = {};
       $scope.users = [];
-      $scope.draggedTemplate;
+      $scope.draggedTemplateObject;
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
+      $scope.feedbackTags = [];
+      $scope.feedbackTemplateCollections = [];
       $scope.feedbackTemplate = "";
-      $scope.selectedTemplate = "";
+      //$scope.selectedTemplate = "";
       $scope.feedbackTemplateCollection = "ScientificNotation";
       $scope.uploader = new FileUploader();
 
@@ -31,7 +33,7 @@ angular.module('whiteboard')
     $scope.dragstartCallback = function(event, item) {
         console.log(item.description)
         event.dataTransfer.setData('text/plain', item.description);
-        $scope.draggedTemplate = item.template;
+        $scope.draggedTemplateObject = item;
     }
     $scope.dragenterCallback = function(event) {
         console.log('received dragenter');
@@ -61,6 +63,13 @@ angular.module('whiteboard')
     };
     $scope.getFeedbackTemplates = function() {
         AdminSockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
+    }
+    $scope.getFeedbackTemplateCollections = function() {
+        AdminSockets.emit('getFeedbackTemplateCollections');
+    }
+    $scope.clearFeedbackForm = function() {
+        $scope.feedbackTemplate = '';
+        $scope.feedbackTags = [];
     }
 
     // Initialize model
@@ -96,9 +105,16 @@ angular.module('whiteboard')
       Sockets.on('feedbackCreated', function (data) {
           console.log(data);
       });
+      AdminSockets.on('feedbackTemplateCollections', function (data) {
+          //console.log(data);
+          //templates = Object.entries(data).map( ([key, obj],i) => { obj.id = key; return(obj) });
+          //console.log(templates);
+          $scope.feedbackTemplateCollections = data;
+      });
+      AdminSockets.emit('getFeedbackTemplateCollections');
       AdminSockets.on('feedbackTemplates', function (data) {
           //console.log(data);
-          templates = Object.entries(data).map( ([key, obj],i) => { obj.id = key; return(obj) });
+          templates = Object.entries(data).map( ([key, obj],i) => { obj.tag = key; return(obj) });
           console.log(templates);
           $scope.feedbackTemplates = templates;
       });
@@ -112,8 +128,9 @@ angular.module('whiteboard')
         //element.find(".dropzone ul li").bind("drop", function(event) {
         element.find("#feedback-textarea").bind("drop", function(event) {
             event.preventDefault();
-            scope.feedbackTemplate += "\n\n"+scope.draggedTemplate;
-            scope.draggedTemplate = '';
+            scope.feedbackTemplate += "\n\n"+scope.draggedTemplateObject.template;
+            scope.feedbackTags.push(scope.draggedTemplateObject.tag);
+            scope.draggedTemplateObject = undefined;
             console.log("drop");
             console.log(event);
         });
@@ -130,7 +147,7 @@ angular.module('whiteboard')
           var boardId = scope.boardData.boardId;
           var board = scope.boardData.boards[boardId];
           var submission_id = board.submission_id;
-          var data = { 'subject': 'Feedback on '+board.task.data.title, 'template': scope.feedbackTemplate };
+          var data = { 'subject': 'Feedback on '+board.task.data.title, 'template': scope.feedbackTemplate, 'feedbackTags': scope.feedbackTags };
 
           Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image });
           return false;
