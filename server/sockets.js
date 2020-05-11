@@ -425,7 +425,7 @@ module.exports = function(server, session) {
             });
         });
     });
-    socket.on('getFeedbackTemplateCollections'){
+    socket.on('getFeedbackTemplateCollections', function() {
         socket.emit(['Generic','ScientificNotation']);
     });
     socket.on('getFeedbackTemplates', function(collection){
