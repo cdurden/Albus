@@ -499,7 +499,6 @@ async function submit(session, data, callback) {
   });
 }
 function gradeSubmission(submission_id, grade, callback) {
-  console.log("Getting submissions with state '"+state+"'");
   request({
       url: `${scheme}://${host}:${port}/api/submission/${submission_id}/grade`,
     json: { 'grade': grade },
