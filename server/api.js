@@ -505,9 +505,9 @@ function gradeSubmission(submission_id, grade, callback) {
     method: 'PUT',
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
   },
-    function(error, response, body) {
+    function(error, response, data) {
     if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
-      data = JSON.parse(body)
+      //data = JSON.parse(body)
       callback(null, data);
     } else {
       callback(error, null);
