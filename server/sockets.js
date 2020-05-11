@@ -788,11 +788,11 @@ module.exports = function(server, session) {
             if (feedback) {
                 board = feedback.board
                 rooms.loadBoard(socket.room, board, function() {
-                  if (typeof (board.task || {}).source  !== 'undefined') {
+                  //if (typeof (board.task || {}).source  !== 'undefined') {
                       assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
                           socket.emit('tasks', taskAssets);
                       });
-                  }
+                  //}
                   console.log("Sending board to client");
                   console.log(board);
                   socket.emit('boards', [board]);
