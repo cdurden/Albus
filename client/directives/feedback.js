@@ -16,9 +16,10 @@ angular.module('whiteboard')
       $scope.draggedTemplateObject;
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
-      $scope.feedbackTags = [];
+      $scope.feedback_tags = [];
       $scope.feedbackTemplateCollections = [];
       $scope.feedback = "";
+      $scope.file_attachments = [];
       $scope.grade = 5;
       //$scope.feedbackTemplate = "";
       //$scope.selectedTemplate = "";
@@ -72,7 +73,8 @@ angular.module('whiteboard')
     }
     $scope.clearFeedbackForm = function() {
         $scope.feedback = '';
-        $scope.feedbackTags = [];
+        $scope.feedback_tags = [];
+        $scope.file_attachments = [];
     }
 
     // Initialize model
@@ -140,7 +142,8 @@ angular.module('whiteboard')
                 scope.feedback += "\n\n";
             }
             scope.feedback += $interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
-            scope.feedbackTags.push(scope.feedbackTemplateCollection+":"+scope.draggedTemplateObject.tag);
+            scope.feedback_tags.push(scope.feedbackTemplateCollection+":"+scope.draggedTemplateObject.tag);
+            scope.file_attachments = [].concat(scope.file_attachments, scope.draggedTemplateObject.file_attachments);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
             console.log(event);
@@ -159,7 +162,7 @@ angular.module('whiteboard')
           var board = scope.boardData.boards[boardId];
           var submission_id = board.submission_id;
           var taskSource = board.task.source;
-          var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.feedback, 'feedbackTags': scope.feedbackTags };
+          var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.feedback, 'feedback_tags': scope.feedback_tags, 'file_attachments': scope.file_attachments };
 
           Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
           AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': scope.grade });
