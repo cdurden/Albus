@@ -450,11 +450,15 @@ angular.module('whiteboard.services.inputhandler', [])
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     if (toolName !== 'text') {
-      if (ev.keyCode === 39) {
-          BoardData.setBoardIndex(BoardData.getBoardIndex()+1);
+      if (ev.keyCode === 39) { //right arrow
+          if (!(['TEXTAREA', 'INPUT'].includes(ev.target.tagName))) {
+              BoardData.setBoardIndex(BoardData.getBoardIndex()+1);
+          }
       }
-      if (ev.keyCode === 37) {
-          BoardData.setBoardIndex(BoardData.getBoardIndex()-1);
+      if (ev.keyCode === 37) { //left arrow
+          if (!(['TEXTAREA', 'INPUT'].includes(ev.target.tagName))) {
+              BoardData.setBoardIndex(BoardData.getBoardIndex()-1);
+          }
       }
     }
   }
