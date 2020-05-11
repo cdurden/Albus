@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader' , '$document', 'BoardData', 'Sockets', function (AdminSockets, angularLoad, $http, FileUploader, $document, BoardData, Sockets) {
+.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader', '$document', 'BoardData', 'Sockets', '$compile', function (AdminSockets, angularLoad, $http, FileUploader, $document, BoardData, Sockets, $compile) {
   return {
     restrict: 'A',
     require: ['wbFeedback'],
@@ -17,7 +17,8 @@ angular.module('whiteboard')
       $scope.feedbackTemplates = [];
       $scope.feedbackTags = [];
       $scope.feedbackTemplateCollections = [];
-      $scope.feedbackTemplate = "";
+      $scope.feedback = "";
+      //$scope.feedbackTemplate = "";
       //$scope.selectedTemplate = "";
       $scope.feedbackTemplateCollection = "ScientificNotation";
       $scope.uploader = new FileUploader();
@@ -68,7 +69,7 @@ angular.module('whiteboard')
         AdminSockets.emit('getFeedbackTemplateCollections');
     }
     $scope.clearFeedbackForm = function() {
-        $scope.feedbackTemplate = '';
+        $scope.feedback = '';
         $scope.feedbackTags = [];
     }
 
@@ -128,7 +129,8 @@ angular.module('whiteboard')
         //element.find(".dropzone ul li").bind("drop", function(event) {
         element.find("#feedback-textarea").bind("drop", function(event) {
             event.preventDefault();
-            scope.feedbackTemplate += "\n\n"+scope.draggedTemplateObject.template;
+            //scope.feedbackTemplate += "\n\n"+scope.draggedTemplateObject.template;
+            scope.feedback += "\n\n"+$compile(scope.draggedTemplateObject.template, scope.user);
             scope.feedbackTags.push(scope.draggedTemplateObject.tag);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
@@ -147,7 +149,7 @@ angular.module('whiteboard')
           var boardId = scope.boardData.boardId;
           var board = scope.boardData.boards[boardId];
           var submission_id = board.submission_id;
-          var data = { 'subject': 'Feedback on '+board.task.data.title, 'template': scope.feedbackTemplate, 'feedbackTags': scope.feedbackTags };
+          var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.feedback, 'feedbackTags': scope.feedbackTags };
 
           Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image });
           return false;
