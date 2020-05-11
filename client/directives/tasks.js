@@ -34,7 +34,7 @@ angular.module('whiteboard')
       }
       */
       $scope.boardIndexChanged = function() {
-          BoardData.setBoardIndex($scope.boardIndex);
+          BoardData.setBoardIndex($scope.boardData.boardIndex);
       }
         /*
       $scope.setBoardIndex = function(i, $event) {
@@ -147,8 +147,7 @@ angular.module('whiteboard')
         scope.numBoards = scope.boardData.boardIdsList.length
         //if (scope.numBoards > 0 && typeof scope.boardIndex === 'undefined') {
         if (scope.numBoards > 0 && typeof scope.boardData.boardId === 'undefined') {
-            scope.boardIndex = 1;
-            scope.boardIndexChanged();
+            BoardData.setBoardIndex(1);
         }
         if (typeof scope.boardData.boardId !== 'undefined' ) {
             EventHandler.loadBoard(scope.boardData.boardId);

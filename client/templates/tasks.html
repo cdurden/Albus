@@ -23,7 +23,7 @@
         <button type="button" hm-tap="submit()" class="task-submit-button">Submit task</button>
     </div>
     <div id="board-selector-container" class="float-s">
-        <ul uib-pagination total-items="numBoards" ng-model="boardIndex" items-per-page="1" max-size="maxBoardSelectorSize" ng-change="boardIndexChanged()" class="pagination-sm" boundary-link-numbers="true"></ul>
+        <ul uib-pagination total-items="numBoards" ng-model="boardData.boardIndex" items-per-page="1" max-size="maxBoardSelectorSize" ng-change="boardIndexChanged()" class="pagination-sm" boundary-link-numbers="true"></ul>
         <!--
       <div style="float: right;">
           <div style="text-align: center;">

@@ -1,6 +1,7 @@
 # Functions
 1. assignment logic: I would like to enable my students to work at their own pace and assign a mixture of revisiontasks and new tasks. To enable this I need ...
 2. Assign assignments by date, so that students could follow a link to a previous assignment that sets a timestamp.
+3. Allow a user to create a new board (not tied to any task). How should board that are not tied to tasks be organized? A1, A2, ... at the end of the list
 
 # UI
 1. Add instructions (e.g. as pop-ups) to assignments

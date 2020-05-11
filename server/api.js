@@ -364,7 +364,8 @@ async function saveBoard(session, data, callback) {
     },
     function(error, response, data) {
       if (!error && response.statusCode == 201) {
-        board = data[0]; //FIXME: for some reason data is an array, even though the API returns a dictionary
+        //board = data[0]; //FIXME: for some reason data is an array, even though the API returns a dictionary
+        board = data;
         callback(null, board);
       } else {
         console.log(error);
