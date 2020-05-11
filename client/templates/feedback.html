@@ -14,7 +14,7 @@
         </ul>
     </div>
 -->
-<select ng-model="feedbackTemplateCollection" ng-options="collection for collection in feedbackTemplateCollections" autofocus>
+<select class="selectpicker" ng-model="feedbackTemplateCollection" ng-options="collection for collection in feedbackTemplateCollections" autofocus>
 </select>
 <!--
     <input ng-model="feedbackTemplateCollection" type="text"
@@ -67,7 +67,7 @@
    <div class="myrow">
     <div class="dropzone col-12">
      Student: {{boardData.boards[boardData.boardId].user.firstname}}
-     Feedback: <button ng-repeat="feedback in boardData.boards[boardData.boardId].feedback" uib-popover="{{ feedback.data.template }}" popover-title="{{feedback.data.title}}" popover-trigger="mouseenter" type="button" class="btn btn-default">{{ $index+1 }}</button>
+     Feedback: <button ng-repeat="feedback in boardData.boards[boardData.boardId].feedback" uib-popover="{{ feedback.data.message }}" popover-title="{{feedback.data.title}}" popover-trigger="mouseenter" type="button" class="btn btn-default">{{ $index+1 }}</button>
     </div>
    </div>
 
@@ -91,6 +91,7 @@
     </div>
    </div>
    -->
+   Grade: <select class="selectpicker" ng-model="grade" ng-options="g for g in [1,2,3,4,5]"></select><br/>
    <button type="button" ng-click="clearFeedbackForm();">Clear</button>
    <button type="submit" class="submit">Create</button>
   </form>
