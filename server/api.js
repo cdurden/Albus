@@ -392,8 +392,8 @@ function getFeedbackById(feedback_id, callback) {
     }
   );
 }
-async function getFeedback(session, board_ids, callback) {
-  lti_user_id = await getActingSessionUser(session);
+async function getFeedback(board_ids, callback) {
+  //lti_user_id = await getActingSessionUser(session);
   request.get(`${scheme}://${host}:${port}/api/feedback/`,
     {
       headers : { 
@@ -710,7 +710,6 @@ module.exports = {
     //actAsUser: actAsUser,
     uploadHandler: uploadHandler,
     uploadBoard: uploadBoard,
-    getFeedback: getFeedback,
     getFeedbackReceived: getFeedbackReceived,
     gradeSubmission: gradeSubmission,
 
