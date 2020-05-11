@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader', '$document', 'BoardData', 'Sockets', '$compile', function (AdminSockets, angularLoad, $http, FileUploader, $document, BoardData, Sockets, $compile) {
+.directive('wbFeedback', ['AdminSockets', 'angularLoad', '$http', 'FileUploader', '$document', 'BoardData', 'Sockets', '$interpolate', function (AdminSockets, angularLoad, $http, FileUploader, $document, BoardData, Sockets, $interpolate) {
   return {
     restrict: 'A',
     require: ['wbFeedback'],
@@ -130,7 +130,7 @@ angular.module('whiteboard')
         element.find("#feedback-textarea").bind("drop", function(event) {
             event.preventDefault();
             //scope.feedbackTemplate += "\n\n"+scope.draggedTemplateObject.template;
-            scope.feedback += "\n\n"+$compile(scope.draggedTemplateObject.template, scope.user);
+            scope.feedback += "\n\n"+$interpolate(scope.draggedTemplateObject.template)(scope.user);
             scope.feedbackTags.push(scope.draggedTemplateObject.tag);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
