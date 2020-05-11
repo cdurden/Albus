@@ -154,9 +154,10 @@ angular.module('whiteboard')
           var boardId = scope.boardData.boardId;
           var board = scope.boardData.boards[boardId];
           var submission_id = board.submission_id;
+          var taskSource = board.task.source;
           var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.feedback, 'feedbackTags': scope.feedbackTags };
 
-          Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image });
+          Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
           return false;
       });
     },
