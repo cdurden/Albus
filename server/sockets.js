@@ -426,7 +426,7 @@ module.exports = function(server, session) {
         });
     });
     socket.on('getFeedbackTemplateCollections', function() {
-        socket.emit(['Generic','ScientificNotation']);
+        socket.emit('feedbackTemplateCollections', ['Generic','ScientificNotation']);
     });
     socket.on('getFeedbackTemplates', function(collection){
         request({
