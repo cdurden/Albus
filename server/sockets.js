@@ -779,7 +779,7 @@ module.exports = function(server, session) {
     });
     socket.on('getFeedback', function(board_ids){
         console.log("Loading feedback for board_ids"+(board_ids || []).join());
-        api.getFeedback(socket.handshake.session, board_ids, function(err, feedbackList) {
+        api.getFeedback(board_ids, function(err, feedbackList) {
             console.log("Got feedback:");
             console.log(feedbackList);
             socket.emit('feedbackList', feedbackList);
@@ -832,7 +832,7 @@ module.exports = function(server, session) {
           //data.boardId = newBoardId;
           api.createFeedback(socket.handshake.session, data, function(error, result) {
             //console.log(data)
-            io.of('/admin').emit('feedbackCreated', result);
+            socket.emit('feedbackCreated', result);
             //socket.emit('confirmSubmission', data);
           });
       });
