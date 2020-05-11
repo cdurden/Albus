@@ -137,7 +137,7 @@ angular.module('whiteboard')
                 scope.feedback += "\n\n";
             }
             scope.feedback += $interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
-            scope.feedbackTags.push(scope.draggedTemplateObject.tag);
+            scope.feedbackTags.push(scope.feedbackTemplateCollection+":"+scope.draggedTemplateObject.tag);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
             console.log(event);
