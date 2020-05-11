@@ -386,8 +386,8 @@ module.exports = function(server, session) {
       }
     });
     socket.on('gradeSubmission', function(data){
-      api.gradeSubmission(submission_id, grade, function(error, result) {
-        io.of('/admin').emit('submissionGraded', data);
+      api.gradeSubmission(data.submission_id, data.grade, function(error, result) {
+        io.of('/admin').emit('submissionGraded', result);
       });
     });
     socket.on('updateAssignments', function(data) {
