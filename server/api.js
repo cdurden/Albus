@@ -395,7 +395,7 @@ function getFeedbackById(feedback_id, callback) {
 }
 async function setSchoologyFeedbackMessageThread(feedback_id, thread_id, callback) {
   request({
-      url: `${scheme}://${host}:${port}/api/feedback/${submission_id}/schoology_message`,
+      url: `${scheme}://${host}:${port}/api/feedback/${feedback_id}/schoology_message`,
     json: { 'schoology_message_id': thread_id },
     method: 'PUT',
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
