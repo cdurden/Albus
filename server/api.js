@@ -729,6 +729,7 @@ module.exports = {
     uploadBoard: uploadBoard,
     getFeedbackReceived: getFeedbackReceived,
     gradeSubmission: gradeSubmission,
+    setSchoologyFeedbackMessageThread: setSchoologyFeedbackMessageThread,
 
 //    uploadProxy: uploadProxy,
 }
