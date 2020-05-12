@@ -205,7 +205,9 @@ angular.module('whiteboard', [
         templateUrl: 'views/slides.html',
         controller: 'whiteboardController',
         resolve: {
-          'userData': userPromiseMaker,
+          'userData': function () {
+              return(undefined);
+          },
           'mode': function () {
               return('slides');
           },
