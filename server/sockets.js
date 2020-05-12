@@ -794,7 +794,9 @@ module.exports = function(server, session) {
                 board = feedback.board
                 rooms.loadBoard(socket.room, board, function() {
                   //if (typeof (board.task || {}).source  !== 'undefined') {
-                      assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
+                      //assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
+                      console.log(board);
+                      assets.getTaskAssets([feedback.board.task.source]).then(function(taskAssets) {
                           socket.emit('tasks', taskAssets);
                       });
                   //}
