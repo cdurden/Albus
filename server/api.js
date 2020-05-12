@@ -393,6 +393,22 @@ function getFeedbackById(feedback_id, callback) {
     }
   );
 }
+async function setSchoologyFeedbackMessageThread(feedback_id, thread_id, callback) {
+  request({
+      url: `${scheme}://${host}:${port}/api/feedback/${submission_id}/schoology_message`,
+    json: { 'schoology_message_id': thread_id },
+    method: 'PUT',
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+  },
+    function(error, response, data) {
+    if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+      //data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      callback(error, null);
+    }
+  });
+}
 async function getFeedback(board_ids, callback) {
   //lti_user_id = await getActingSessionUser(session);
   request.get(`${scheme}://${host}:${port}/api/feedback/`,
