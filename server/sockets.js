@@ -825,6 +825,19 @@ module.exports = function(server, session) {
         }
       });
     });
+    socket.on('editFeedback', function(data){
+      newBoardId = util.generateRandomId(6);
+      saveBoardToApi(socket, data, saveAs=newBoardId).then(function(board) {
+          console.log("Saved board. (board_id: "+board.id+")");
+          data.board_id = board.id;
+          //data.boardId = newBoardId;
+          api.editFeedback(socket.handshake.session, data, function(error, result) {
+            //console.log(data)
+            socket.emit('feedbackCreated', result);
+            //socket.emit('confirmSubmission', data);
+          });
+      });
+    });
     socket.on('createFeedback', function(data){
       //shapeStorage = rooms.getBoardStorage(rooms.getRoomId(socket), data.boardId);
       newBoardId = util.generateRandomId(6);

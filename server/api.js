@@ -464,6 +464,33 @@ async function getFeedbackReceived(session, board_ids, callback) {
     }
   );
 }
+async function editFeedback(session, data, callback) {
+  data.lti_user_id = await getActingSessionUser(session);
+  console.log("Editing feedback for submission: "+data.submission_id);
+  console.log(data);
+  request(`${scheme}://${host}:${port}/api/feedback/${data.id}`,
+    {
+      headers : { 
+        "Authorization" : "Bearer " + auth.api_auth_token,
+//        "Content-Type" : "application/json",
+      },
+      method: 'PUT',
+      agent: agent,
+      json: data,
+    },
+    function(error, response, body) {
+      //console.log(response)
+      if (!error && response.statusCode == 201) {
+        console.log(body)
+        //data = JSON.parse(body)
+        callback(null, body);
+      } else {
+        console.log(error);
+        callback(error, null);
+      }
+    }
+  );
+}
 async function createFeedback(session, data, callback) {
   data.lti_user_id = await getActingSessionUser(session);
   console.log("Creating feedback for submission: "+data.submission_id);

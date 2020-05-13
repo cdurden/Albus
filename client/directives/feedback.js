@@ -187,7 +187,11 @@ angular.module('whiteboard')
  */
           //var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.message, 'feedback_tags': scope.feedback_tags, 'file_attachments': scope.file_attachments };
 
-          Sockets.emit('createFeedback', scope.feedback);//{ 'submission_id': submission_id, 'data': scope.feedback.data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
+          if ( scope.feedback.id === 'undefined' ) {
+              Sockets.emit('createFeedback', scope.feedback);//{ 'submission_id': submission_id, 'data': scope.feedback.data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
+          } else {
+              Sockets.emit('editFeedback', scope.feedback);
+          }
           AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': scope.grade });
           scope.clearFeedbackForm();
           return false;
