@@ -93,8 +93,8 @@
    -->
    Grade: <select class="selectpicker" ng-model="grade" ng-options="g for g in [1,2,3,4,5]"></select><br/>
    <button type="button" ng-click="clearFeedbackForm();">Clear</button>
-   <button ng-show="typeof feedback.id !== 'undefined'" type="submit" class="submit">Apply changes</button>
-   <button ng-show="typeof feedback.id === 'undefined'" type="submit" class="submit">Create</button>
+   <button ng-show="typeof(feedback.id) !== 'undefined'" type="submit" class="submit">Apply changes</button>
+   <button ng-show="typeof(feedback.id) === 'undefined'" type="submit" class="submit">Create</button>
   </form>
  </div>
 </div>
