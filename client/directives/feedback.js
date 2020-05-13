@@ -77,7 +77,7 @@ angular.module('whiteboard')
       var taskSource = ((board || {}).task || {}).source;
       var data = {
             'data': { 
-                'subject': 'Feedback on '+board.task.data.title,
+                'subject': 'Feedback on '+(((board || {}).task || {}).data || {}).title,
                 'message': '',
                 'feedback_tags': [],
                 'file_attachments': []
