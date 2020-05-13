@@ -6,11 +6,11 @@ angular.module('whiteboard')
     replace: true,
     templateUrl: './templates/board.html',
     controller: function ($scope, InputHandler) {
-      $scope.handleEvent = function(ev) {
-        boardCtrl.handleEvent(ev);
-      }
       this.handleEvent = function (ev) {
         InputHandler[ev.type](ev);
+      }
+      $scope.handleEvent = function(ev) {
+        this.handleEvent(ev);
       }
     },
     link: function (scope, element, attrs, ctrls) {
