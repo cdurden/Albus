@@ -23,7 +23,6 @@ angular.module('whiteboard')
       $scope.grade = 5;
       //$scope.feedbackTemplate = "";
       //$scope.selectedTemplate = "";
-      $scope.clearFeedbackForm()  //
       $scope.feedbackTemplateCollection = "ScientificNotation";
       $scope.uploader = new FileUploader();
 
@@ -91,6 +90,7 @@ angular.module('whiteboard')
         //$scope.feedback_tags = [];
         //$scope.file_attachments = [];
     }
+    $scope.clearFeedbackForm();  //
 
     // Initialize model
     $scope.model = [[], []];
