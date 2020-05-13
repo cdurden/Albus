@@ -406,6 +406,8 @@ async function setSchoologyFeedbackMessageThread(feedback_id, thread_id, callbac
       //data = JSON.parse(body)
       callback(null, data);
     } else {
+      console.log("Setting schoology message thread for feedback "+feedback_id+" failed);
+      console.log(error);
       callback(error, null);
     }
   });
