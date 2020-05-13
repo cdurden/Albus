@@ -67,13 +67,13 @@
    <div class="myrow">
     <div class="dropzone col-12">
      Student: {{boardData.boards[boardData.boardId].user.firstname}}
-     Feedback: <button ng-repeat="feedback in boardData.boards[boardData.boardId].feedback" uib-popover="{{ feedback.data.message }}" popover-title="{{feedback.data.title}}" popover-trigger="mouseenter" type="button" class="btn btn-default">{{ $index+1 }}</button>
+     Feedback: <button ng-repeat="feedback in boardData.boards[boardData.boardId].feedback" uib-popover="{{ feedback.data.message }}" popover-title="{{feedback.data.title}}" popover-trigger="mouseenter" type="button" ng-click="$parent.feedback=feedback" class="btn btn-default">{{ $index+1 }}</button> <button uib-popover="Create new feedback" popover-title="New" popover-trigger="mouseenter" type="button" ng-click="clearFeedbackForm()" class="btn btn-default">New</button>
     </div>
    </div>
 
    <div class="myrow">
     <div class="dropzone col-12">
-     <textarea id="feedback-textarea" style="min-height: 150px; font-size: 10pt; width: 100%;" placeholder="Type feedback" id="m" ng-model="feedback" autocomplete="off" ondragenter="dragenterCallback(event);"/>
+     <textarea id="feedback-textarea" style="min-height: 150px; font-size: 10pt; width: 100%;" placeholder="Type feedback" id="m" ng-model="feedback.data.message" autocomplete="off" ondragenter="dragenterCallback(event);"/>
     </div>
    </div>
    </fieldset>

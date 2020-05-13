@@ -16,13 +16,14 @@ angular.module('whiteboard')
       $scope.draggedTemplateObject;
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = [];
-      $scope.feedback_tags = [];
       $scope.feedbackTemplateCollections = [];
-      $scope.feedback = "";
-      $scope.file_attachments = [];
+      //$scope.feedback = "";
+      //$scope.file_attachments = [];
+      //$scope.feedback_tags = [];
       $scope.grade = 5;
       //$scope.feedbackTemplate = "";
       //$scope.selectedTemplate = "";
+      $scope.clearFeedbackForm()  //
       $scope.feedbackTemplateCollection = "ScientificNotation";
       $scope.uploader = new FileUploader();
 
@@ -72,9 +73,23 @@ angular.module('whiteboard')
         AdminSockets.emit('getFeedbackTemplateCollections');
     }
     $scope.clearFeedbackForm = function() {
-        $scope.feedback = '';
-        $scope.feedback_tags = [];
-        $scope.file_attachments = [];
+      var boardId = scope.boardData.boardId;
+      var board = scope.boardData.boards[boardId];
+      var taskSource = board.task.source;
+      var data = {
+            'data': { 
+                'subject': 'Feedback on '+board.task.data.title,
+                'message': '',
+                'feedback_tags' = [],
+                'file_attachments' = []
+            }
+        };
+      var submission_id = board.submission_id;
+      $scope.feedback = { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource }         
+        //$scope.feedback = '';
+        //$scope.message = '';
+        //$scope.feedback_tags = [];
+        //$scope.file_attachments = [];
     }
 
     // Initialize model
@@ -138,12 +153,18 @@ angular.module('whiteboard')
             event.preventDefault();
             //scope.feedbackTemplate += "\n\n"+scope.draggedTemplateObject.template;
             scope.templateContext.student = scope.boardData.boards[scope.boardData.boardId].user; //FIXME: Setup the template context (e.g. in a service) so that it is updated appropriately. 
+            /*
             if (scope.feedback.length > 0) {
                 scope.feedback += "\n\n";
             }
             scope.feedback += $interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
-            scope.feedback_tags.push(scope.feedbackTemplateCollection+":"+scope.draggedTemplateObject.tag);
-            scope.file_attachments = [].concat(scope.file_attachments, scope.draggedTemplateObject.file_attachments || []);
+            */
+            if (scope.feedback.data.message.length > 0) {
+                scope.feedback.data.message += "\n\n";
+            }
+            scope.feedback.data.message += $interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
+            scope.feedback.data.feedback_tags.push(scope.feedbackTemplateCollection+":"+scope.draggedTemplateObject.tag);
+            scope.feedback.data.file_attachments = [].concat(scope.feedback.data.file_attachments, scope.draggedTemplateObject.file_attachments || []);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
             console.log(event);
@@ -158,13 +179,15 @@ angular.module('whiteboard')
         });
       $(element).find("#create-feedback-form").bind("submit",function(ev) {
           ev.preventDefault();
+          /*
           var boardId = scope.boardData.boardId;
           var board = scope.boardData.boards[boardId];
           var submission_id = board.submission_id;
-          var taskSource = board.task.source;
-          var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.feedback, 'feedback_tags': scope.feedback_tags, 'file_attachments': scope.file_attachments };
+ { 'submission_id': submission_id, 'data': scope.feedback.data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource }         var taskSource = board.task.source;
+ */
+          //var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.message, 'feedback_tags': scope.feedback_tags, 'file_attachments': scope.file_attachments };
 
-          Sockets.emit('createFeedback', { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
+          Sockets.emit('createFeedback', scope.feedback);//{ 'submission_id': submission_id, 'data': scope.feedback.data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
           AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': scope.grade });
           scope.clearFeedbackForm();
           return false;
