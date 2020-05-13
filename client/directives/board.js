@@ -30,13 +30,18 @@ angular.module('whiteboard')
         // console.log('> ', svg.attr("class").split(' '));
       });
       */
+      $scope.handleEvent = function(ev) {
+        boardCtrl.handleEvent(ev);
+      }
 
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
       });
+        /*
       $document.keydown(function (ev) {
         boardCtrl.handleEvent(ev);
       });
+      */
     }
   }
 }]);
