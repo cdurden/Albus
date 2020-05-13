@@ -5,7 +5,10 @@ angular.module('whiteboard')
     require: ['wbBoard'],
     replace: true,
     templateUrl: './templates/board.html',
-    controller: function (InputHandler) {
+    controller: function ($scope, InputHandler) {
+      $scope.handleEvent = function(ev) {
+        boardCtrl.handleEvent(ev);
+      }
       this.handleEvent = function (ev) {
         InputHandler[ev.type](ev);
       }
@@ -30,9 +33,6 @@ angular.module('whiteboard')
         // console.log('> ', svg.attr("class").split(' '));
       });
       */
-      $scope.handleEvent = function(ev) {
-        boardCtrl.handleEvent(ev);
-      }
 
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
