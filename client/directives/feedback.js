@@ -72,8 +72,8 @@ angular.module('whiteboard')
         AdminSockets.emit('getFeedbackTemplateCollections');
     }
     $scope.clearFeedbackForm = function() {
-      var boardId = scope.boardData.boardId;
-      var board = scope.boardData.boards[boardId];
+      var boardId = $scope.boardData.boardId;
+      var board = $scope.boardData.boards[boardId];
       var taskSource = board.task.source;
       var data = {
             'data': { 
