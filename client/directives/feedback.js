@@ -80,8 +80,8 @@ angular.module('whiteboard')
             'data': { 
                 'subject': 'Feedback on '+board.task.data.title,
                 'message': '',
-                'feedback_tags' = [],
-                'file_attachments' = []
+                'feedback_tags': [],
+                'file_attachments': []
             }
         };
       var submission_id = board.submission_id;
