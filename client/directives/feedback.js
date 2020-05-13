@@ -83,7 +83,7 @@ angular.module('whiteboard')
                 'file_attachments': []
             }
         };
-      var submission_id = board.submission_id;
+      var submission_id = (board || {}).submission_id;
       $scope.feedback = { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource }         
         //$scope.feedback = '';
         //$scope.message = '';
