@@ -74,7 +74,7 @@ angular.module('whiteboard')
     $scope.clearFeedbackForm = function() {
       var boardId = $scope.boardData.boardId;
       var board = $scope.boardData.boards[boardId];
-      var taskSource = board.task.source;
+      var taskSource = ((board || {}).task || {}).source;
       var data = {
             'data': { 
                 'subject': 'Feedback on '+board.task.data.title,
