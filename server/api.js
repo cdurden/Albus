@@ -402,6 +402,7 @@ async function setSchoologyFeedbackMessageThread(feedback_id, thread_id, callbac
   },
     function(error, response, data) {
     if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
+      console.log("Set schoology message thread for feedback "+feedback_id+" to "+thread_id);
       //data = JSON.parse(body)
       callback(null, data);
     } else {
