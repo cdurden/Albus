@@ -736,6 +736,7 @@ function getTaskFromSource(source, callback) {
 module.exports = {
     getApiUser: getApiUser,
     getApiUsers: getApiUsers,
+    getActingSessionUser: getActingSessionUser,
     getActingApiUserFromSession: getActingApiUserFromSession,
     getApiUserFromSession: getApiUserFromSession,
     getTask: getTask,
