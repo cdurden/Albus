@@ -222,6 +222,7 @@ async function uploadHandler(creq, cres, next){
             */
             var file = creq.files.file;
             var task_id;
+            var taskSource = ((board || {}).task || {}).source;
             if (typeof creq.body.task_id !== 'undefined') {
                 task_id = creq.body.task_id;
             }
