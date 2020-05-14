@@ -194,7 +194,7 @@ async function uploadHandler(creq, cres, next){
     creq.files.file;
     var boardId = creq.body.boardId;
     var action = creq.body.action;
-    if (action === 'setBoardBackground') {
+    if (action === 'submit') {
         var FormData = require("form-data");
         var formData = new FormData();
         var boardId = creq.body.boardId;
