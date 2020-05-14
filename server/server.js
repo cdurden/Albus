@@ -196,8 +196,8 @@ async function uploadHandler(creq, cres, next){
     var action = creq.body.action;
     console.log(creq.body);
     if (action === 'submit') {
-        var FormData = require("form-data");
-        var formData = new FormData();
+        //var FormData = require("form-data");
+        //var formData = new FormData();
         var boardId = creq.body.boardId;
         var lti_user_id = user
         //var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
@@ -220,12 +220,14 @@ async function uploadHandler(creq, cres, next){
             console.log(options);
             formData.append('file', fs.createReadStream(file.tempFilePath), options);
             */
-            var file = creq.files.file;
+            //var file = creq.files.file;
+            var file = creq.files.file.tempFilePath;
             var task_id;
             var taskSource = ((board || {}).task || {}).source;
             if (typeof creq.body.task_id !== 'undefined') {
                 task_id = creq.body.task_id;
             }
+            //api.uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStorage_json, file).then(function(res) {
             api.uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStorage_json, file).then(function(res) {
                 cres.send(res);
             });
