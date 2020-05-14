@@ -14,7 +14,7 @@
         </ul>
     </div>
 -->
-<select class="selectpicker" ng-model="feedbackTemplateCollection" ng-options="collection for collection in feedbackTemplateCollections" ng-chane="getFeedbackTemplates();" autofocus>
+<select class="selectpicker" ng-model="feedbackTemplateCollection" ng-options="collection for collection in feedbackTemplateCollections" ng-change="getFeedbackTemplates(); getFeedbackTemplateCollections();" autofocus>
 </select>
 <!--
     <input ng-model="feedbackTemplateCollection" type="text"
