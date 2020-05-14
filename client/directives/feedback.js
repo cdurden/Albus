@@ -185,7 +185,7 @@ angular.module('whiteboard')
  */
           //var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.message, 'feedback_tags': scope.feedback_tags, 'file_attachments': scope.file_attachments };
 
-          if ( scope.feedback.id === 'undefined' ) {
+          if ( typeof scope.feedback.id === 'undefined' ) {
               Sockets.emit('createFeedback', scope.feedback);//{ 'submission_id': submission_id, 'data': scope.feedback.data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
           } else {
               Sockets.emit('editFeedback', scope.feedback);
