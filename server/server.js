@@ -194,6 +194,7 @@ async function uploadHandler(creq, cres, next){
     creq.files.file;
     var boardId = creq.body.boardId;
     var action = creq.body.action;
+    console.log(creq.body);
     if (action === 'submit') {
         var FormData = require("form-data");
         var formData = new FormData();
