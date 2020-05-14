@@ -76,12 +76,10 @@ angular.module('whiteboard')
       var board = $scope.boardData.boards[boardId];
       var taskSource = ((board || {}).task || {}).source;
       var data = {
-            'data': { 
-                'subject': 'Feedback on '+(((board || {}).task || {}).data || {}).title,
-                'message': '',
-                'feedback_tags': [],
-                'file_attachments': []
-            }
+            'subject': 'Feedback on '+(((board || {}).task || {}).data || {}).title,
+            'message': '',
+            'feedback_tags': [],
+            'file_attachments': []
         };
       var submission_id = (board || {}).submission_id;
       $scope.feedback = { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': (board || {}).background_image, 'taskSource': taskSource }         
