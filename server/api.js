@@ -124,6 +124,8 @@ async function uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStora
             'shapeStorage_json': shapeStorage_json,
             'file': fs.createReadStream(filepath),
         }
+        console.log("Uploading board");
+        console.log(formData);
         var url =`${scheme}://${host}:${port}/api/boards/`;
         request.post(url, { "headers": { "Authorization" : "Bearer " + auth.api_auth_token }, formData: formData}, function(err, res, body){
             board = JSON.parse(body); // FIXME: for some reason we get an array here, even though the API returns a dict.
