@@ -201,8 +201,8 @@ async function uploadHandler(creq, cres, next){
         var boardId = creq.body.boardId;
         var lti_user_id = user
         //var shapeStorage = rooms.getBoardStorage(creq.roomId, boardId);
-        rooms.getBoardStorage(creq.roomId, boardId).then(function(shapeStorage) {
-            var shapeStorage_json = JSON.stringify(shapeStorage);
+        rooms.getBoard(creq.roomId, boardId).then(function(board) {
+            var shapeStorage_json = JSON.stringify(board.shapeStorage);
             console.log("shapeStorage: "+shapeStorage_json);
             console.log("boardId: "+boardId);
             console.log("lti_user_id: "+lti_user_id);
