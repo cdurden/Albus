@@ -732,7 +732,7 @@ module.exports = {
     getBoard: getBoard,
     getBoards: getBoards,
     //actAsUser: actAsUser,
-    uploadHandler: uploadHandler,
+    //uploadHandler: uploadHandler,
     uploadBoard: uploadBoard,
     getFeedbackReceived: getFeedbackReceived,
     gradeSubmission: gradeSubmission,
