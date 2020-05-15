@@ -80,6 +80,7 @@ angular.module('whiteboard')
             'message': '',
             'feedback_tags': [],
             'file_attachments': []
+            'attachments': []
         };
       var submission_id = (board || {}).submission_id;
       $scope.feedback = { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': (board || {}).background_image, 'taskSource': taskSource }         
@@ -163,6 +164,7 @@ angular.module('whiteboard')
             scope.feedback.data.message += $interpolate(scope.draggedTemplateObject.template)(scope.templateContext);
             scope.feedback.data.feedback_tags.push(scope.feedbackTemplateCollection+":"+scope.draggedTemplateObject.tag);
             scope.feedback.data.file_attachments = [].concat(scope.feedback.data.file_attachments, scope.draggedTemplateObject.file_attachments || []);
+            scope.feedback.data.attachments = [].concat(scope.feedback.data.attachments, scope.draggedTemplateObject.attachments || []);
             scope.draggedTemplateObject = undefined;
             console.log("drop");
             console.log(event);
