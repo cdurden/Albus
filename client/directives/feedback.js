@@ -79,7 +79,7 @@ angular.module('whiteboard')
             'subject': 'Feedback on '+(((board || {}).task || {}).data || {}).title,
             'message': '',
             'feedback_tags': [],
-            'file_attachments': []
+            'file_attachments': [],
             'attachments': []
         };
       var submission_id = (board || {}).submission_id;
