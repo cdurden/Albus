@@ -23,7 +23,7 @@ angular.module('whiteboard')
       $scope.grade = 5;
       //$scope.feedbackTemplate = "";
       //$scope.selectedTemplate = "";
-      $scope.feedbackTemplateCollection = "ScientificNotation";
+      $scope.feedbackTemplateCollection = "PythagoreanTheorem";
       $scope.uploader = new FileUploader();
 
     $scope.dragoverCallback = function(index, external, type, callback) {
