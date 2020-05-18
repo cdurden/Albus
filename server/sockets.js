@@ -411,7 +411,7 @@ module.exports = function(server, session) {
       });
     });
     socket.on('getTasks', function(){
-        assets.getTaskAssets('tasks').then(function(taskAssets) {
+        assets.getTaskAssets(['tasks']).then(function(taskAssets) {
             socket.emit('tasks', taskAssets);
         });
         /*
