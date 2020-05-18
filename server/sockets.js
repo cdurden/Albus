@@ -503,7 +503,7 @@ module.exports = function(server, session) {
         });
     });
     socket.on('downloadSchoologySubmissions', async function(wait_time_msec) {
-        client.hget(socket.id, 'schoologySubmissionsMetadata', function(err, res){
+        client.hget(socket.id, 'schoologySubmissionsMetadata', async function(err, res){
             var schoologySubmissionsMetadata;
             if (res === null) {
                 schoologySubmissionsMetadata = [];
