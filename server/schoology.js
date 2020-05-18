@@ -7,7 +7,7 @@ const fs = require('fs');
 const auth = require('./auth');
 var request = new oauth.OAuth(null, null, auth.schoology_api_key, auth.schoology_api_secret, '1.0', null, 'HMAC-SHA1');
 var requestBinary = new oauth.OAuthBinary(null, null, auth.schoology_api_key, auth.schoology_api_secret, '1.0', null, 'HMAC-SHA1');
-var sanitize = require("sanitize-filename");
+//var sanitize = require("sanitize-filename");
 
 const assets = require('./assets');
 const api = require('./api');

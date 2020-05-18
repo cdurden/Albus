@@ -10,6 +10,7 @@ var request = require('request');
 var _ = require('underscore');
 var auth = require('./auth');
 var async = require('async');
+var sanitize = require('sanitize-filename');
 const schoology = require('./schoology');
 const { promisify } = require("util");
 module.exports = function(server, session) {
