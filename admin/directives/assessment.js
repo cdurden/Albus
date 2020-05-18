@@ -45,10 +45,19 @@ angular.module('whiteboard-admin')
       scope.$watch('selectedAssignment', function(newValue) {
         $http({
           method: 'GET',
-          url: '/static/teaching_assets/assignments/'+newValue+'.dot',
+          url: '/static/teaching_assets/assignments/'+newValue+'.json',
           transformResponse: [function (data) {
+              var dotSrcLines = ['digraph {'];
+              for (var i=1; i<data.length;i++) {
+                  if (i==1) {
+                      dotSrcLines.push(data[i-1])
+                  }
+                  dotSrcLines.push(data[i])
+                  dotSrcLines.push(data[i-1]+' -> '+data[i]+';')
+              }
+              dotSrcLines.push('}');
+              return({ data: dotSrcLines.join("\n") });
             // Do whatever you want!
-            return data;
           }]
         }).then(function success(response) {
           d3Promise.then(function() {

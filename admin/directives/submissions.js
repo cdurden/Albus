@@ -11,6 +11,7 @@ angular.module('whiteboard-admin')
       $scope.sections = [];
       $scope.assignments = [];
       $scope.submissionState = 'pending';
+      $scope.schoologySubmissionsMetadata = [];
       Sockets.emit('getSections');
       $scope.getAssignmentTasks = function(assignment) {
           Sockets.emit('getAssignmentTasks', assignment);
@@ -34,6 +35,20 @@ angular.module('whiteboard-admin')
       Sockets.on('submissions', function (data) {
         $scope.submissions = data;
       });
+      $scope.downloadSchoologySubmissions = function() {
+          Sockets.emit('downloadSchoologySubmissions');
+      }
+      $scope.clearSchoologySubmissionsMetadata = function() {
+          Sockets.emit('clearSchoologySubmissionsMetadata');
+      }
+      Sockets.on('clearSchoologySubmissionsMetadataSuccess', function (res) {
+          if (res) {
+              $scope.schoologySubmissionsMetadata = [];
+          }
+      });
+      Sockets.on('schoologySubmissionsMetadata', function (data) {
+        $scope.schoologySubmissionsMetadata = data;
+      });
       Sockets.emit('getSubmissions', $scope.submissionState);
       $scope.getSelectedSections = function getSelectedSections() {
         return filterFilter($scope.sections, { selected: true });
@@ -50,15 +65,22 @@ angular.module('whiteboard-admin')
       }, true);
     },
     link: function(scope, element, attrs, ctrls) { 
-      element.find("#import-submissions-form").bind("submit",function(ev) {
+      element.find("#process-submissions-form").bind("submit",function(ev) {
           ev.preventDefault();
           taskPagesObject = scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
+          Sockets.emit('processSchoologySubmissions', taskPagesObject);
+          return false;
+      });
+      element.find("#get-submissions-metadata-form").bind("submit",function(ev) {
+          ev.preventDefault();
+          taskPagesObject = scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
+          /*
           importParameters = {
               section_ids: scope.selectedSections, 
               grade_item_id: scope.grade_item_id,
-              taskPagesObject: taskPagesObject,
           } 
-          //Sockets.emit('importSubmissions', importParameters);
+          */
+          Sockets.emit('getSchoologySubmissionsMetadata', grade_item_id, section_ids);
           return false;
       });
 
