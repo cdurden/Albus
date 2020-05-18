@@ -10,6 +10,7 @@ var request = require('request');
 var _ = require('underscore');
 var auth = require('./auth');
 var async = require('async');
+const schoology = require('./schoology');
 const { promisify } = require("util");
 module.exports = function(server, session) {
 
@@ -24,6 +25,14 @@ module.exports = function(server, session) {
   io.of('/admin').use(sharedsession(session, {
       autoSave:true
   }));
+  io.of('/admin').use(function(socket, next) {
+      if (socket.handshake.session.passport.user.role !== 'adming') {
+          var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+" is does not have admin role');
+          next(error);
+      } else {
+          next();
+      }
+  });
   io.of('/client').use((socket, next) => {
       console.log("Got packet");
       console.log(socket.handshake.session);
@@ -442,6 +451,119 @@ module.exports = function(server, session) {
         console.log("Getting sections");
         api.getSections(course_id, function(err, sections) {
             socket.emit('sections', sections);
+        });
+    });
+    socket.on('clearSchoologySubmissionsMetadata', async function() {
+        client.hdel(socket.id, 'schoologySubmissionsMetadata', function(err, res) {
+            socket.emit('clearSchoologySubmissionsMetadataSuccess', true);
+        });
+    });
+    socket.on('processSchoologySubmissions', async function(taskPagesObject) {
+        client.hget(socket.id, 'schoologySubmissionsMetadata', function(err, res){
+            schoologySubmissionsMetadata = JSON.parse(res);
+            for (submissionMetadata of schoologySubmissionsMetadata) {
+                var pdffile = sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
+                for (let [taskSource, slide] of Object.entries(taskPagesObject[assignments[submissionMetadata.grade_item_id]])) {
+                    console.log("Generating image for task "+taskSource+" on slide "+slide+" of assignment "+assignments[submissionMetadata.grade_item_id]);
+                    var boardId = generateRandomId(7);
+                    var pdfImage = new PDFImage(pdffile,{
+                      convertOptions: {
+                        "-resize": "1000x1000",
+                        //"-quality": "75"
+                      }
+                    });
+                    await pdfImage.convertPage(slide).then(async function (imagePath) {
+                      console.log("Uploading image to API");
+                      console.log(imagePath);
+                      //var file = fs.createReadStream(imagePath);
+                      await new Promise(resolve => {
+                          resolve(imagePath);
+                        console.log(submissionMetadata);
+                        var lti_user_id = usersObject[submissionMetadata.uid];
+                        //console.log(lti_user_id);
+                        api.uploadBoard(lti_user_id, boardId, taskSource, undefined, "{}", imagePath).then(function(board) {
+                            //console.log(board);
+                            var session = { passport: { user: lti_user_id } };
+                            //console.log(session);
+                            var board = board;
+                            //console.log(board);
+                            var submission = {
+                                board_id: board.id,
+                                task_id: board.task_id,
+                                user_id: lti_user_id,
+                            }
+                            api.submit(session, submission, function(submission) {
+                                resolve(submission);
+                            });
+                        });
+                      });
+                    });
+                }
+            }
+        });
+    });
+    socket.on('downloadSchoologySubmissions', async function(wait_time_msec) {
+        client.hget(socket.id, 'schoologySubmissionsMetadata', function(err, res){
+            var schoologySubmissionsMetadata;
+            if (res === null) {
+                schoologySubmissionsMetadata = [];
+            } else {
+                schoologySubmissionsMetadata = JSON.parse(res);
+            }
+            for (submissionMetadata of schoologySubmissionsMetadata) {
+                var pdffile = sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
+                var sleepPromise;
+                if (!fs.existsSync(pdffile)) {
+                    console.log("Downloading "+pdffile);
+                    await schoology.downloadSubmission(submissionMetadata.download_path).then(function(data) {
+                        fs.writeFileSync(pdffile, data);
+                        submissionMetadata.fetched = true;
+                        return;
+                    });
+                    if (typeof wait_time_msec === 'undefined') {
+                        wait_time_msec = 30000;
+                    }
+                    sleepPromise = sleep(wait_time_msec);
+                    await sleepPromise;
+                }
+            }
+        });
+    });
+    socket.on('getSchoologySubmissionsMetadata', async function(grade_item_id, section_ids) {
+        var schoologySubmissionsMetadata = [];
+        client.hget(socket.id, 'schoologySubmissionsMetadata', function(err, res){
+            //if (res === null) {
+            if (false) {
+                var users = await new Promise(resolve => { api.getApiUsers(function(err, users) { resolve(users) }); })
+              //  console.log(users);
+                var usersObject = {};
+                for (user of users) {
+                    usersObject[user.lti_user_id.split("::")[0]] = user;
+                }
+                for (var section_id of sections_ids) {
+                    await schoology.getSubmissionsList(section_id,grade_item_id,'?with_attachments=TRUE').then(function(json) {
+                        var data = JSON.parse(json);
+                        for (let revision_item of data.revision) {
+                            file = revision_item.attachments.files.file[0];
+                            schoologySubmissionsMetadata.push({
+                                section_id: section_id,
+                                grade_item_id: grade_item_id,
+                                uid: revision_item.uid,
+                                user: usersObject[revision_item.uid],
+                                download_path: file.converted_download_path,
+                                filename: file.filename,
+                                fetched: false,
+                            })
+                        }
+                    });
+                    sleep(1000);
+                }
+                fs.writeFileSync('submissions.json', JSON.stringify(submissions, null, 4));
+                client.hmset(socket.id, ['schoologySubmissionsMetadata', JSON.stringify(schoologySubmissionsMetadata));
+            } else {
+                schoologySubmissionsMetadata = JSON.parse(res);
+            }
+            socket.emit("schoologySubmissionsMetadata", schoologySubmissionsMetadata);
         });
     });
     socket.on('getFeedback', function(board_ids){
