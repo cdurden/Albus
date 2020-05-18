@@ -7,6 +7,7 @@ angular.module('whiteboard-admin')
     templateUrl: "./templates/submissions.html",
     controller: function ($scope) {
       $scope.submissions = [];
+      $scope.submissionState = 'pending';
       Sockets.on('submission', function (data) {
         console.log(data);
         $scope.submissions.push(data);
@@ -14,7 +15,7 @@ angular.module('whiteboard-admin')
       Sockets.on('submissions', function (data) {
         $scope.submissions = data;
       });
-      Sockets.emit('getSubmissions');
+      Sockets.emit('getSubmissions', $scope.submissionState);
     },
   }
 }]);
