@@ -53,7 +53,7 @@ angular.module('whiteboard-admin')
                   if (i==1) {
                       dotSrcLines.push('"'+tasks[i-1]+'";')
                   }
-                  dotSrcLines.push(tasks[i])
+                  dotSrcLines.push('"'+tasks[i]+'";')
                   dotSrcLines.push('"'+tasks[i-1]+'" -> "'+tasks[i]+'";')
               }
               dotSrcLines.push('}');
