@@ -1,16 +1,16 @@
 <div>
 <div class="row">
-<form action="">
+<form id="import-submissions-form" action="">
 <input ng-model="grade_item_id" type="text" placeholder="Schoology grade item id" autofocus>
 
 
 <label ng-repeat="section in sections">
   <input
     type="checkbox"
-    name="section_id[]"
+    name="section_ids[]"
     value="{{section.schoology_id}}"
-    ng-checked="selection.indexOf(section) > -1"
-    ng-click="toggleSelection(section)" > {{section.description}}
+    ng-model="section.selected"
+    > {{section.description}}
 </label>
 
   <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" ng-change="getAssignmentTasks(selectedAssignment)">
