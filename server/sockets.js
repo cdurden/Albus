@@ -439,6 +439,7 @@ module.exports = function(server, session) {
         });
     });
     socket.on('getSections', function(course_id){
+        console.log("Getting sections");
         api.getSections(course_id, function(err, sections) {
             socket.emit('sections', sections);
         });
