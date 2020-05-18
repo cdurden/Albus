@@ -25,7 +25,7 @@ angular.module('whiteboard-admin')
       });
       Sockets.on('tasks', function (data) {
         console.log(data);
-        $scope.tasks = data.map(task,i => { return { source: task, selected: false, page: i });
+        $scope.tasks = data.map( (task, i) => { return { source: task, selected: false, page: i }; } );
       });
       Sockets.on('submission', function (data) {
         console.log(data);
