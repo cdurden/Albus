@@ -65,6 +65,13 @@ angular.module('whiteboard')
         message += type + ' element was ' + action + ' position ' + index;
         console.log(message);
     };
+    $scope.getFeedback = function() {
+        AdminSockets.emit('getFeedback');
+    }
+    AdminSockets.on('feedbackList', function(feedbackList) {
+        BoardData.updateFeedback(feedbackList);
+        BoardData.joinFeedbackToBoards();
+    }
     $scope.getFeedbackTemplates = function() {
         AdminSockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
     }

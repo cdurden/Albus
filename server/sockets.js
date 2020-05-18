@@ -435,6 +435,14 @@ module.exports = function(server, session) {
             });
         });
     });
+    socket.on('getFeedback', function(board_ids){
+        console.log("Loading feedback for board_ids"+(board_ids || []).join());
+        api.getFeedback(board_ids, function(err, feedbackList) {
+            console.log("Got feedback:");
+            console.log(feedbackList);
+            socket.emit('feedbackList', feedbackList);
+        });
+    });
     socket.on('getFeedbackTemplateCollections', function() {
         socket.emit('feedbackTemplateCollections', ['Generic','ScientificNotation','Computation','WorkShown','PythagoreanTheorem']);
     });
@@ -781,14 +789,6 @@ module.exports = function(server, session) {
     socket.on('getFeedbackReceived', function(board_ids){
         console.log("Loading feedback received for board_ids: "+(board_ids || []).join());
         getFeedbackReceived(socket, board_ids);
-    });
-    socket.on('getFeedback', function(board_ids){
-        console.log("Loading feedback for board_ids"+(board_ids || []).join());
-        api.getFeedback(board_ids, function(err, feedbackList) {
-            console.log("Got feedback:");
-            console.log(feedbackList);
-            socket.emit('feedbackList', feedbackList);
-        });
     });
     socket.on('loadFeedback', function(feedback_id){
         console.log("Loading feedback (feedback_id: "+feedback_id+")");

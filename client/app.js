@@ -250,7 +250,7 @@ angular.module('whiteboard', [
         $scope.submission_state = resource;
         EventHandler.loadSubmissions($scope.submission_state);
         //EventHandler.getFeedback(board_ids);
-        EventHandler.getFeedback();
+        //EventHandler.getFeedback();
     }
     if ($scope.mode === 'feedback') {
         $scope.feedback = resource;
