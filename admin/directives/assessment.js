@@ -47,13 +47,14 @@ angular.module('whiteboard-admin')
           method: 'GET',
           url: '/static/teaching_assets/assignments/'+newValue+'.json',
           transformResponse: [function (data) {
+              tasks = JSON.parse(data);
               var dotSrcLines = ['digraph {'];
-              for (var i=1; i<data.length;i++) {
+              for (var i=1; i<tasks.length;i++) {
                   if (i==1) {
-                      dotSrcLines.push(data[i-1])
+                      dotSrcLines.push(tasks[i-1])
                   }
-                  dotSrcLines.push(data[i])
-                  dotSrcLines.push(data[i-1]+' -> '+data[i]+';')
+                  dotSrcLines.push(tasks[i])
+                  dotSrcLines.push(tasks[i-1]+' -> '+tasks[i]+';')
               }
               dotSrcLines.push('}');
               return({ data: dotSrcLines.join("\n") });
