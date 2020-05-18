@@ -25,7 +25,7 @@ angular.module('whiteboard-admin')
       });
       Sockets.on('tasks', function (data) {
         console.log(data);
-        $scope.tasks = data;
+        $scope.tasks = data.map(task,i => { return { source: task, selected: false, page: i });
       });
       Sockets.on('submission', function (data) {
         console.log(data);
@@ -40,16 +40,19 @@ angular.module('whiteboard-admin')
       };
     
       // Watch sections for changes
-      $scope.$watch('sections|filter:{selected:true}', function (nv) {
-        $scope.selectedSections = nv.map(function (section) {
-          return section.id;
+      $scope.$watch('sections|filter:{selected:true}', function (kv) {
+        $scope.selectedSections = kv.map(function (section) {
+          return section.schoology_id;
         });
+      }, true);
+      $scope.$watch('tasks|filter:{selected:true}', function (tasks) {
+        $scope.selectedTasks = tasks;
       }, true);
     },
     link: function(scope, element, attrs, ctrls) { 
       element.find("#import-submissions-form").bind("submit",function(ev) {
           ev.preventDefault();
-          taskPagesObject = {};
+          taskPagesObject = scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
           importParameters = {
               section_ids: scope.selectedSections, 
               grade_item_id: scope.grade_item_id,

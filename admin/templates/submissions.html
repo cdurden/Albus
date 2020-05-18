@@ -26,15 +26,18 @@
           <td><label>
   <input
     type="checkbox"
-    name="tasks[]"
-    value="{{task}}"
-    ng-checked="selection.indexOf(task) > -1" > {{task}}
+    name="selected_tasks[]"
+    value="{{task.source}}"
+    ng-model="{{task.selected}}"
+    > {{task}}
 </label>
           </td>
   <td>
   <input
     type="text"
-    name="slides[]" > 
+    name="taskPages[]"
+    ng-model="task.page"
+    >
   </td>
       </tr>
   </table>
