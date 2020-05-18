@@ -7,11 +7,17 @@ angular.module('whiteboard-admin')
     templateUrl: "./templates/submissions.html",
     controller: function ($scope) {
       $scope.submissions = [];
+      $scope.sections = [];
+      $scope.assignments = [];
       $scope.submissionState = 'pending';
       Sockets.emit('getSections');
       $scope.getAssignmentTasks = function(assignment) {
           Sockets.emit('getAssignmentTasks', assignment);
       }
+      Sockets.on('sections', function (data) {
+        console.log(data);
+        $scope.sections = data;
+      });
       Sockets.on('assignments', function (data) {
         console.log(data);
         $scope.assignments = data;
