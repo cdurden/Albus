@@ -28,7 +28,7 @@ module.exports = function(server, session) {
   }));
   io.of('/admin').use(function(socket, next) {
       api.getApiUser(socket.handshake.session.passport.user, function(err, api_user) {
-          if (api_user.role !== 'admin') {
+          if (api_user.role !== 'teacher') {
               var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+' does not have admin role');
               next(error);
           } else {
