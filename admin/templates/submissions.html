@@ -21,10 +21,11 @@
         <td>submissionMetadata.fetched</td>
     </tr>
 </table>
-<button type="submit" class="submit">Download Metadata</button>
-<button type="button" class="button" ng-click="downloadSchoologySubmissions();">Download Submissions</button>
+<button type="submit" class="submit">Download metadata</button>
+<button type="button" class="button" ng-click="downloadSchoologySubmissions();">Download submissions</button>
 </form>
-
+</div>
+<div class="row">
 <form id="process-submissions-form" action="">
   <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" ng-change="getAssignmentTasks(selectedAssignment)">
       <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
@@ -54,6 +55,8 @@
   </td>
       </tr>
   </table>
+<button type="submit" class="submit">Process submissions</button>
+</form>
 </div>
 <div>
 <input ng-model="query" type="text"
