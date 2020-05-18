@@ -63,7 +63,6 @@ angular.module('whiteboard-admin')
           d3Promise.then(function() {
             d3.select("#assignment-graph").graphviz()
               .renderDot(response.data);
-            ev.preventDefault();
           });
         });
       });
