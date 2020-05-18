@@ -559,11 +559,13 @@ module.exports = function(server, session) {
                     sleep(1000);
                 }
                 fs.writeFileSync('submissions.json', JSON.stringify(submissions, null, 4));
-                client.hmset(socket.id, ['schoologySubmissionsMetadata', JSON.stringify(schoologySubmissionsMetadata));
+                client.hmset(socket.id, ['schoologySubmissionsMetadata', JSON.stringify(schoologySubmissionsMetadata)], function(err, res) {
+                    socket.emit("schoologySubmissionsMetadata", schoologySubmissionsMetadata);
+});
             } else {
                 schoologySubmissionsMetadata = JSON.parse(res);
+                socket.emit("schoologySubmissionsMetadata", schoologySubmissionsMetadata);
             }
-            socket.emit("schoologySubmissionsMetadata", schoologySubmissionsMetadata);
         });
     });
     socket.on('getFeedback', function(board_ids){
