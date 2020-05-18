@@ -51,10 +51,10 @@ angular.module('whiteboard-admin')
               var dotSrcLines = ['digraph {'];
               for (var i=1; i<tasks.length;i++) {
                   if (i==1) {
-                      dotSrcLines.push(tasks[i-1])
+                      dotSrcLines.push('"'+tasks[i-1]+'";')
                   }
                   dotSrcLines.push(tasks[i])
-                  dotSrcLines.push(tasks[i-1]+' -> '+tasks[i]+';')
+                  dotSrcLines.push('"'+tasks[i-1]+'" -> "'+tasks[i]+'";')
               }
               dotSrcLines.push('}');
               return({ data: dotSrcLines.join("\n") });
