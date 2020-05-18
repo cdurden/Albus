@@ -115,7 +115,7 @@ function uploadHandler(req, res) {
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
 */
-function getSections(callback) {
+function getSections(course_id, callback) { //FIXME: actually lookup sections by course_id
   request({
     url: `${scheme}://${host}:${port}/api/sections/`,
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
@@ -751,6 +751,7 @@ module.exports = {
     getFeedbackReceived: getFeedbackReceived,
     gradeSubmission: gradeSubmission,
     setSchoologyFeedbackMessageThread: setSchoologyFeedbackMessageThread,
+    getSections: getSections,
 
 //    uploadProxy: uploadProxy,
 }
