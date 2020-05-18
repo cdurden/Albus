@@ -75,6 +75,11 @@ angular.module('whiteboard-admin')
           $scope.feedbackTemplates = data;
       });
       Sockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
+      Sockets.emit('getFeedback');
+      Sockets.on('feedbackList', function (data) {
+          console.log(data);
+          $scope.feedbackList = data;
+      });
       /*
       Sockets.emit('getAssignments');
       Sockets.emit('getUsers');

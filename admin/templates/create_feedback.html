@@ -1,0 +1,81 @@
+<div nv-file-drop uploader="uploader" options="{url: '/upload'}">
+ <div class="container">
+   <div id="assignment-selector-container" class="row">
+    <div class="col-6">
+     <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" multiple>
+      <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
+     </select>
+    </div>
+    <div class="col-6">
+     <select id="task-selector" name="selectedTasks" ng-model="selectedTasks" multiple>
+      <option ng-repeat="task in tasks" value="{{task.source}}">{{task.data.title}}</option>
+     </select>
+    </div>
+   </div>
+   <div class="row">
+    <div class="dropzone col-8">
+     <input ng-model="query" type="text"
+           placeholder="Filter by" autofocus>
+     <ul dnd-list="users" class="itemlist">
+      <li ng-repeat="user in users | filter:query track by user.id"
+          dnd-draggable="user"
+          dnd-moved="list.splice($index, 1)"
+          dnd-effect-allowed="move"
+          dnd-selected="models.selected = user"
+          ng-class="{'selected': models.selected === user}"
+          >
+          {{user.firstname}} {{user.lastname}}
+      </li>
+     </ul>
+    </div>
+    <div class="dropzone col-4">
+     <input ng-model="feedbackTemplateCollection" type="text"
+           placeholder="Feedback template collection" autofocus>
+     <button ng-click="getFeedbackTemplates(); ev.preventDefault();">Update</button>
+     <select id="feedback-template-selector" name="selectedFeedbackTemplate" multiple ng-options="template.template as template.description for (key, template) in feedbackTemplates" ng-model="selectedTemplate">
+     </select>
+     <textarea style="width: 100%;" placeholder="Feedback template..." id="feedback-template-textview" ng-model="selectedTemplate" autocomplete="off" />
+    </div>
+   </div>
+   <form action="" id="create-feedback-form" class="form-container">
+    <fieldset>
+    <legend>Feedback case:</legend>
+    <div class="row" ng-repeat-start="feedbackUserList in feedbackUserLists">
+     <div class="col-8 dropzone">
+      <ul dnd-list="feedbackUserList" class="itemlist">
+       <!-- The dnd-draggable directive makes an element draggable and will
+            transfer the object that was assigned to it. If an element was
+            dragged away, you have to remove it from the original list
+            yourself using the dnd-moved attribute -->
+       <li ng-repeat="user in feedbackUserList"
+           dnd-draggable="user"
+           dnd-moved="list.splice($index, 1)"
+           dnd-effect-allowed="move"
+           dnd-selected="models.selected = user"
+           ng-class="{'selected': models.selected === user}"
+           >
+           {{user.firstname}} {{user.lastname}}
+       </li>
+      </ul>
+     </div>
+     <div class="col-4">
+      <input type="file" nv-file-select uploader="uploader"  options="{url: '/upload', formData: [{'task_json': task_json, 'selectedUsers': selectedUsers}] }"/><br/>
+      <ul>
+       <div class="file-drop-area" nv-file-over uploader="uploader">Drag file here</div>
+       <li ng-repeat="item in uploader.queue">
+           Name: <span ng-bind="item.file.name"></span><br/>
+           <button ng-click="item.upload()">upload</button>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div ng-repeat-end class="row">
+     <textarea style="width: 100%;" placeholder="Type instructions for task..." id="m" ng-model="task_json" autocomplete="off" />
+    </div>
+    </fieldset>
+    <button type="submit" class="submit">Create</button>
+   </form>
+   <button ng-click="feedbackUserLists.push([]); console.log(feedbackUserLists); ev.preventDefault();">Add Feedback Form</button>
+  </div>
+ </div>
+</div>
