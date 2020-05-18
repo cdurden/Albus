@@ -2,20 +2,7 @@
 <div class="row">
 <form action="">
 <input ng-model="grade_item_id" type="text" placeholder="Schoology grade item id" autofocus>
-  <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" ng-change="getAssignmentTasks(selectedAssignment)">
-      <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
-  </select>
 
-<label ng-repeat="task in tasks">
-  <input
-    type="checkbox"
-    name="tasks[]"
-    value="{{task}}"
-    ng-checked="selection.indexOf(task) > -1" > {{task}}
-  <input
-    type="text"
-    name="slides[]" > 
-</label>
 
 <label ng-repeat="section in sections">
   <input
@@ -25,6 +12,32 @@
     ng-checked="selection.indexOf(section) > -1"
     ng-click="toggleSelection(section)" > {{section.description}}
 </label>
+
+  <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" ng-change="getAssignmentTasks(selectedAssignment)">
+      <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
+  </select>
+
+  <table>
+      <tr>
+          <th>Task</th>
+          <th>Page number</th>
+      </tr>
+      <tr ng-repeat="task in tasks">
+          <td><label>
+  <input
+    type="checkbox"
+    name="tasks[]"
+    value="{{task}}"
+    ng-checked="selection.indexOf(task) > -1" > {{task}}
+</label>
+          </td>
+  <td>
+  <input
+    type="text"
+    name="slides[]" > 
+  </td>
+      </tr>
+  </table>
 <button type="submit" class="submit">Import</button>
 </form>
 </div>
