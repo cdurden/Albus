@@ -411,9 +411,14 @@ module.exports = function(server, session) {
       });
     });
     socket.on('getTasks', function(){
+        assets.getTaskAssets('tasks').then(function(taskAssets) {
+            socket.emit('tasks', taskAssets);
+        });
+        /*
       api.getTasksDataFromCollection('tasks', function(error, data) {
         socket.emit('tasks', data);
       });
+      */
     });
     socket.on('getTasksFromSources', function(taskSrcList){
         api.getTasksFromSources(taskSrcList, function(error, data) {
