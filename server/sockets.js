@@ -410,8 +410,11 @@ module.exports = function(server, session) {
         socket.emit('task', data);
       });
     });
-    socket.on('getTasks', function(){
-        assets.getTaskAssets(['tasks']).then(function(taskAssets) {
+    socket.on('getTasks', function(collections){
+        if (typeof collections === 'undefined') {
+            collections = ['tasks'];
+        }
+        assets.getTaskAssets(collections).then(function(taskAssets) {
             socket.emit('tasks', taskAssets);
         });
         /*
@@ -433,6 +436,11 @@ module.exports = function(server, session) {
                     }
                 });
             });
+        });
+    });
+    socket.on('getSections', function(course_id){
+        api.getSections(course_id, function(err, sections) {
+            socket.emit('sections', sections);
         });
     });
     socket.on('getFeedback', function(board_ids){

@@ -115,6 +115,20 @@ function uploadHandler(req, res) {
     proxy.web(req, res, { target: url, ignorePath: true }, function(e) { console.log("Received error while proxying."); console.log(e); })
 }
 */
+function getSections(callback) {
+  request({
+    url: `${scheme}://${host}:${port}/api/sections/`,
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body);
+      callback(null, data);
+    } else {
+      callback(error, null);
+    }
+  });
+}
 async function uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStorage_json, filepath) {
     return new Promise(resolve => {
         var formData = {

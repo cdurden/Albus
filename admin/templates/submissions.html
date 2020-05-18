@@ -1,3 +1,35 @@
+<div class="row">
+<form action="">
+<input ng-model="grade_item_id" type="text" placeholder="Schoology grade item id" autofocus>
+              <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" ng-change="getAssignmentTasks(selectedAssignment)">
+                  <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
+              </select>
+
+<label ng-repeat="task in tasks">
+  <input
+    type="checkbox"
+    name="tasks[]"
+    value="{{task}}"
+    ng-checked="selection.indexOf(task) > -1"
+  > {{task}}
+  <input
+    type="text"
+    name="slides[]"
+  > 
+</label>
+
+<label ng-repeat="section in sections">
+  <input
+    type="checkbox"
+    name="section_id[]"
+    value="{{section.id}}"
+    ng-checked="selection.indexOf(section) > -1"
+    ng-click="toggleSelection(section)"
+  > {{section.description}}
+</label>
+<button type="submit" class="submit">Import</button>
+</form>
+</div>
 <div>
 <input ng-model="query" type="text"
         placeholder="Filter by" autofocus>
