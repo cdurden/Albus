@@ -27,12 +27,14 @@ module.exports = function(server, session) {
       autoSave:true
   }));
   io.of('/admin').use(function(socket, next) {
-      if (socket.handshake.session.passport.user.role !== 'adming') {
-          var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+' does not have admin role');
-          next(error);
-      } else {
-          next();
-      }
+      api.getApiUser(socket.handshake.session.passport.user, function(api_user) {
+          if (api_user.role !== 'adming') {
+              var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+' does not have admin role');
+              next(error);
+          } else {
+              next();
+          }
+      });
   });
   io.of('/client').use((socket, next) => {
       console.log("Got packet");
