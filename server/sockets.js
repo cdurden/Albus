@@ -27,7 +27,7 @@ module.exports = function(server, session) {
   }));
   io.of('/admin').use(function(socket, next) {
       if (socket.handshake.session.passport.user.role !== 'adming') {
-          var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+" is does not have admin role');
+          var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+' does not have admin role');
           next(error);
       } else {
           next();
