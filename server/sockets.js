@@ -531,7 +531,7 @@ module.exports = function(server, session) {
     });
     socket.on('getSchoologySubmissionsMetadata', async function(grade_item_id, section_ids) {
         var schoologySubmissionsMetadata = [];
-        client.hget(socket.id, 'schoologySubmissionsMetadata', function(err, res){
+        client.hget(socket.id, 'schoologySubmissionsMetadata', async function(err, res){
             //if (res === null) {
             if (false) {
                 var users = await new Promise(resolve => { api.getApiUsers(function(err, users) { resolve(users) }); })
