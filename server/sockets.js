@@ -459,7 +459,7 @@ module.exports = function(server, session) {
         });
     });
     socket.on('processSchoologySubmissions', async function(taskPagesObject) {
-        client.hget(socket.id, 'schoologySubmissionsMetadata', function(err, res){
+        client.hget(socket.id, 'schoologySubmissionsMetadata', async function(err, res){
             schoologySubmissionsMetadata = JSON.parse(res);
             for (submissionMetadata of schoologySubmissionsMetadata) {
                 var pdffile = sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
