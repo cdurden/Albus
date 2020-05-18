@@ -169,7 +169,7 @@ module.exports = function(server, session) {
   function getFeedbackReceived(socket, board_ids) {
       api.getFeedbackReceived(socket.handshake.session, board_ids, function(err, feedbackList) {
           console.log("Got feedback");
-          console.log(feedbackList);
+          //console.log(feedbackList);
           if (feedbackList) {
               socket.emit('feedbackList', feedbackList);
           }
@@ -447,7 +447,7 @@ module.exports = function(server, session) {
         console.log("Loading feedback for board_ids"+(board_ids || []).join());
         api.getFeedback(board_ids, function(err, feedbackList) {
             console.log("Got feedback:");
-            console.log(feedbackList);
+            //console.log(feedbackList);
             socket.emit('feedbackList', feedbackList);
         });
     });
