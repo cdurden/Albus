@@ -14,12 +14,12 @@
         <th>Feedback</th>
     </tr>
 <tr ng-repeat="feedback in feedbackList | filter:query | orderBy: orderBy ">{{feedback}}
-    <td>{{ feedback.user.firstname }}</td>
-    <td>{{ feedback.user.lastname }}</td>
-    <td>{{ feedback.task.data.title }}</td>
+    <td>{{ feedback.submission.user.firstname }}</td>
+    <td>{{ feedback.submission.user.lastname }}</td>
+    <td>{{ feedback.submission.task.data.title }}</td>
     <td>{{ feedback.datetime }}</td>
     <td>{{ feedback.graded }}</td>
-    <td>{{ feedback.data.tags.join() }}</td>
+    <td>{{ feedback.data.feedback_tags.join() }}</td>
 </tr>
 </table>
 </div>
