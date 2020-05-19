@@ -48,7 +48,7 @@ angular.module('whiteboard-admin')
                 };
             },
             resolve: {
-                getSchoologySubmissionsMetadata = function () {
+                getSchoologySubmissionsMetadata: function () {
                     return $scope.getSchoologySubmissionsMetadata;
                 }
             }
