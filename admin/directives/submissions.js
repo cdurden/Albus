@@ -39,7 +39,7 @@ angular.module('whiteboard-admin')
             appendTo: undefined,
             controller: function($scope, $uibModalInstance, $log) { 
                 $scope.submit = function (ev) {
-                    $scope.getSchoologySubmissionsMetadata();
+                    $scope.$parent.getSchoologySubmissionsMetadata();
                     ev.preventDefault();
                 }
                 $scope.cancel = function () {
