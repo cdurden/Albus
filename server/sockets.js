@@ -484,7 +484,7 @@ module.exports = function(server, session) {
             for (submissionMetadata of schoologySubmissionsMetadata[grade_item_id]) {
                 var pdffile = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
                 for (let [taskSource, slide] of Object.entries(taskPagesObject)) {
-                    console.log("Generating image for task "+taskSource+" on slide "+slide+" of assignment "+assignments[submissionMetadata.grade_item_id]);
+                    console.log("Generating image for task "+taskSource+" on slide "+slide);
                     var boardId = util.generateRandomId(7);
                     var pdfImage = new PDFImage(pdffile,{
                       convertOptions: {
