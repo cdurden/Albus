@@ -18,12 +18,12 @@ angular.module('whiteboard-admin')
           Sockets.emit('processSchoologySubmissions', taskPagesObject);
           return false;
       }
-      $scope.getSchoologySubmissionsMetadata = function() {
+      $scope.getSchoologySubmissionsMetadata = function(confirmation_code) {
           //taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
           data = {
               grade_item_id: $scope.grade_item_id,
               section_ids: $scope.selectedSections, 
-              confirmationId: $scope.confirmationId,
+              confirmation_code: confirmation_code,
           } 
           Sockets.emit('getSchoologySubmissionsMetadata', data);
           $scope.confirmationId = null;
@@ -38,12 +38,12 @@ angular.module('whiteboard-admin')
             templateUrl: 'templates/confirmSchoology.html',
             appendTo: undefined,
             controller: function($scope, $uibModalInstance, $log) { 
-                $scope.submit = function () {
-                    callback();
+                $scope.submit = function(confirmation_code) {
+                    $scope.confirmation_code = null;
+                    callback(confirmation_code);
                     ev.preventDefault();
                 }
                 $scope.cancel = function () {
-                    $scope.confirmationId = null;
                     $uibModalInstance.dismiss('cancel'); 
                 };
             },
