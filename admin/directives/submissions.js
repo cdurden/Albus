@@ -38,7 +38,7 @@ angular.module('whiteboard-admin')
             templateUrl: 'templates/confirmSchoology.html',
             appendTo: undefined,
             controller: function($scope, $uibModalInstance, $log) { 
-                $scope.submit = function (ev) {
+                $scope.submit = function () {
                     $scope.$parent.getSchoologySubmissionsMetadata();
                     ev.preventDefault();
                 }
@@ -105,6 +105,7 @@ angular.module('whiteboard-admin')
           ev.preventDefault();
       });
       element.find("#get-submissions-metadata-form").bind("submit",function(ev) {
+          ev.preventDefault();
       });
 
     },
