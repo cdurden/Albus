@@ -29,7 +29,7 @@ angular.module('whiteboard-admin')
           $scope.confirmationId = null;
           return false;
       }
-      $scope.confirmSchoology = function() {
+      $scope.confirmSchoology = function(callback) {
           var modalInstance = $uibModal.open({
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
@@ -39,7 +39,7 @@ angular.module('whiteboard-admin')
             appendTo: undefined,
             controller: function($scope, $uibModalInstance, $log) { 
                 $scope.submit = function () {
-                    $scope.$parent.getSchoologySubmissionsMetadata();
+                    callback();
                     ev.preventDefault();
                 }
                 $scope.cancel = function () {
@@ -47,11 +47,11 @@ angular.module('whiteboard-admin')
                     $uibModalInstance.dismiss('cancel'); 
                 };
             },
-            resolve: {
-                getSchoologySubmissionsMetadata: function () {
-                    return $scope.getSchoologySubmissionsMetadata;
-                }
-            }
+//            resolve: {
+//                callback: function () {
+//                    return $scope.getSchoologySubmissionsMetadata;
+//                }
+//            }
           });
       }
       $scope.getAssignmentTasks = function(assignment) {
