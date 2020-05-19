@@ -173,6 +173,7 @@ module.exports = function(server, session) {
                   tasksObj = tasks.reduce(function(obj, task) { task.data = (taskAssets[task.source] || {}).data; obj[task.id] = task; return obj; }, {});
                   socket.emit('tasks', tasksObj);
                   */
+                  console.log("Emitting tasks from loadSubmissions");
                   socket.emit('tasks', taskAssets);
               });
           });
@@ -266,6 +267,7 @@ module.exports = function(server, session) {
                         console.log(boards);
                         socket.emit('boards', boards);
                         taskAssetsPromise.then(function(taskAssets) {
+                            console.log("Emitting tasks from loadBoards");
                             socket.emit('tasks', taskAssets);
                         });
                         /*
@@ -337,6 +339,7 @@ module.exports = function(server, session) {
             data = JSON.parse(body)
             api.getTasksFromSources(data, function(error, data) {
                 console.log(data);
+                console.log("Emitting tasks from getAssignedTasks");
                 socket.emit('tasks', data);
             });
           })  
@@ -428,6 +431,7 @@ module.exports = function(server, session) {
             collections = ['tasks'];
         }
         assets.getTaskAssets(collections).then(function(taskAssets) {
+            console.log("Emitting tasks from getTasks");
             socket.emit('tasks', taskAssets);
         });
         /*
@@ -443,6 +447,7 @@ module.exports = function(server, session) {
                 client.hget(socketId, 'tasks', function(err, result) {
                     try {
                       data = JSON.parse(result);
+                      console.log("Emitting tasks from getTasksFromSources");
                       socket.emit('tasks', data);
                     } catch {
                       return;
@@ -629,6 +634,7 @@ module.exports = function(server, session) {
               data = [];
             }
             api.getTasksFromSources(data, function(error, tasks) {
+                console.log("Emitting tasks from getAssignmentTasks");
                 socket.emit('tasks', data);
             });
         });
@@ -683,6 +689,7 @@ module.exports = function(server, session) {
                     client.hget(socketId, 'tasks', function(err, result) {
                         try {
                           data = JSON.parse(result);
+                          console.log("Emitting tasks from assignTasksToSocket");
                           socket.emit('tasks', data);
                         } catch {
                           return;
@@ -910,6 +917,7 @@ module.exports = function(server, session) {
         } else {
           rooms.loadBoard(socket.room, board, function() {
             assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
+                console.log("Emitting tasks from loadBoardFromApi");
                 socket.emit('tasks', taskAssets);
             });
             console.log("Sending board to client");
@@ -953,6 +961,7 @@ module.exports = function(server, session) {
                       //assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
                       console.log(board);
                       assets.getTaskAssets([feedback.submission.board.task.source]).then(function(taskAssets) {
+                          console.log("Emitting tasks from loadFeedback");
                           socket.emit('tasks', taskAssets);
                       });
                   //}
