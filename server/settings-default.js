@@ -6,4 +6,5 @@ module.exports = {
     assets_host: 'localhost',
     assets_port: 80,
     assets_path: '/static/teaching_assets/',
+    schoology_data_dir: '/tmp/schoology_data/',
 }
