@@ -44,9 +44,14 @@ angular.module('whiteboard-admin')
                 }
                 $scope.cancel = function () {
                     $scope.confirmationId = null;
-                    $modalInstance.dismiss('cancel'); 
+                    $uibModalInstance.dismiss('cancel'); 
                 };
             },
+            resolve: {
+                getSchoologySubmissionsMetadata = function () {
+                    return $scope.getSchoologySubmissionsMetadata;
+                }
+            }
           });
       }
       $scope.getAssignmentTasks = function(assignment) {
