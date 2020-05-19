@@ -41,7 +41,7 @@ angular.module('whiteboard-admin')
                     $scope.confirmation_code = null;
                     callback(confirmation_code);
                     ev.preventDefault();
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 }
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss('cancel'); 
