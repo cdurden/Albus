@@ -15,10 +15,10 @@
 
 <table>
     <tr ng-repeat="submissionMetadata in schoologySubmissionsMetadata[grade_item_id] || []">
-        <td>submissionMetadata.user.firstname</td>
-        <td>submissionMetadata.user.lastname</td>
-        <td>submissionMetadata.filename</td>
-        <td>submissionMetadata.fetched</td>
+        <td>{{submissionMetadata.user.firstname}}</td>
+        <td>{{submissionMetadata.user.lastname}}</td>
+        <td>{{submissionMetadata.filename}}</td>
+        <td>{{submissionMetadata.fetched}}</td>
     </tr>
 </table>
 <button type="button" class="button" ng-click="confirmSchoology(getSchoologySubmissionsMetadata);">Download metadata</button>
