@@ -14,7 +14,7 @@
 </label>
 
 <table>
-    <tr ng-repeat="submissionMetadata in schoologySubmissionsMetadata">
+    <tr ng-repeat="submissionMetadata in schoologySubmissionsMetadata[grade_item_id] || []">
         <td>submissionMetadata.user.firstname</td>
         <td>submissionMetadata.user.lastname</td>
         <td>submissionMetadata.filename</td>
