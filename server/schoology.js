@@ -161,7 +161,7 @@ var uploadFilesAndSendWithMessage = function(filepaths, recipient_ids, subject, 
 }
 var getSubmissionsList = function(section_id, grade_item_id, qs) {
     return new Promise( resolve => {
-        var url = "https://api.schoology.com/v1/sections/"+section_id+"/submissions/"+grade_item_id+"/"+qs,
+        var url = "https://api.schoology.com/v1/sections/"+section_id+"/submissions/"+grade_item_id+"/"+qs;
         console.log("Getting submission list from url: "+url);
         request.get(
             url,
