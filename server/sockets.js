@@ -14,6 +14,11 @@ var sanitize = require('sanitize-filename');
 const schoology = require('./schoology');
 const settings = require('./settings');
 const { promisify } = require("util");
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 module.exports = function(server, session) {
 
   var room = {};
@@ -578,7 +583,7 @@ module.exports = function(server, session) {
                             })
                         }
                     });
-                    sleep(1000);
+                    await sleep(10000);
                 }
                 fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(submissions, null, 4));
             //    client.hmset(socket.handshake.session.passport.user, ['schoologySubmissionsMetadata', JSON.stringify(schoologySubmissionsMetadata)], function(err, res) {
