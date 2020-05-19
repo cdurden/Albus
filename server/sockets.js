@@ -12,6 +12,7 @@ var auth = require('./auth');
 var async = require('async');
 var sanitize = require('sanitize-filename');
 const schoology = require('./schoology');
+const settings = require('./settings');
 const { promisify } = require("util");
 module.exports = function(server, session) {
 
