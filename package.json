@@ -33,6 +33,7 @@
     }
   },
   "dependencies": {
+    "pdf-image": "^2.0.0",
     "sanitize-filename": "^1.6.3",
     "md5-file": "^5.0.0",
     "express-fileupload": "^1.1.7-alpha.3",

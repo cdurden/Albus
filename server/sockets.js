@@ -19,6 +19,7 @@ function sleep(ms) {
     setTimeout(resolve, ms);
   });
 }
+var PDFImage = require("pdf-image").PDFImage;
 module.exports = function(server, session) {
 
   var room = {};
