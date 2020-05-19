@@ -578,6 +578,8 @@ module.exports = function(server, session) {
                 fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(submissions, null, 4));
             //    client.hmset(socket.handshake.session.passport.user, ['schoologySubmissionsMetadata', JSON.stringify(schoologySubmissionsMetadata)], function(err, res) {
 //});
+            } else {
+                console.log("Not updating on getSchoologySubmissionsMetadata event");
             }
             socket.emit("schoologySubmissionsMetadata", schoologySubmissionsMetadata);
 /*
