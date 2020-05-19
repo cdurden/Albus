@@ -545,7 +545,7 @@ module.exports = function(server, session) {
                 for (user of users) {
                     usersObject[user.lti_user_id.split("::")[0]] = user;
                 }
-                for (var section_id of sections_ids) {
+                for (var section_id of section_ids) {
                     await schoology.getSubmissionsList(section_id,grade_item_id,'?with_attachments=TRUE').then(function(json) {
                         var data = JSON.parse(json);
                         for (let revision_item of data.revision) {
