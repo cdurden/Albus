@@ -15,6 +15,8 @@ angular.module('whiteboard-admin')
       Sockets.emit('getSections');
       $scope.confirmSchoology = function() {
           var modalInstance = $uibModal.open({
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
             backdrop: true,
             templateUrl: 'templates/confirmSchoology.html',
             appendTo: undefined,
