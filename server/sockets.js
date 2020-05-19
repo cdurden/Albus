@@ -547,9 +547,10 @@ module.exports = function(server, session) {
             if (res === null) {
             //if (false) {
         */
-            var allow_update = false;
-            //var allow_update = true;
+            //var allow_update = false;
+            var allow_update = true;
             if (allow_update && confirmationId === grade_item_id) {
+                console.log("Updating schoologySubmissionsMetadata on getSchoologySubmissionsMetadata event");
                 var users = await new Promise(resolve => { api.getApiUsers(function(err, users) { resolve(users) }); })
               //  console.log(users);
                 var usersObject = {};
