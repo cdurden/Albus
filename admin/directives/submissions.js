@@ -18,6 +18,7 @@ angular.module('whiteboard-admin')
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             backdrop: true,
+            windowClass: 'modal',
             templateUrl: 'templates/confirmSchoology.html',
             appendTo: undefined,
             controller: function($scope, $uibModalInstance, $log) { 
