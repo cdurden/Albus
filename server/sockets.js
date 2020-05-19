@@ -532,7 +532,9 @@ module.exports = function(server, session) {
             }
         });
     });
-    socket.on('getSchoologySubmissionsMetadata', async function(grade_item_id, section_ids) {
+    socket.on('getSchoologySubmissionsMetadata', async function(data) {
+        var grade_item_id = data.grade_item_id;
+        var section_ids = data.section_ids;
         var schoologySubmissionsMetadata = [];
         client.hget(socket.id, 'schoologySubmissionsMetadata', async function(err, res){
             if (res === null) {

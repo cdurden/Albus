@@ -74,13 +74,11 @@ angular.module('whiteboard-admin')
       element.find("#get-submissions-metadata-form").bind("submit",function(ev) {
           ev.preventDefault();
           taskPagesObject = scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
-          /*
-          importParameters = {
-              section_ids: scope.selectedSections, 
+          data = {
               grade_item_id: scope.grade_item_id,
+              section_ids: scope.selectedSections, 
           } 
-          */
-          Sockets.emit('getSchoologySubmissionsMetadata', scope.grade_item_id, scope.selectedSections);
+          Sockets.emit('getSchoologySubmissionsMetadata', data);
           return false;
       });
 
