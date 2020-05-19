@@ -7,4 +7,5 @@ module.exports = {
     assets_port: 80,
     assets_path: '/static/teaching_assets/',
     schoology_data_dir: '/tmp/schoology_data/',
+    enable_schoology_interface: false,
 }
