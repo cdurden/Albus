@@ -19,7 +19,7 @@ angular.module('whiteboard-admin')
           return false;
       }
       $scope.getSchoologySubmissionsMetadata = function() {
-          taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
+          //taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
           data = {
               grade_item_id: $scope.grade_item_id,
               section_ids: $scope.selectedSections, 
