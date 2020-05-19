@@ -663,7 +663,7 @@ module.exports = function(server, session) {
         });
     });
     socket.on('getAssignments', function(){
-      assignments = ['ProductRule','QuotientRule','NegativeExponents','CorrectProductRule','CorrectQuotientRule','CorrectNegativeExponents','CorrectExponentRuleMistakesAdvanced','ExponentRulesColorByNumber']
+      assignments = ['ProductRule','QuotientRule','NegativeExponents','CorrectProductRule','CorrectQuotientRule','CorrectNegativeExponents','CorrectExponentRuleMistakesAdvanced','ExponentRulesColorByNumber','EquationsOfLinesReview']
       socket.emit('assignments', assignments);
 /*
       client.hmget(socket, assignmentIds, function(err, results) {
