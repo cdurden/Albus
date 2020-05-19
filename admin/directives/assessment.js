@@ -57,7 +57,7 @@ angular.module('whiteboard-admin')
                   dotSrcLines.push('"'+tasks[i-1]+'" -> "'+tasks[i]+'";')
               }
               dotSrcLines.push('}');
-              return({ data: dotSrcLines.join("\n") });
+              return({ data: dotSrcLines.join("\r") });
             // Do whatever you want!
           }]
         }).then(function success(response) {
