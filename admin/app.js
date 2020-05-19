@@ -1,4 +1,5 @@
 angular.module('whiteboard-admin', [
+    'ui.bootstrap',
     'dndLists',
     'angularFileUpload',
     'angularLoad',
