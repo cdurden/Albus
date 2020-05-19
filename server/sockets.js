@@ -552,6 +552,7 @@ module.exports = function(server, session) {
         //var schoologySubmissionsMetadata = [];
         //var schoologySubmissionsMetadata = {};
         var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
+        fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(schoologySubmissionsMetadata, null, 4));
         /*
         client.hget(socket.handshake.session.passport.user, 'schoologySubmissionsMetadata', async function(err, res){
             //var schoologySubmissionsMetadata = JSON.parse(res);
