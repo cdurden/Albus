@@ -13,6 +13,22 @@ angular.module('whiteboard-admin')
       $scope.submissionState = 'pending';
       $scope.schoologySubmissionsMetadata = [];
       Sockets.emit('getSections');
+      $scope.importSchoologySubmissions = function() {
+          taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
+          Sockets.emit('processSchoologySubmissions', taskPagesObject);
+          return false;
+      }
+      $scope.getSchoologySubmissionsMetadata = function() {
+          taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
+          data = {
+              grade_item_id: $scope.grade_item_id,
+              section_ids: $scope.selectedSections, 
+              confirmationId: $scope.confirmationId,
+          } 
+          Sockets.emit('getSchoologySubmissionsMetadata', data);
+          $scope.confirmationId = null;
+          return false;
+      }
       $scope.confirmSchoology = function() {
           var modalInstance = $uibModal.open({
             ariaLabelledBy: 'modal-title',
@@ -23,7 +39,7 @@ angular.module('whiteboard-admin')
             appendTo: undefined,
             controller: function($scope, $uibModalInstance, $log) { 
                 $scope.submit = function (ev) {
-                    element.find("#get-submissions-metadata-form").submit(ev);
+                    $scope.getSchoologySubmissionsMetadata();
                     ev.preventDefault();
                 }
                 $scope.cancel = function () {
@@ -87,21 +103,8 @@ angular.module('whiteboard-admin')
     link: function(scope, element, attrs, ctrls) { 
       element.find("#process-submissions-form").bind("submit",function(ev) {
           ev.preventDefault();
-          taskPagesObject = scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
-          Sockets.emit('processSchoologySubmissions', taskPagesObject);
-          return false;
       });
       element.find("#get-submissions-metadata-form").bind("submit",function(ev) {
-          ev.preventDefault();
-          taskPagesObject = scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
-          data = {
-              grade_item_id: scope.grade_item_id,
-              section_ids: scope.selectedSections, 
-              confirmationId: scope.confirmationId,
-          } 
-          Sockets.emit('getSchoologySubmissionsMetadata', data);
-          scope.confirmationId = null;
-          return false;
       });
 
     },
