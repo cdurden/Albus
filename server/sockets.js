@@ -618,7 +618,7 @@ module.exports = function(server, session) {
             socket.emit('feedbackTemplates', data);
         });
     });
-    socket.on('getAssignmentTasks', function(assignment){
+    socket.on('getAssignmentTasks', function(assignment){ // FIXME: this should probably return an object that contains the name of the assignment to avoid collisions between different model components on the page
         request({
             method: 'GET',
             url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
@@ -626,6 +626,7 @@ module.exports = function(server, session) {
               return data;
             }]
         }, function(error, response, body) {
+            var data;
             console.log("assignment data");
             console.log(body);
             if(!error && response.statusCode == 200) {
@@ -635,7 +636,7 @@ module.exports = function(server, session) {
             }
             api.getTasksFromSources(data, function(error, tasks) {
                 console.log("Emitting tasks from getAssignmentTasks");
-                socket.emit('tasks', data);
+                socket.emit('tasks', tasks);
             });
         });
     });
