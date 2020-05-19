@@ -473,9 +473,14 @@ module.exports = function(server, session) {
             socket.emit('clearSchoologySubmissionsMetadataSuccess', true);
         });
     });
-    socket.on('processSchoologySubmissions', async function(taskPagesObject) {
+    socket.on('importSchoologySubmissions', async function(data) {
+        var taskPagesObject = data.taskPagesObject;
+        var grade_item_id = data.grade_item_id;
+        /*
         client.hget(socket.handshake.session.passport.user, 'schoologySubmissionsMetadata', async function(err, res){
             schoologySubmissionsMetadata = JSON.parse(res);
+        */
+            var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
             for (submissionMetadata of schoologySubmissionsMetadata[grade_item_id]) {
                 var pdffile = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
                 for (let [taskSource, slide] of Object.entries(taskPagesObject[assignments[submissionMetadata.grade_item_id]])) {
@@ -515,7 +520,9 @@ module.exports = function(server, session) {
                     });
                 }
             }
+        /*
         });
+        */
     });
     socket.on('downloadSchoologySubmissions', async function(data) {
         var wait_time_msec;

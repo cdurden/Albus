@@ -14,8 +14,12 @@ angular.module('whiteboard-admin')
       $scope.schoologySubmissionsMetadata = [];
       Sockets.emit('getSections');
       $scope.importSchoologySubmissions = function() {
-          taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
-          Sockets.emit('processSchoologySubmissions', taskPagesObject);
+          var taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})
+          data = {
+              grade_item_id: $scope.grade_item_id,
+              taskPagesObject: taskPagesObject,
+          } 
+          Sockets.emit('importSchoologySubmissions', data);
           return false;
       }
       $scope.getSchoologySubmissionsMetadata = function(confirmation_code) {
