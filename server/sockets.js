@@ -483,7 +483,7 @@ module.exports = function(server, session) {
             var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
             for (submissionMetadata of schoologySubmissionsMetadata[grade_item_id]) {
                 var pdffile = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
-                for (let [taskSource, slide] of Object.entries(taskPagesObject[assignments[submissionMetadata.grade_item_id]])) {
+                for (let [taskSource, slide] of Object.entries(taskPagesObject)) {
                     console.log("Generating image for task "+taskSource+" on slide "+slide+" of assignment "+assignments[submissionMetadata.grade_item_id]);
                     var boardId = generateRandomId(7);
                     var pdfImage = new PDFImage(pdffile,{
