@@ -517,15 +517,21 @@ module.exports = function(server, session) {
             }
         });
     });
-    socket.on('downloadSchoologySubmissions', async function(wait_time_msec) {
+    socket.on('downloadSchoologySubmissions', async function(data) {
+        var wait_time_msec;
+        var confirmation_code = data.confirmation_code;
+        var grade_item_id = data.grade_item_id;
+        /*
         client.hget(socket.handshake.session.passport.user, 'schoologySubmissionsMetadata', async function(err, res){
-            var schoologySubmissionsMetadata;
             if (res === null) {
                 //schoologySubmissionsMetadata = [];
                 schoologySubmissionsMetadata = {};
             } else {
                 schoologySubmissionsMetadata = JSON.parse(res);
             }
+        */
+        if (settings.enable_schoology_interface && confirmation_code === grade_item_id) {
+            var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
             for (submissionMetadata of schoologySubmissionsMetadata[grade_item_id]) {
                 var pdffile = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
                 var sleepPromise;
@@ -537,13 +543,16 @@ module.exports = function(server, session) {
                         return;
                     });
                     if (typeof wait_time_msec === 'undefined') {
-                        wait_time_msec = 30000;
+                        wait_time_msec = 20000;
                     }
                     sleepPromise = sleep(wait_time_msec);
                     await sleepPromise;
                 }
             }
+        }
+        /*
         });
+        */
     });
     socket.on('getSchoologySubmissionsMetadata', async function(data) {
         var grade_item_id = data.grade_item_id;
@@ -552,7 +561,7 @@ module.exports = function(server, session) {
         //var schoologySubmissionsMetadata = [];
         //var schoologySubmissionsMetadata = {};
         var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
-        fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(schoologySubmissionsMetadata, null, 4));
+        //fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(schoologySubmissionsMetadata, null, 4));
         /*
         client.hget(socket.handshake.session.passport.user, 'schoologySubmissionsMetadata', async function(err, res){
             //var schoologySubmissionsMetadata = JSON.parse(res);

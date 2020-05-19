@@ -76,8 +76,12 @@ angular.module('whiteboard-admin')
       Sockets.on('submissions', function (data) {
         $scope.submissions = data;
       });
-      $scope.downloadSchoologySubmissions = function() {
-          Sockets.emit('downloadSchoologySubmissions');
+      $scope.downloadSchoologySubmissions = function(confirmation_code) {
+          data = {
+              grade_item_id: $scope.grade_item_id,
+              confirmation_code: confirmation_code,
+          } 
+          Sockets.emit('downloadSchoologySubmissions', data);
       }
       $scope.clearSchoologySubmissionsMetadata = function() {
           Sockets.emit('clearSchoologySubmissionsMetadata');
