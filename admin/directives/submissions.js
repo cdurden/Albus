@@ -5,7 +5,7 @@ angular.module('whiteboard-admin')
     require: ['wbAdminSubmissions'],
     replace: true,
     templateUrl: "./templates/submissions.html",
-    controller: function ($scope) {
+    controller: function ($scope, $uibModal) {
       $scope.submissions = [];
       $scope.selectedSections = [];
       $scope.sections = [];
@@ -13,6 +13,20 @@ angular.module('whiteboard-admin')
       $scope.submissionState = 'pending';
       $scope.schoologySubmissionsMetadata = [];
       Sockets.emit('getSections');
+      var modalInstance = $uibModal.open({
+        backdrop: true,
+        templateUrl: 'templates/confirmSchoology.html',
+        controller: function($scope, $uibModalInstance, $log) { 
+            $scope.submit = function (ev) {
+                element.find("#get-submissions-metadata-form").submit(ev);
+                ev.preventDefault();
+            }
+            $scope.cancel = function () {
+                $scope.confirmationId = null;
+                $modalInstance.dismiss('cancel'); 
+            };
+        },
+      });
       $scope.getAssignmentTasks = function(assignment) {
           Sockets.emit('getAssignmentTasks', assignment);
       }
@@ -77,8 +91,10 @@ angular.module('whiteboard-admin')
           data = {
               grade_item_id: scope.grade_item_id,
               section_ids: scope.selectedSections, 
+              confirmationId: scope.confirmationId,
           } 
           Sockets.emit('getSchoologySubmissionsMetadata', data);
+          scope.confirmationId = null;
           return false;
       });
 

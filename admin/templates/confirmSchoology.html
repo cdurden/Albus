@@ -1,0 +1,15 @@
+<div>
+        <div class="modal-header">
+            <h3>Confirm Schoology action</h3>
+        </div>
+        <form ng-submit="submit()">
+          <div class="modal-body">
+            <label>Entity ID:</label>
+            <input type="text" ng-model="confirmationId" />
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+              <input type="submit" class="btn primary-btn" value="Submit" />
+          </div>
+        </form>
+</div>
