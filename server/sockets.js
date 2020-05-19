@@ -585,7 +585,7 @@ module.exports = function(server, session) {
                     });
                     await sleep(10000);
                 }
-                fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(submissions, null, 4));
+                fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(schoologySubmissionsMetadata, null, 4));
             //    client.hmset(socket.handshake.session.passport.user, ['schoologySubmissionsMetadata', JSON.stringify(schoologySubmissionsMetadata)], function(err, res) {
 //});
             } else {
