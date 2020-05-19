@@ -26,7 +26,6 @@ angular.module('whiteboard-admin')
               confirmation_code: confirmation_code,
           } 
           Sockets.emit('getSchoologySubmissionsMetadata', data);
-          $scope.confirmationId = null;
           return false;
       }
       $scope.confirmSchoology = function(callback) {
