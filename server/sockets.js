@@ -538,7 +538,7 @@ module.exports = function(server, session) {
     socket.on('getSchoologySubmissionsMetadata', async function(data) {
         var grade_item_id = data.grade_item_id;
         var section_ids = data.section_ids;
-        var confirmationId = data.confirmationId;
+        var confirmation_code = data.confirmation_code;
         //var schoologySubmissionsMetadata = [];
         //var schoologySubmissionsMetadata = {};
         var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
@@ -548,7 +548,7 @@ module.exports = function(server, session) {
             if (res === null) {
             //if (false) {
         */
-            if (settings.enable_schoology_interface && confirmationId === grade_item_id) {
+            if (settings.enable_schoology_interface && confirmation_code === grade_item_id) {
                 console.log("Updating schoologySubmissionsMetadata on getSchoologySubmissionsMetadata event");
                 var users = await new Promise(resolve => { api.getApiUsers(function(err, users) { resolve(users) }); })
               //  console.log(users);
