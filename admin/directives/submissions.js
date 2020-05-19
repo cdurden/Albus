@@ -80,7 +80,7 @@ angular.module('whiteboard-admin')
               grade_item_id: scope.grade_item_id,
           } 
           */
-          Sockets.emit('getSchoologySubmissionsMetadata', grade_item_id, section_ids);
+          Sockets.emit('getSchoologySubmissionsMetadata', scope.grade_item_id, scope.selectedSections);
           return false;
       });
 
