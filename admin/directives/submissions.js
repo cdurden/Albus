@@ -13,20 +13,23 @@ angular.module('whiteboard-admin')
       $scope.submissionState = 'pending';
       $scope.schoologySubmissionsMetadata = [];
       Sockets.emit('getSections');
-      var modalInstance = $uibModal.open({
-        backdrop: true,
-        templateUrl: 'templates/confirmSchoology.html',
-        controller: function($scope, $uibModalInstance, $log) { 
-            $scope.submit = function (ev) {
-                element.find("#get-submissions-metadata-form").submit(ev);
-                ev.preventDefault();
-            }
-            $scope.cancel = function () {
-                $scope.confirmationId = null;
-                $modalInstance.dismiss('cancel'); 
-            };
-        },
-      });
+      $scope.confirmSchoology = function() {
+          var modalInstance = $uibModal.open({
+            backdrop: true,
+            templateUrl: 'templates/confirmSchoology.html',
+            appendTo: undefined,
+            controller: function($scope, $uibModalInstance, $log) { 
+                $scope.submit = function (ev) {
+                    element.find("#get-submissions-metadata-form").submit(ev);
+                    ev.preventDefault();
+                }
+                $scope.cancel = function () {
+                    $scope.confirmationId = null;
+                    $modalInstance.dismiss('cancel'); 
+                };
+            },
+          });
+      }
       $scope.getAssignmentTasks = function(assignment) {
           Sockets.emit('getAssignmentTasks', assignment);
       }
