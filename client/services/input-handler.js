@@ -222,6 +222,7 @@ angular.module('whiteboard.services.inputhandler', [])
         }
       }
 
+        /*
       document.onkeydown = function (ev) {
         BoardData.setEditorShape(currentShape);
         var editorShape = BoardData.getEditorShape();
@@ -235,6 +236,7 @@ angular.module('whiteboard.services.inputhandler', [])
           }
         }
       }
+      */
 
     },
     mouseHold: function (ev) {
