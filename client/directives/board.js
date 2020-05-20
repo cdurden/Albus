@@ -40,11 +40,9 @@ angular.module('whiteboard')
       $('body').on('keypress', function (ev) {
         boardCtrl.handleEvent(ev);
       });
-        /*
-      $document.keydown(function (ev) {
-        boardCtrl.handleEvent(ev);
+      $document.on('keydown', function (ev) {
+        boardCtrl.handleKeydown(ev);
       });
-      */
     }
   }
 }]);
