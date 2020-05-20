@@ -9,9 +9,11 @@ angular.module('whiteboard')
       this.handleEvent = function (ev) {
         InputHandler[ev.type](ev);
       }
+        /*
       $scope.handleEvent = function(ev) {
         InputHandler[ev.type](ev);
       };
+      */
       this.handleKeydown = function(ev) {
         InputHandler['keydown'](ev);
       }
