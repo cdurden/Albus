@@ -641,7 +641,7 @@ module.exports = function(server, session) {
         });
     });
     socket.on('getFeedbackTemplateCollections', function() {
-        socket.emit('feedbackTemplateCollections', ['Generic','ScientificNotation','Computation','WorkShown','PythagoreanTheorem']);
+        socket.emit('feedbackTemplateCollections', ['Generic','ScientificNotation','Computation','WorkShown','PythagoreanTheorem','GraphingLinearEquations']);
     });
     socket.on('getFeedbackTemplates', function(collection){
         request({
