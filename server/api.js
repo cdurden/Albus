@@ -523,14 +523,14 @@ async function createFeedback(session, data, callback) {
   );
 }
 async function submit(session, data, callback) {
-  data.task_id = data.task_id;
+  //data.task_id = data.task_id;
   data.lti_user_id = await getActingSessionUser(session);
   console.log("Submitting a task response for lti_user_id: "+data.lti_user_id);
   var url;
-  if (typeof data.task_id !== 'undefined') {
-      url = `${scheme}://${host}:${port}/api/task/${data.task_id}/submissions/`;
+  if (typeof data.task.id !== 'undefined') {
+      url = `${scheme}://${host}:${port}/api/task/${data.task.id}/submissions/`;
   } else {
-      url = `${scheme}://${host}:${port}/api/task/source/${data.taskSource}/submissions/`;
+      url = `${scheme}://${host}:${port}/api/task/source/${data.task.source}/submissions/`;
   }
   request.post(url, {
     headers : { "Authorization" : "Bearer " + auth.api_auth_token },
