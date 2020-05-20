@@ -223,9 +223,11 @@ module.exports = function(server, session) {
                                 if (typeof (board || {}).id !== 'undefined') {
                                     console.log("received a board from the api");
                                     board.taskSource = taskSource;
+                                    board.task = task; 
                                     //rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomStorage) {
                                     rooms.getBoard(rooms.getRoomId(socket), board.boardId).then(function(roomBoard) {
-                                        if (typeof roomBoard !== 'undefined') {
+                                        //if (typeof roomBoard !== 'undefined') {
+                                        if (roomBoard) {
                                             board.roomShapeStorage = roomBoard.shapeStorage;// TODO: If there is already a board with this id loaded in the room, ask the user whether to load it as a new board or use the version from the room
                                             board.apiShapeStorage = board.shapeStorage;//FIXME: remove this to decrease data transfer
                                             // load the board from the room instead of the api. FIXME: should check which is newer
@@ -237,14 +239,15 @@ module.exports = function(server, session) {
                                     });
                                 } else { // board was not received from the API
                                     console.log("Getting or creating task board in node process");
-                                    rooms.getOrCreateTaskBoard(socket, task.source, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
-                                        board.task_id = task.id;
+                                    rooms.getOrCreateTaskBoard(socket, task, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                                        //board.task_id = task.id;
+                                        //board.task = task; //FIXME: maybe this should be moved into the getOrCreateTaskBoard method
                                         resolve(board);
                                     });
                                 }
                             });
                         } else { //task was not received from API
-                            rooms.getOrCreateTaskBoard(socket, taskSource, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
+                            rooms.getOrCreateTaskBoard(socket, {'source': taskSource }, function(err, board) { // FIXME: the return values of rooms methods suffer from a lack of parallelism
                                 resolve(board);
                             });
                         }
@@ -1019,6 +1022,7 @@ module.exports = function(server, session) {
             }
         });
     });
+      /*
     socket.on('getOrCreateTaskBoard', function(task_id) {
       //api.getTaskBoard(socket.handshake.session, task_id, function(err, board) {
       api.getLatestBoard(socket.handshake.session, task_id, function(err, board) {
@@ -1030,12 +1034,13 @@ module.exports = function(server, session) {
           });
         } else {
           console.log("Creating new task board");
-          rooms.getOrCreateTaskBoard(socket, task_id, function(error, board) {
+          rooms.getOrCreateTaskBoard(socket, { 'id': task_id }, function(error, board) {
             socket.emit('board', board);
           });
         }
       });
     });
+    */
     socket.on('editFeedback', function(data){
       newBoardId = util.generateRandomId(6);
       saveBoardToApi(socket, data, saveAs=newBoardId).then(function(board) {
