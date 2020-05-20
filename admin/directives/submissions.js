@@ -16,12 +16,12 @@ angular.module('whiteboard-admin')
       $scope.toggleSelectAllSubmissions = function() {
           if ($scope.allSubmissionsSelected) {
               $scope.allSubmissionsSelected = false;
-              for (submissionMetadata of $scope.schoologySubmissionsMetadata) {
+              for (submissionMetadata of $scope.schoologySubmissionsMetadata[$scope.grade_item_id]) {
                   submissionMetadata.selected = false;
               }
           } else {
               $scope.allSubmissionsSelected = true;
-              for (submissionMetadata of $scope.schoologySubmissionsMetadata) {
+              for (submissionMetadata of $scope.schoologySubmissionsMetadata[$scope.grade_item_id]) {
                   submissionMetadata.selected = true;
               }
           }
