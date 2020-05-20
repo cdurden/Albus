@@ -560,7 +560,7 @@ module.exports = function(server, session) {
                 if (!fs.existsSync(pdfpath)) {
                     console.log("Downloading "+pdfpath);
                     await schoology.downloadSubmission(submissionMetadata.download_path).then(function(data) {
-                        fs.writeFileSync(pdffile, data);
+                        fs.writeFileSync(pdfpath, data);
                         submissionMetadata.fetched = true;
                         submissionMetadata.selected = true;
                         return;
