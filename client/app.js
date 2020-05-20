@@ -226,7 +226,7 @@ angular.module('whiteboard', [
     this.handleKeydown = function(ev) {
         InputHandler['keydown'](ev);
     }
-})
+}])
 .controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'InputHandler', 'Sockets', 'EventHandler', 'userData', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, InputHandler, Sockets, EventHandler, userData, mode, resource) {
 //.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
     $scope.userData = userData;
