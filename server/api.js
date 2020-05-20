@@ -135,6 +135,7 @@ async function uploadBoard(lti_user_id, boardId, taskSource, task_id, shapeStora
             'lti_user_id': lti_user_id,
             'boardId': boardId,
             'taskSource': taskSource,
+            //'task': { 'source': taskSource },
             'shapeStorage_json': shapeStorage_json,
             'file': fs.createReadStream(filepath),
         }
@@ -339,7 +340,9 @@ async function saveBoard(session, data, callback) {
   console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
   data = { 
       'lti_user_id': lti_user_id, 
-      'task_id': data.task_id,
+      //'task': { 'id': data.task.id, 'source': data.task.source },
+      'task_id': data.task.id,
+      'taskSource': data.task.source,
       'boardId': data.boardId,
       'background_image': data.background_image,
       'shapeStorage_json': shapeStorage_json,
