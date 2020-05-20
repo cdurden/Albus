@@ -12,6 +12,20 @@ angular.module('whiteboard-admin')
       $scope.assignments = [];
       $scope.submissionState = 'pending';
       $scope.schoologySubmissionsMetadata = [];
+      $scope.allSubmissionsSelected = false;
+      $scope.toggleSelectAllSubmissions = function() {
+          if ($scope.allSubmissionsSelected) {
+              $scope.allSubmissionsSelected = false;
+              for (submissionMetadata in $scope.schoologySubmissionsMetadata) {
+                  submissionMetadata.selected = false;
+              }
+          } else {
+              $scope.allSubmissionsSelected = true;
+              for (submissionMetadata in $scope.schoologySubmissionsMetadata) {
+                  submissionMetadata.selected = true;
+              }
+          }
+      }
       Sockets.emit('getSections');
       $scope.importSchoologySubmissions = function() {
           var taskPagesObject = $scope.selectedTasks.reduce((obj, task) => { obj[task.source] = task.page; return obj; }, {})

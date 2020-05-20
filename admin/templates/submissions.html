@@ -14,6 +14,31 @@
 </label>
 
 <table>
+    <tr>
+        <th>
+  <input
+    type="checkbox"
+    name="allSubmissionsSelected"
+    ng-model="allSubmissionsSelected"
+    ng-click="toggleSelectAllSubmissions();"
+    >
+        </th>
+        <th>
+            Firstname
+        </th>
+        <th>
+            Lastname
+        </th>
+        <th>
+            Filename
+        </th>
+        <th>
+            Fetched
+        </th>
+        <th>
+            Download link
+        </th>
+    </tr>
     <tr ng-repeat="submissionMetadata in schoologySubmissionsMetadata[grade_item_id] || []">
         <td>
   <input
