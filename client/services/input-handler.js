@@ -454,7 +454,7 @@ angular.module('whiteboard.services.inputhandler', [])
     if (toolName !== 'text') {
       if (ev.keyCode === 34) { //page down
           if (!(['TEXTAREA', 'INPUT'].includes(ev.target.tagName))) {
-              var i = Math.min(BoardData.getBoardData().boards.length,BoardData.getBoardIndex()+10)
+              var i = Math.min(BoardData.getBoardData().boardIdsList.length,BoardData.getBoardIndex()+10)
               BoardData.setBoardIndex(i);
           }
       }
