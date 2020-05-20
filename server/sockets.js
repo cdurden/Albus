@@ -478,6 +478,12 @@ module.exports = function(server, session) {
         var taskPagesObject = data.taskPagesObject;
         var grade_item_id = data.grade_item_id;
         var schoologySubmissionsMetadata = data.schoologySubmissionsMetadata;
+        var users = await new Promise(resolve => { api.getApiUsers(function(err, users) { resolve(users) }); })
+      //  console.log(users);
+        var usersObject = {};
+        for (user of users) {
+            usersObject[user.lti_user_id.split("::")[0]] = user;
+        }
         /*
         client.hget(socket.handshake.session.passport.user, 'schoologySubmissionsMetadata', async function(err, res){
             schoologySubmissionsMetadata = JSON.parse(res);
