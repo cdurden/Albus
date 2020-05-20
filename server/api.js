@@ -336,8 +336,13 @@ async function saveBoard(session, data, callback) {
   lti_user_id = await getActingSessionUser(session);
   //console.log(Object.keys(data.shapeStorage));
   console.log("Saving board for lti_user_id: "+lti_user_id);
-  shapeStorage_json = JSON.stringify(data.shapeStorage);
-  console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
+  var shapeStorage_json;
+  if (shapeStorage !== 'undefined') {
+      shapeStorage_json = JSON.stringify(data.shapeStorage);
+      console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
+  } else {
+      console.log("shapeStorage is undefined");
+  }
   data = { 
       'lti_user_id': lti_user_id, 
       //'task': { 'id': data.task.id, 'source': data.task.source },
