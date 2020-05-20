@@ -212,7 +212,7 @@ angular.module('whiteboard.services.inputhandler', [])
           EventHandler.finishShape(id, socketId, boardId, editorShape.tool);
           Broadcast.finishShape(id, boardId, editorShape.tool);
           editorShape = null;
-          document.onkeydown = document.onkeypress = function () {};
+          //document.onkeydown = document.onkeypress = function () {};
         } else {
           // typing text
           editorShape.attr('text', editorShape.attr('text') + String.fromCharCode(ev.keyCode));

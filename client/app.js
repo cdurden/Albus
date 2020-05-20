@@ -222,10 +222,13 @@ angular.module('whiteboard', [
       requireBase: false
     });
 }])
-.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'Sockets', 'EventHandler', 'userData', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, Sockets, EventHandler, userData, mode, resource) {
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'InputHandler', 'Sockets', 'EventHandler', 'userData', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, InputHandler, Sockets, EventHandler, userData, mode, resource) {
 //.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
     $scope.userData = userData;
     $scope.mode = mode;
+    $scope.handleKeydown = function(ev) {
+        InputHandler['keydown'](ev);
+    }
     if ($scope.mode === 'assignment') {
         if (resource) {
             $scope.assignment = resource;
