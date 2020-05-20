@@ -337,7 +337,7 @@ async function saveBoard(session, data, callback) {
   //console.log(Object.keys(data.shapeStorage));
   console.log("Saving board for lti_user_id: "+lti_user_id);
   var shapeStorage_json;
-  if (shapeStorage !== 'undefined') {
+  if (typeof data.shapeStorage !== 'undefined') {
       shapeStorage_json = JSON.stringify(data.shapeStorage);
       console.log("shapeStorage is "+shapeStorage_json.length+" bytes");
   } else {
