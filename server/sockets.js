@@ -562,6 +562,7 @@ module.exports = function(server, session) {
                     await schoology.downloadSubmission(submissionMetadata.download_path).then(function(data) {
                         fs.writeFileSync(pdffile, data);
                         submissionMetadata.fetched = true;
+                        submissionMetadata.selected = true;
                         return;
                     });
                     if (typeof wait_time_msec === 'undefined') {
@@ -571,6 +572,7 @@ module.exports = function(server, session) {
                     await sleepPromise;
                 }
             }
+            fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(schoologySubmissionsMetadata, null, 4));
         }
         /*
         });
@@ -607,12 +609,13 @@ module.exports = function(server, session) {
                             schoologySubmissionsMetadata[grade_item_id].push({
                                 section_id: section_id,
                                 grade_item_id: grade_item_id,
+                                revision_id: revision_item.revision_id,
                                 uid: revision_item.uid,
                                 user: usersObject[revision_item.uid],
                                 download_path: file.converted_download_path,
                                 filename: file.filename,
                                 fetched: false,
-                                selected: true,
+                                //selected: true,
                             })
                         }
                     });
