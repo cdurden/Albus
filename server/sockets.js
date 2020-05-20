@@ -510,7 +510,7 @@ module.exports = function(server, session) {
                       //var file = fs.createReadStream(imagePath);
                       await new Promise(resolve => {
                         console.log(submissionMetadata);
-                        var lti_user_id = usersObject[submissionMetadata.uid];
+                        var lti_user_id = usersObject[submissionMetadata.uid].lti_user_id;
                         //console.log(lti_user_id);
                         api.uploadBoard(lti_user_id, boardId, taskSource, undefined, "{}", imagePath).then(function(board) {
                             //console.log(board);
