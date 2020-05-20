@@ -18,6 +18,7 @@ angular.module('whiteboard-admin')
           data = {
               grade_item_id: $scope.grade_item_id,
               taskPagesObject: taskPagesObject,
+              schoologySubmissionsMetadata: $scope.schoologySubmissionsMetadata,
           } 
           Sockets.emit('importSchoologySubmissions', data);
           return false;
@@ -109,6 +110,15 @@ angular.module('whiteboard-admin')
           return section.schoology_id;
         });
       }, true);
+      // Watch sections for changes
+      $scope.$watch('schoologySubmissionsMetadata|filter:{selected:true}', function (kv) {
+        $scope.selectedSubmissions = kv.map(function (submissionsMetadata,i) {
+          return i;
+        });
+      }, true);
+      $scope.getSelectedSubmissions = function getSelectedSubmissions() {
+        return filterFilter($scope.schoologySubmissionsMetadata, { selected: true });
+      };
       $scope.$watch('tasks|filter:{selected:true}', function (tasks) {
         $scope.selectedTasks = tasks;
       }, true);

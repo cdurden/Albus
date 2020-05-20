@@ -477,12 +477,16 @@ module.exports = function(server, session) {
     socket.on('importSchoologySubmissions', async function(data) {
         var taskPagesObject = data.taskPagesObject;
         var grade_item_id = data.grade_item_id;
+        var schoologySubmissionsMetadata = data.schoologySubmissionsMetadata;
         /*
         client.hget(socket.handshake.session.passport.user, 'schoologySubmissionsMetadata', async function(err, res){
             schoologySubmissionsMetadata = JSON.parse(res);
         */
-            var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
+//            var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
             for (submissionMetadata of schoologySubmissionsMetadata[grade_item_id]) {
+                if (!(submissionMetadata.selected)) {
+                    continue;
+                }
                 var pdffile = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
                 for (let [taskSource, slide] of Object.entries(taskPagesObject)) {
                     console.log("Generating image for task "+taskSource+" on slide "+slide);
@@ -520,7 +524,9 @@ module.exports = function(server, session) {
                       });
                     });
                 }
+                submissionMetadata.selected = false;
             }
+            fs.writeFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json', JSON.stringify(schoologySubmissionsMetadata, null, 4));
         /*
         });
         */
@@ -598,6 +604,7 @@ module.exports = function(server, session) {
                                 download_path: file.converted_download_path,
                                 filename: file.filename,
                                 fetched: false,
+                                selected: true,
                             })
                         }
                     });

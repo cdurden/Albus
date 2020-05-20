@@ -15,6 +15,14 @@
 
 <table>
     <tr ng-repeat="submissionMetadata in schoologySubmissionsMetadata[grade_item_id] || []">
+        <td>
+  <input
+    type="checkbox"
+    name="selectedSubmissions[]"
+    value="{{$index}}"
+    ng-model="submissionMetadata.selected"
+    >
+        </td>
         <td>{{submissionMetadata.user.firstname}}</td>
         <td>{{submissionMetadata.user.lastname}}</td>
         <td>{{submissionMetadata.filename}}</td>
