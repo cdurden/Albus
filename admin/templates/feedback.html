@@ -22,7 +22,7 @@
     <td>{{ feedback.datetime }}</td>
     <td>{{ feedback.graded }}</td>
     <td>{{ feedback.data.feedback_tags.join() }}</td>
-    <td><a ng-href="https://app.schoology.com/messages/view/{{ feedback.data.schoology_message_id }}" target="_blank">Open</a></td>
+    <td><a ng-show="feedback.schoology_message_id" ng-href="https://app.schoology.com/messages/view/{{ feedback.schoology_message_id }}" target="_blank">Open</a></td>
     <td><button ng-click="sendSchoologyMessage(feedback)">Send</button></td>
 </tr>
 </table>
