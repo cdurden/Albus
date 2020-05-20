@@ -452,6 +452,18 @@ angular.module('whiteboard.services.inputhandler', [])
     var toolName = parseToolName(BoardData.getCurrentTool().name);
 
     if (toolName !== 'text') {
+      if (ev.keyCode === 34) { //page down
+          if (!(['TEXTAREA', 'INPUT'].includes(ev.target.tagName))) {
+              var i = Math.min(BoardData.getBoardData().boards.length,BoardData.getBoardIndex()+10)
+              BoardData.setBoardIndex(i);
+          }
+      }
+      if (ev.keyCode === 33) { //page up
+          if (!(['TEXTAREA', 'INPUT'].includes(ev.target.tagName))) {
+              var i = Math.max(0,BoardData.getBoardIndex()-10)
+              BoardData.setBoardIndex(i);
+          }
+      }
       if (ev.keyCode === 39) { //right arrow
           if (!(['TEXTAREA', 'INPUT'].includes(ev.target.tagName))) {
               BoardData.setBoardIndex(BoardData.getBoardIndex()+1);
