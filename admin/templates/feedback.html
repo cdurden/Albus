@@ -12,6 +12,8 @@
         <th>Submitted</th>
         <th>Graded</th>
         <th>Feedback</th>
+        <th>Schoology message</th>
+        <th>Send Schoology message</th>
     </tr>
 <tr ng-repeat="feedback in feedbackList | filter:query | orderBy: orderBy ">{{feedback}}
     <td>{{ feedback.submission.user.firstname }}</td>
@@ -20,6 +22,8 @@
     <td>{{ feedback.datetime }}</td>
     <td>{{ feedback.graded }}</td>
     <td>{{ feedback.data.feedback_tags.join() }}</td>
+    <td><a ng-href="https://app.schoology.com/messages/view/{{ feedback.data.schoology_message_id }}" target="_blank">Open</a></td>
+    <td><button ng-click="sendSchoologyMessage(feedback)">Send</button></td>
 </tr>
 </table>
 </div>

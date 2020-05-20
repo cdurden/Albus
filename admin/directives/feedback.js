@@ -1,5 +1,5 @@
 angular.module('whiteboard-admin')
-.directive('wbAdminFeedback', ['Sockets', 'angularLoad', '$http', 'FileUploader' , function (Sockets, angularLoad, $http, FileUploader) {
+.directive('wbAdminFeedback', ['Sockets', 'AdminSockets', 'angularLoad', '$http', 'FileUploader' , function (Sockets, AdminSockets, angularLoad, $http, FileUploader) {
   return {
     restrict: 'A',
     require: ['wbAdminFeedback'],
@@ -14,6 +14,9 @@ angular.module('whiteboard-admin')
       $scope.feedbackTemplates = {};
       $scope.uploader = new FileUploader();
 
+    $scope.sendSchoologyMessage(feedback) {
+        AdminSockets.emit('sendFeedbackAsSchoologyMessage', feedback);
+    };
     $scope.dragoverCallback = function(index, external, type, callback) {
         $scope.logListEvent('dragged over', index, external, type);
         // Invoke callback to origin for container types.
