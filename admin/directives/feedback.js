@@ -1,5 +1,5 @@
 angular.module('whiteboard-admin')
-.directive('wbAdminFeedback', ['Sockets', 'AdminSockets', 'angularLoad', '$http', 'FileUploader' , function (Sockets, AdminSockets, angularLoad, $http, FileUploader) {
+.directive('wbAdminFeedback', ['Sockets', 'angularLoad', '$http', 'FileUploader' , function (Sockets, angularLoad, $http, FileUploader) {
   return {
     restrict: 'A',
     require: ['wbAdminFeedback'],
