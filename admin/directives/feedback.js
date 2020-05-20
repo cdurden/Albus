@@ -14,7 +14,7 @@ angular.module('whiteboard-admin')
       $scope.feedbackTemplates = {};
       $scope.uploader = new FileUploader();
 
-    $scope.sendSchoologyMessage(feedback) {
+    $scope.sendSchoologyMessage = function(feedback) {
         AdminSockets.emit('sendFeedbackAsSchoologyMessage', feedback);
     };
     $scope.dragoverCallback = function(index, external, type, callback) {
