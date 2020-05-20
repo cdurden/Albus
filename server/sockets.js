@@ -502,7 +502,7 @@ module.exports = function(server, session) {
                       console.log(imagePath);
                       //var file = fs.createReadStream(imagePath);
                       await new Promise(resolve => {
-                          resolve(imagePath);
+                        resolve(imagePath);
                         console.log(submissionMetadata);
                         var lti_user_id = usersObject[submissionMetadata.uid];
                         //console.log(lti_user_id);
@@ -517,7 +517,9 @@ module.exports = function(server, session) {
                                 task_id: board.task_id,
                                 user_id: lti_user_id,
                             }
+                            console.log("Submitting board");
                             api.submit(session, submission, function(submission) {
+                                console.log(submission);
                                 resolve(submission);
                             });
                         });
