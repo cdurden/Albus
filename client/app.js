@@ -223,7 +223,7 @@ angular.module('whiteboard', [
     });
 }])
 .controller('mainController', ['$scope', 'InputHandler', function($scope, InputHandler) {
-    this.handleKeydown = function(ev) {
+    $scope.handleKeydown = function(ev) {
         InputHandler['keydown'](ev);
     }
 }])
