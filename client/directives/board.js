@@ -10,7 +10,7 @@ angular.module('whiteboard')
         InputHandler[ev.type](ev);
       }
       $scope.handleEvent = function(ev) {
-        this.handleEvent(ev);
+        InputHandler[ev.type](ev);
       }
     },
     link: function (scope, element, attrs, ctrls) {
