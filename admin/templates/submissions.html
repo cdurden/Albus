@@ -27,7 +27,7 @@
         <td>{{submissionMetadata.user.lastname}}</td>
         <td>{{submissionMetadata.filename}}</td>
         <td>{{submissionMetadata.fetched}}</td>
-        <td><a href="/schoology_data/{{submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename}}">download</a></td>
+        <td><a ng-href="'/schoology_data/'+submissionMetadata.uid+'-'+submissionMetadata.grade_item_id+'-'+submissionMetadata.filename">download</a></td>
     </tr>
 </table>
 <button type="button" class="button" ng-click="confirmSchoology(getSchoologySubmissionsMetadata);">Download metadata</button>
