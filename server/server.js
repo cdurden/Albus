@@ -23,6 +23,7 @@ var auth = require('./auth');
 var passport = require('passport');
 var expressSession = require('express-session');
 var redisStore = require('connect-redis')(expressSession);
+const settings = require('./settings');
 session = expressSession({
 //    cookie: { secure: true },
     store: new redisStore({ client: client }),
@@ -122,6 +123,7 @@ app.use(passport.authenticate('lti-strategy', {failureFlash: true}),  function (
     console.log(req.session);
     next();
 });
+app.use('/schoology_data/', express.static(settings.schoology_data_dir));
 app.use(express.static(__dirname + '/../client'));
 app.use('/data/', express.static(__dirname + '/../data'));
 app.use('/admin/', express.static(__dirname + '/../admin'));

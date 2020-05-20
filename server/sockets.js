@@ -487,11 +487,12 @@ module.exports = function(server, session) {
                 if (!(submissionMetadata.selected)) {
                     continue;
                 }
-                var pdffile = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
+                var pdffile = sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
+                var pdfpath = settings.schoology_data_dir+"/"+pdffile
                 for (let [taskSource, slide] of Object.entries(taskPagesObject)) {
                     console.log("Generating image for task "+taskSource+" on slide "+slide);
                     var boardId = util.generateRandomId(7);
-                    var pdfImage = new PDFImage(pdffile,{
+                    var pdfImage = new PDFImage(pdfpath,{
                       convertOptions: {
                         "-resize": "1000x1000",
                         //"-quality": "75"
@@ -502,7 +503,6 @@ module.exports = function(server, session) {
                       console.log(imagePath);
                       //var file = fs.createReadStream(imagePath);
                       await new Promise(resolve => {
-                        resolve(imagePath);
                         console.log(submissionMetadata);
                         var lti_user_id = usersObject[submissionMetadata.uid];
                         //console.log(lti_user_id);
@@ -549,10 +549,10 @@ module.exports = function(server, session) {
         if (settings.enable_schoology_interface && confirmation_code === grade_item_id) {
             var schoologySubmissionsMetadata = JSON.parse(fs.readFileSync(settings.schoology_data_dir+"/"+'submissionsMetadata.json')) || {};
             for (submissionMetadata of schoologySubmissionsMetadata[grade_item_id]) {
-                var pdffile = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
+                var pdfpath = settings.schoology_data_dir+"/"+sanitize(submissionMetadata.uid+"-"+submissionMetadata.grade_item_id+"-"+submissionMetadata.filename);
                 var sleepPromise;
-                if (!fs.existsSync(pdffile)) {
-                    console.log("Downloading "+pdffile);
+                if (!fs.existsSync(pdfpath)) {
+                    console.log("Downloading "+pdfpath);
                     await schoology.downloadSubmission(submissionMetadata.download_path).then(function(data) {
                         fs.writeFileSync(pdffile, data);
                         submissionMetadata.fetched = true;
