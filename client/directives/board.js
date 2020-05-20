@@ -11,6 +11,9 @@ angular.module('whiteboard')
       }
       $scope.handleEvent = function(ev) {
         InputHandler[ev.type](ev);
+      };
+      $scope.handleKeydown = function(ev) {
+        InputHandler['keydown'](ev);
       }
     },
     link: function (scope, element, attrs, ctrls) {
