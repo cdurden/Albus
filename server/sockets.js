@@ -164,6 +164,7 @@ module.exports = function(server, session) {
                   }
                   //board.i = i;
                   board.submission_id = submission.id
+                  console.log(board);
                   //board.task = submission.task; //FIXME: I'm not sure why this is not already returned by the api
                   //board.id = board.boardId;
                   rooms.loadBoard(socket.room, board, function() {
