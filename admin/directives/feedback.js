@@ -13,9 +13,17 @@ angular.module('whiteboard-admin')
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = {};
       $scope.uploader = new FileUploader();
+      $scope.confirmAndSendSchoologyMessage = function(feedback) {
+          $scope.confirmSchoology(function(confirmation_code) {
+              $scope.sendSchoologyMessage(feedback, confirmation_code);
+          });
+      }
 
-    $scope.sendSchoologyMessage = function(feedback) {
-        AdminSockets.emit('sendFeedbackAsSchoologyMessage', feedback);
+    $scope.sendSchoologyMessage = function(feedback, confirmation_code) {
+        var data = { 'feedback': feedback,
+                 'confirmation_code': confirmation_code,
+        }
+        AdminSockets.emit('sendFeedbackAsSchoologyMessage', data);
     };
     $scope.dragoverCallback = function(index, external, type, callback) {
         $scope.logListEvent('dragged over', index, external, type);
