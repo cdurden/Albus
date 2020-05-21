@@ -16,7 +16,7 @@ async function takeScreenshot(feedback_id) {
     console.log(url);
     
     // Start the Chrome Debugging Protocol
-    await new Promise(async resolve => {
+    return new Promise(async resolve => {
         await CDP(async function(client) {
           // Extract used DevTools domains.
           const {DOM, Emulation, Network, Page, Runtime} = client;
