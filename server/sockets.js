@@ -13,7 +13,7 @@ var async = require('async');
 var sanitize = require('sanitize-filename');
 const schoology = require('./schoology');
 const settings = require('./settings');
-const screnshot = require('./screenshot');
+const screenshot = require('./screenshot');
 const { promisify } = require("util");
 function sleep(ms) {
   return new Promise((resolve) => {
