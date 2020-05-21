@@ -68,7 +68,7 @@ async function takeScreenshot(feedback_id) {
               const buffer = new Buffer(screenshot.data, 'base64');
               console.log(feedback_id);
               filename = 'screenshot'+feedback_id+'.png';
-              filepath = settings.schoology_data_dir+filename;
+              filepath = settings.schoology_data_dir+'/'+filename;
               fs.writeFile(filepath, buffer, 'base64', function(err) {
                 if (err) {
                   console.error(err);
