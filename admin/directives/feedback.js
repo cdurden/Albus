@@ -23,7 +23,7 @@ angular.module('whiteboard-admin')
         var data = { 'feedback': feedback,
                  'confirmation_code': confirmation_code,
         }
-        AdminSockets.emit('sendFeedbackAsSchoologyMessage', data);
+        Sockets.emit('sendFeedbackAsSchoologyMessage', data);
     };
     $scope.dragoverCallback = function(index, external, type, callback) {
         $scope.logListEvent('dragged over', index, external, type);

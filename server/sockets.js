@@ -494,9 +494,9 @@ module.exports = function(server, session) {
             var file_attachments = feedback.data.file_attachments || [];
             var attachments = feedback.data.attachments || [];
             var uid = feedback.recipient.lti_user_id.split("::")[0];
-            await screenshot.takeScreenshot(feedback.id);
-            if (!(file_attachments.includes(feedback.id+".png"))) {
-                file_attachments.push("screenshot"+feedback.id+".png");
+            var screenshotFile = await screenshot.takeScreenshot(feedback.id);
+            if (!(file_attachments.includes(screenshotFile)) {
+                file_attachments.push(screenshotFile);
             }
             console.log("uid: "+uid);
             console.log("mid: "+mid);
