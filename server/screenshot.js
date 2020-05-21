@@ -8,8 +8,8 @@ const format = 'png';
 const viewportWidth = 900;
 const viewportHeight = 600;
 const delay = 10000;
-const userAgent;
-const fullPage;
+const userAgent = undefined;
+const fullPage = undefined;
 
 async function takeScreenshot(feedback_id) {
     var url = 'http://localhost/feedback/'+feedback_id;
