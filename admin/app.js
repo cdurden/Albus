@@ -32,6 +32,31 @@ angular.module('whiteboard-admin', [
 .controller('wbAdminController', function($scope, FileUploader) {
     $scope.uploader = new FileUploader();
     $scope.uploader.options = {url: '/upload'};
+    $scope.confirmSchoology = function(callback) {
+        var modalInstance = $uibModal.open({
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          backdrop: true,
+          windowClass: 'modal',
+          templateUrl: 'templates/confirmSchoology.html',
+          appendTo: undefined,
+          controller: function($scope, $uibModalInstance, $log) { 
+              $scope.submit = function(confirmation_code) {
+                  $scope.confirmation_code = null;
+                  callback(confirmation_code);
+                  $uibModalInstance.dismiss('cancel');
+              }
+              $scope.cancel = function () {
+                  $uibModalInstance.dismiss('cancel'); 
+              };
+          },
+//            resolve: {
+//                callback: function () {
+//                    return $scope.getSchoologySubmissionsMetadata;
+//                }
+//            }
+        });
+    }
 })
 .run([
   '$rootScope',

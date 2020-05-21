@@ -481,6 +481,53 @@ module.exports = function(server, session) {
             socket.emit('clearSchoologySubmissionsMetadataSuccess', true);
         });
     });
+    socket.on('sendFeedbackAsSchoologyMessage', async function(data) {
+        var feedback = data.feedback;
+        console.log("Sending message with feedback "+feedback.id+" to "+feedback.recipient.firstname+" "+feedback.recipient.lastname)
+        var mid;
+        if (data.useExistingThread) {
+            mid = feedback.recipient.schoology_message_thread_id;
+        }
+        if (false && data.confirmation_code === 'send' && settings.enable_schoology_interface && (data.createNewThread || data.useExistingThread)) {
+            var subject = feedback.data.subject;
+            var message = feedback.data.message;
+            var file_attachments = feedback.data.file_attachments || [];
+            var attachments = feedback.data.attachments || [];
+            var uid = feedback.recipient.lti_user_id.split("::")[0];
+            await screenshot.takeScreenshot(feedback.id);
+            if (!(file_attachments.includes(feedback.id+".png"))) {
+                file_attachments.push("screenshot"+feedback.id+".png");
+            }
+            console.log("uid: "+uid);
+            console.log("mid: "+mid);
+            console.log(subject);
+            console.log(message);
+            console.log(file_attachments);
+            if (!pretend && typeof mid !== 'undefined') {
+                if (file_attachments.length) {
+                    var message = await schoology.uploadFilesAndSendWithMessage(file_attachments, [feedback.recipient.uid], subject, message, attachments, mid)
+                    console.log("Setting feedback "+feedback.id+" message id to "+message.id);
+                    await new Promise(resolve => {
+                        api.setSchoologyFeedbackMessageThread(feedback.id, message.id, function(err, res) {
+                            console.log(res) 
+                            feedback = res;
+                            resolve(res);
+                        });
+                    });
+                } else {
+                    await schoology.sendSchoologyMessage([uid], subject, message, attachments, undefined, mid).then(function(data) {
+                        api.setSchoologyFeedbackMessageThread(feedback.id, data.id, function(err, res) {
+                            console.log(res) 
+                            feedback = res;
+                        });
+                    });
+                }
+            }
+            if (typeof mid === 'undefined') {
+                console.log(feedback.recipient.firstname+" does not have a feedback thread established");
+            }
+        }
+    });
     socket.on('importSchoologySubmissions', async function(data) {
         var taskPagesObject = data.taskPagesObject;
         var grade_item_id = data.grade_item_id;
