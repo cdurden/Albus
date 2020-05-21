@@ -572,7 +572,7 @@ module.exports = function(server, session) {
                             var submission = {
                                 board_id: board.id,
                                 //task_id: board.task_id,
-                                task = board.task || { 'source': taskSource, 'id': board.task_id },
+                                task: board.task || { 'source': taskSource, 'id': board.task_id },
                                 user_id: lti_user_id,
                             }
                             console.log("Submitting board");
