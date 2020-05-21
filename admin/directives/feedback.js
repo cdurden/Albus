@@ -12,6 +12,8 @@ angular.module('whiteboard-admin')
       $scope.users = [];
       $scope.feedbackUserLists = [[]];
       $scope.feedbackTemplates = {};
+      $scope.useExistingSchoologyMessageThread = false;
+      $scope.createNewSchoologyMessageThread = true;
       $scope.uploader = new FileUploader();
       $scope.confirmAndSendSchoologyMessage = function(feedback) {
           $scope.confirmSchoology(function(confirmation_code) {
@@ -22,6 +24,8 @@ angular.module('whiteboard-admin')
     $scope.sendSchoologyMessage = function(feedback, confirmation_code) {
         var data = { 'feedback': feedback,
                  'confirmation_code': confirmation_code,
+                 'useExistingThread': $scope.useExistingSchoologyMessageThread,
+                 'createNewThread': $scope.createNewSchoologyMessageThread,
         }
         Sockets.emit('sendFeedbackAsSchoologyMessage', data);
     };
