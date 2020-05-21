@@ -488,7 +488,7 @@ module.exports = function(server, session) {
         if (data.useExistingThread) {
             mid = feedback.recipient.schoology_message_thread_id;
         }
-        if (false && data.confirmation_code === 'send' && settings.enable_schoology_interface && (data.createNewThread || data.useExistingThread)) {
+        if (data.confirmation_code === 'send' && settings.enable_schoology_interface && (data.createNewThread || data.useExistingThread)) {
             var subject = feedback.data.subject;
             var message = feedback.data.message;
             var file_attachments = feedback.data.file_attachments || [];
