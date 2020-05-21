@@ -4,7 +4,7 @@ angular.module('whiteboard-admin')
     restrict: 'A',
     require: ['wbAdminFeedback'],
     replace: true,
-    scope: {},
+//    scope: {},
     templateUrl: 'templates/feedback.html',
     controller: function ($scope) {
       $scope.assignments = {};
