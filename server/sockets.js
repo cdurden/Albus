@@ -504,6 +504,7 @@ module.exports = function(server, session) {
             console.log(subject);
             console.log(message);
             console.log(file_attachments);
+            if (false) {
             if (file_attachments.length) {
                 var message = await schoology.uploadFilesAndSendWithMessage(file_attachments, [feedback.recipient.uid], subject, message, attachments, mid)
                 console.log("Setting feedback "+feedback.id+" message id to "+message.id);
@@ -521,6 +522,7 @@ module.exports = function(server, session) {
                         feedback = res;
                     });
                 });
+            }
             }
         }
     });
