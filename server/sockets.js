@@ -504,28 +504,23 @@ module.exports = function(server, session) {
             console.log(subject);
             console.log(message);
             console.log(file_attachments);
-            if (!pretend && typeof mid !== 'undefined') {
-                if (file_attachments.length) {
-                    var message = await schoology.uploadFilesAndSendWithMessage(file_attachments, [feedback.recipient.uid], subject, message, attachments, mid)
-                    console.log("Setting feedback "+feedback.id+" message id to "+message.id);
-                    await new Promise(resolve => {
-                        api.setSchoologyFeedbackMessageThread(feedback.id, message.id, function(err, res) {
-                            console.log(res) 
-                            feedback = res;
-                            resolve(res);
-                        });
+            if (file_attachments.length) {
+                var message = await schoology.uploadFilesAndSendWithMessage(file_attachments, [feedback.recipient.uid], subject, message, attachments, mid)
+                console.log("Setting feedback "+feedback.id+" message id to "+message.id);
+                await new Promise(resolve => {
+                    api.setSchoologyFeedbackMessageThread(feedback.id, message.id, function(err, res) {
+                        console.log(res) 
+                        feedback = res;
+                        resolve(res);
                     });
-                } else {
-                    await schoology.sendSchoologyMessage([uid], subject, message, attachments, undefined, mid).then(function(data) {
-                        api.setSchoologyFeedbackMessageThread(feedback.id, data.id, function(err, res) {
-                            console.log(res) 
-                            feedback = res;
-                        });
+                });
+            } else {
+                await schoology.sendSchoologyMessage([uid], subject, message, attachments, undefined, mid).then(function(data) {
+                    api.setSchoologyFeedbackMessageThread(feedback.id, data.id, function(err, res) {
+                        console.log(res) 
+                        feedback = res;
                     });
-                }
-            }
-            if (typeof mid === 'undefined') {
-                console.log(feedback.recipient.firstname+" does not have a feedback thread established");
+                });
             }
         }
     });
