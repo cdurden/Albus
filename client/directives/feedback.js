@@ -103,6 +103,7 @@ angular.module('whiteboard')
         //$scope.file_attachments = [];
     }
     $scope.clearFeedbackForm();  //
+    $scope.getFeedback();  //
 
     // Initialize model
     $scope.model = [[], []];
