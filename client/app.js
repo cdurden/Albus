@@ -125,7 +125,7 @@ angular.module('whiteboard', [
         controller: 'whiteboardController',
         //templateUrl: 'views/board+chat.html',
         resolve: {
-          'somethingElse': function (Sockets, Receive, EventHandler, $location) {
+          'somethingElse': function (Sockets, EventHandler, $location) {
             //BoardData.setBoardId($location.path().slice(1));
             EventHandler.getAssignmentBoards();
             Sockets.emit('getUsers');
@@ -227,7 +227,7 @@ angular.module('whiteboard', [
         InputHandler['keydown'](ev);
     }
 }])
-.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'InputHandler', 'Sockets', 'EventHandler', 'userData', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, InputHandler, Sockets, EventHandler, userData, mode, resource) {
+.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'InputHandler', 'Sockets', 'Receive', 'EventHandler', 'userData', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, InputHandler, Sockets, Receive, EventHandler, userData, mode, resource) {
 //.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
     $scope.userData = userData;
     $scope.mode = mode;

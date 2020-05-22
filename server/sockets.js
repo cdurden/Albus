@@ -270,7 +270,7 @@ module.exports = function(server, session) {
                     }).then(function(roomBoards) {
                         var ids = boards.map(board => { return board.boardId });
                         console.log("Got boards that have been created in this room");
-                        console.log(roomBoards);
+                        //console.log(roomBoards);
                         //for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
                         for (let [boardId, board] of Object.entries(roomBoards)) { // this changed now that boards are stored with metadata
                             if (!ids.includes(boardId)) {
