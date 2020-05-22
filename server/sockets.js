@@ -823,9 +823,10 @@ module.exports = function(server, session) {
       });
     });
     */
-    socket.on('getSubmissions', function(state){
-        getSubmissions(socket, state);
+    socket.on('getSubmissionsReceived', function(state){
+        getSubmissionsReceived(socket, state);
     });
+      /*
     socket.on('getSubmissions', function(state){
       api.getSubmissions(state, function(error, data) {
         //console.log(data)
@@ -833,6 +834,7 @@ module.exports = function(server, session) {
         //socket.emit('confirmSubmission', data);
       });
     });
+    */
   });
   io.of('/client').on('connection', function (socket) {
     console.log("Handling client connection from socket "+socket.id);
