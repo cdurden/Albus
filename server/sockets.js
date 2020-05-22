@@ -34,17 +34,7 @@ module.exports = function(server, session) {
   io.of('/admin').use(sharedsession(session, {
       autoSave:true
   }));
-  io.of('/admin').use(function(socket, next) {
-      api.getApiUser(socket.handshake.session.passport.user, function(err, api_user) {
-          if (api_user.role !== 'teacher') {
-              var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+' does not have admin role');
-              next(error);
-          } else {
-              next();
-          }
-      });
-  });
-  io.of('/client').use((socket, next) => {
+  checkAuthentication = function(socket, next) {
       console.log("Got packet on socket (Socket derived from request UUID: "+socket.handshake.session.req.id+")");
       console.log(socket.handshake.session);
       if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
@@ -54,7 +44,18 @@ module.exports = function(server, session) {
           next(new Error('Socket not authenticated'));
           //next();
       }
+  }
+  io.of('/admin').use(checkAuthentication, function(socket, next) {
+      api.getApiUser(socket.handshake.session.passport.user, function(err, api_user) {
+          if (api_user.role !== 'teacher') {
+              var error = new Error('user '+socket.handshake.session.passport.user.lti_user_id+' does not have admin role');
+              next(error);
+          } else {
+              next();
+          }
+      });
   });
+  io.of('/client').use(checkAuthentication);
 
   // IMPORTANT: this must be called as soom as the connection is established to that information about the user can be used to control the socket
   function setSocketUserId(socketId, userId) {
