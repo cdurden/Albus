@@ -42,7 +42,6 @@ module.exports = function(server, session) {
       } else {
           console.log("Socket not authenticated (Socket derived from request UUID: "+socket.handshake.session.req.id+")");
           next(new Error('Socket not authenticated'));
-          //next();
       }
   }
   io.of('/admin').use(checkAuthentication, function(socket, next) {

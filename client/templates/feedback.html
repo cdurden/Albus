@@ -105,7 +105,7 @@
    <button ng-show="typeof(feedback.id) === 'undefined'" type="submit" class="submit">Create</button>
    -->
    <button ng-show="feedback.id" type="submit" class="submit">Apply changes</button>
-   <button ng-show="feedback.id" type="submit" class="submit">Create</button>
+   <button ng-show="!(feedback.id)" type="submit" class="submit">Create</button>
   </form>
  </div>
 </div>
