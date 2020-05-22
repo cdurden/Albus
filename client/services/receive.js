@@ -30,8 +30,9 @@ angular.module('whiteboard.services.receive', [])
     //EventHandler.addBoard(data);
     EventHandler.updateBoards([board]);
   });
-  Sockets.on('boards', function (boards) {
-    EventHandler.updateBoards(boards);
+  //Sockets.on('boards', function (boards) {
+  Sockets.on('assignmentBoards', function (boards) {
+    EventHandler.updateAssignmentBoards(boards);
       /*
     for (board of boards) {
       //EventHandler.addBoard(boards[board]);
@@ -96,6 +97,10 @@ angular.module('whiteboard.services.receive', [])
   Sockets.on('tasks', function (data) {
     console.log(data);
     EventHandler.setTasks(data);
+  });
+  Sockets.on('submissions', function (data) {
+    console.log(data);
+    EventHandler.setSubmissions(data);
   });
   Sockets.on('feedbackList', function (feedbackList) {
     console.log(feedbackList);

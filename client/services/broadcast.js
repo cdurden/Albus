@@ -113,18 +113,25 @@ angular.module('whiteboard.services.broadcast', [])
   var saveBoardToApi = function (data) {
     Sockets.emit('saveBoardToApi', data)
   };
-  var loadBoardFromApi = function (data) {
-    Sockets.emit('loadBoardFromApi', data)
+  var getBoardFromApi = function (data) {
+    Sockets.emit('getBoardFromApi', data)
   };
-  var loadBoards = function (assignment) {
-    Sockets.emit('loadBoards', assignment)
+    /*
+  var getBoards = function (assignment) {
+    Sockets.emit('getBoards', assignment)
   };
-  var loadSubmissions = function (state) {
-    Sockets.emit('loadSubmissions', state)
+  */
+  var getAssignmentBoards = function (assignment) {
+    Sockets.emit('getAssignmentBoards', assignment)
   };
-  var loadFeedback = function (feedback) {
-    Sockets.emit('loadFeedback', feedback)
+  var getSubmissions = function (state) {
+    Sockets.emit('getSubmissions', state)
   };
+    /*
+  var getFeedback = function (feedback) {
+    Sockets.emit('getFeedback', feedback)
+  };
+  */
   var getLatestBoardFromApi = function (data) {
     Sockets.emit('getLatestBoardFromApi', data)
   };
@@ -147,10 +154,11 @@ angular.module('whiteboard.services.broadcast', [])
     submit: submit,
     moveShape: moveShape,
     saveBoardToApi: saveBoardToApi,
-    loadBoardFromApi: loadBoardFromApi,
-    loadBoards: loadBoards,
-    loadSubmissions: loadSubmissions,
-    loadFeedback: loadFeedback,
+    getBoardFromApi: getBoardFromApi,
+    //getBoards: getBoards,
+    getAssignmentBoards: getAssignmentBoards,
+    getSubmissions: getSubmissions,
+    //getFeedback: getFeedback,
     getLatestBoardFromApi: getLatestBoardFromApi,
     getOrCreateTaskBoard: getOrCreateTaskBoard,
     getBoardStorage: getBoardStorage,

@@ -148,13 +148,27 @@ module.exports = function(server, session) {
           });
       });
   }
-  function loadSubmissions(socket, state) {
-      api.getSubmissions(state, function(error, submissions) {
-        console.log("Got submissions");
+  function getSubmissionsReceived(socket, state) {
+      api.getSubmissionsReceived(state, function(error, submissions) {
+        console.log("Got submissions received");
         if (submissions) {
         //var tasks = Array.from(new Set(submissions.map(submission => { return submission.task })))
         var taskSources = Array.from(new Set(submissions.map(submission => { return submission.task.source })))
         var taskAssetsPromise = assets.getTaskAssets(taskSources, false);
+          Promise.all(submissions.map((submission, i) => {
+              return new Promise(resolve => {
+                  rooms.loadBoard(socket.room, board, function() {
+                     resolve(board);
+                  });
+              });
+          })).then(function(boards) {
+              socket.emit('submissionsReceived', submissions);
+              taskAssetsPromise.then(function(taskAssets) {
+                  console.log("Emitting tasks from getSubmissionsReceived");
+                  socket.emit('tasks', taskAssets);
+              });
+          });
+            /*
           Promise.all(submissions.map((submission, i) => {
               return new Promise(resolve => {
                   var board = submission.board;
@@ -177,18 +191,11 @@ module.exports = function(server, session) {
               console.log("emitting boards to socket "+socket.id);
               socket.emit('boards', boards);
               taskAssetsPromise.then(function(taskAssets) {
-                  /*
-                  console.log("Tasks");
-                  console.log(tasks);
-                  console.log("Objects for tasks");
-                  console.log(taskAssets);
-                  tasksObj = tasks.reduce(function(obj, task) { task.data = (taskAssets[task.source] || {}).data; obj[task.id] = task; return obj; }, {});
-                  socket.emit('tasks', tasksObj);
-                  */
-                  console.log("Emitting tasks from loadSubmissions");
+                  console.log("Emitting tasks from getSubmissionsReceived");
                   socket.emit('tasks', taskAssets);
               });
           });
+*/
         }
       });
   }
@@ -201,7 +208,7 @@ module.exports = function(server, session) {
           }
       });
   }
-  function loadBoards(socket, assignment) {
+  function getAssignmentBoards(socket, assignment) {
     console.log("Loading boards for assignment "+assignment);
     var assignmentPromise;
     if (assignment) {
@@ -816,8 +823,8 @@ module.exports = function(server, session) {
       });
     });
     */
-    socket.on('loadSubmissions', function(state){
-        loadSubmissions(socket, state);
+    socket.on('getSubmissions', function(state){
+        getSubmissions(socket, state);
     });
     socket.on('getSubmissions', function(state){
       api.getSubmissions(state, function(error, data) {
@@ -927,7 +934,7 @@ module.exports = function(server, session) {
                   console.log(data);
                   socket.emit('actingAsUser', data);
               });
-              //loadBoards(socket);
+              //getBoards(socket);
           }
       });
     });
@@ -1002,7 +1009,7 @@ module.exports = function(server, session) {
           socket.emit('saved');
       });
     });
-    socket.on('loadBoardFromApi', function(boardId) {
+    socket.on('getBoardFromApi', function(boardId) {
       api.getBoard(socket.handshake.session, boardId, function(err, board) {
         if (typeof (board || {}).boardId === 'undefined') {
           console.log("Board not found");
@@ -1028,14 +1035,14 @@ module.exports = function(server, session) {
       });
     });
     */
-    socket.on('loadBoards', function(assignment) {
-      console.log("Got loadBoards");
-      loadBoards(socket, assignment);
-      // load assignment
+    socket.on('getAssignmentBoards', function(assignment) {
+      console.log("Got getAssignmentBoards");
+      getAssignmentBoards(socket, assignment);
+      // get assignment
     });
-    socket.on('loadSubmissions', function(state) {
+    socket.on('getSubmissions', function(state) {
       //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
-      loadSubmissions(socket, state);
+      getSubmissions(socket, state);
       //});
       // load assignment
     });
@@ -1043,7 +1050,7 @@ module.exports = function(server, session) {
         console.log("Loading feedback received for board_ids: "+(board_ids || []).join());
         getFeedbackReceived(socket, board_ids);
     });
-    socket.on('loadFeedback', function(feedback_id){
+    socket.on('getFeedback', function(feedback_id){
         console.log("Loading feedback (feedback_id: "+feedback_id+")");
         api.getFeedbackById(feedback_id, function(err, feedback) {
             console.log("Got feedback");
@@ -1055,7 +1062,7 @@ module.exports = function(server, session) {
                       //assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
                       console.log(board);
                       assets.getTaskAssets([feedback.submission.board.task.source]).then(function(taskAssets) {
-                          console.log("Emitting tasks from loadFeedback");
+                          console.log("Emitting tasks from getFeedback");
                           socket.emit('tasks', taskAssets);
                       });
                   //}

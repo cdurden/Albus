@@ -12,7 +12,7 @@ angular.module('whiteboard.services.boarddata', [])
   var boardId;
   var board;
   var boards = {};
-  var boardData = {'boards': boards, boardIdsList: [], feedbackList: []};
+  var boardData = {'boards': boards, boardIdsList: [], feedbackList: [], 'submissions': []};
   var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
@@ -382,6 +382,9 @@ angular.module('whiteboard.services.boarddata', [])
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
       }
+  function setSubmissions(submissions) {
+      boardData.submissions = submissions;
+  }
 
 
   return {
@@ -442,5 +445,6 @@ angular.module('whiteboard.services.boarddata', [])
     getBoardIndex: getBoardIndex,
     updateFeedback: updateFeedback,
     joinFeedbackToBoards: joinFeedbackToBoards,
+    setSubmissions: setSubmissions,
   }
 }]);

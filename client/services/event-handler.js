@@ -22,7 +22,7 @@ angular.module('whiteboard.services.eventhandler', [])
   function getFeedbackReceived(board_ids) {
     Broadcast.getFeedbackReceived(board_ids);
   };
-  function loadBoard(id) {
+  function getBoard(id) {
     if (id !== BoardData.getBoardId()) {
         clearBoard();
     }
@@ -35,17 +35,22 @@ angular.module('whiteboard.services.eventhandler', [])
     }
   }
 
-  function loadBoards(assignment) {
-    Broadcast.loadBoards(assignment);
+    /*
+  function getBoards(assignment) {
+    Broadcast.getBoards(assignment);
   }
-  function loadSubmissions(state) {
-    Broadcast.loadSubmissions(state);
+  */
+  function getAssignmentBoards(assignment) {
+    Broadcast.getAssignmentBoards(assignment);
   }
-  function loadFeedback(feedback_id) {
-    Broadcast.loadFeedback(feedback_id);
+  function getSubmissions(state) {
+    Broadcast.getSubmissions(state);
   }
-  function loadBoardFromApi(id) {
-    Broadcast.loadBoardFromApi(id);
+  function getFeedback(feedback_id) {
+    Broadcast.getFeedback(feedback_id);
+  }
+  function getBoardFromApi(id) {
+    Broadcast.getBoardFromApi(id);
   }
 
 
@@ -156,11 +161,14 @@ angular.module('whiteboard.services.eventhandler', [])
       TaskData.setTasks(data);
       BoardData.joinTasksToBoards(data)
   }
+  function setSubmissions(data) {
+      BoardData.setSubmissions(data);
+  }
   function addBoard(data) {
     BoardData.addBoard(data);
   };
-  function updateBoards(boards) {
-    BoardData.updateBoards(boards);
+  function updateAssignmentBoards(boards) {
+    BoardData.updateAssignmentBoards(boards);
     BoardData.joinTasksToBoards(TaskData.getTasks());
     BoardData.joinFeedbackToBoards();
   };
@@ -259,11 +267,12 @@ angular.module('whiteboard.services.eventhandler', [])
     drawBoard: drawBoard,
     updateBoardStorage: updateBoardStorage,
     updateBoards: updateBoards,
-    loadBoard: loadBoard,
-    loadBoardFromApi: loadBoardFromApi,
-    loadBoards: loadBoards,
-    loadSubmissions: loadSubmissions,
-    loadFeedback: loadFeedback,
+    getBoard: getBoard,
+    getBoardFromApi: getBoardFromApi,
+    //getBoards: getBoards,
+    getAssignmentBoards: getAssignmentBoards,
+    getSubmissions: getSubmissions,
+    getFeedback: getFeedback,
     saveBoardToApi: saveBoardToApi,
     screenshot: screenshot,
     activateNav: activateNav,

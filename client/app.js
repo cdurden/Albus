@@ -127,7 +127,7 @@ angular.module('whiteboard', [
         resolve: {
           'somethingElse': function (Sockets, Receive, EventHandler, $location) {
             //BoardData.setBoardId($location.path().slice(1));
-            EventHandler.loadBoards();
+            EventHandler.getAssignmentBoards();
             Sockets.emit('getUsers');
             Sockets.emit('getUser');
             Sockets.emit('getActingUser');
@@ -237,29 +237,29 @@ angular.module('whiteboard', [
         } else {
             $scope.assignment = userData.user.assignment;
         } 
-        EventHandler.loadBoards($scope.assignment);
+        EventHandler.getAssignmentBoards($scope.assignment);
         Sockets.on('actingAsUser', function(actingAsUser) {
-            EventHandler.loadBoards($scope.assignment);
+            EventHandler.getAssignmentBoards($scope.assignment);
             EventHandler.getFeedbackReceived(); //FIXME: this is requesting extra data
         });
     }
     if ($scope.mode === 'board') {
         $scope.board = resource;
-        EventHandler.loadBoardFromApi($scope.board);
+        EventHandler.getBoardFromApi($scope.board);
         Sockets.on('actingAsUser', function(actingAsUser) {
-            EventHandler.loadBoardFromApi($scope.board);
+            EventHandler.getBoardFromApi($scope.board);
             //EventHandler.getFeedbackReceived();
         });
     }
     if ($scope.mode === 'submissions') {
         $scope.submission_state = resource;
-        EventHandler.loadSubmissions($scope.submission_state);
+        EventHandler.getSubmissions($scope.submission_state);
         //EventHandler.getFeedback(board_ids);
         //EventHandler.getFeedback();
     }
     if ($scope.mode === 'feedback') {
         $scope.feedback = resource;
-        EventHandler.loadFeedback($scope.feedback);
+        EventHandler.getFeedback($scope.feedback);
     }
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
@@ -279,6 +279,6 @@ angular.module('whiteboard', [
     }
     $scope.uploader.onCompleteItem = function(item) {
         console.log("uploading complete");
-        EventHandler.loadBoards();
+        EventHandler.getBoardFromApi(item.boardId);
     }
 }]);

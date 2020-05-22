@@ -565,6 +565,21 @@ function gradeSubmission(submission_id, grade, callback) {
     }
   });
 }
+function getSubmissionsReceived(state, callback) {
+  console.log("Getting submissions with state '"+state+"'");
+  request({
+      url: `${scheme}://${host}:${port}/api/submissions/${state}`,
+    headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+  },
+    function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = JSON.parse(body)
+      callback(null, data);
+    } else {
+      callback(error, null);
+    }
+  });
+}
 function getSubmissions(state, callback) {
   console.log("Getting submissions with state '"+state+"'");
   request({
@@ -747,6 +762,7 @@ module.exports = {
     getTasks: getTasks,
     submit: submit,
     getSubmissions: getSubmissions,
+    getSubmissionsReceived: getSubmissionsReceived,
     getTasksDataFromCollection: getTasksDataFromCollection,
     getTasksFromSources: getTasksFromSources,
     //getTaskBoardsFromSource: getTaskBoardsFromSource,
