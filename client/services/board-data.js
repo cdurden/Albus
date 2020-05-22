@@ -323,7 +323,7 @@ angular.module('whiteboard.services.boarddata', [])
     updateBoards(boards);
   }
   function updateAssignmentBoards(data) {
-    boardData.assignmentBoards[data.assignment] = newBoards;
+    boardData.assignmentBoards[data.assignment] = data.boards;
     updateBoards(data.boards);
     //boardData.boardIdsList = [];
   }
