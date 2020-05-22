@@ -4,7 +4,8 @@ angular.module('whiteboard')
     restrict: 'A',
     replace: true,
     templateUrl: 'views/toolbar.html',
-    require: ['^wbBoard', 'wbToolbar'],
+    //require: ['^wbBoard', 'wbToolbar'],
+    require: ['wbToolbar'],
     // scope: { 
     //   wbToolSelect: '@',
     //   wbZoomScale: '@',
