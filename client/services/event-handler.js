@@ -167,8 +167,8 @@ angular.module('whiteboard.services.eventhandler', [])
   function addBoard(data) {
     BoardData.addBoard(data);
   };
-  function updateAssignmentBoards(boards) {
-    BoardData.updateAssignmentBoards(boards);
+  function updateAssignmentBoards(data) {
+    BoardData.updateAssignmentBoards(data);
     BoardData.joinTasksToBoards(TaskData.getTasks());
     BoardData.joinFeedbackToBoards();
   };

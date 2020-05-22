@@ -31,8 +31,8 @@ angular.module('whiteboard.services.receive', [])
     EventHandler.updateBoards([board]);
   });
   //Sockets.on('boards', function (boards) {
-  Sockets.on('assignmentBoards', function (boards) {
-    EventHandler.updateAssignmentBoards(boards);
+  Sockets.on('assignmentBoards', function (data) {
+    EventHandler.updateAssignmentBoards(data);
       /*
     for (board of boards) {
       //EventHandler.addBoard(boards[board]);

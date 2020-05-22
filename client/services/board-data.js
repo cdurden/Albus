@@ -12,7 +12,7 @@ angular.module('whiteboard.services.boarddata', [])
   var boardId;
   var board;
   var boards = {};
-  var boardData = {'boards': boards, boardIdsList: [], feedbackList: [], 'submissions': []};
+  var boardData = {'boards': boards, boardIdsList: [], feedbackList: [], 'submissions': [], 'assignmentBoards': {}};
   var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
@@ -292,7 +292,9 @@ angular.module('whiteboard.services.boarddata', [])
   function updateFeedback(feedbackList) {
     boardData.feedbackList = feedbackList;
   }
-  function updateAssignmentBoards(newBoards) {
+  function updateAssignmentBoards(data) {
+    var newBoards = data.boards;
+    boardData.assignmentBoards[data.assignment] = newBoards;
     boardData.boardIdsList = [];
     var board;
     for (board of newBoards) {

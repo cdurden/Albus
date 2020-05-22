@@ -287,7 +287,7 @@ module.exports = function(server, session) {
                         }
                         console.log("emitting boards to socket "+socket.id);
                         console.log(boards);
-                        socket.emit('boards', boards);
+                        socket.emit('assignmentBoards', { 'assignment': assignment, 'boards': boards } );
                         taskAssetsPromise.then(function(taskAssets) {
                             console.log("Emitting tasks from loadBoards");
                             socket.emit('tasks', taskAssets);
