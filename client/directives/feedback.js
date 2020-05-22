@@ -20,11 +20,16 @@ angular.module('whiteboard')
       //$scope.feedback = "";
       //$scope.file_attachments = [];
       //$scope.feedback_tags = [];
-      $scope.grade = 5;
+      //$scope.grade;
       //$scope.feedbackTemplate = "";
       //$scope.selectedTemplate = "";
       $scope.feedbackTemplateCollection = "PythagoreanTheorem";
       $scope.uploader = new FileUploader();
+        $scope.gradeSubmission = function() {
+          var board = $scope.boardData.boards[boardId];
+          var submission_id = (board || {}).submission_id;
+          AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': $scope.grade });
+        }
 
     $scope.dragoverCallback = function(index, external, type, callback) {
         $scope.logListEvent('dragged over', index, external, type);
@@ -91,6 +96,7 @@ angular.module('whiteboard')
         };
       var submission_id = (board || {}).submission_id;
       $scope.feedback = { 'submission_id': submission_id, 'data': data, 'boardId': boardId, 'background_image': (board || {}).background_image, 'taskSource': taskSource }         
+      $scope.grade = undefined;
         //$scope.feedback = '';
         //$scope.message = '';
         //$scope.feedback_tags = [];
@@ -194,12 +200,12 @@ angular.module('whiteboard')
  */
           //var data = { 'subject': 'Feedback on '+board.task.data.title, 'message': scope.message, 'feedback_tags': scope.feedback_tags, 'file_attachments': scope.file_attachments };
 
-          if ( typeof scope.feedback.id === 'undefined' ) {
-              Sockets.emit('createFeedback', scope.feedback);//{ 'submission_id': submission_id, 'data': scope.feedback.data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
-          } else {
+          //if ( typeof scope.feedback.id === 'undefined' ) {
+          if ( scope.feedback.id ) {
               Sockets.emit('editFeedback', scope.feedback);
+          } else {
+              Sockets.emit('createFeedback', scope.feedback);//{ 'submission_id': submission_id, 'data': scope.feedback.data, 'boardId': boardId, 'background_image': board.background_image, 'taskSource': taskSource });
           }
-          AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': scope.grade });
           scope.clearFeedbackForm();
           return false;
       });

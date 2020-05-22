@@ -91,10 +91,21 @@
     </div>
    </div>
    -->
-   Grade: <select class="selectpicker" ng-model="grade" ng-options="g for g in [1,2,3,4,5]"></select><br/>
+   Grade:
+   <label ng-repeat="g for g in [0,1,2,3,4,5]">
+       <input type="checkbox" ng-model="grade" ng-change="gradeSubmission();" ng-init='checked=false' value="{{g}}">{{g}}</input>
+   </div>
+   <!--
+   <select class="selectpicker" ng-model="grade" ng-options="g for g in [1,2,3,4,5]"></select><br/>
+   -->
+
    <button type="button" ng-click="clearFeedbackForm();">Clear</button>
+   <!--
    <button ng-show="typeof(feedback.id) !== 'undefined'" type="submit" class="submit">Apply changes</button>
    <button ng-show="typeof(feedback.id) === 'undefined'" type="submit" class="submit">Create</button>
+   -->
+   <button ng-show="feedback.id" type="submit" class="submit">Apply changes</button>
+   <button ng-show="feedback.id" type="submit" class="submit">Create</button>
   </form>
  </div>
 </div>
