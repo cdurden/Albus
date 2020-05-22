@@ -285,11 +285,11 @@ module.exports = function(server, session) {
                                 boards.push(board)
                             }
                         }
-                        console.log("emitting boards to socket "+socket.id);
-                        console.log(boards);
+                        console.log("Emitting boards to socket "+socket.id);
+                        //console.log(boards);
                         socket.emit('assignmentBoards', { 'assignment': assignment, 'boards': boards } );
                         taskAssetsPromise.then(function(taskAssets) {
-                            console.log("Emitting tasks from loadBoards");
+                            console.log("Emitting tasks from getAssignmentBoards");
                             socket.emit('tasks', taskAssets);
                         });
                         /*
