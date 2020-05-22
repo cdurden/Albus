@@ -45,12 +45,12 @@ module.exports = function(server, session) {
       });
   });
   io.of('/client').use((socket, next) => {
-      console.log("Got packet (UUID: "+req.id+")");
+      console.log("Got packet on socket (Socket derived from request UUID: "+socket.handshake.session.req.id+")");
       console.log(socket.handshake.session);
       if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
           next();
       } else {
-          console.log("Socket not authenticated (UUID: "+req.id+")");
+          console.log("Socket not authenticated (Socket derived from request UUID: "+socket.handshake.session.req.id+")");
           next(new Error('Socket not authenticated'));
           //next();
       }

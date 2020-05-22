@@ -50,17 +50,18 @@ passport.deserializeUser(function(user_id, done) {
 });
 passport.use('lti-strategy', new CustomStrategy(
 	function(req, callback) {
-        console.log("Hostname");
+        var forwardedIpsStr = req.header('x-forwarded-for');
+        /*
         console.log("Hostname: "+req.headers.host);
         console.log("IP of client: "+req.ip);
         console.log("IPs from proxy: "+req.ips);
-        var forwardedIpsStr = req.header('x-forwarded-for');
         console.log("X-Forwarded-For: "+forwardedIpsStr);
+        */
         if (req.headers.host === 'localhost' || req.headers.host.match("^localhost:[0-9]+")) {
-            console.log("spoofing lti-strategy");
+            console.log("Request is to localhost, bypassing authentication.");
             callback(null, {user_id: "86258941::65ea761411d6325962ddba010329193a"});
         } else {
-            console.log("using lti-strategy");
+            console.log("Authenticating LTI request via OAuth");
     		var val = (req.body) ? req.body : req.user
             console.log(val);
     		try {
@@ -90,6 +91,7 @@ app.use(session);
 app.use(function(req, res, next) {
     req.id = uuid.v4();
     console.log("Request UUID: "+req.id);
+    req.session.req = { id: req.id };
     next();
 });
 /*
@@ -107,19 +109,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/lti/', function(req, res, next) {
-  console.log("POST to /lti/");
-  console.log(req.headers)
+  console.log("POST request to /lti/");
+  //console.log(req.headers)
   next();
 }, passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res) {
-  console.log("lti route used");
-  console.log(req.session);
+  //console.log(req.session);
   res.redirect('/');
 });
 
 app.use(express.static(__dirname + '/lib'));
 app.use('/lib/', express.static(__dirname + '/../node_modules'));
 app.use(passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res, next) {
-    console.log("Passed lti-strategy middleware");
+    console.log("Passed lti-strategy middleware (UUID: "+req.id+")");
     console.log(req.session);
     next();
 });
@@ -133,8 +134,8 @@ app.use(compression());
 
 /* ========= main routes ==================== */
 
-app.use('/upload', function(req, res, next) {
-    console.log("Trying to get roomId and store it in the request object...");
+app.use('/upload', function(req, res, next) { //FIXME: is there a better way to do this?
+    console.log("Storing roomId in the request object for upload handler...");
     rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
         console.log("Setting roomId to request object: "+roomId);
         req.roomId = roomId
