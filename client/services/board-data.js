@@ -292,7 +292,7 @@ angular.module('whiteboard.services.boarddata', [])
   function updateFeedback(feedbackList) {
     boardData.feedbackList = feedbackList;
   }
-  function updateBoards(newBoards) {
+  function updateAssignmentBoards(newBoards) {
     boardData.boardIdsList = [];
     var board;
     for (board of newBoards) {
@@ -433,7 +433,7 @@ angular.module('whiteboard.services.boarddata', [])
     getBoardId: getBoardId,
     addBoard: addBoard,
     newBoard: newBoard,
-    updateBoards: updateBoards,
+    updateAssignmentBoards: updateAssignmentBoards,
     //getOrCreateTaskBoard: getOrCreateTaskBoard,
     //getTaskBoards: getTaskBoards,
     updateBoardStorage: updateBoardStorage,

@@ -266,7 +266,7 @@ angular.module('whiteboard.services.eventhandler', [])
     addBoard: addBoard,
     drawBoard: drawBoard,
     updateBoardStorage: updateBoardStorage,
-    updateBoards: updateBoards,
+    updateAssignmentBoards: updateAssignmentBoards,
     getBoard: getBoard,
     getBoardFromApi: getBoardFromApi,
     //getBoards: getBoards,
