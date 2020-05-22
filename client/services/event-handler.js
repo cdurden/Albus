@@ -22,7 +22,7 @@ angular.module('whiteboard.services.eventhandler', [])
   function getFeedbackReceived(board_ids) {
     Broadcast.getFeedbackReceived(board_ids);
   };
-  function getBoard(id) {
+  function loadBoard(id) {
     if (id !== BoardData.getBoardId()) {
         clearBoard();
     }
@@ -267,7 +267,7 @@ angular.module('whiteboard.services.eventhandler', [])
     drawBoard: drawBoard,
     updateBoardStorage: updateBoardStorage,
     updateAssignmentBoards: updateAssignmentBoards,
-    getBoard: getBoard,
+    loadBoard: loadBoard,
     getBoardFromApi: getBoardFromApi,
     //getBoards: getBoards,
     getAssignmentBoards: getAssignmentBoards,
