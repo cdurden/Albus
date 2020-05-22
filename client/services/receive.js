@@ -31,6 +31,9 @@ angular.module('whiteboard.services.receive', [])
     EventHandler.updateBoards([board]);
   });
   //Sockets.on('boards', function (boards) {
+  Sockets.on('freeBoards', function (data) {
+    EventHandler.updateFreeBoards(data);
+  });
   Sockets.on('assignmentBoards', function (data) {
     EventHandler.updateAssignmentBoards(data);
       /*

@@ -43,6 +43,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function getAssignmentBoards(assignment) {
     Broadcast.getAssignmentBoards(assignment);
   }
+  function getFreeBoards(assignment) {
+    Broadcast.getFreeBoards(assignment);
+  }
   function getSubmissions(state) {
     Broadcast.getSubmissions(state);
   }
@@ -172,6 +175,11 @@ angular.module('whiteboard.services.eventhandler', [])
     BoardData.joinTasksToBoards(TaskData.getTasks());
     BoardData.joinFeedbackToBoards();
   };
+  function updateFreeBoards(data) {
+    BoardData.updateFreeBoards(data);
+    BoardData.joinTasksToBoards(TaskData.getTasks());
+    BoardData.joinFeedbackToBoards();
+  };
   function updateFeedback(feedbackList) {
     BoardData.updateFeedback(feedbackList);
     BoardData.joinFeedbackToBoards();
@@ -267,6 +275,7 @@ angular.module('whiteboard.services.eventhandler', [])
     drawBoard: drawBoard,
     updateBoardStorage: updateBoardStorage,
     updateAssignmentBoards: updateAssignmentBoards,
+    updateFreeBoards: updateFreeBoards,
     loadBoard: loadBoard,
     getBoardFromApi: getBoardFromApi,
     //getBoards: getBoards,

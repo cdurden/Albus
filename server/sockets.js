@@ -262,6 +262,7 @@ module.exports = function(server, session) {
                         }
                     });
                 })).then(function(boards) { // we are going to add boards that have already been created in the room
+                    var freeBoards = [];
                     console.log("Got boards for the assigned tasks. Adding boards that have been created in the room.");
                     //console.log(boards);
                     new Promise(resolve => {
@@ -282,12 +283,13 @@ module.exports = function(server, session) {
                                     'shapeStorage': boardStorage,
                                 });
                                 */
-                                boards.push(board)
+                                freeBoards.push(board)
                             }
                         }
                         console.log("Emitting boards to socket "+socket.id);
                         //console.log(boards);
                         socket.emit('assignmentBoards', { 'assignment': assignment, 'boards': boards } );
+                        socket.emit('freeBoards', freeBoards );
                         taskAssetsPromise.then(function(taskAssets) {
                             console.log("Emitting tasks from getAssignmentBoards");
                             socket.emit('tasks', taskAssets);

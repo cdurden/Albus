@@ -12,7 +12,7 @@ angular.module('whiteboard.services.boarddata', [])
   var boardId;
   var board;
   var boards = {};
-  var boardData = {'boards': boards, boardIdsList: [], feedbackList: [], 'submissions': [], 'assignmentBoards': {}};
+  var boardData = {'boards': boards, boardIdsList: [], feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
   var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
@@ -292,10 +292,7 @@ angular.module('whiteboard.services.boarddata', [])
   function updateFeedback(feedbackList) {
     boardData.feedbackList = feedbackList;
   }
-  function updateAssignmentBoards(data) {
-    var newBoards = data.boards;
-    boardData.assignmentBoards[data.assignment] = newBoards;
-    boardData.boardIdsList = [];
+  function updateBoards(newBoards) {
     var board;
     for (board of newBoards) {
         boards[board.boardId] = board;
@@ -320,6 +317,15 @@ angular.module('whiteboard.services.boarddata', [])
             delete boards[boardId]; //FIXME: prompt user to save changes
         }
     }
+  }
+  function updateFreeBoards(boards) {
+    boardData.freeBoards = [].concat(boardData.freeBoards, boards);
+    updateBoards(boards);
+  }
+  function updateAssignmentBoards(data) {
+    boardData.assignmentBoards[data.assignment] = newBoards;
+    updateBoards(data.boards);
+    //boardData.boardIdsList = [];
   }
   function updateBoardStorage(_boardId, shapeStorage) {
       boards[_boardId].shapeStorage = shapeStorage;
