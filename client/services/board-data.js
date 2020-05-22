@@ -444,6 +444,7 @@ angular.module('whiteboard.services.boarddata', [])
     getBoardId: getBoardId,
     addBoard: addBoard,
     newBoard: newBoard,
+    updateFreeBoards: updateFreeBoards,
     updateAssignmentBoards: updateAssignmentBoards,
     //getOrCreateTaskBoard: getOrCreateTaskBoard,
     //getTaskBoards: getTaskBoards,
