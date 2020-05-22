@@ -21,6 +21,7 @@ var passport = require('passport');
 var expressSession = require('express-session');
 var redisStore = require('connect-redis')(expressSession);
 const settings = require('./settings');
+const uuid = require('uuid');
 
 /* ======= variable declaration ============= */
 var router = express.Router();
@@ -86,6 +87,11 @@ passport.use('lti-strategy', new CustomStrategy(
 /* ======= middleware configuration ========= */
 app.use(session);
 
+app.use(function(req, res, next) {
+    req.id = uuid.v4();
+    console.log("Request UUID: "+req.id);
+    next();
+});
 /*
 passport.use('lti-spoof-strategy', new CustomStrategy(
 	function(req, callback) {
@@ -124,6 +130,9 @@ app.use('/admin/', express.static(__dirname + '/../admin'));
 
 app.use(compression());
 
+
+/* ========= main routes ==================== */
+
 app.use('/upload', function(req, res, next) {
     console.log("Trying to get roomId and store it in the request object...");
     rooms.getRoomAssignment(req.session.passport.user).then(function(roomId) {
@@ -132,23 +141,21 @@ app.use('/upload', function(req, res, next) {
         next();
     });
 });
+
 app.use(fileUpload({
         preserveExtension: true,
         useTempFiles : true,
         tempFileDir : '/tmp/'
 }));
+
 app.use('/upload', upload.uploadHandler);
-//app.use('/upload', uploadHandler);
-//app.use('/upload', api.uploadProxy);
+
 app.get('/', function (req, res) {
   console.log("responding to GET request at /");
   console.log(req.user);
   res.sendFile(path.resolve(__dirname+'/../client/index.html'));
 });
 
-
-// ======================== main routes ===============================//
-//app.get('/:id', passport.authenticate(strategy), function (req, res) {
 app.get('/:resource', function (req, res) {
   console.log(req.user);
   res.sendFile(path.resolve(__dirname+'/../client/index.html'));
@@ -157,8 +164,8 @@ app.get('/:resource/:id', function (req, res) {
   console.log(req.user);
   res.sendFile(path.resolve(__dirname+'/../client/index.html'));
 });
-/*
 
+/*
 app.get('/:id/screenShot', function (req, res) {
     //filename = sanitize(UNSAFE_USER_INPUT);
     const tmp = require('tmp');
