@@ -33,6 +33,7 @@
     }
   },
   "dependencies": {
+    "uuid": "^8.1.0",
     "chrome-remote-interface": "^0.28.2",
     "pdf-image": "^2.0.0",
     "sanitize-filename": "^1.6.3",
