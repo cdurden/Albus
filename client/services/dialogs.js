@@ -8,7 +8,7 @@ angular.module('whiteboard.services.dialogs', [])
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       templateUrl: params.templateUrl,
-      controller: params.controller, ,
+      controller: params.controller,
       controllerAs: '$ctrl',
       size: size,
       appendTo: parentElem,
