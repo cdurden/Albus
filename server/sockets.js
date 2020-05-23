@@ -1063,6 +1063,10 @@ module.exports = function(server, session) {
       getAssignmentBoards(socket, assignment);
       // get assignment
     });
+    socket.on('getSubmissionsReceived', function(state){
+        console.log("Getting submissions received");
+        getSubmissionsReceived(socket, state);
+    });
     socket.on('getSubmissions', function(state) {
       //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
       getSubmissions(socket, state);
