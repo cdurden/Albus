@@ -323,7 +323,7 @@ angular.module('whiteboard.services.boarddata', [])
     */
   }
   function setSubmissionsReceived(submissions) {
-      var boards = submissions.map(submission => { return submission.board; });
+      var boards = submissions.map(submission => { submission.board.submission = submission; return submission.board; });
       updateBoards(boards);
       boardData.submissions = submissions;
       boardData.boardIndexObject['submissionBoardIndex'] = [];
