@@ -27,7 +27,7 @@ angular.module('whiteboard')
       $scope.uploader = new FileUploader();
         $scope.gradeSubmission = function() {
           var board = $scope.boardData.boards[boardId];
-          var submission_id = (board || {}).submission.id;
+          var submission_id = ((board || {}).submission || {}).id;
           AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': board.submission.grade });
         }
 
@@ -94,7 +94,7 @@ angular.module('whiteboard')
             'file_attachments': [],
             'attachments': []
         };
-      $scope.feedback = { 'submission_id': (board || {}).submission.id, 'data': data, 'boardId': boardId, 'background_image': (board || {}).background_image, 'taskSource': taskSource }         
+      $scope.feedback = { 'submission_id': ((board || {}).submission || {}).id, 'data': data, 'boardId': boardId, 'background_image': (board || {}).background_image, 'taskSource': taskSource }         
       //$scope.grade = undefined;
         //$scope.feedback = '';
         //$scope.message = '';
