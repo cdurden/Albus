@@ -26,9 +26,9 @@ angular.module('whiteboard')
       $scope.feedbackTemplateCollection = "PythagoreanTheorem";
       $scope.uploader = new FileUploader();
         $scope.gradeSubmission = function() {
-          var board = $scope.boardData.boards[boardId];
-          var submission_id = ((board || {}).submission || {}).id;
-          AdminSockets.emit('gradeSubmission', { 'submission_id': submission_id, 'grade': board.submission.grade });
+          var board = $scope.boardData.boards[$scope.boardData.boardId];
+          //var submission_id = ((board || {}).submission || {}).id;
+          AdminSockets.emit('gradeSubmission', { 'submission_id': board.submission.id, 'grade': board.submission.grade });
         }
 
     $scope.dragoverCallback = function(index, external, type, callback) {
