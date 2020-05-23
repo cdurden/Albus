@@ -322,7 +322,7 @@ angular.module('whiteboard.services.boarddata', [])
     }
     */
   }
-  function setSubmissions(submissions) {
+  function setSubmissionsReceived(submissions) {
       var boards = submissions.map(submission => { return submission.board; });
       updateBoards(boards);
       boardData.submissions = submissions;
@@ -478,7 +478,7 @@ angular.module('whiteboard.services.boarddata', [])
     getActiveBoardNumber: getActiveBoardNumber,
     updateFeedback: updateFeedback,
     joinFeedbackToBoards: joinFeedbackToBoards,
-    setSubmissions: setSubmissions,
+    setSubmissionsReceived: setSubmissionsReceived,
     setActiveBoardIndex: setActiveBoardIndex,
   }
 }]);

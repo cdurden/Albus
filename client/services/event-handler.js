@@ -170,6 +170,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function setSubmissions(data) {
       BoardData.setSubmissions(data);
   }
+  function setSubmissionsReceived(data) {
+      BoardData.setSubmissionsReceived(data);
+  }
   function addBoard(data) {
     BoardData.addBoard(data);
   };
@@ -286,6 +289,7 @@ angular.module('whiteboard.services.eventhandler', [])
     getRoomBoards: getRoomBoards,
     getSubmissions: getSubmissions,
     getSubmissionsReceived: getSubmissionsReceived,
+    setSubmissionsReceived: setSubmissionsReceived,
     getFeedback: getFeedback,
     saveBoardToApi: saveBoardToApi,
     screenshot: screenshot,
