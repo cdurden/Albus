@@ -150,7 +150,7 @@ angular.module('whiteboard')
       AdminSockets.on('feedbackTemplates', function (data) {
           //console.log(data);
           templates = Object.entries(data).map( ([key, obj],i) => { obj.tag = key; return(obj) });
-          console.log(templates);
+          //console.log(templates);
           $scope.feedbackTemplates = templates;
       });
       AdminSockets.emit('getFeedbackTemplates', $scope.feedbackTemplateCollection);
