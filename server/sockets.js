@@ -201,10 +201,14 @@ module.exports = function(server, session) {
   }
   function getFeedbackReceived(socket, board_ids) {
       api.getFeedbackReceived(socket.handshake.session, board_ids, function(err, feedbackList) {
-          console.log("Got "+feedbackList.length+" feedback items.");
-          //console.log(feedbackList);
-          if (feedbackList) {
-              socket.emit('feedbackList', feedbackList);
+          if (feedbackList === null) {
+              console.log(err);
+          } else {
+              console.log("Got "+feedbackList.length+" feedback items.");
+              //console.log(feedbackList);
+              if (feedbackList) {
+                  socket.emit('feedbackList', feedbackList);
+              }
           }
       });
   }
