@@ -23,7 +23,7 @@
         <button type="button" hm-tap="submit()" class="task-submit-button">Submit task</button>
     </div>
     <div id="board-selector-container" class="float-s">
-        <ul uib-pagination total-items="numBoards" ng-model="boardData.boardIndex" items-per-page="1" max-size="maxBoardSelectorSize" ng-change="boardIndexChanged()" class="pagination-sm" boundary-link-numbers="true"></ul>
+        <ul uib-pagination total-items="numBoards" ng-model="boardData.activeBoardNumber" items-per-page="1" max-size="maxBoardSelectorSize" ng-change="activeBoardNumberChanged()" class="pagination-sm" boundary-link-numbers="true"></ul>
         <!--
       <div style="float: right;">
           <div style="text-align: center;">
@@ -31,8 +31,8 @@
           </div>
           <div>
         <!--
-              <a ng-repeat="board in boardData.boards track by board.i" hm-tap="$parent.setBoardIndex(board.i, $event);" ng-click="$parent.setBoardIndex(board.i, $event);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
-              <a ng-repeat="board in boardData.boards track by board.i" hm-tap="$parent.setBoardIndex(board.i, $event);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
+              <a ng-repeat="board in boardData.boards track by board.i" hm-tap="$parent.setActiveBoardNumber(board.i, $event);" ng-click="$parent.setActiveBoardNumber(board.i, $event);" ng-style="board.i === $parent.i ? {'font-weight': 'bold'} : {}"> {{ board.i+1 }}</a>
+              <a ng-repeat="boardId in boardData.activeBoardIndex track by $index" hm-tap="$parent.setActiveBoardNumber($index, $event);" ng-style="$index === boardData.activeBoardNumber ? {'font-weight': 'bold'} : {}"> {{ $index+1 }}</a>
 
           </div>
         -->

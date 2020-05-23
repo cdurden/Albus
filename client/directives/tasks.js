@@ -33,12 +33,12 @@ angular.module('whiteboard')
           EventHandler.loadBoard(id);
       }
       */
-      $scope.boardIndexChanged = function() {
-          BoardData.setBoardIndex($scope.boardData.boardIndex);
+      $scope.activeBoardNumberChanged = function() {
+          BoardData.setActiveBoardNumber($scope.boardData.activeBoardNumber);
       }
         /*
-      $scope.setBoardIndex = function(i, $event) {
-          boardId = $scope.boardData.boardIdsList[i-1];
+      $scope.setActiveBoardNumber = function(i, $event) {
+          boardId = $scope.boardData.activeBoardIndex[i-1];
           $scope.boardData.boardId = boardId;
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
@@ -46,14 +46,14 @@ angular.module('whiteboard')
       */
       $scope.navigateNext = function($event) {
           if ($scope.i<Object.keys($scope.boardData.boards).length-1) {
-              BoardData.setBoardIndex($scope.i+1);
+              BoardData.setActiveBoardNumber($scope.i+1);
           }
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
       }
       $scope.navigatePrev = function($event) {
           if ($scope.i>0) {
-              BoardData.setBoardIndex($scope.i-1);
+              BoardData.setActiveBoardNumber($scope.i-1);
           }
           $event && $event.preventDefault() && $event.stopPropagation();
           return(false);
@@ -144,10 +144,10 @@ angular.module('whiteboard')
       */
       scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         scope.board = scope.boardData.boards[scope.boardData.boardId];
-        scope.numBoards = scope.boardData.boardIdsList.length
+        scope.numBoards = scope.boardData.activeBoardIndex.length
         //if (scope.numBoards > 0 && typeof scope.boardIndex === 'undefined') {
         if (scope.numBoards > 0 && typeof scope.boardData.boardId === 'undefined') {
-            BoardData.setBoardIndex(1);
+            BoardData.setActiveBoardNumber(1);
         }
         if (typeof scope.boardData.boardId !== 'undefined' ) {
             EventHandler.loadBoard(scope.boardData.boardId);

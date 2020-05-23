@@ -12,7 +12,7 @@ angular.module('whiteboard.services.boarddata', [])
   var boardId;
   var board;
   var boards = {};
-  var boardData = {'boards': boards, boardIdsList: [], feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
+  var boardData = {'boards': boards, activeBoardIndex: [], feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
   var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
@@ -304,11 +304,14 @@ angular.module('whiteboard.services.boarddata', [])
                 });
             }
         }
+        /*
         boardData.boardIdsList.push(board.boardId);
+        */
         if (typeof board.id !== 'undefined') {
             boardIdsObject[board.id] = board.boardId;
         }
     }
+      /*
     for (let [boardId,board] of Object.entries(boards)){
         if (!boardData.boardIdsList.includes(board.boardId)) {
             if (boardId = boardData.boardId) {
@@ -317,15 +320,34 @@ angular.module('whiteboard.services.boarddata', [])
             delete boards[boardId]; //FIXME: prompt user to save changes
         }
     }
+    */
+  }
+  function setSubmissions(submissions) {
+      var boards = submissions.map(submission => { return submission.board; });
+      updateBoards(boards);
+      boardData.submissions = submissions;
+      boardData.submissionBoardIndex = [];
+      for (board of boards) {
+        boardData.submissionBoardIndex.push(board.boardId);
+      }
   }
   function updateFreeBoards(boards) {
     boardData.freeBoards = [].concat(boardData.freeBoards, boards);
+    boardData.freeBoardIndex = [];
+    for (board of data.boards) {
+      boardData.freeBoardIndex.push(board.boardId);
+    }
     updateBoards(boards);
   }
   function updateAssignmentBoards(data) {
     boardData.assignmentBoards[data.assignment] = data.boards;
     updateBoards(data.boards);
-    //boardData.boardIdsList = [];
+
+    boardData.assignmentBoardIndex = [];
+    for (board of data.boards) {
+      boardData.assignmentBoardIndex.push(board.boardId);
+    }
+    //boardData.activeBoardIndex = [];
   }
   function updateBoardStorage(_boardId, shapeStorage) {
       boards[_boardId].shapeStorage = shapeStorage;
@@ -383,18 +405,14 @@ angular.module('whiteboard.services.boarddata', [])
     Broadcast.getLatestBoardFromApi(taskId);
   }
   */
-  function getBoardIndex() {
-      return boardData.boardIndex;
+  function getActiveBoardNumber() {
+      return boardData.activeBoardNumber;
   }
-      function setBoardIndex(i, $event) {
-          boardData.boardIndex = i;
-          boardId = boardData.boardIdsList[i-1];
-          boardData.boardId = boardId;
-          $event && $event.preventDefault() && $event.stopPropagation();
-          return(false);
-      }
-  function setSubmissions(submissions) {
-      boardData.submissions = submissions;
+  function setActiveBoardNumber(i, $event) {
+      boardData.activeBoardNumber = i;
+      boardData.boardId = boardData.activeBoardIndex[i-1];
+      $event && $event.preventDefault() && $event.stopPropagation();
+      return(false);
   }
 
 
