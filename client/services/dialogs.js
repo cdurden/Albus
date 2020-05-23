@@ -10,7 +10,7 @@ angular.module('whiteboard.services.dialogs', [])
       templateUrl: params.templateUrl,
       controller: params.controller,
       controllerAs: '$ctrl',
-      size: size,
+      size: params.size,
       appendTo: parentElem,
       resolve: {
         users: function () {
