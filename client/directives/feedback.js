@@ -117,7 +117,7 @@ angular.module('whiteboard')
 
     $scope.$watch('boardData.boardId', function(model) {
         var board = $scope.boardData.boards[$scope.boardData.boardId];
-        if (typeof board.submission !== 'undefined') {
+        if (typeof (board || {}).submission !== 'undefined') {
             $scope.board = board;
         }
         $scope.clearFeedbackForm();
