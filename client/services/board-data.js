@@ -204,7 +204,7 @@ angular.module('whiteboard.services.boarddata', [])
     return _shapeStorage[socketId][id];
   }
   function removeShape (shape) {
-    var _shapeStorage = getShapeStorage(boardId);
+    var _shapeStorage = getShapeStorage(boardData.boardId);
     if (shape.socketId !== null && shape.id !== null) {
       delete _shapeStorage[shape.socketId][shape.id];
     }
@@ -215,7 +215,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
 
   function setCurrentShape (id) {
-    var _shapeStorage = getShapeStorage(boardId);
+    var _shapeStorage = getShapeStorage(boardData.boardId);
     currentShape = _shapeStorage[socketId][id];
   }
 
@@ -296,14 +296,15 @@ angular.module('whiteboard.services.boarddata', [])
     var board;
     for (board of newBoards) {
         boards[board.boardId] = board;
-        if (typeof boardId === 'undefined') {
+        /*
+        if (typeof boardData.boardId === 'undefined') {
             if (board.i == 0) {
                 $rootScope.$apply(function() {
-                    boardId = board.boardId;
                     boardData.boardId = board.boardId;
                 });
             }
         }
+        */
         /*
         boardData.boardIdsList.push(board.boardId);
         */
@@ -357,13 +358,13 @@ angular.module('whiteboard.services.boarddata', [])
       boardData.boardId = _boardId;
   }
   function setBoardById(newBoardId) {
-      if (typeof boards[boardId] !== 'undefined') {
-          if (typeof boards[boardId].shapeStorage === 'undefined') {
-              boards[boardId].shapeStorage = {};
+      if (typeof boards[boardData.boardId] !== 'undefined') {
+          if (typeof boards[boardData.boardId].shapeStorage === 'undefined') {
+              boards[boardData.boardId].shapeStorage = {};
           }
           //boards[boardId].shapeStorage = Object.assign(boards[boardId].shapeStorage, shapeStorage);
       }
-      boardId = newBoardId;
+      boardData.boardId = newBoardId;
       //callback && callback();
       //shapeStorage = boards[newBoardId].shapeStorage;
   }
