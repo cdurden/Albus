@@ -392,10 +392,10 @@ angular.module('whiteboard.services.boarddata', [])
           board_id = feedbackObj.submission.board_id;
           board = boardData.boards[boardIdsObject[board_id]];
           if (typeof board !== 'undefined') {
-              if (typeof board.feedback === 'undefined') {
-                  board.feedback = [];
+              if (typeof board.feedbackList === 'undefined') {
+                  board.feedbackList = [];
               }
-              board.feedback.push(feedbackObj)
+              board.feedbackList.push(feedbackObj)
           }
       }
   }
