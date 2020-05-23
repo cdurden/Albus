@@ -277,7 +277,7 @@ function prepareBoardForSocket(socket, boardId) {
         board.shapeStorage[userId] = {};
     }
     console.log("board prepared");
-    console.log(board);
+    //console.log(board);
     return(board);
 }
 //function getTaskBoard(roomId, task_id) {
