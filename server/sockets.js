@@ -222,7 +222,7 @@ module.exports = function(server, session) {
             //api.getTaskBoardsFromSource(socket.handshake.session, assignmentData, function(error, tasks) {
             api.getTasksFromSources(assignmentAsset, function(error, tasks) {//new
                 console.log("Got tasks");
-                console.log(tasks);
+                //console.log(tasks);
                 Promise.all(assignmentAsset.map((taskSource, i) => {
                     //Promise.all(tasks.map((task, i) => {
                     return new Promise(resolve => {
@@ -230,7 +230,7 @@ module.exports = function(server, session) {
                         if (task) { //FIXME: correctly test whether this task was received
                             api.getLatestBoard(socket.handshake.session, task.id, function(err, board) { //new
                                 if (typeof (board || {}).id !== 'undefined') {
-                                    console.log("received a board from the api");
+                                    console.log("Received a board from the api");
                                     board.taskSource = taskSource;
                                     board.task = task; 
                                     //rooms.getBoardStorage(rooms.getRoomId(socket), board.boardId).then(function(roomStorage) {
