@@ -399,46 +399,39 @@ angular.module('whiteboard')
     replace: false,
     require: 'wbSubmenuItems',
     controller: function ($scope, BoardData, EventHandler, Sockets, UserData, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
-    //$scope.userData = UserData.getDataObject();
-        /*
-  Sockets.on('actingAsUser', function(data) {
-    $scope.actingAsUser = data;
-  });
-  */
   
-  var $ctrl = this;
-  $ctrl.animationsEnabled = true;
-
-  $ctrl.open = function (size, parentSelector) {
-    //Sockets.emit('getUsers');
-    var parentElem = parentSelector ? 
-      angular.element($document[0].querySelector(parentSelector)) : undefined;
-    var modalInstance = $uibModal.open({
-      animation: $ctrl.animationsEnabled,
-      ariaLabelledBy: 'modal-title',
-      ariaDescribedBy: 'modal-body',
-      templateUrl: 'templates/viewAs.html',
-      controller: 'ModalInstanceCtrl',
-      controllerAs: '$ctrl',
-      size: size,
-      appendTo: parentElem,
-      resolve: {
-        users: function () {
-          return Object.values(UserData.getUsers());
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedUser) {
-      $ctrl.selected = selectedUser;
-      Sockets.emit("actAsUser", selectedUser);
-      console.log('Modal dismissed at: ' + new Date());
-    });
-  };
-
-  $ctrl.toggleAnimation = function () {
-    $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
-  };
+      var $ctrl = this;
+      $ctrl.animationsEnabled = true;
+      
+      $ctrl.openStudentDialog = function (size, parentSelector) {
+        var parentElem = parentSelector ? 
+          angular.element($document[0].querySelector(parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+          animation: $ctrl.animationsEnabled,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'templates/viewAs.html',
+          controller: 'studenViewModalInstanceCtrl',
+          controllerAs: '$ctrl',
+          size: size,
+          appendTo: parentElem,
+          resolve: {
+            users: function () {
+              return Object.values(UserData.getUsers());
+            }
+          }
+        });
+    
+        modalInstance.result.then(function (selectedUser) {
+          $ctrl.selected = selectedUser;
+          Sockets.emit("actAsUser", selectedUser);
+          console.log('Modal dismissed at: ' + new Date());
+        });
+      };
+    
+      $ctrl.toggleAnimation = function () {
+        $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
+      };
 
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
@@ -512,7 +505,7 @@ angular.module('whiteboard')
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.saveBoard();
         } else if (attrs.wbTool && attrs.wbTool === 'student view') {
-          submenuItemsCtrl.open('lg', 'body');
+          submenuItemsCtrl.openStudentDialog('lg', 'body');
         } else if (attrs.wbTool && attrs.wbTool === 'screenshot') {
           submenuItemsCtrl.screenshot();
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {
