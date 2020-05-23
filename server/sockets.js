@@ -876,8 +876,8 @@ module.exports = function(server, session) {
       api.getApiUser(userId, function(error, user) {
         console.log("returning from getting Api user");
         if (user) {
-            console.log("received data:");
-            console.log(user);
+            //console.log("received data:");
+            //console.log(user);
             flat_data = Object.entries(user).flat().map(obj => { if (typeof obj === 'string') { return(obj); } else { return(JSON.stringify(obj)); } });
             client.hmset(socket.id, flat_data, function(err, result) {
                 var actingAsUser = socket.handshake.session.actingAsUser;

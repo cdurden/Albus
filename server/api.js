@@ -707,7 +707,7 @@ async function getTaskBoardsFromSource(session, sources, callback) {
   },
   function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
+      //console.log(body);
       data = JSON.parse(body)
       callback(null, data);
     } else {
@@ -726,7 +726,7 @@ function getTasksFromSources(sources, callback) {
   },
   function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
+      //console.log(body);
       //data = JSON.parse(body) // I think body is already parsed if the json parameter is passed to request
       callback(null, body);
     } else {
