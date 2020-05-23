@@ -20,7 +20,7 @@
         <!--
             <button type="button" ng-click="submit()" hm-tap="submit()" class="task-submit-button">Submit task</button>
         -->
-        <button type="button" hm-tap="submit()" class="task-submit-button">Submit task</button>
+        <button ng-show="['assignment'].includes(mode)" type="button" hm-tap="submit()" class="task-submit-button">Submit task</button>
     </div>
     <div id="board-selector-container" class="float-s">
         <ul uib-pagination total-items="numBoards" ng-model="boardData.activeBoardNumber" items-per-page="1" max-size="maxBoardSelectorSize" ng-change="activeBoardNumberChanged()" class="pagination-sm" boundary-link-numbers="true"></ul>
