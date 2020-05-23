@@ -3,8 +3,13 @@ var client = redis.createClient();
 
 client.hmsetOrig = client.hmset;
 client.hmset = function() {
-    if(arguments.includes(undefined)) {
-        throw Error("undefined argument passed to hmset. Arguments: "+arguments.join());
+    arr = [arguments[0]];
+    for (var field in arguments[1]) {
+        arr.push(field, arguments[1][field]);
+    }
+
+    if(arr.includes(undefined)) {
+        throw Error("undefined argument passed to hmset. Arguments: "+arr.join());
     }
     client.hmsetOrig.apply(null, arguments);
 }
