@@ -130,6 +130,7 @@ module.exports = function(server, session) {
           var session;
           if (typeof lti_user_id === 'undefined') {
               resolve(false);
+              return;
           }
           session = socket.handshake.session;
           api.getApiUser(session.passport.user, function(error, api_user) {
