@@ -150,7 +150,7 @@ module.exports = function(server, session) {
   }
   function getSubmissionsReceived(socket, state) {
       api.getSubmissionsReceived(state, function(error, submissions) {
-        console.log("Got submissions received");
+        console.log("Got "+submissions.length+" submissions received");
         if (submissions) {
         //var tasks = Array.from(new Set(submissions.map(submission => { return submission.task })))
         var taskSources = Array.from(new Set(submissions.map(submission => { return submission.task.source })))
@@ -201,7 +201,7 @@ module.exports = function(server, session) {
   }
   function getFeedbackReceived(socket, board_ids) {
       api.getFeedbackReceived(socket.handshake.session, board_ids, function(err, feedbackList) {
-          console.log("Got feedback");
+          console.log("Got "+feedbackList.length+" feedback items.");
           //console.log(feedbackList);
           if (feedbackList) {
               socket.emit('feedbackList', feedbackList);
@@ -842,7 +842,7 @@ module.exports = function(server, session) {
     });
     */
     socket.on('getSubmissionsReceived', function(state){
-        console.log("Getting submissions received");
+        console.log("Getting submissions received.");
         getSubmissionsReceived(socket, state);
     });
       /*
