@@ -398,11 +398,15 @@ angular.module('whiteboard')
     restrict: 'C',
     replace: false,
     require: 'wbSubmenuItems',
-    controller: function ($scope, BoardData, EventHandler, Sockets, UserData, $uibModal, $log, $document) { //FIXME: remove one of these modal implementations
+    controller: function ($scope, BoardData, EventHandler, Sockets, UserData, Dialogs, $log, $document) { //FIXME: remove one of these modal implementations
   
       var $ctrl = this;
       $ctrl.animationsEnabled = true;
       
+      $ctrl.openStudentDialog = function (size, parentSelector) {
+          Dialogs.openStudentDialog();
+      }
+          /*
       $ctrl.openStudentDialog = function (size, parentSelector) {
         var parentElem = parentSelector ? 
           angular.element($document[0].querySelector(parentSelector)) : undefined;
@@ -432,6 +436,7 @@ angular.module('whiteboard')
       $ctrl.toggleAnimation = function () {
         $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
       };
+      */
 
       this.saveBoard = function () {
         EventHandler.saveBoardToApi(BoardData.getBoardId()); 
@@ -714,6 +719,7 @@ angular.module('whiteboard')
     }
   };
 })
+/*
 .controller('ModalInstanceCtrl', function ($uibModalInstance, users, $scope) {
   var $ctrl = this;
   $ctrl.users = users;
@@ -739,3 +745,4 @@ angular.module('whiteboard')
   }
 
 })
+*/

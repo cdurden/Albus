@@ -27,6 +27,7 @@ angular.module('whiteboard', [
   'whiteboard.services.reveal',
   'whiteboard.services.screenshot',
   'whiteboard.services.adminsockets',
+  'whiteboard.services.dialogs',
   'ngRoute'
 ])
 .config(['$provide', function ($provide) {
