@@ -124,6 +124,9 @@ angular.module('whiteboard.services.broadcast', [])
   var getAssignmentBoards = function (assignment) {
     Sockets.emit('getAssignmentBoards', assignment)
   };
+  var getRoomBoards = function () {
+    Sockets.emit('getRoomBoards')
+  };
   var getSubmissions = function (state) {
     Sockets.emit('getSubmissions', state)
   };
@@ -157,6 +160,7 @@ angular.module('whiteboard.services.broadcast', [])
     getBoardFromApi: getBoardFromApi,
     //getBoards: getBoards,
     getAssignmentBoards: getAssignmentBoards,
+    getRoomBoards: getRoomBoards,
     getSubmissions: getSubmissions,
     //getFeedback: getFeedback,
     getLatestBoardFromApi: getLatestBoardFromApi,

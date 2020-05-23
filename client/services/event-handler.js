@@ -43,8 +43,8 @@ angular.module('whiteboard.services.eventhandler', [])
   function getAssignmentBoards(assignment) {
     Broadcast.getAssignmentBoards(assignment);
   }
-  function getFreeBoards(assignment) {
-    Broadcast.getFreeBoards(assignment);
+  function getRoomBoards() {
+    Broadcast.getRoomBoards();
   }
   function getSubmissions(state) {
     Broadcast.getSubmissions(state);
@@ -280,6 +280,7 @@ angular.module('whiteboard.services.eventhandler', [])
     getBoardFromApi: getBoardFromApi,
     //getBoards: getBoards,
     getAssignmentBoards: getAssignmentBoards,
+    getRoomBoards: getRoomBoards,
     getSubmissions: getSubmissions,
     getFeedback: getFeedback,
     saveBoardToApi: saveBoardToApi,
