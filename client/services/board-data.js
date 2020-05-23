@@ -12,7 +12,8 @@ angular.module('whiteboard.services.boarddata', [])
   //var boardId;
   var board;
   var boards = {};
-  var boardData = {'boards': boards, boardIndexObject: {}, feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
+  //var boardData = {'boards': boards, boardIndexObject: {}, feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
+  var boardData = {'boards': boards, boardIndexObject: {}};
   var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
@@ -331,6 +332,15 @@ angular.module('whiteboard.services.boarddata', [])
       for (board of boards) {
         boardData.boardIndexObject['submissionBoardIndex'].push(board.boardId);
       }
+  }
+  function updateFeedbackBoards(feedbackList) {
+    var boards = feedbackList.map(feedback => { submission.board.submission = submission; return submission.board; });
+    boardData.feedbackBoards = [].concat(boardData.feedbackBoards, boards);
+    boardData.boardIndexObject['feedbackBoardIndex'] = [];
+    for (board of boards) {
+      boardData.boardIndexObject['feedbackBoardIndex'].push(board.boardId);
+    }
+    updateBoards(boards);
   }
   function updateFreeBoards(boards) {
     boardData.freeBoards = [].concat(boardData.freeBoards, boards);
