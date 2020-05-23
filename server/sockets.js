@@ -36,7 +36,7 @@ module.exports = function(server, session) {
   }));
   checkAuthentication = function(socket, next) {
       console.log("Got packet on socket (Socket derived from request UUID: "+socket.handshake.session.req.id+")");
-      console.log(socket.handshake.session);
+      //console.log(socket.handshake.session);
       if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) { 
           next();
       } else {
@@ -67,7 +67,7 @@ module.exports = function(server, session) {
   function getSocketData(socketId) {
     return new Promise((resolve) => client.hgetall(socketId, function(err, result) {
       if (result === null) {
-        console.log("WARNING: The following socket id was not found in Redis store:");
+        console.log("WARNING: The following socket id was not found in Redis store: "+socketId);
         // FIXME: Is this where we want to do this?
         /*
         rooms.assignRoomToSocketId(socketId).then(function(roomId) {
@@ -77,7 +77,7 @@ module.exports = function(server, session) {
         });
         */
       } else {
-        console.log(socketId);
+        //console.log(socketId);
         result['socketId'] = socketId;
         resolve(result);
       }
@@ -112,15 +112,14 @@ module.exports = function(server, session) {
               board = data;
               //board = { 'boardId': data.boardId, 'task': data.task };
           }
-          console.log(board);
-          console.log("Background image:");
-          console.log(board.background_image);
+          //console.log(board);
+          console.log("Background image:"+board.background_image);
           //console.log(shapeStorage);
           board.boardId = saveAs;
           //.shapeStorage = shapeStorage;
           api.saveBoard(socket.handshake.session, board, function(err, data) {
               console.log("Board saved");
-              console.log(data);
+              //console.log(data);
               resolve(data);
           });
       });
@@ -356,7 +355,7 @@ module.exports = function(server, session) {
       });
     });
     socket.on('getUsers', function() {
-      console.log("getting api users");
+      console.log("Getting api users");
       api.getApiUsers(function(err,results) { 
           users_dict = results.reduce(function(p, user) { p[user.id] = user; return p; }, {});
           socket.emit("users", users_dict)
@@ -373,11 +372,11 @@ module.exports = function(server, session) {
                 return data;
               }]
           }, function(error, response, body) {
-            console.log("assignment data");
-            console.log(body);
+            console.log("Got assignment data");
+            //console.log(body);
             data = JSON.parse(body)
             api.getTasksFromSources(data, function(error, data) {
-                console.log(data);
+                //console.log(data);
                 console.log("Emitting tasks from getAssignedTasks");
                 socket.emit('tasks', data);
             });
@@ -402,7 +401,7 @@ module.exports = function(server, session) {
     registerCommonListeners(socket);
     socket.on('disconnect', function(){ });
     socket.on('getAllClientData', function() {
-      console.log("getting socket data");
+      console.log("Getting socket data");
       getAllClientData(function(results) { socket.emit("allClientData", results) });
     });
     socket.on('assignRooms', function(assignments){
@@ -446,9 +445,9 @@ module.exports = function(server, session) {
       });
     });
     socket.on('updateAssignments', function(data) {
-      console.log("assigning assignments to users");
+      console.log("Assigning assignments to users");
       assignments = Object.entries(data).reduce(function(p,ua) { p[ua[0]] = ua[1].assignment; return p;}, {});
-      console.log(assignments);
+      //console.log(assignments);
       //assignments = data.map(function(user) { return({ user.id: user.assignmentId}); });
       api.updateAssignments(assignments, function(err, results) { return; });
         /*
