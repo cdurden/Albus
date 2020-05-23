@@ -49,6 +49,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function getSubmissions(state) {
     Broadcast.getSubmissions(state);
   }
+  function getSubmissionsReceived(state) {
+    Broadcast.getSubmissionsReceived(state);
+  }
   function getFeedback(feedback_id) {
     Broadcast.getFeedback(feedback_id);
   }
@@ -282,6 +285,7 @@ angular.module('whiteboard.services.eventhandler', [])
     getAssignmentBoards: getAssignmentBoards,
     getRoomBoards: getRoomBoards,
     getSubmissions: getSubmissions,
+    getSubmissionsReceived: getSubmissionsReceived,
     getFeedback: getFeedback,
     saveBoardToApi: saveBoardToApi,
     screenshot: screenshot,

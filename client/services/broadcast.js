@@ -130,6 +130,9 @@ angular.module('whiteboard.services.broadcast', [])
   var getSubmissions = function (state) {
     Sockets.emit('getSubmissions', state)
   };
+  var getSubmissionsReceived = function (state) {
+    Sockets.emit('getSubmissionsReceived', state)
+  };
     /*
   var getFeedback = function (feedback) {
     Sockets.emit('getFeedback', feedback)
@@ -162,6 +165,7 @@ angular.module('whiteboard.services.broadcast', [])
     getAssignmentBoards: getAssignmentBoards,
     getRoomBoards: getRoomBoards,
     getSubmissions: getSubmissions,
+    getSubmissionsReceived: getSubmissionsReceived,
     //getFeedback: getFeedback,
     getLatestBoardFromApi: getLatestBoardFromApi,
     getOrCreateTaskBoard: getOrCreateTaskBoard,

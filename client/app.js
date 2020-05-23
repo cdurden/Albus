@@ -262,7 +262,7 @@ angular.module('whiteboard', [
     }
     if ($scope.mode === 'submissions') {
         $scope.submission_state = resource;
-        EventHandler.getSubmissions($scope.submission_state);
+        EventHandler.getSubmissionsReceived($scope.submission_state);
         BoardData.setActiveBoardIndex('submissionBoardIndex');
         //EventHandler.getFeedback(board_ids);
         //EventHandler.getFeedback();
