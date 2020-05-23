@@ -4,7 +4,7 @@ angular.module('whiteboard')
     restrict: 'A',
     require: ['wbFeedback'],
     replace: true,
-    //scope: {},
+    scope: {},
     templateUrl: 'templates/feedback.html',
     controller: function ($scope) {
       $scope.boardData = BoardData.getBoardData();
