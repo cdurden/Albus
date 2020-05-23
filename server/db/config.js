@@ -11,7 +11,7 @@ client.hmset = function() {
     if(arr.includes(undefined)) {
         throw Error("undefined argument passed to hmset. Arguments: "+arr.join());
     }
-    client.hmsetOrig.apply(null, arguments);
+    client.hmsetOrig.apply(this, arguments);
 }
 
 client.on("error", function (err) {
