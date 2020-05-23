@@ -2,7 +2,7 @@ angular.module('whiteboard.services.receive', [])
 .factory('Receive', function (Sockets, EventHandler, UserData) {
   Sockets.on('showExisting', function (data) {
     console.log("show existing");
-    console.log(data);
+    //console.log(data);
     for (socketId in data) {
       if (Object.keys(data[socketId]).length) {
         for (id in data[socketId]) {
@@ -22,11 +22,11 @@ angular.module('whiteboard.services.receive', [])
   });
   Sockets.on('boardStorage', function (data) {
     console.log("got board storage");
-    console.log(data);
+    //console.log(data);
     EventHandler.updateBoardStorage(data.boardId, data.shapeStorage);
   });
   Sockets.on('board', function (board) {
-    console.log(board);
+    //console.log(board);
     //EventHandler.addBoard(data);
     EventHandler.updateBoards([board]);
   });
@@ -98,27 +98,27 @@ angular.module('whiteboard.services.receive', [])
   })
   */
   Sockets.on('tasks', function (data) {
-    console.log(data);
+    //console.log(data);
     EventHandler.setTasks(data);
   });
   Sockets.on('submissions', function (data) {
-    console.log(data);
+    //console.log(data);
     EventHandler.setSubmissions(data);
   });
   Sockets.on('submissionsReceived', function (data) {
-    console.log(data);
+    //console.log(data);
     EventHandler.setSubmissionsReceived(data);
   });
   Sockets.on('feedbackList', function (feedbackList) {
-    console.log(feedbackList);
+    //console.log(feedbackList);
     EventHandler.updateFeedback(feedbackList);
   });
   Sockets.on('feedbackCreated', function (feedback) {
-    console.log(feedback);
+    //console.log(feedback);
     EventHandler.updateFeedback([feedback]);
   });
   Sockets.on('submissionConfirmation', function (data) {
-    console.log(data);
+    //console.log(data);
     EventHandler.confirmTaskSubmission(data);
   });
     /*
