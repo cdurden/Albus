@@ -399,6 +399,7 @@ module.exports = function(server, session) {
 
 
   io.of('/admin').on('connection', function(socket) {
+    console.log("Admin connected on socket "+socket.id);
     registerCommonListeners(socket);
     socket.on('disconnect', function(){ });
     socket.on('getAllClientData', function() {
@@ -855,8 +856,8 @@ module.exports = function(server, session) {
     */
   });
   io.of('/client').on('connection', function (socket) {
-    console.log("Handling client connection from socket "+socket.id);
-    console.log(socket.handshake.session);
+    console.log("Client connected on socket "+socket.id);
+    //console.log(socket.handshake.session);
   //if ('passport' in socket.handshake.session && 'user' in socket.handshake.session.passport) {
     socket.on('idRequest', function () {
       console.log("Got socket id request (socket id: "+socket.id+")");
