@@ -10,6 +10,7 @@ angular.module('whiteboard')
       $scope.boardData = BoardData.getBoardData();
       $scope.assignments = {};
       $scope.submissions = {};
+      $scope.showFeedbackBoard = false;
       //$scope.sockets = {};
       $scope.users = [];
       $scope.templateContext = {};
