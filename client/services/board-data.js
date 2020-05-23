@@ -12,7 +12,7 @@ angular.module('whiteboard.services.boarddata', [])
   var boardId;
   var board;
   var boards = {};
-  var boardData = {'boards': boards, activeBoardIndex: [], feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
+  var boardData = {'boards': boards, boardIndexObject: {}, feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
   var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
@@ -326,16 +326,16 @@ angular.module('whiteboard.services.boarddata', [])
       var boards = submissions.map(submission => { return submission.board; });
       updateBoards(boards);
       boardData.submissions = submissions;
-      boardData.submissionBoardIndex = [];
+      boardData.boardIndexObject['submissionBoardIndex'] = [];
       for (board of boards) {
-        boardData.submissionBoardIndex.push(board.boardId);
+        boardData.boardIndexObject['submissionBoardIndex'].push(board.boardId);
       }
   }
   function updateFreeBoards(boards) {
     boardData.freeBoards = [].concat(boardData.freeBoards, boards);
-    boardData.freeBoardIndex = [];
-    for (board of data.boards) {
-      boardData.freeBoardIndex.push(board.boardId);
+    boardData.boardIndexObject['freeBoardIndex'] = [];
+    for (board of boards) {
+      boardData.boardIndexObject['freeBoardIndex'].push(board.boardId);
     }
     updateBoards(boards);
   }
@@ -343,11 +343,14 @@ angular.module('whiteboard.services.boarddata', [])
     boardData.assignmentBoards[data.assignment] = data.boards;
     updateBoards(data.boards);
 
-    boardData.assignmentBoardIndex = [];
+    boardData.boardIndexObject['assignmentBoardIndex'] = [];
     for (board of data.boards) {
-      boardData.assignmentBoardIndex.push(board.boardId);
+      boardData.boardIndexObject['assignmentBoardIndex'].push(board.boardId);
     }
     //boardData.activeBoardIndex = [];
+  }
+  function setActiveBoardIndex(boardIndex) {
+      boardData.activeBoardIndex = boardIndex;
   }
   function updateBoardStorage(_boardId, shapeStorage) {
       boards[_boardId].shapeStorage = shapeStorage;
@@ -476,5 +479,6 @@ angular.module('whiteboard.services.boarddata', [])
     updateFeedback: updateFeedback,
     joinFeedbackToBoards: joinFeedbackToBoards,
     setSubmissions: setSubmissions,
+    setActiveBoardIndex: setActiveBoardIndex,
   }
 }]);

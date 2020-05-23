@@ -208,6 +208,21 @@ module.exports = function(server, session) {
           }
       });
   }
+  function getRoomBoards(socket) {
+    console.log("Getting free boards);
+    new Promise(resolve => {
+        roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
+        resolve(roomBoards);
+    }).then(function(roomBoards) {
+        socket.emit('roomBoards', roomBoards );
+        /*
+        taskAssetsPromise.then(function(taskAssets) {
+            console.log("Emitting tasks from getAssignmentBoards");
+            socket.emit('tasks', taskAssets);
+        });
+        */
+    });
+  }
   function getAssignmentBoards(socket, assignment) {
     console.log("Loading boards for assignment "+assignment);
     var assignmentPromise;

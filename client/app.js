@@ -113,7 +113,7 @@ angular.module('whiteboard', [
         resolve: {
           'userData': userPromiseMaker,
           'mode': function() {
-              return('assignment');
+              return('free');
           },
           'resource': function () {
             return(undefined);
@@ -231,12 +231,20 @@ angular.module('whiteboard', [
 //.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
     $scope.userData = userData;
     $scope.mode = mode;
+    if ($scope.mode === 'free') {
+        BoardData.setActiveBoardIndex('freeBoardIndex');
+        EventHandler.getRoomBoards();
+        Sockets.on('actingAsUser', function(actingAsUser) {
+            EventHandler.getFeedbackReceived(); //FIXME: this is requesting extra data
+        });
+    }
     if ($scope.mode === 'assignment') {
         if (resource) {
             $scope.assignment = resource;
         } else {
             $scope.assignment = userData.user.assignment;
         } 
+        BoardData.setActiveBoardIndex('assignmentBoardIndex');
         EventHandler.getAssignmentBoards($scope.assignment);
         Sockets.on('actingAsUser', function(actingAsUser) {
             EventHandler.getAssignmentBoards($scope.assignment);
@@ -250,16 +258,19 @@ angular.module('whiteboard', [
             EventHandler.getBoardFromApi($scope.board);
             //EventHandler.getFeedbackReceived();
         });
+        BoardData.setActiveBoardIndex(undefined);
     }
     if ($scope.mode === 'submissions') {
         $scope.submission_state = resource;
         EventHandler.getSubmissions($scope.submission_state);
+        BoardData.setActiveBoardIndex('submissionBoardIndex');
         //EventHandler.getFeedback(board_ids);
         //EventHandler.getFeedback();
     }
     if ($scope.mode === 'feedback') {
         $scope.feedback = resource;
         EventHandler.getFeedback($scope.feedback);
+        BoardData.setActiveBoardIndex(undefined);
     }
     $scope.uploader = new FileUploader();
     $scope.uploader.onAfterAddingFile = function(item) {
