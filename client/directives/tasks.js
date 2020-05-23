@@ -144,7 +144,7 @@ angular.module('whiteboard')
       */
       scope.$watchCollection(function(scope) { return Object.values(scope.boardData.boards).concat([scope.boardData.boardId]); }, function() {
         scope.board = scope.boardData.boards[scope.boardData.boardId];
-        scope.numBoards = scope.boardData.boardIndexObject[scope.boardData.activeBoardIndex].length
+        scope.numBoards = (scope.boardData.boardIndexObject[scope.boardData.activeBoardIndex] || {}).length
         //if (scope.numBoards > 0 && typeof scope.boardIndex === 'undefined') {
         if (scope.numBoards > 0 && typeof scope.boardData.boardId === 'undefined') {
             BoardData.setActiveBoardNumber(1);
