@@ -93,7 +93,7 @@
    -->
    Grade:
    <label ng-repeat="g in [0,1,2,3,4,5]">
-       <input type="radio" name="submissionGrade" ng-model="board.submission.grade" ng-change="gradeSubmission();" value="{{g}}">{{g}}</input>
+       <input type="radio" name="submissionGrade" ng-model="board.submission.grade" ng-change="gradeSubmission();" ng-value="g">{{g}}</input>
    </div>
    <!--
    <select class="selectpicker" ng-model="grade" ng-options="g for g in [1,2,3,4,5]"></select><br/>
