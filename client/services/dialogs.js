@@ -42,7 +42,8 @@ angular.module('whiteboard.services.dialogs', [])
           Sockets.emit("actAsUser", selectedUser);
           console.log('Modal dismissed at: ' + new Date());
       },
-  });
+    });
+  }
 
   return {
       openStudentDialog: openStudentDialog,
