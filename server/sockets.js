@@ -708,9 +708,9 @@ module.exports = function(server, session) {
             */
     });
     socket.on('getFeedback', function(board_ids){
-        console.log("Loading feedback for board_ids"+(board_ids || []).join());
+        console.log("Getting feedback for board_ids"+(board_ids || ["(none specified)"]).join());
         api.getFeedback(board_ids, function(err, feedbackList) {
-            console.log("Got feedback:");
+            console.log("Got feedback");
             //console.log(feedbackList);
             socket.emit('feedbackList', feedbackList);
         });
