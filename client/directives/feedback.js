@@ -120,6 +120,10 @@ angular.module('whiteboard')
         if (typeof (board || {}).submission !== 'undefined') {
             $scope.submissionBoard = board;
             $scope.submission = board.submission;
+            var nFeedback = (board.feedbackList || []).length
+            if (nFeedback > 0) {
+                $scope.boardData.boardId = board.feedbackList[nFeedback-1].board.boardId;
+            }
         }
         $scope.clearFeedbackForm();
     });
