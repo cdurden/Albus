@@ -80,7 +80,7 @@ angular.module('whiteboard.services.shapebuilder', [])
     shape.boardId = boardId;
     if (tool.name === 'path') Snap.createSnaps(shape);
     if (tool.name !== 'text') setWidth(shape, tool['stroke-width']);
-    //BoardData.pushToStorage(id, socketId, boardId, shape);
+    BoardData.pushToStorage(id, socketId, boardId, shape);
   };
 
   return {
