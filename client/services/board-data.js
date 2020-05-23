@@ -292,7 +292,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function updateFeedback(feedbackList) {
     boardData.feedbackList = feedbackList;
-    var boards = feedbackList.map(feedback => { submission.board.submission = submission; return submission.board; });
+    var boards = feedbackList.map(feedback => { feedback.board.feedback = feedback; return feedback.board; });
     /*
     boardData.feedbackBoards = [].concat(boardData.feedbackBoards, boards);
     boardData.boardIndexObject['feedbackBoardIndex'] = [];
