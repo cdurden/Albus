@@ -413,7 +413,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function setActiveBoardNumber(i, $event) {
       boardData.activeBoardNumber = i;
-      boardData.boardId = boardData.activeBoardIndex[i-1];
+      boardData.boardId = boardData.boardIndexObject[boardData.activeBoardIndex][i-1];
       $event && $event.preventDefault() && $event.stopPropagation();
       return(false);
   }
