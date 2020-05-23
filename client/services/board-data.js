@@ -352,13 +352,13 @@ angular.module('whiteboard.services.boarddata', [])
       var feedbackList = boardData.feedbackList
       var board_id;
       var board;
-      for(feedbackObj of feedbackList) {
+      for (feedbackObj of feedbackList) {
           board_id = feedbackObj.submission.board_id;
           board = boardData.boards[boardIdsObject[board_id]];
-          if (typeof board.feedback === 'undefined') {
-              board.feedback = [];
-          }
           if (typeof board !== 'undefined') {
+              if (typeof board.feedback === 'undefined') {
+                  board.feedback = [];
+              }
               board.feedback.push(feedbackObj)
           }
       }
