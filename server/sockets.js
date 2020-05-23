@@ -712,7 +712,7 @@ module.exports = function(server, session) {
     socket.on('getFeedback', function(board_ids){
         console.log("Getting feedback for board_ids"+(board_ids || ["(none specified)"]).join());
         api.getFeedback(board_ids, function(err, feedbackList) {
-            console.log("Got feedback");
+            console.log("Got "+feedbackList.length+" feedback");
             //console.log(feedbackList);
             socket.emit('feedbackList', feedbackList);
         });
@@ -1081,21 +1081,21 @@ module.exports = function(server, session) {
     socket.on('getFeedback', function(feedback_id){
         console.log("Loading feedback (feedback_id: "+feedback_id+")");
         api.getFeedbackById(feedback_id, function(err, feedback) {
-            console.log("Got feedback");
-            console.log(feedback);
+            console.log("Got feedback item "+feedback_id);
+            //console.log(feedback);
             if (feedback) {
                 board = feedback.board
                 rooms.loadBoard(socket.room, board, function() {
                   //if (typeof (board.task || {}).source  !== 'undefined') {
                       //assets.getTaskAssets([board.task.source]).then(function(taskAssets) {
-                      console.log(board);
+                      //console.log(board);
                       assets.getTaskAssets([feedback.submission.board.task.source]).then(function(taskAssets) {
                           console.log("Emitting tasks from getFeedback");
                           socket.emit('tasks', taskAssets);
                       });
                   //}
                   console.log("Sending board to client");
-                  console.log(board);
+                  //console.log(board);
                   socket.emit('boards', [board]);
                 });
                 socket.emit('feedback', feedback);
