@@ -1,7 +1,7 @@
 button {
     font-size: 18pt;
 }
-input[type="select"] {
+select {
     font-size: 18pt;
 }
 #board-selector-container a {
