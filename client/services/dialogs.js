@@ -31,7 +31,7 @@ angular.module('whiteboard.services.dialogs', [])
     openDialog({
       size: 'lg',
       templateUrl: 'templates/viewAs.html',
-      controller: 'studentViewModalInstanceCtrl'
+      controller: 'studentViewModalInstanceCtrl',
       resolve: {
         users: function () {
           return Object.values(UserData.getUsers());
