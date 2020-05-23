@@ -192,7 +192,8 @@ angular.module('whiteboard.services.boarddata', [])
 
 
   function pushToStorage (id, socketId, boardId, shape) {
-    var _shapeStorage = getShapeStorage(boardId);
+    //var _shapeStorage = getShapeStorage(boardId);
+    var _shapeStorage = getShapeStorage(boardData.boardId); //FIXME: we are ignoring the boardId defined in the shape. This is to prevent the weird side-effects of saving a board with a different boardId without changing the boardId of each of its shape objects. Why do we need a boardId property in the shape objects???
     if (typeof _shapeStorage[socketId] === 'undefined') {
       _shapeStorage[socketId] = {};
     }
