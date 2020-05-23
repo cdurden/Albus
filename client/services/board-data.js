@@ -292,6 +292,15 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function updateFeedback(feedbackList) {
     boardData.feedbackList = feedbackList;
+    var boards = feedbackList.map(feedback => { submission.board.submission = submission; return submission.board; });
+    /*
+    boardData.feedbackBoards = [].concat(boardData.feedbackBoards, boards);
+    boardData.boardIndexObject['feedbackBoardIndex'] = [];
+    for (board of boards) {
+      boardData.boardIndexObject['feedbackBoardIndex'].push(board.boardId);
+    }
+    */
+    updateBoards(boards);
   }
   function updateBoards(newBoards) {
     var board;
@@ -332,17 +341,6 @@ angular.module('whiteboard.services.boarddata', [])
       for (board of boards) {
         boardData.boardIndexObject['submissionBoardIndex'].push(board.boardId);
       }
-  }
-  function updateFeedbackBoards(feedbackList) {
-    var boards = feedbackList.map(feedback => { submission.board.submission = submission; return submission.board; });
-    /*
-    boardData.feedbackBoards = [].concat(boardData.feedbackBoards, boards);
-    boardData.boardIndexObject['feedbackBoardIndex'] = [];
-    for (board of boards) {
-      boardData.boardIndexObject['feedbackBoardIndex'].push(board.boardId);
-    }
-    */
-    updateBoards(boards);
   }
   function updateFreeBoards(boards) {
     boardData.freeBoards = [].concat(boardData.freeBoards, boards);
