@@ -67,7 +67,7 @@
    <div class="myrow">
     <div class="dropzone col-12">
      Student: {{submissionBoard.user.firstname}}
-     Feedback: <button ng-repeat="feedback in submissionBoard.feedbackList" uib-popover="{{ feedback.data.message }}" popover-title="{{feedback.data.title}}" popover-trigger="'mouseenter'" type="button" ng-click="$parent.feedback=feedback; boardData.boardId=feedback.board.boardId;" class="btn btn-default">{{ $index+1 }}</button> <button uib-popover="Create new feedback" popover-title="New" popover-trigger="'mouseenter'" type="button" ng-click="clearFeedbackForm(); boardData.boardId=submissionBoard.boardId;" class="btn btn-default">New</button>
+     Feedback: <button ng-repeat="feedback in submissionBoard.feedbackList" uib-popover="{{ feedback.data.message }}" popover-title="{{feedback.data.title}}" popover-trigger="'mouseenter'" type="button" ng-click="$parent.feedback=feedback; showFeedbackBoard=true; boardData.boardId=feedback.board.boardId;" class="btn btn-default">{{ $index+1 }}</button> <button uib-popover="Create new feedback" popover-title="New" popover-trigger="'mouseenter'" type="button" ng-click="clearFeedbackForm(); showFeedbackBoard=false; boardData.boardId=submissionBoard.boardId;" class="btn btn-default">New</button>
     </div>
    </div>
 
