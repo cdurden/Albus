@@ -92,11 +92,15 @@
    </div>
    -->
    Grade:
+   <div style="font-size: 24pt">
    <label ng-repeat="g in [0,1,2,3,4,5]">
-       <input type="radio" name="submissionGrade" ng-model="board.submission.grade" ng-change="gradeSubmission();" ng-value="g">{{g}}</input>
+       <input type="radio" name="submissionGrade" ng-model="board.submission.grade" ng-change="gradeSubmission();" ng-value="g">{{g}}</input>&nbsp;
    </div>
+   <br/>
    <!--
-   <select class="selectpicker" ng-model="grade" ng-options="g for g in [1,2,3,4,5]"></select><br/>
+   Update submission state to:
+   <select class="selectpicker" ng-model="updateSubmissionStateTo" ng-options="submissionState in [undefined, 'pending', 'processed', 'dismissed']"></select><br/>
+   </div>
    -->
 
    <button type="button" ng-click="clearFeedbackForm();">Clear</button>
