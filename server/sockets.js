@@ -841,6 +841,7 @@ module.exports = function(server, session) {
     });
     */
     socket.on('getSubmissionsReceived', function(state){
+        console.log("Getting submissions received");
         getSubmissionsReceived(socket, state);
     });
       /*
