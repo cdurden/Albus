@@ -209,12 +209,12 @@ module.exports = function(server, session) {
       });
   }
   function getRoomBoards(socket) {
-    console.log("Getting free boards);
+    console.log("Getting free (room) boards);
     new Promise(resolve => {
         roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
         resolve(roomBoards);
     }).then(function(roomBoards) {
-        socket.emit('roomBoards', roomBoards );
+        socket.emit('freeBoards', roomBoards );
         /*
         taskAssetsPromise.then(function(taskAssets) {
             console.log("Emitting tasks from getAssignmentBoards");
@@ -1054,6 +1054,9 @@ module.exports = function(server, session) {
       });
     });
     */
+    socket.on('getRoomBoards', function() {
+      getRoomBoards(socket);
+    });
     socket.on('getAssignmentBoards', function(assignment) {
       console.log("Got getAssignmentBoards");
       getAssignmentBoards(socket, assignment);
