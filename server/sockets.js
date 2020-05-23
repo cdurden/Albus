@@ -959,10 +959,10 @@ module.exports = function(server, session) {
       });
     });
     socket.on('newShape', function (data) {
-      console.log("new shape");
-      console.log(this.room);
+      //console.log("new shape");
+      //console.log(this.room);
       socket.to(this.room).emit('shapeCreated', data);
-      console.log(data);
+      //console.log(data);
       rooms.addShape(data, socket);
     });
 

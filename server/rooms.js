@@ -453,10 +453,12 @@ var roomsManager = {
 //    }).then(function() {
       rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid] = shape;
     //});
+      /*
     console.log("Adding shape to room, socket, board:");
     console.log(socket.room);
     console.log(shape.socketId);
     console.log(shape.boardId);
+    */
   },
 
   editShape: function (shape, socket) {
@@ -483,10 +485,12 @@ var roomsManager = {
       rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid]['mouseX'] = shape.mouseX;
       rooms[socket.room][shape.boardId].shapeStorage[userId][shape.myid]['mouseY'] = shape.mouseY;   
     //});
+      /*
     console.log(rooms);
     console.log(socket.room);
     console.log(shape.socketId);
     console.log(shape.myid);
+    */
   },
 
   moveShape: function (shape, socket) {
@@ -595,12 +599,14 @@ var roomsManager = {
       if (typeof (((rooms[socket.room] || {})[shape.boardId] || {}).shapeStorage[userId] || {})[shape.myid] === 'undefined') {
           return; //FIXME: add some warning messages to figure out why this is happening
       }
+      /*
       console.log("deleting shape "+shape.myid);
       console.log("roomId: "+socket.room);
       console.log("boardId: "+shape.boardId);
       console.log("socketId: "+shape.socketId);
       console.log(rooms);
       console.log(rooms[socket.room][shape.boardId].shapeStorage[shape.socketId]);
+      */
       delete rooms[socket.room][shape.boardId].shapeStorage[shape.socketId][shape.myid];
       //client.set(socket.room, JSON.stringify(rooms[socket.room][shape.boardId])); 
       client.hmset(socket.room, shape.boardId, JSON.stringify(rooms[socket.room][shape.boardId])); 
