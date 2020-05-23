@@ -1,3 +1,6 @@
+.board-selector-container a {
+    font-size: 18pt;
+}
 input[type="radio"] {
     display: table-cell;
     vertical-align: middle
