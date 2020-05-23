@@ -66,8 +66,8 @@
   <form action="" id="create-feedback-form" class="form-container">
    <div class="myrow">
     <div class="dropzone col-12">
-     Student: {{board.user.firstname}}
-     Feedback: <button ng-repeat="feedback in board.feedbackList" uib-popover="{{ feedback.data.message }}" popover-title="{{feedback.data.title}}" popover-trigger="'mouseenter'" type="button" ng-click="$parent.feedback=feedback; boardData.boardId=feedback.board.boardId;" class="btn btn-default">{{ $index+1 }}</button> <button uib-popover="Create new feedback" popover-title="New" popover-trigger="'mouseenter'" type="button" ng-click="clearFeedbackForm(); boardData.boardId=board.boardId;" class="btn btn-default">New</button>
+     Student: {{submissionBoard.user.firstname}}
+     Feedback: <button ng-repeat="feedback in submissionBoard.feedbackList" uib-popover="{{ feedback.data.message }}" popover-title="{{feedback.data.title}}" popover-trigger="'mouseenter'" type="button" ng-click="$parent.feedback=feedback; boardData.boardId=feedback.board.boardId;" class="btn btn-default">{{ $index+1 }}</button> <button uib-popover="Create new feedback" popover-title="New" popover-trigger="'mouseenter'" type="button" ng-click="clearFeedbackForm(); boardData.boardId=submissionBoard.boardId;" class="btn btn-default">New</button>
     </div>
    </div>
 
@@ -94,7 +94,7 @@
    Grade:
    <div style="font-size: 40pt; font-family: monospace;">
    <label ng-repeat="g in [0,1,2,3,4,5]">
-       <input type="radio" name="submissionGrade" ng-model="board.submission.grade" ng-change="gradeSubmission();" ng-value="g">{{g}}</input>&nbsp;
+       <input type="radio" name="submissionGrade" ng-model="submissionBoard.submission.grade" ng-change="gradeSubmission();" ng-value="g">{{g}}</input>&nbsp;
    </div>
    <br/>
    <!--
