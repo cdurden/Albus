@@ -9,7 +9,7 @@ angular.module('whiteboard.services.boarddata', [])
   //scalingFactor is the level of zooming relative to the start
   var scalingFactor = 1;
   var taskId;
-  var boardId;
+  //var boardId;
   var board;
   var boards = {};
   var boardData = {'boards': boards, boardIndexObject: {}, feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
@@ -89,7 +89,7 @@ angular.module('whiteboard.services.boarddata', [])
     return boardElmt;
   }
   function getBoardId () {
-    return boardId;
+    return boardData.boardId;
   }
 
   function getCursor() {
@@ -369,7 +369,7 @@ angular.module('whiteboard.services.boarddata', [])
   }
   function getBoardObj(id) {
       if (typeof id === 'undefined') {
-          id = boardId;
+          id = boardData.boardId;
       }
       return(boards[id]);
   }
