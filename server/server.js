@@ -120,7 +120,7 @@ app.post('/lti/', function(req, res, next) {
 app.use(express.static(__dirname + '/lib'));
 app.use('/lib/', express.static(__dirname + '/../node_modules'));
 app.use(passport.authenticate('lti-strategy', {failureFlash: true}),  function (req, res, next) {
-    console.log("Passed lti-strategy middleware (UUID: "+req.id+")");
+    //console.log("Passed lti-strategy middleware (UUID: "+req.id+")");
     //console.log(req.session);
     next();
 });
