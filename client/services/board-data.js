@@ -471,7 +471,7 @@ angular.module('whiteboard.services.boarddata', [])
     getBoardData: getBoardData,
     joinTasksToBoards: joinTasksToBoards,
     removeShape: removeShape,
-    setBoardIndex: setBoardIndex,
+    setActiveBoardNumber: setActiveBoardNumber,
     getBoardIndex: getBoardIndex,
     updateFeedback: updateFeedback,
     joinFeedbackToBoards: joinFeedbackToBoards,
