@@ -27,7 +27,7 @@ angular.module('whiteboard.services.dialogs', [])
       };
       */
   
-  openStudentDialog function() {
+  function openStudentDialog() {
     openDialog({
       size: 'lg',
       templateUrl: 'templates/viewAs.html',
