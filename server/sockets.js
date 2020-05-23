@@ -209,7 +209,7 @@ module.exports = function(server, session) {
       });
   }
   function getRoomBoards(socket) {
-    console.log("Getting free (room) boards);
+    console.log("Getting free (room) boards");
     new Promise(resolve => {
         roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
         resolve(roomBoards);
