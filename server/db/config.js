@@ -9,6 +9,7 @@ client.hmset = function() {
     }
 
     if(arr.includes(undefined)) {
+        console.log(arr);
         throw Error("undefined argument passed to hmset. Arguments: "+arr.join());
     }
     client.hmsetOrig.apply(this, arguments);
