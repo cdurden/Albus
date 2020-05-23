@@ -14,7 +14,7 @@ angular.module('whiteboard')
     controller: function ($scope, InputHandler) {
       //$scope.taskData = TaskData.getData();
       //$scope.boards = BoardData.getBoards();
-      $scope.maxBoardSelectorSize = 10;
+      $scope.maxBoardSelectorSize = 8;
       $scope.numBoards = 0;
       $scope.boardData = BoardData.getBoardData();
       $scope.i = 0;

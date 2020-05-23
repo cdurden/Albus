@@ -23,6 +23,7 @@ ul.user-list {
 }
 .pagination {
     margin: 0 !important;
+    font-family: monospace;
 }
 .feed-container {
     position: absolute;
