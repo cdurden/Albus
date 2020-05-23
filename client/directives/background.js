@@ -85,7 +85,7 @@ angular.module('whiteboard')
                             backgroundRect = elmt.getBoundingClientRect();
                             dim = backgroundRect;
                             viewBox = calculateViewBox(dim);
-                            console.log(viewBox);
+                            //console.log(viewBox);
                             BoardData.getBoardElmt().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
                         }
                     })(container[0]);
@@ -105,7 +105,7 @@ angular.module('whiteboard')
                             w = img.naturalWidth;
                             h = img.naturalHeight;
                             aspect_ratio = w/h;
-                            console.log(w+", "+h);
+                            //console.log(w+", "+h);
                             canvas = BoardData.getCanvas().get(0)
                             boardRect = canvas.getBoundingClientRect();
                             viewBox = calculateViewBox(boardRect);
@@ -142,7 +142,7 @@ angular.module('whiteboard')
                             var counter = 0;
                             return setInterval( function() {
                                 if (isImageReady(img)) {
-                                    console.log(angular.element(container).has(img).length);
+                                    //console.log(angular.element(container).has(img).length);
                                     img.onload();
                                     handleBackgroundResize(); //FIXME: for some reason this is not called when the img is readded to the DOM a second time.
                                     clearInterval(checkImageInterval);
