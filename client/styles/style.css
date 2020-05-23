@@ -1,4 +1,4 @@
-.board-selector-container a {
+#board-selector-container a {
     font-size: 18pt;
 }
 input[type="radio"] {
