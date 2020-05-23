@@ -51,7 +51,7 @@ function getAssignmentAsset(assignment) {
             console.log(response);
             console.log(error);
             */
-            console.log(body);
+            //console.log(body);
             if(!error && response.statusCode == 200) {
               data = JSON.parse(body);
             } else {
@@ -93,11 +93,11 @@ function getTaskAssets(taskSrcList, asArray) {
               }
           }
           Promise.all(promises).then(function(collectionObjs) {
-              console.log(collectionObjs);
+              //console.log(collectionObjs);
               var collectionObjsHash = collectionObjs.reduce(function(out, obj, i) { out[collections[i]] = obj; return out; }, {});
-              console.log(collectionObjsHash);
+              //console.log(collectionObjsHash);
               for (taskAsset of taskAssets) {
-                  console.log(taskAsset);
+                  //console.log(taskAsset);
                   taskAsset.data = collectionObjsHash[taskAsset.collection][taskAsset.task];
               }
               if (asArray) {
