@@ -144,7 +144,7 @@ angular.module('whiteboard.services.eventhandler', [])
     currentEditorShape = BoardData.getEditorShape();
 
     if (!currentEditorShape) {
-      var shape = BoardData.getBoard().getElementByPoint(x, y);
+      var shape = BoardData.getBoardElmt().getElementByPoint(x, y);
       if (shape) {
         BoardData.setEditorShape(shape);
         currentEditorShape = BoardData.getEditorShape();

@@ -10,7 +10,7 @@ $window.onload = () => {
   canvg = $window.canvg; // Render SVG on Canvas.
 };
 function screenshot() {
-  var board = BoardData.getBoard();
+  var boardElmt = BoardData.getBoardElmt();
   var canvas = BoardData.getCanvas()[0];
   var box = canvas.getAttribute('viewBox');
   let [x, y, w, h] = box.split(/\s+|,/);

@@ -58,9 +58,9 @@ angular.module('whiteboard.services.boarddata', [])
     //ResizeSensorApi.create(container, function() {});
 
     //board = Raphael(container);
-    board = Raphael(element[0]);
-    board.setViewBox(0, 0, svgWidth, svgHeight, true);
-    board.canvas.setAttribute('preserveAspectRatio', 'none');
+    boardElmt = Raphael(element[0]);
+    boardElmt.setViewBox(0, 0, svgWidth, svgHeight, true);
+    boardElmt.canvas.setAttribute('preserveAspectRatio', 'none');
 
     $canvas = element.find('svg');
     canvasMarginX = $canvas.position().left;
@@ -85,8 +85,8 @@ angular.module('whiteboard.services.boarddata', [])
   }
   */
 
-  function getBoard() {
-    return board;
+  function getBoardElmt() {
+    return boardElmt;
   }
   function getBoardId () {
     return boardId;
@@ -437,7 +437,7 @@ angular.module('whiteboard.services.boarddata', [])
     setSocketId: setSocketId,
     getSocketId: getSocketId,
     setCurrentToolName: setCurrentToolName,
-    getBoard: getBoard,
+    getBoardElmt: getBoardElmt,
     getScalingFactor: getScalingFactor,
     getOffset: getOffset,
     getCanvasMargin: getCanvasMargin,

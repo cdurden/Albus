@@ -3,7 +3,7 @@ angular.module('whiteboard.services.visualizer', [])
   var selectionGlow;
   var selected;
   function visualizeSelection (selection) {
-    var board = BoardData.getBoard();
+    var board = BoardData.getBoardElmt();
     var scale = BoardData.getZoomScale()
     if (!selection || !(selection === selected)) {
       if (selectionGlow) {
@@ -31,10 +31,10 @@ angular.module('whiteboard.services.visualizer', [])
 
   var displayedSnaps;
   function visualizeSnaps (snaps, closest) {
-    var board = BoardData.getBoard();
+    var board = BoardData.getBoardElmt();
     var scale = BoardData.getZoomScale();
     if (!displayedSnaps) {
-      displayedSnaps = BoardData.getBoard().set();
+      displayedSnaps = BoardData.getBoardElmt().set();
     } else {
       displayedSnaps.remove();
       displayedSnaps.clear();

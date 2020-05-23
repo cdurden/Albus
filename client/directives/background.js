@@ -86,7 +86,7 @@ angular.module('whiteboard')
                             dim = backgroundRect;
                             viewBox = calculateViewBox(dim);
                             console.log(viewBox);
-                            BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
+                            BoardData.getBoardElmt().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h);
                         }
                     })(container[0]);
                     //if ((resizeSensor || {}).targetElement) {
@@ -109,7 +109,7 @@ angular.module('whiteboard')
                             canvas = BoardData.getCanvas().get(0)
                             boardRect = canvas.getBoundingClientRect();
                             viewBox = calculateViewBox(boardRect);
-                            BoardData.getBoard().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
+                            BoardData.getBoardElmt().setViewBox(viewBox.x, viewBox.y, viewBox.w, viewBox.h, false);
                             //backgroundRect = this.getBoundingClientRect();
                             //w = backgroundRect.width;
                             //h = backgroundRect.height;

@@ -143,10 +143,6 @@ angular.module('whiteboard.services.reveal', [])
           //BoardData.setZoomScale(scale);
           //BoardData.setZoomScale(Reveal.getScale());
           BoardData.handleWindowResize(newPageSize);
-          /*var viewBoxWidth = scale.x*window.innerWidth;
-          var viewBoxHeight = scale.y*window.innerHeight;
-          BoardData.getBoard().setViewBox(offset.x, offset.y, viewBoxWidth, viewBoxHeight); 
-          */
       });
   }
   function replaceWindowResizeEventListener() {

@@ -13,7 +13,7 @@ angular.module('whiteboard.services.inputhandler', [])
   }
 
   function getClosestElementByArea (ev) {
-    var paper = BoardData.getBoard();
+    var paper = BoardData.getBoardElmt();
     var width = height = 5;
     var mouseXY = getMouseXY(ev);
     var bbox = {
@@ -52,7 +52,7 @@ angular.module('whiteboard.services.inputhandler', [])
     mouseHold: function (ev) {
       if (lastEv) {
         var mousePathString = 'M' + lastEv.clientX + ',' + lastEv.clientY + 'L' + ev.clientX + ',' + ev.clientY;
-        BoardData.getBoard().forEach(function (shape) {
+        BoardData.getBoardElmt().forEach(function (shape) {
           if (shape.type === 'path') {
             if (Raphael.pathIntersection(mousePathString, shape.attr('path')).length) {
               Broadcast.deleteShape(shape.myid, shape.socketId, shape.boardId);
@@ -61,7 +61,7 @@ angular.module('whiteboard.services.inputhandler', [])
           }
         });
       }
-      var shape = BoardData.getBoard().getElementByPoint(ev.clientX, ev.clientY);
+      var shape = BoardData.getBoardElmt().getElementByPoint(ev.clientX, ev.clientY);
       if (shape) {
         Broadcast.deleteShape(shape.myid, shape.socketId, shape.boardId);
         EventHandler.deleteShape(shape.myid, shape.socketId, shape.boardId);

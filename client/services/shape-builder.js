@@ -38,16 +38,16 @@ angular.module('whiteboard.services.shapebuilder', [])
   function newShape (id, socketId, boardId, tool, x, y) {
     var shapeConstructors = {
       'circle': function (x, y) {
-        return BoardData.getBoard().circle(x, y, 0);
+        return BoardData.getBoardElmt().circle(x, y, 0);
       },
       'line': function (x, y) {
-        return BoardData.getBoard().path("M" + String(x) + "," + String(y))
+        return BoardData.getBoardElmt().path("M" + String(x) + "," + String(y))
           .attr({
             'stroke-linecap': 'round'
           });
       },
       'path': function (x, y) {
-        var path = BoardData.getBoard().path("M" + String(x) + "," + String(y))
+        var path = BoardData.getBoardElmt().path("M" + String(x) + "," + String(y))
           .attr({
             'stroke-linecap': 'round'
           });
@@ -55,17 +55,17 @@ angular.module('whiteboard.services.shapebuilder', [])
         return path;
       },
       'rectangle': function (x,y) {
-        return BoardData.getBoard().rect(x, y, 0, 0);
+        return BoardData.getBoardElmt().rect(x, y, 0, 0);
       },
       'text': function (x, y, text) {
-        return BoardData.getBoard().text(x, y, text)
+        return BoardData.getBoardElmt().text(x, y, text)
           .attr({
             'font-size': 18,
             'font-family': "San Francisco"
           });
       },
       'arrow': function (x, y) {
-        var arrow = BoardData.getBoard().path("M" + String(x) + ',' + String(y));
+        var arrow = BoardData.getBoardElmt().path("M" + String(x) + ',' + String(y));
         arrow.attr('arrow-end', 'classic-wide-long');
         return arrow;
       }
