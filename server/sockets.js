@@ -157,8 +157,8 @@ module.exports = function(server, session) {
         var taskAssetsPromise = assets.getTaskAssets(taskSources, false);
           Promise.all(submissions.map((submission, i) => {
               return new Promise(resolve => {
-                  rooms.loadBoard(socket.room, board, function() {
-                     resolve(board);
+                  rooms.loadBoard(socket.room, submission.board, function() {
+                     resolve(submission.board);
                   });
               });
           })).then(function(boards) {
