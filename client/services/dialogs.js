@@ -38,9 +38,9 @@ angular.module('whiteboard.services.dialogs', [])
         }
       },
       success: function (selectedUser) {
-          $ctrl.selected = selectedUser;
+          //$ctrl.selected = selectedUser;
           Sockets.emit("actAsUser", selectedUser);
-          console.log('Modal dismissed at: ' + new Date());
+          //console.log('Modal dismissed at: ' + new Date());
       },
     });
   }
