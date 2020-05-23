@@ -411,7 +411,7 @@ angular.module('whiteboard')
           ariaLabelledBy: 'modal-title',
           ariaDescribedBy: 'modal-body',
           templateUrl: 'templates/viewAs.html',
-          controller: 'studenViewModalInstanceCtrl',
+          controller: 'studentViewModalInstanceCtrl',
           controllerAs: '$ctrl',
           size: size,
           appendTo: parentElem,
