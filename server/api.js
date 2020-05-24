@@ -61,7 +61,7 @@ class ApiResource
 class SubmissionBox extends ApiResource
 {
     constructor(lti_user_id, box_id) {
-        super();
+        super(...arguments);
         this.box_id = box_id;
     }
     url() {
