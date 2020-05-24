@@ -24,11 +24,10 @@ class ApiResource
             request({
               url: this.url(),
               headers : { "Authorization" : "Bearer " + auth.api_auth_token },
-              json: params,
             },
-            function(err, res, data) {
+            function(err, res, body) {
               if (!err && res.statusCode == 200) {
-                //data = JSON.parse(body)
+                data = JSON.parse(body)
                 resolve(data);
               } else {
                 throw new Error(err);
@@ -41,9 +40,9 @@ class ApiResource
             request.post(this.url(), { 
                 "headers": { "Authorization" : "Bearer " + auth.api_auth_token },
                 json: data
-            }, function(err, res, data) {
+            }, function(err, res, obj) {
               if (!error && response.statusCode == 201) {
-                resolve(data);
+                resolve(obj);
               } else {
                 throw new Error(err);
               }
