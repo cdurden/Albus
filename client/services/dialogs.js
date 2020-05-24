@@ -53,7 +53,7 @@ angular.module('whiteboard.services.dialogs', [])
       success: function (selectedInbox) {
           $rootScope.mode = 'submissions';
           $rootScope.resource = selectedInbox.id;
-          EventHandler.getSubmissionsReceived(selectedInbox.id);
+          EventHandler.getSubmissionBox(selectedInbox.id);
           BoardData.setActiveBoardIndex('submissionBoardIndex');
       },
     });

@@ -269,6 +269,9 @@ angular.module('whiteboard.services.eventhandler', [])
   var createSubmissionBox = function(label) {
       Broadcast.createSubmissionBox(label);
   }
+  var getSubmissionBox = function(box_id) {
+      Broadcast.getSubmissionBox(box_id);
+  }
 
   return {
     cursor: cursor,
@@ -310,5 +313,6 @@ angular.module('whiteboard.services.eventhandler', [])
     getInboxes: getInboxes,
     getAssignmentsReceived: getAssignmentsReceived,
     createSubmissionBox: createSubmissionBox,
+    getSubmissionBox: getSubmissionBox,
   };
 }]);
