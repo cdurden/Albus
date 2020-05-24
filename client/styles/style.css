@@ -5,7 +5,8 @@
     height:16em;
     border:thin black ridge;
     margin:.1cm;
-    font-size:medium;
+    /*font-size:medium;*/
+    font-size: 18pt;
 }
 .pane {
     padding:.2cm;
