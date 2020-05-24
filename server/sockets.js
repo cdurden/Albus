@@ -215,7 +215,8 @@ module.exports = function(server, session) {
   function getRoomBoards(socket) {
     console.log("Getting free (room) boards");
     new Promise(resolve => {
-        roomBoards = rooms.getBoards(rooms.getRoomId(socket)) || {};
+        roomBoardsObject = rooms.getBoards(rooms.getRoomId(socket)) || {};
+        roomBoards = Object.values(roomBoardsObject);
         resolve(roomBoards);
     }).then(function(roomBoards) {
         socket.emit('freeBoards', roomBoards );
@@ -1086,7 +1087,7 @@ module.exports = function(server, session) {
     });
     socket.on('createSubmissionBox', function(label) {
         console.log("Creating submission box with label: "+label);
-        new api.SubmissionBoxList(socket.handshake.session.passport.user).post({label}).then(function(submissionBox) {
+        new api.SubmissionBoxList(socket.handshake.session.passport.user).post({label: label, recipient_id: socket.handshake.session.passport.user}).then(function(submissionBox) {
             socket.emit('submissionBoxCreated', submissionBox);
         });
     });

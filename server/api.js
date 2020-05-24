@@ -47,7 +47,7 @@ class ApiResource
                 "headers": { "Authorization" : "Bearer " + auth.api_auth_token,
                   "Cookie": "lti_user_id="+this.lti_user_id+";",
                 },
-                json: data
+                json: data,
             }, function(err, res, obj) {
               if (!err && res.statusCode == 201) {
                 resolve(obj);
