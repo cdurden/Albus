@@ -232,6 +232,8 @@ angular.module('whiteboard', [
 //.controller('whiteboardController', ['$window', '$document', 'FileUploader','$scope', 'BoardData', 'EventHandler', 'mode', 'resource', function($window, $document, FileUploader, $scope, BoardData, EventHandler, mode, resource) {
     $scope.userData = userData;
     $scope.mode = mode;
+    EventHandler.getInboxes();
+    EventHandler.getAssignments();
     if ($scope.mode === 'free') {
         BoardData.setActiveBoardIndex('freeBoardIndex');
         EventHandler.getRoomBoards();

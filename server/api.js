@@ -16,6 +16,57 @@ if (scheme === 'https') {
 const agent = new http.Agent({  
     rejectUnauthorized: false
 });
+
+class ApiResource
+{
+    constructor(params) {
+        this = params;
+    }
+    get() {
+        return new Promise(resolve => {
+            request({
+              url: this.url(),
+              headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+              json: params,
+            },
+            function(err, res, data) {
+              if (!err && res.statusCode == 200) {
+                //data = JSON.parse(body)
+                resolve(data);
+              } else {
+                throw new Error(err);
+              }
+            });
+        });
+    }
+    post(data) {
+        return new Promise(resolve => {
+            request.post(this.url(), { 
+                "headers": { "Authorization" : "Bearer " + auth.api_auth_token },
+                json: data
+            }, function(err, res, data) {
+              if (!error && response.statusCode == 201) {
+                resolve(data);
+              } else {
+                throw new Error(err);
+              }
+            });
+        });
+    }
+}
+class SubmissionBox extends ApiResource
+{
+    url() {
+        return `${scheme}://${host}:${port}/api/submissions/box/${this.box_id}`
+    }
+}
+class SubmissionBoxList extends ApiResource
+{
+    url() {
+        return `${scheme}://${host}:${port}/api/submissions/boxes/`
+    }
+}
+
 //var proxy = httpProxy.createProxyServer({'target': `${scheme}://${host}:${port}`});
 
 /*

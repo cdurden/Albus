@@ -144,6 +144,12 @@ angular.module('whiteboard.services.broadcast', [])
   var getOrCreateTaskBoard = function(taskId) {
     Sockets.emit('getOrCreateTaskBoard', taskId);
   }
+  function getInboxes() {
+    Sockets.emit('getInboxes');
+  };
+  function getAssignmentsReceived() {
+    Sockets.emit('getAssignmentsReceived');
+  };
 
   return {
     getSocketId: getSocketId,
@@ -172,6 +178,8 @@ angular.module('whiteboard.services.broadcast', [])
     getBoardStorage: getBoardStorage,
     getFeedback: getFeedback,
     getFeedbackReceived: getFeedbackReceived,
+    getInboxes: getInboxes,
+    getAssignmentsReceived: getAssignmentsReceived,
   };
 
 });

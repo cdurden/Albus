@@ -16,6 +16,12 @@ angular.module('whiteboard.services.eventhandler', [])
     Broadcast.saveBoardToApi(BoardData.getBoardObj(boardId));
     */
   }
+  function getInboxes() {
+    Broadcast.getInboxes();
+  };
+  function getAssignmentsReceived() {
+    Broadcast.getAssignmentsReceived();
+  };
   function getFeedback(board_ids) {
     Broadcast.getFeedback(board_ids);
   };
@@ -298,6 +304,7 @@ angular.module('whiteboard.services.eventhandler', [])
     updateFeedback: updateFeedback,
     getFeedback: getFeedback,
     getFeedbackReceived: getFeedbackReceived,
-
+    getInboxes: getInboxes,
+    getAssignmentsReceived: getAssignmentsReceived,
   };
 }]);

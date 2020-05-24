@@ -1072,6 +1072,18 @@ module.exports = function(server, session) {
         console.log("Getting submissions received.");
         getSubmissionsReceived(socket, state);
     });
+    socket.on('getSubmissionBox', function(box_id) {
+        console.log("Getting submission box with box_id "+box_id);
+        api.SubmissionBox({ box_id: box_id }).get().then(function(submissionbox) {
+            socket.emit('submissionBox', submissionBox);
+        });
+    });
+    socket.on('getInboxes', function() {
+        console.log("Getting submission boxes");
+        api.SubmissionBoxList().get().then(function(inboxes) {
+            socket.emit('inboxes', inboxes);
+        });
+    });
     socket.on('getSubmissions', function(state) {
       //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
       getSubmissions(socket, state);
