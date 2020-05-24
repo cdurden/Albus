@@ -1080,7 +1080,7 @@ module.exports = function(server, session) {
     });
     socket.on('getInboxes', function() {
         console.log("Getting submission boxes");
-        new api.apiResourceInterface(socket.handshake.session.passport.user).submissionBoxList().get().then(function(inboxes) {
+        new api.SubmissionBoxList(socket.handshake.session.passport.user).get().then(function(inboxes) {
             socket.emit('inboxes', inboxes);
         });
     });
