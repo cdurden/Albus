@@ -19,11 +19,18 @@ const agent = new http.Agent({
 
 class ApiResource
 {
+    constructor(lti_user_id) {
+        super();
+        this.lti_user_id = lti_user_id;
+    }
     get() {
         return new Promise(resolve => {
             request({
               url: this.url(),
-              headers : { "Authorization" : "Bearer " + auth.api_auth_token },
+              headers : {
+                  "Authorization" : "Bearer " + auth.api_auth_token,
+                  "Cookie": "lti_user_id="+this.lti_user_id+";",
+              },
             },
             function(err, res, body) {
               if (!err && res.statusCode == 200) {
@@ -52,7 +59,8 @@ class ApiResource
 }
 class SubmissionBox extends ApiResource
 {
-    constructor(box_id) {
+    constructor(lti_user_id, box_id) {
+        super();
         this.box_id = box_id;
     }
     url() {
