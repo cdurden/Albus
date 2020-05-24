@@ -28,6 +28,12 @@
             </div>
             -->
         </div>
+        <div>
+            <form id="create-submission-box-form">
+                <input type="text" ng-model="label" name="label">
+                <input type="submit" name="submit" value="Create" ng-click="$event.preventDefault; createSubmissionBox()">
+            </form>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>

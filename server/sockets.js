@@ -1084,6 +1084,12 @@ module.exports = function(server, session) {
             socket.emit('inboxes', inboxes);
         });
     });
+    socket.on('createSubmissionBox', function(label) {
+        console.log("Creating submission box with label: "+label);
+        new api.SubmissionBoxList(socket.handshake.session.passport.user).post({label}).then(function(submissionBox) {
+            socket.emit('submissionBoxCreated', submissionBox);
+        });
+    });
     socket.on('getSubmissions', function(state) {
       //api.getSubmissions(socket.handshake.session, {}, function(err, submissions) {
       getSubmissions(socket, state);

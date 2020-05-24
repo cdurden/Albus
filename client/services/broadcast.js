@@ -150,6 +150,9 @@ angular.module('whiteboard.services.broadcast', [])
   function getAssignmentsReceived() {
     Sockets.emit('getAssignmentsReceived');
   };
+  function createSubmissionBox(label) {
+    Sockets.emit('createSubmissionBox', label);
+  };
 
   return {
     getSocketId: getSocketId,
@@ -180,6 +183,7 @@ angular.module('whiteboard.services.broadcast', [])
     getFeedbackReceived: getFeedbackReceived,
     getInboxes: getInboxes,
     getAssignmentsReceived: getAssignmentsReceived,
+    createSubmissionBox: createSubmissionBox,
   };
 
 });

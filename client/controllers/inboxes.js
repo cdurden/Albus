@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.controller('inboxesModalInstanceCtrl', function ($uibModalInstance, inboxes, $scope) {
+.controller('inboxesModalInstanceCtrl', function ($uibModalInstance, inboxes, $scope, EventHandler) {
   var $ctrl = this;
   $ctrl.inboxes = inboxes;
   $ctrl.scope = $scope;
@@ -7,6 +7,9 @@ angular.module('whiteboard')
     inboxes: $ctrl.inboxes[0]
   };
 
+  $ctrl.createSubmissionBox(label) {
+    EventHandler.createSubmissionBox(label);
+  }
   $ctrl.ok = function () {
     $uibModalInstance.close($ctrl.selectedInbox);
     $ctrl.scope.$emit('activateMenu', 'hide');
