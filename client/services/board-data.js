@@ -13,7 +13,7 @@ angular.module('whiteboard.services.boarddata', [])
   var board;
   var boards = {};
   //var boardData = {'boards': boards, boardIndexObject: {}, feedbackList: [], 'submissions': [], 'assignmentBoards': {}, 'freeBoards': {}};
-  var boardData = {'boards': boards, boardIndexObject: {}};
+  var boardData = {'boards': boards, boardIndexObject: {}, feedbackList = [], };
   var boardIdsObject = {};
   var taskBoards = {};
   var $canvas;
