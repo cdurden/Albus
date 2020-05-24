@@ -282,6 +282,8 @@ module.exports = function(server, session) {
                         }
                     });
                 })).then(function(boards) { // we are going to add boards that have already been created in the room
+                    getRoomBoards();
+                    /*
                     var freeBoards = [];
                     console.log("Got boards for the assigned tasks. Adding boards that have been created in the room.");
                     //console.log(boards);
@@ -295,14 +297,6 @@ module.exports = function(server, session) {
                         //for (let [boardId, boardStorage] of Object.entries(roomBoards)) {
                         for (let [boardId, board] of Object.entries(roomBoards)) { // this changed now that boards are stored with metadata
                             if (!ids.includes(boardId)) {
-                                /*
-                                boards.push({
-                                    'i': boards.length,
-                                    'id': boardId,
-                                    'data': boardStorage,
-                                    'shapeStorage': boardStorage,
-                                });
-                                */
                                 freeBoards.push(board)
                             }
                         }
@@ -314,17 +308,8 @@ module.exports = function(server, session) {
                             console.log("Emitting tasks from getAssignmentBoards");
                             socket.emit('tasks', taskAssets);
                         });
-                        /*
-                        taskAssetsPromise.then(function(taskAssets) {
-                            taskAssetsObject = taskAssets.reduce(function(obj, taskAsset) { taskAsset.data = taskAssets[task.source].data; obj[task.id] = task; return obj; }, {});
-                            for (board in boards) {
-                                board.task = taskAssetsObject[board.task_id]
-                            }
-                            socket.emit('boards', boards);
-                            socket.emit('tasks', tasksObj);
-                        });
-                    */
                     });
+                    */
                 });
                 //}
             });
