@@ -20,7 +20,6 @@ const agent = new http.Agent({
 class ApiResource
 {
     constructor(lti_user_id) {
-        super();
         this.lti_user_id = lti_user_id;
     }
     get() {
