@@ -7,7 +7,7 @@ angular.module('whiteboard')
     inboxes: $ctrl.inboxes[0]
   };
 
-  $ctrl.createSubmissionBox(label) {
+  $ctrl.createSubmissionBox = function(label) {
     EventHandler.createSubmissionBox(label);
   }
   $ctrl.ok = function () {
