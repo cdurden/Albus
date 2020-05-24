@@ -47,7 +47,7 @@ class ApiResource
                 "headers": { "Authorization" : "Bearer " + auth.api_auth_token },
                 json: data
             }, function(err, res, obj) {
-              if (!error && response.statusCode == 201) {
+              if (!err && res.statusCode == 201) {
                 resolve(obj);
               } else {
                 throw new Error(err);
