@@ -85,7 +85,7 @@ angular.module('whiteboard')
         ['Draw', ['Path', 'Eraser', 'Line', 'Rectangle', 'Text']], 
         //['Tool', ['Magnify', 'Eraser', 'Pan', 'Move', 'Copy']],
         ['Color', [['Fill', fill], ['Stroke', stroke], ['Thickness', thickness]]],
-        ['Board', ['Inbox', 'Tasks', 'Explore', 'Free draw']],
+        ['Board', ['Inboxes', 'Tasks', 'Explore', 'Free draw']],
         //['Board', ['Submit', 'Save','Background']],
       ];
 
@@ -403,8 +403,14 @@ angular.module('whiteboard')
       var $ctrl = this;
       $ctrl.animationsEnabled = true;
       
-      $ctrl.openStudentDialog = function (size, parentSelector) {
+      $ctrl.openStudentDialog = function () {
           Dialogs.openStudentDialog();
+      }
+      $ctrl.openAssignmentsDialog = function () {
+          Dialogs.openAssignmentsDialog();
+      }
+      $ctrl.openInboxesDialog = function () {
+          Dialogs.openInboxesDialog();
       }
           /*
       $ctrl.openStudentDialog = function (size, parentSelector) {
@@ -510,7 +516,11 @@ angular.module('whiteboard')
         } else if (attrs.wbTool && attrs.wbTool === 'save') {
           submenuItemsCtrl.saveBoard();
         } else if (attrs.wbTool && attrs.wbTool === 'student view') {
-          submenuItemsCtrl.openStudentDialog('lg', 'body');
+          submenuItemsCtrl.openStudentDialog();
+        } else if (attrs.wbTool && attrs.wbTool === 'tasks') {
+          submenuItemsCtrl.openAssignmentsDialog();
+        } else if (attrs.wbTool && attrs.wbTool === 'inboxes') {
+          submenuItemsCtrl.openInboxesDialog();
         } else if (attrs.wbTool && attrs.wbTool === 'screenshot') {
           submenuItemsCtrl.screenshot();
         } else if (angular.element(ev.relatedTarget).hasClass('menu') || angular.element(ev.relatedTarget).hasClass('icon')) {

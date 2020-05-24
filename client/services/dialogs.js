@@ -44,8 +44,42 @@ angular.module('whiteboard.services.dialogs', [])
       },
     });
   }
+  function openInboxesDialog() {
+    openDialog({
+      size: 'lg',
+      templateUrl: 'templates/inboxes.html',
+      controller: 'inboxesModalInstanceCtrl',
+      resolve: {
+        inboxes: function () {
+          return UserData.getInboxes();
+        }
+      },
+      success: function (selectedInbox) {
+          $rootScope.mode = 'submissions';
+          $rootScope.resource = selectedInbox;
+          EventHandler.getSubmissionsReceived(selectedInbox);
+          BoardData.setActiveBoardIndex('submissionBoardIndex');
+      },
+    });
+  }
+  function openAssignmentsDialog() {
+    openDialog({
+      size: 'lg',
+      templateUrl: 'templates/assignments.html',
+      controller: 'assignmentModalInstanceCtrl',
+      resolve: {
+        assignments: function () {
+          return UserData.getAssignments();
+        }
+      },
+      success: function (selectedAssignment) {
+      },
+    });
+  }
 
   return {
       openStudentDialog: openStudentDialog,
+      openInboxesDialog: openInboxesDialog,
+      openAssignmentsDialog: openAssignmentsDialog,
   }
 }]);

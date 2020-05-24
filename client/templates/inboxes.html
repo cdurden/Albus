@@ -1,0 +1,30 @@
+<div class="pane" style="overflow:hidden">
+    <div class="tile" style="overflow:hidden" ng-repeat="inbox in inboxes">
+      <a href="#" ng-click="$event.preventDefaul(); $ctrl.selectedInbox = inbox;">
+        {{inbox}}
+      </a>
+        <!--
+        <div>
+          <div style="float: right;">
+            <div class="links">
+                <a href="#" class="iconlink" title="${python: '\n'.join([pin.lemma for pin in session.pins])}">
+                    ${python: len(session.pins)} <i class="icon-pushpin"></i>
+                </a>
+            </div>
+            <div class="links">
+                <a class="iconlink deletelink" href="javascript:confirm_delete_session('${session.title}', function() {delete_session(${session.id})})" data-ajax="false">
+                    <i class="icon-trash"></i>
+                </a>
+                <a class="iconlink" href="${session.website.url}" data-ajax="false">
+                    <i class="icon icon-external-link"></i>
+                </a>
+            </div>
+          </div>
+        </div>
+        -->
+    </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div> 
+</div>

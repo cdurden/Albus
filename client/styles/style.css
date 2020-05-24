@@ -1,3 +1,25 @@
+.tile {
+    padding:.2cm;
+    float:left;
+    width:14em;
+    height:16em;
+    border:thin black ridge;
+    margin:.1cm;
+    font-size:medium;
+}
+.pane {
+    padding:.2cm;
+    float:left;
+    margin:.1cm;
+    font-size:medium;
+}
+.tile img {
+    width: 14em;
+}
+.tile a {
+    text-decoration: none;
+}
+
 .form-container .btn {
     font-size: 18pt;
 }
