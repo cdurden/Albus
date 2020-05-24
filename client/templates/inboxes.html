@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body">
       <div class="pane" style="overflow:hidden">
-        <div class="tile" style="overflow:hidden" ng-repeat="inbox in inboxes">
+        <div class="tile" style="overflow:hidden" ng-repeat="inbox in $ctrl.inboxes">
           <a href="#" ng-click="$event.preventDefaul(); $ctrl.selectedInbox = inbox;">
             {{inbox}}
           </a>
