@@ -1074,13 +1074,13 @@ module.exports = function(server, session) {
     });
     socket.on('getSubmissionBox', function(box_id) {
         console.log("Getting submission box with box_id "+box_id);
-        api.SubmissionBox(box_id).get().then(function(submissionBox) {
+        new api.SubmissionBox(box_id).get().then(function(submissionBox) {
             socket.emit('submissionBox', submissionBox);
         });
     });
     socket.on('getInboxes', function() {
         console.log("Getting submission boxes");
-        api.SubmissionBoxList().get().then(function(inboxes) {
+        new api.SubmissionBoxList().get().then(function(inboxes) {
             socket.emit('inboxes', inboxes);
         });
     });
