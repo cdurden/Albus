@@ -31,7 +31,7 @@
         <div>
             <form id="create-submission-box-form">
                 <input type="text" ng-model="label" name="label">
-                <input type="submit" name="submit" value="Create" ng-click="$event.preventDefault; createSubmissionBox()">
+                <input type="submit" name="submit" value="Create" ng-click="$event.preventDefault; $ctrl.createSubmissionBox(label)">
             </form>
         </div>
     </div>
