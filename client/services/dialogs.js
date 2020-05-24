@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.dialogs', [])
-.factory('Dialogs', ['BoardData', 'UserData', 'Sockets', '$rootScope', '$uibModal', function (BoardData, UserData, Sockets, $rootScope, $uibModal) {
+.factory('Dialogs', ['BoardData', 'UserData', 'EventHandler', 'Sockets', '$rootScope', '$uibModal', function (BoardData, UserData, EventHandler, Sockets, $rootScope, $uibModal) {
   openDialog = function (params) {
     var parentElem = params.parentSelector ? 
       angular.element($document[0].querySelector(parentSelector)) : undefined;
@@ -52,8 +52,8 @@ angular.module('whiteboard.services.dialogs', [])
       },
       success: function (selectedInbox) {
           $rootScope.mode = 'submissions';
-          $rootScope.resource = selectedInbox;
-          EventHandler.getSubmissionsReceived(selectedInbox);
+          $rootScope.resource = selectedInbox.id;
+          EventHandler.getSubmissionsReceived(selectedInbox.id);
           BoardData.setActiveBoardIndex('submissionBoardIndex');
       },
     });
