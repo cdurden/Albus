@@ -266,6 +266,9 @@ angular.module('whiteboard.services.eventhandler', [])
     $container.css("pointer-events", "all");
     $container.children().css("pointer-events", "all");
   }
+  var createSubmissionBox = function(label) {
+      Broadcast.createSubmissionBox(label);
+  }
 
   return {
     cursor: cursor,
@@ -306,5 +309,6 @@ angular.module('whiteboard.services.eventhandler', [])
     getFeedbackReceived: getFeedbackReceived,
     getInboxes: getInboxes,
     getAssignmentsReceived: getAssignmentsReceived,
+    createSubmissionBox: createSubmissionBox,
   };
 }]);
