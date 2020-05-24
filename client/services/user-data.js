@@ -12,6 +12,12 @@ angular.module('whiteboard.services.userdata', [])
   function setUsers(users) {
       data.users = users;
   }
+  function getInboxes() {
+      return data.user.inboxes;
+  }
+  function getAssignmentsReceived() {
+      return data.user.assignments_received;
+  }
   function getUsers() {
       return data.users;
   }
@@ -33,5 +39,7 @@ angular.module('whiteboard.services.userdata', [])
     getDataObject: getDataObject,
     setActingUser: setActingUser,
     getActingUser: getActingUser,
+    getInboxes: getInboxes,
+    getAssignmentsReceived: getAssignmentsReceived,
   }
 });
