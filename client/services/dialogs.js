@@ -12,11 +12,7 @@ angular.module('whiteboard.services.dialogs', [])
       controllerAs: '$ctrl',
       size: params.size,
       appendTo: parentElem,
-      resolve: {
-        users: function () {
-          return Object.values(UserData.getUsers());
-        }
-      }
+      resolve: params.resolve,
     });
     modalInstance.result.then(params.success);
   };
