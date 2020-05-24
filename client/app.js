@@ -233,7 +233,7 @@ angular.module('whiteboard', [
     $scope.userData = userData;
     $scope.mode = mode;
     EventHandler.getInboxes();
-    EventHandler.getAssignments();
+    EventHandler.getAssignmentsReceived();
     if ($scope.mode === 'free') {
         BoardData.setActiveBoardIndex('freeBoardIndex');
         EventHandler.getRoomBoards();
