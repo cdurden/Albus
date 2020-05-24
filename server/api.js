@@ -19,9 +19,6 @@ const agent = new http.Agent({
 
 class ApiResource
 {
-    constructor(params) {
-        this = params;
-    }
     get() {
         return new Promise(resolve => {
             request({
@@ -56,6 +53,9 @@ class ApiResource
 }
 class SubmissionBox extends ApiResource
 {
+    constructor(box_id) {
+        this.box_id = box_id;
+    }
     url() {
         return `${scheme}://${host}:${port}/api/submissions/box/${this.box_id}`
     }

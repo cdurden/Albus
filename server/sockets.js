@@ -1074,7 +1074,7 @@ module.exports = function(server, session) {
     });
     socket.on('getSubmissionBox', function(box_id) {
         console.log("Getting submission box with box_id "+box_id);
-        api.SubmissionBox({ box_id: box_id }).get().then(function(submissionbox) {
+        api.SubmissionBox(box_id).get().then(function(submissionBox) {
             socket.emit('submissionBox', submissionBox);
         });
     });
