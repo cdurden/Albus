@@ -833,8 +833,8 @@ module.exports = {
     gradeSubmission: gradeSubmission,
     setSchoologyFeedbackMessageThread: setSchoologyFeedbackMessageThread,
     getSections: getSections,
-    submissionBox: submissionBox,
-    submissionBoxList: submissionBoxList,
+    SubmissionBox: SubmissionBox,
+    SubmissionBoxList: SubmissionBoxList,
 
 //    uploadProxy: uploadProxy,
 }
