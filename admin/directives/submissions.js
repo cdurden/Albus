@@ -33,6 +33,7 @@ angular.module('whiteboard-admin')
               grade_item_id: $scope.grade_item_id,
               taskPagesObject: taskPagesObject,
               schoologySubmissionsMetadata: $scope.schoologySubmissionsMetadata,
+              box_id: $scope.submissionBoxId,
           } 
           Sockets.emit('importSchoologySubmissions', data);
           return false;

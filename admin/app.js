@@ -29,7 +29,11 @@ angular.module('whiteboard-admin', [
       requireBase: false
     });
 }])
-.controller('wbAdminController', function($scope, FileUploader) {
+.controller('wbAdminController', function($scope, FileUploader, Sockets) {
+    Sockets.emit("getApiUser");
+    Sockets.on('user', function(user) {
+        $scope.user = user;
+    }
     $scope.uploader = new FileUploader();
     $scope.uploader.options = {url: '/upload'};
     $scope.confirmSchoology = function(callback) {
