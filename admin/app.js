@@ -30,7 +30,7 @@ angular.module('whiteboard-admin', [
     });
 }])
 .controller('wbAdminController', function($scope, FileUploader, Sockets) {
-    Sockets.emit("getApiUser");
+    Sockets.emit("getUser");
     Sockets.on('user', function(user) {
         $scope.user = user;
     });
