@@ -55,6 +55,13 @@ angular.module('whiteboard.services.dialogs', [])
           $rootScope.resource = selectedInbox.id;
           EventHandler.getSubmissionBox(selectedInbox.id);
           BoardData.setActiveBoardIndex('submissionBoardIndex');
+          Split(['#drawing-space', '#feed-space'], {
+            sizes: [50,50],
+            minSize: [0, 0],
+            snapOffset: 0,
+            expandToMin: false,
+            direction: 'horizontal',
+          })
       },
     });
   }
