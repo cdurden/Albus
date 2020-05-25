@@ -358,7 +358,7 @@ module.exports = function(server, session) {
           console.log("Getting assignment "+assignment+" for socket "+socket.id);
           request({
               method: 'GET',
-              url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
+              url: 'https://'+settings.assets_host+':'+settings.assets_port+'/static/teaching_assets/assignments/'+assignment+'.json',
               transformResponse: [function (data) {
                 return data;
               }]
@@ -715,7 +715,7 @@ module.exports = function(server, session) {
     socket.on('getFeedbackTemplates', function(collection){
         request({
             method: 'GET',
-            url: 'https://dev.algebra742.org:444/static/teaching_assets/feedback/'+collection+'.json',
+            url: settings.assets_scheme+'://'+settings.assets_host+':'+settings.assets_port+settings.assets_path+'feedback/'+collection+'.json',
             transformResponse: [function (data) {
               return data;
             }]
@@ -731,7 +731,7 @@ module.exports = function(server, session) {
     socket.on('getAssignmentTasks', function(assignment){ // FIXME: this should probably return an object that contains the name of the assignment to avoid collisions between different model components on the page
         request({
             method: 'GET',
-            url: 'https://dev.algebra742.org:444/static/teaching_assets/assignments/'+assignment+'.json',
+            url: settings.assets_scheme+'://'+settings.assets_host+':'+settings.assets_port+settings.assets_path+'assignments/'+assignment+'.json',
             transformResponse: [function (data) {
               return data;
             }]
