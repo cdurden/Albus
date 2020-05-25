@@ -62,12 +62,14 @@
 </div>
 <div class="row">
 <form id="process-submissions-form" action="">
+  Submission box:
   <select id="submission-box-selector" name="submissionBoxId" ng-model="submissionBoxId">
       <option ng-repeat="inbox in user.inboxes" value="{{inbox.id}}">{{inbox.label}}</option>
-  </select>
+  </select><br/>
+  Assignment:
   <select id="assignment-selector" name="selectedAssignment" ng-model="selectedAssignment" ng-change="getAssignmentTasks(selectedAssignment)">
       <option ng-repeat="assignment in assignments" value="{{assignment}}">{{assignment}}</option>
-  </select>
+  </select><br/>
 
   <table>
       <tr>
