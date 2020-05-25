@@ -65,10 +65,14 @@ angular.module('whiteboard.services.dialogs', [])
       controller: 'assignmentModalInstanceCtrl',
       resolve: {
         assignments: function () {
-          return UserData.getAssignments();
+          return UserData.getAssignmentsReceived();
         }
       },
       success: function (selectedAssignment) {
+          $rootScope.mode = 'assignment';
+          $rootScope.resource = selectedAssignment.source;
+          EventHandler.getAssignmentBoards(selectedAssignment.source);
+          BoardData.setActiveBoardIndex('assignmentBoardIndex');
       },
     });
   }
