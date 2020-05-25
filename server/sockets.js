@@ -751,7 +751,7 @@ module.exports = function(server, session) {
         });
     });
     socket.on('getAssignments', function(){
-      assignments = ['ProductRule','QuotientRule','NegativeExponents','CorrectProductRule','CorrectQuotientRule','CorrectNegativeExponents','CorrectExponentRuleMistakesAdvanced','ExponentRulesColorByNumber','EquationsOfLinesReview','DividingNumbersInScientificNotation']
+      assignments = ['ProductRule','QuotientRule','NegativeExponents','CorrectProductRule','CorrectQuotientRule','CorrectNegativeExponents','CorrectExponentRuleMistakesAdvanced','ExponentRulesColorByNumber','EquationsOfLinesReview','DividingNumbersInScientificNotation','SolvingEquationsReview','SystemsOfEquationsIntro','SystemsOfEquationsSubstitution']
       socket.emit('assignments', assignments);
 /*
       client.hmget(socket, assignmentIds, function(err, results) {
