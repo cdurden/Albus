@@ -33,7 +33,7 @@ angular.module('whiteboard-admin', [
     Sockets.emit("getApiUser");
     Sockets.on('user', function(user) {
         $scope.user = user;
-    }
+    });
     $scope.uploader = new FileUploader();
     $scope.uploader.options = {url: '/upload'};
     $scope.confirmSchoology = function(callback) {
