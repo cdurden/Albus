@@ -541,6 +541,7 @@ module.exports = function(server, session) {
         }
     });
     socket.on('importSchoologySubmissions', async function(data) {
+        var box_id = data.box_id;
         var taskPagesObject = data.taskPagesObject;
         var grade_item_id = data.grade_item_id;
         var schoologySubmissionsMetadata = data.schoologySubmissionsMetadata;
@@ -585,6 +586,7 @@ module.exports = function(server, session) {
                             var board = board;
                             //console.log(board);
                             var submission = {
+                                box_id: box_id,
                                 board_id: board.id,
                                 //task_id: board.task_id,
                                 task: board.task || { 'source': taskSource, 'id': board.task_id },
