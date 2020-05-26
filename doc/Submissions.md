@@ -16,6 +16,9 @@ Submissions are also linked to
 
 * feedback
 
+## Loading submissions
+When submissions are loaded, a resource containing submissions data (such as a SubmissionBox) is retrieved from the the (server which processes and maintains student data). The whiteboard server loops through the submissions and loads them into the node process storage and the Redis storage before passing them on to the client. This is necessary because the variables in the node storage control any subsequent operations referencing the submissions that the whiteboard client performs, such as to modify or save submissions, or create new objects associated with the submissions. The client does not pass this data to the whiteboard server every time an operation is performed (it only passes a boardId when modifying board data), so the data stored in node must be set to enable operations like copying a board, which depend on other board data, such as the data about the associated task.
+
 ## Designating recipients for submissions
 The methods for designating recipients of submissions are essential to how the system aims to support a cooperative learning environment.
 
