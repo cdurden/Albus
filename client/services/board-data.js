@@ -294,13 +294,10 @@ angular.module('whiteboard.services.boarddata', [])
   function updateFeedback(feedbackList) {
     boardData.feedbackList = feedbackList;
     var boards = feedbackList.map(feedback => { feedback.board.feedback = feedback; return feedback.board; });
-    /*
-    boardData.feedbackBoards = [].concat(boardData.feedbackBoards, boards);
     boardData.boardIndexObject['feedbackBoardIndex'] = [];
     for (board of boards) {
       boardData.boardIndexObject['feedbackBoardIndex'].push(board.boardId);
     }
-    */
     updateBoards(boards);
   }
   function updateBoards(newBoards) {

@@ -1111,7 +1111,7 @@ module.exports = function(server, session) {
         console.log("Loading feedback received for board_ids: "+(board_ids || []).join());
         getFeedbackReceived(socket, board_ids);
     });
-    socket.on('getFeedback', function(feedback_id){
+    socket.on('getFeedbackById', function(feedback_id){
         console.log("Loading feedback (feedback_id: "+feedback_id+")");
         api.getFeedbackById(feedback_id, function(err, feedback) {
             console.log("Got feedback item "+feedback_id);
@@ -1129,9 +1129,9 @@ module.exports = function(server, session) {
                   //}
                   console.log("Sending board to client");
                   //console.log(board);
-                  socket.emit('boards', [board]);
+                  //socket.emit('feedbackBoards', [board]);
                 });
-                socket.emit('feedback', feedback);
+                socket.emit('feedbackList', [feedback]);
             }
         });
     });

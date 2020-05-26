@@ -273,7 +273,7 @@ angular.module('whiteboard', [
     if ($scope.mode === 'feedback') {
         $scope.feedback = resource;
         EventHandler.getFeedback($scope.feedback);
-        BoardData.setActiveBoardIndex(undefined);
+        BoardData.setActiveBoardIndex('feedbackBoardIndex');
     }
     console.log("Mode: "+$scope.mode);
     $scope.uploader = new FileUploader();
