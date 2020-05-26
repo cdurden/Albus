@@ -25,6 +25,9 @@ angular.module('whiteboard.services.eventhandler', [])
   function getFeedback(board_ids) {
     Broadcast.getFeedback(board_ids);
   };
+  function getFeedbackById(feedback_id) {
+    Broadcast.getFeedbackById(feedback_id);
+  };
   function getFeedbackReceived(board_ids) {
     Broadcast.getFeedbackReceived(board_ids);
   };
@@ -316,5 +319,6 @@ angular.module('whiteboard.services.eventhandler', [])
     getAssignmentsReceived: getAssignmentsReceived,
     createSubmissionBox: createSubmissionBox,
     getSubmissionBox: getSubmissionBox,
+    getFeedbackById: getFeedbackById,
   };
 }]);

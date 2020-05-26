@@ -19,6 +19,9 @@ angular.module('whiteboard.services.broadcast', [])
   var getFeedback = function (board_ids) {
     Sockets.emit('getFeedback', board_ids);
   };
+  var getFeedbackById = function (feedback_id) {
+    Sockets.emit('getFeedbackById', feedback_id);
+  };
   var getFeedbackReceived = function (board_ids) {
     Sockets.emit('getFeedbackReceived', board_ids);
   };
@@ -188,6 +191,7 @@ angular.module('whiteboard.services.broadcast', [])
     getAssignmentsReceived: getAssignmentsReceived,
     createSubmissionBox: createSubmissionBox,
     getSubmissionBox: getSubmissionBox,
+    getFeedbackById: getFeedbackById,
   };
 
 });

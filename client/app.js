@@ -272,7 +272,7 @@ angular.module('whiteboard', [
     }
     if ($scope.mode === 'feedback') {
         $scope.feedback = resource;
-        EventHandler.getFeedback($scope.feedback);
+        EventHandler.getFeedbackById($scope.feedback);
         BoardData.setActiveBoardIndex('feedbackBoardIndex');
     }
     console.log("Mode: "+$scope.mode);
