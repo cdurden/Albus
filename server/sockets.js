@@ -1087,7 +1087,7 @@ module.exports = function(server, session) {
     });
     socket.on('getSubmissionBox', function(box_id) {
         console.log("Getting submission box with box_id "+box_id);
-        getSubmissionsReceived(socket, box_id);
+        getSubmissionBox(socket, box_id);
     });
     socket.on('getInboxes', function() {
         console.log("Getting submission boxes");
