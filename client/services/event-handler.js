@@ -178,6 +178,8 @@ angular.module('whiteboard.services.eventhandler', [])
   }
   function setSubmissionsReceived(data) {
       BoardData.setSubmissionsReceived(data);
+    BoardData.joinTasksToBoards(TaskData.getTasks());
+    BoardData.joinFeedbackToBoards();
   }
   function addBoard(data) {
     BoardData.addBoard(data);
