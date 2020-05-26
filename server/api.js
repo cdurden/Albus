@@ -402,7 +402,6 @@ async function saveBoard(session, data, callback) {
   } else {
       console.log("shapeStorage is undefined");
   }
-    console.log(data);
   data = { 
       'lti_user_id': lti_user_id, 
       //'task': { 'id': data.task.id, 'source': data.task.source },
