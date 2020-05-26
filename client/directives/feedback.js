@@ -93,7 +93,8 @@ angular.module('whiteboard')
             'message': '',
             'feedback_tags': [],
             'file_attachments': [],
-            'attachments': []
+            'attachments': [],
+            'task': (board || {}).task,
         };
       $scope.feedback = { 'submission_id': ((board || {}).submission || {}).id, 'data': data, 'boardId': boardId, 'background_image': (board || {}).background_image, 'taskSource': taskSource }         
       //$scope.grade = undefined;
