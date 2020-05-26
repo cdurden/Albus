@@ -151,6 +151,7 @@ module.exports = function(server, session) {
   }
   function getSubmissionBox(socket, box_id) {
      new api.SubmissionBox(socket.handshake.session.passport.user, box_id).get().then(function(submissionBox) {
+        var submissions = submissionBox.submissions;
         console.log("Got "+submissions.length+" submissions received.");
         if (submissions) {
         //var tasks = Array.from(new Set(submissions.map(submission => { return submission.task })))
