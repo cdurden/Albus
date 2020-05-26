@@ -405,7 +405,7 @@ async function saveBoard(session, data, callback) {
   data = { 
       'lti_user_id': lti_user_id, 
       //'task': { 'id': data.task.id, 'source': data.task.source },
-      'task_id': data.task.id,
+      'task_id': (data.task || {}).id,
       'taskSource': data.task.source,
       'boardId': data.boardId,
       'background_image': data.background_image,
