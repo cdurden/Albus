@@ -149,6 +149,29 @@ module.exports = function(server, session) {
           });
       });
   }
+  function getSubmissionBox(socket, box_id) {
+     new api.SubmissionBox(socket.handshake.session.passport.user, box_id).get().then(function(submissionBox) {
+        console.log("Got "+submissions.length+" submissions received.");
+        if (submissions) {
+        //var tasks = Array.from(new Set(submissions.map(submission => { return submission.task })))
+        var taskSources = Array.from(new Set(submissions.map(submission => { return submission.task.source })))
+        var taskAssetsPromise = assets.getTaskAssets(taskSources, false);
+          Promise.all(submissions.map((submission, i) => {
+              return new Promise(resolve => {
+                  rooms.loadBoard(socket.room, submission.board, function() {
+                     resolve(submission.board);
+                  });
+              });
+          })).then(function(boards) {
+              socket.emit('submissionBox', submissionBox);
+              taskAssetsPromise.then(function(taskAssets) {
+                  console.log("Emitting tasks from getSubmissionsReceived");
+                  socket.emit('tasks', taskAssets);
+              });
+          });
+        }
+      });
+  }
   function getSubmissionsReceived(socket, state) {
       api.getSubmissionsReceived(state, function(error, submissions) {
         console.log("Got "+submissions.length+" submissions received.");
@@ -1063,9 +1086,7 @@ module.exports = function(server, session) {
     });
     socket.on('getSubmissionBox', function(box_id) {
         console.log("Getting submission box with box_id "+box_id);
-        new api.SubmissionBox(socket.handshake.session.passport.user, box_id).get().then(function(submissionBox) {
-            socket.emit('submissionBox', submissionBox);
-        });
+        getSubmissionsReceived(socket, box_id);
     });
     socket.on('getInboxes', function() {
         console.log("Getting submission boxes");
