@@ -49,10 +49,6 @@ angular.module('whiteboard', [
 }]) 
 .config(['$routeProvider', '$locationProvider', '$httpProvider',
   function($routeProvider, $locationProvider, $httpProvider) {
-    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
-    // extra
-    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
-    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
     function userPromiseMaker(Sockets, BoardData, UserData, $location) {
       return new Promise(resolve => {
           Promise.all([
@@ -111,6 +107,10 @@ angular.module('whiteboard', [
         return originalWhen.call($routeProvider, path, route);
     };
     */
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+    // extra
+    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
     $routeProvider
       .when('/', {
         templateUrl: './views/board.html',
