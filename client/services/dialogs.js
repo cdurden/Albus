@@ -78,7 +78,7 @@ angular.module('whiteboard.services.dialogs', [])
               }, Promise.resolve());
           })();
           return d3Promise;
-        }
+        },
         assignmentDot: function () {
           var assignment = UserData.getUser().assignment;
           return $http({
