@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.dialogs', [])
-.factory('Dialogs', ['BoardData', 'UserData', 'EventHandler', 'Sockets', '$rootScope', '$uibModal', '$http', function (BoardData, UserData, EventHandler, Sockets, $rootScope, $uibModal, $http) {
+.factory('Dialogs', ['BoardData', 'UserData', 'EventHandler', 'Sockets', '$rootScope', '$uibModal', '$http', 'angularLoad', function (BoardData, UserData, EventHandler, Sockets, $rootScope, $uibModal, $http, angularLoad) {
   openDialog = function (params) {
     var parentElem = params.parentSelector ? 
       angular.element($document[0].querySelector(parentSelector)) : undefined;
