@@ -5,6 +5,8 @@
   <div class="modal-body">
     <div class="pane" style="overflow:hidden">
     <h3>Assignments</h3>
+    <div id="assignment-graph">
+    </div>
     <div class="tile" style="overflow:hidden" ng-repeat="assignment in assignments">
         <a ng-click="loadAssignment(assignment.id)">
             <img src="{{assignment.cover_art_url}}"/>
