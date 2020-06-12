@@ -124,8 +124,8 @@ angular.module('whiteboard.services.dialogs', [])
                   var title = d3.select(this).selectAll('title').text().trim();
                   var text = d3.select(this).selectAll('text').text();
                   var id = d3.select(this).attr('id');
-                  var url = d3.select(this).attr('url');
-                  $location.url(url);
+                  var url = d3.select(this).attr('url'); //FIXME: this does not get the attributes of the node
+                  $location.url("/assignment/"+title);
               });
       }
       var assignment = UserData.getUser().assignment;
