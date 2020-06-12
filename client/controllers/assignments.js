@@ -1,8 +1,8 @@
 angular.module('whiteboard')
 .controller("assignmentModalInstanceCtrl", function ($uibModalInstance, assignmentDot, d3Promise, $scope, EventHandler) {
  // d3Promise.then(function() {
-    d3.select("#assignment-graph").graphviz()
-      .renderDot(assignmentDot);
+ //   d3.select("#assignment-graph").graphviz()
+ //     .renderDot(assignmentDot);
  // });
   var $ctrl = this;
   $ctrl.assignmentDot = assignmentDot;

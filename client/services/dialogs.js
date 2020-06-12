@@ -15,6 +15,7 @@ angular.module('whiteboard.services.dialogs', [])
       resolve: params.resolve,
     });
     modalInstance.result.then(params.success);
+    return(modalInstance);
   };
     
     /*
@@ -24,6 +25,7 @@ angular.module('whiteboard.services.dialogs', [])
       */
   
   function openStudentDialog() {
+    return(modalInstance);
     openDialog({
       size: 'lg',
       templateUrl: 'templates/viewAs.html',
@@ -59,7 +61,7 @@ angular.module('whiteboard.services.dialogs', [])
     });
   }
   function openAssignmentsDialog() {
-    openDialog({
+    var modalInstance = openDialog({
       size: 'lg',
       templateUrl: 'templates/assignments.html',
       controller: 'assignmentModalInstanceCtrl',
@@ -112,6 +114,10 @@ angular.module('whiteboard.services.dialogs', [])
           BoardData.setActiveBoardIndex('assignmentBoardIndex');
       },
     });
+    modalInstance.opened.then(function() {
+      d3.select("#assignment-graph").graphviz()
+        .renderDot(assignmentDot);
+    })
   }
 
   return {
