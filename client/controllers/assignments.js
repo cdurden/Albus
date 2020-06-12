@@ -1,21 +1,26 @@
 angular.module('whiteboard')
-.controller("assignmentDialogController", function ($scope) {
-      var params = $scope.$resolve.params;
-      
-      $scope.name = params.name;
-      $scope.age = params.age;
-      
-      $scope.cancel = function () {
-         $scope.$dismiss();
-      };
+.controller("assignmentModelInstanceController", function ($scope) {
+  var $ctrl = this;
+  $ctrl.assignments = assignments;
+  $ctrl.scope = $scope;
+  $ctrl.selected = {
+    assignments: $ctrl.assignments[0]
+  };
 
-      $scope.ok = function () {
-         var retObj = {
-            name: $scope.name,
-            age: $scope.age,
-            profession: "Car Mechanic",
-            yearsOfExp: 3
-         };
-         $scope.$close(retObj);
-      };
-});
+  $ctrl.ok = function () {
+    $uibModalInstance.close($ctrl.selectedAssignment);
+    $ctrl.scope.$emit('activateMenu', 'hide');
+  };
+
+  $ctrl.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+    $ctrl.scope.$emit('activateMenu', 'hide');
+  };
+
+  $ctrl.setSelectedAssignment = function($item, $model) {
+      console.log($item);
+      console.log($model);
+      $ctrl.selectedAssignment = $item;
+  }
+
+})

@@ -7,7 +7,7 @@ const settings = require('./settings');
 const format = 'png';
 const viewportWidth = 900;
 const viewportHeight = 600;
-const delay = 10000;
+const delay = 25000;
 const userAgent = undefined;
 const fullPage = undefined;
 
