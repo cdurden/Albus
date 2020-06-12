@@ -116,26 +116,27 @@ angular.module('whiteboard.services.dialogs', [])
       },
     });
     modalInstance.rendered.then(function() {
-          var assignment = UserData.getUser().assignment;
-          return $http({
-            method: 'GET',
-            url: '/static/teaching_assets/assignments/'+assignment+'.dot',
-          }).then(function success(response) {
-            d3.select("#assignment-graph").graphviz()
-              .renderDot(response.data);
-          });
-function interactive() {
-
-    nodes = d3.selectAll('.node,.edge');
-    nodes
-        .on("click", function () {
-            var title = d3.select(this).selectAll('title').text().trim();
-            var text = d3.select(this).selectAll('text').text();
-            var id = d3.select(this).attr('id');
-            var url = d3.select(this).attr('url');
-            $location.url(url);
-        });
-}
+      function interactive() {
+      
+          nodes = d3.selectAll('.node,.edge');
+          nodes
+              .on("click", function () {
+                  var title = d3.select(this).selectAll('title').text().trim();
+                  var text = d3.select(this).selectAll('text').text();
+                  var id = d3.select(this).attr('id');
+                  var url = d3.select(this).attr('url');
+                  $location.url(url);
+              });
+      }
+      var assignment = UserData.getUser().assignment;
+      return $http({
+        method: 'GET',
+        url: '/static/teaching_assets/assignments/'+assignment+'.dot',
+      }).then(function success(response) {
+        d3.select("#assignment-graph").graphviz()
+          .renderDot(response.data);
+          .on("end", interactive);
+      });
     })
   }
 
