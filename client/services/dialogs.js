@@ -114,7 +114,7 @@ angular.module('whiteboard.services.dialogs', [])
           BoardData.setActiveBoardIndex('assignmentBoardIndex');
       },
     });
-    modalInstance.opened.then(function() {
+    modalInstance.rendered.then(function() {
       d3.select("#assignment-graph").graphviz()
         .renderDot(assignmentDot);
     })
