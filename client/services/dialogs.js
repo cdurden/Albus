@@ -134,7 +134,7 @@ angular.module('whiteboard.services.dialogs', [])
         url: '/static/teaching_assets/assignments/'+assignment+'.dot',
       }).then(function success(response) {
         d3.select("#assignment-graph").graphviz()
-          .renderDot(response.data);
+          .renderDot(response.data)
           .on("end", interactive);
       });
     })
