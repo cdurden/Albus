@@ -117,7 +117,7 @@ angular.module('whiteboard.services.dialogs', [])
     modalInstance.rendered.then(function() {
           var assignment = UserData.getUser().assignment;
           return $http({
-            method: 'GET',
+            method: 'POST',
             url: '/static/teaching_assets/assignments/'+assignment+'.dot',
           }).then(function success(response) {
             d3.select("#assignment-graph").graphviz()
