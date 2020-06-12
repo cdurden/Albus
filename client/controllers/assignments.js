@@ -1,5 +1,5 @@
 angular.module('whiteboard')
-.controller("assignmentModalInstanceCtrl", function ($scope) {
+.controller("assignmentModalInstanceCtrl", function ($uibModalInstance, assignments, $scope, EventHandler) {
   var $ctrl = this;
   $ctrl.assignments = assignments;
   $ctrl.scope = $scope;
