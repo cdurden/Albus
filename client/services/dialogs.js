@@ -85,6 +85,7 @@ angular.module('whiteboard.services.dialogs', [])
           var assignment = UserData.getUser().assignment;
           return $http({
             method: 'GET',
+            headers:{'Cache-Control': 'no-cache'}
             url: '/static/teaching_assets/assignments/'+assignment+'.dot',
 /*
             transformResponse: [function (data) {
