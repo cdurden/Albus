@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.dialogs', [])
-.factory('Dialogs', ['BoardData', 'UserData', 'EventHandler', 'Sockets', '$rootScope', '$uibModal', '$http', 'angularLoad', function (BoardData, UserData, EventHandler, Sockets, $rootScope, $uibModal, $http, angularLoad) {
+.factory('Dialogs', ['BoardData', 'UserData', 'EventHandler', 'Sockets', '$rootScope', '$uibModal', '$http', 'angularLoad', '$location', function (BoardData, UserData, EventHandler, Sockets, $rootScope, $uibModal, $http, angularLoad, $location) {
   openDialog = function (params) {
     var parentElem = params.parentSelector ? 
       angular.element($document[0].querySelector(parentSelector)) : undefined;
@@ -124,6 +124,18 @@ angular.module('whiteboard.services.dialogs', [])
             d3.select("#assignment-graph").graphviz()
               .renderDot(response.data);
           });
+function interactive() {
+
+    nodes = d3.selectAll('.node,.edge');
+    nodes
+        .on("click", function () {
+            var title = d3.select(this).selectAll('title').text().trim();
+            var text = d3.select(this).selectAll('text').text();
+            var id = d3.select(this).attr('id');
+            var url = d3.select(this).attr('url');
+            $location.url(url);
+        });
+}
     })
   }
 
