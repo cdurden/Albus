@@ -64,7 +64,22 @@ angular.module('whiteboard.services.dialogs', [])
       templateUrl: 'templates/assignments.html',
       controller: 'assignmentModalInstanceCtrl',
       resolve: {
-        assignments: function () {
+        d3Promise: function () {
+          var scripts = [
+              "//d3js.org/d3.v5.min.js",
+              "https://unpkg.com/@hpcc-js/wasm@0.3.6/dist/index.min.js",
+              "https://unpkg.com/d3-graphviz@3.0.0/build/d3-graphviz.js"
+          ];
+          var d3Promise = (function() {
+              return scripts.reduce( async (accumulatorPromise, nextScript) => {
+                  return accumulatorPromise.then(() => {
+                      return angularLoad.loadScript(nextScript);
+                  });
+              }, Promise.resolve());
+          })();
+          return d3Promise;
+        }
+        assignmentDot: function () {
           var assignment = UserData.getUser().assignment;
           return $http({
             method: 'GET',
@@ -86,10 +101,7 @@ angular.module('whiteboard.services.dialogs', [])
             }]
 */
           }).then(function success(response) {
-            d3Promise.then(function() {
-              d3.select("#assignment-graph").graphviz()
-                .renderDot(response.data);
-            });
+            return response.data;
           });
         }
       },

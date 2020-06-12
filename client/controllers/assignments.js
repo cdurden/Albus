@@ -1,11 +1,17 @@
 angular.module('whiteboard')
-.controller("assignmentModalInstanceCtrl", function ($uibModalInstance, assignments, $scope, EventHandler) {
+.controller("assignmentModalInstanceCtrl", function ($uibModalInstance, assignmentDot, d3Promise, $scope, EventHandler) {
+  d3Promise.then(function() {
+    d3.select("#assignment-graph").graphviz()
+      .renderDot(assignmentDot);
+  });
   var $ctrl = this;
-  $ctrl.assignments = assignments;
+  $ctrl.assignmentDot = assignmentDot;
   $ctrl.scope = $scope;
+/*
   $ctrl.selected = {
-    assignments: $ctrl.assignments[0]
+    assignmentDot: $ctrl.assignmentDot[0]
   };
+*/
 
   $ctrl.ok = function () {
     $uibModalInstance.close($ctrl.selectedAssignment);
@@ -17,10 +23,12 @@ angular.module('whiteboard')
     $ctrl.scope.$emit('activateMenu', 'hide');
   };
 
+/*
   $ctrl.setSelectedAssignment = function($item, $model) {
       console.log($item);
       console.log($model);
       $ctrl.selectedAssignment = $item;
   }
+*/
 
 })
