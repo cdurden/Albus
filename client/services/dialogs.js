@@ -1,5 +1,5 @@
 angular.module('whiteboard.services.dialogs', [])
-.factory('Dialogs', ['BoardData', 'UserData', 'EventHandler', 'Sockets', '$rootScope', '$uibModal', function (BoardData, UserData, EventHandler, Sockets, $rootScope, $uibModal) {
+.factory('Dialogs', ['BoardData', 'UserData', 'EventHandler', 'Sockets', '$rootScope', '$uibModal', '$http', function (BoardData, UserData, EventHandler, Sockets, $rootScope, $uibModal, $http) {
   openDialog = function (params) {
     var parentElem = params.parentSelector ? 
       angular.element($document[0].querySelector(parentSelector)) : undefined;
@@ -65,7 +65,32 @@ angular.module('whiteboard.services.dialogs', [])
       controller: 'assignmentModalInstanceCtrl',
       resolve: {
         assignments: function () {
-          return UserData.getAssignmentsReceived();
+          var assignment = UserData.getUser().assignment;
+          return $http({
+            method: 'GET',
+            url: '/static/teaching_assets/assignments/'+assignment+'.dot',
+/*
+            transformResponse: [function (data) {
+                tasks = JSON.parse(data);
+                var dotSrcLines = ['digraph {'];
+                for (var i=1; i<tasks.length;i++) {
+                    if (i==1) {
+                        dotSrcLines.push('"'+tasks[i-1]+'";')
+                    }
+                    dotSrcLines.push('"'+tasks[i]+'";')
+                    dotSrcLines.push('"'+tasks[i-1]+'" -> "'+tasks[i]+'";')
+                }
+                dotSrcLines.push('}');
+                return({ data: dotSrcLines.join("\r") });
+              // Do whatever you want!
+            }]
+*/
+          }).then(function success(response) {
+            d3Promise.then(function() {
+              d3.select("#assignment-graph").graphviz()
+                .renderDot(response.data);
+            });
+          });
         }
       },
       success: function (selectedAssignment) {
