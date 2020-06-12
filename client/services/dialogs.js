@@ -115,8 +115,14 @@ angular.module('whiteboard.services.dialogs', [])
       },
     });
     modalInstance.rendered.then(function() {
-      d3.select("#assignment-graph").graphviz()
-        .renderDot(assignmentDot);
+          var assignment = UserData.getUser().assignment;
+          return $http({
+            method: 'GET',
+            url: '/static/teaching_assets/assignments/'+assignment+'.dot',
+          }).then(function success(response) {
+            d3.select("#assignment-graph").graphviz()
+              .renderDot(response.data);
+          });
     })
   }
 
