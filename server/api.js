@@ -52,6 +52,8 @@ class ApiResource
               if (!err && res.statusCode == 201) {
                 resolve(obj);
               } else {
+                console.log("Error posting data.");
+                console.log(res.statusCode);
                 throw new Error(err);
               }
             });
