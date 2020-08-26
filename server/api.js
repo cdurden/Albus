@@ -37,6 +37,7 @@ class ApiResource
                 resolve(data);
               } else {
                 console.log("Error in GET request.");
+                console.log(this.url());
                 console.log(res.statusCode);
                 throw new Error(err);
               }
