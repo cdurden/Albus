@@ -21,7 +21,7 @@ var passport = require('passport');
 var expressSession = require('express-session');
 var redisStore = require('connect-redis')(expressSession);
 const settings = require('./settings');
-const uuid = require('uuid');
+//const uuid = require('uuid');
 
 /* ======= variable declaration ============= */
 var router = express.Router();
@@ -88,12 +88,14 @@ passport.use('lti-strategy', new CustomStrategy(
 /* ======= middleware configuration ========= */
 app.use(session);
 
+/*
 app.use(function(req, res, next) {
     req.id = uuid.v4();
     console.log("Request UUID: "+req.id);
     req.session.req = { id: req.id };
     next();
 });
+*/
 /*
 passport.use('lti-spoof-strategy', new CustomStrategy(
 	function(req, callback) {
