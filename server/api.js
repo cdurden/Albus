@@ -36,6 +36,8 @@ class ApiResource
                 data = JSON.parse(body)
                 resolve(data);
               } else {
+                console.log("Error in GET request.");
+                console.log(res.statusCode);
                 throw new Error(err);
               }
             });
